@@ -1,0 +1,261 @@
+.ff_fileupload_wrap .ff_fileupload_dropzone {
+		background-size: 100%;
+		height: 80px;
+}
+
+.add_a_title {
+		font-size: 24px; color: #a8abaf; border: 1px solid #a8abaf; text-align: center;
+		font-weight: 700;
+}
+.add_a_text {
+		font-size: 24px; color: #a8abaf; border: 1px solid #a8abaf; text-align: center;
+}
+
+#c{
+		border : 1px solid #a8abaf;
+}
+.canvas-container{
+		margin:auto;
+		background: #fff;
+}
+.text-bgcolor-class, .text-color-class{
+		margin-bottom: 0px;
+		color: white;
+		padding: 8px 17px 0px !important;
+		margin-left: 1px;
+}
+
+#slide_preview svg{
+		width: 100%;
+		height: 80px;
+}
+
+#slide_preview div{
+		border: 1px solid #a8abaf;
+		margin-top:10px;
+		cursor:pointer;
+		
+}
+
+#myImg {
+	border-radius: 5px;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+#myImg:hover { opacity: 0.7; }
+
+/*==
+**
+#JEET-CSS#
+**
+==*/
+.row-sec {padding-bottom: 30px;position: relative;}
+.cnavas-block {display: block;border: 1px solid #eaeaea;padding: 30px;border-radius: 5px;}
+.layer-block{margin-top: 15px;}
+.layer-block ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		border: 1px solid #eaeaea;
+		padding: 15px;
+		border-radius: 5px;
+		background: #f8f8f8;
+		display: inline-block;
+}
+.layer-block ul li {
+		display: inline-block;
+		border: 1px solid #eaeaea;
+		width: 175px;
+		height: 150px;
+		border-radius: 5px;
+		margin-right: 10px;
+}
+.layer-block ul li:last-child{margin-right: 0px;}
+.custom-btn{text-transform: uppercase;}
+.left-sidebar-container .sidebar-content {
+		padding: 0px 15px;
+		background: #f3f3f3;
+		border-radius: 8px;
+		border: 1px solid #f3f3f3;
+		padding-bottom: 15px;
+}
+h3.h3-heading {
+		color: #222222;
+		font-size: 22px;
+		/* font-family: "Cerebri Sans,sans-serif"; */
+		margin: 15px 0;
+		
+}
+/*.style-options {
+		background: #fff;
+		padding: 25px 15px;
+		border-radius: 8px;
+		border: 1px solid #eaeaea;
+}
+.style-options ul {margin: 0;padding: 0;list-style: none;}
+.style-options ul li {
+		position: relative;
+		padding-left: 40px;
+		margin-bottom: 15px;
+		line-height: 18px;
+}
+.style-options ul li:last-child {margin: 0;}
+.style-options ul li i.fas {position: absolute;left: 0;}
+.style-options ul li a {
+		color: #222222;
+		font-size: 16px;
+		font-weight: 600;
+		font-family: "Cerebri Sans,sans-serif";
+		display: block;
+}
+.style-options ul li a:hover{color: #f25d50;}
+.sidebar-btn {
+		background: #fff;
+		padding: 15px;
+		text-align: center;
+		border: 1px solid #eaeaea;
+		border-radius: 5px;
+}
+.insert-btn, .sidebar-btn{text-align: center;}
+.sidebar-btn button {margin: 10px 0;}
+.dropdown-list .form-group.mb-3{margin-top: 20px;}
+.dropdown-list .form-control {border-radius: 5px;border: 1px solid #eaeaea;color: #222222;font-size: 14px;}*/
+.main-block{
+	position: relative;
+}
+.save-btn {text-align: right;}
+.btn-toolbar-sec .save-btn { display: inline-block;float: right;}
+.btn-toolbar-sec {    
+		width: 100%;
+		margin: 0px auto;
+		text-align: center;
+		position: absolute;
+		top: 0;
+		left: 0px;
+		right: 0;
+		background: #6c757d;
+		-webkit-box-shadow: 9px 18px 33px -25px rgba(0,0,0,0.85);
+		-moz-box-shadow: 9px 18px 33px -25px rgba(0,0,0,0.85);
+		box-shadow: 3px 6px 16px -9px rgba(0,0,0,0.85);
+}
+.btn-toolbar-sec .btn-group {margin: 0 !important;}
+.btn-toolbar-sec .btn-group button, .btn-toolbar-sec .btn-group select {
+		font-size: 16px;
+		/* padding: 3px 11px;     */
+		vertical-align: top;
+		border-right: 1px solid #fff;
+		margin: 0 2px;
+		border-radius: 0 !important;
+		border : none !important;
+		height: 35px;
+		
+}
+
+
+/*=======================*/
+
+.accordion-custom-style {
+		background: #fff;
+		padding: 20px 15px;
+		border-radius: 5px;
+		border: 1px solid #eaeaea;
+		position: relative;
+}
+.accordion-custom-style .card.mb-1 {box-shadow: none;background: transparent;margin-bottom: 25px !important;}
+.accordion-custom-style .card-header {padding: 0;background: transparent;}
+.accordion-custom-style .card.mb-1:last-child {margin: 0 !important;}
+.accordion-custom-style .card-header h5.m-0 { padding-left: 30px;}
+.accordion-custom-style .card-header h5.m-0 a.text-dark {display: block;}
+.accordion-custom-style .card-header h5.m-0 i {position: absolute;left: 0;}
+.accordion-custom-style .card-header h5.m-0 a.text-dark:hover {color: #6658dd !important;}
+.accordion-custom-style .card.mb-1 .card-body {
+		background: #F8F8F8;
+		border: 1px solid #eaeaea;
+		margin-top: 10px;
+		padding: 15px;
+		border-radius: 5px;
+}
+div#backgroundImages .form-group input#backgroundColor {
+		height: 30px;
+		margin: 0;
+		border: 1px solid #eaeaea;
+		width: 100%;
+		padding: 2px 8px;
+		border-radius: 5px;
+		background: #fff;
+}
+div#backgroundImages .form-group label.btn {padding: 8px 28px;}
+div#HeadingsAndText .moveObject, div#BulletsList .moveObject {
+		font-size: 16px;
+		padding: 5px 10px;
+		font-weight: 600;
+		color: #6658dd;
+		border: 0;
+		border-radius: 5px;
+		cursor: pointer;
+		display: inline-block;
+		margin: 0 !important;
+		text-decoration: underline;
+}
+
+.upload-btn-wrapper {
+	position: relative;
+	overflow: hidden;
+	display: inline-block;
+}
+.upload-btn {
+		/* border: 1px solid #6658dd;
+		color: #6658dd;
+		background-color: white;
+		padding: 5px 12px;
+		border-radius: 5px;
+		font-size: 16px;   
+		line-height: 18px; */
+}
+
+.upload-btn-wrapper input[type=file] {
+	font-size: 100px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	opacity: 0;
+}
+
+.main-block .dropdown-menu {
+	background: rgb(108, 117, 125);
+	border-radius: 0px;
+	padding: 5px 16px;
+	width: 150px;
+}
+
+.main-block .irs--sharp .irs-single 
+{
+	background-color: #38414a;
+}
+.main-block .irs--sharp .irs-single:before {
+	border-top-color : #38414a;
+}
+.main-block .irs--sharp .irs-from, .main-block .irs--sharp .irs-to,.main-block .irs--sharp .irs-single, .main-block .irs--sharp .irs-min,.main-block .irs--sharp .irs-max,.main-block .irs--sharp .irs-handle, .main-block .irs--sharp .irs-bar {
+	background-color: #38414a;
+}
+.main-block .irs--sharp .irs-handle > i:first-child {
+	border-top-color: #39424b;
+}
+.main-block .irs--sharp .irs-handle.state_hover, .main-block .irs--sharp .irs-handle:hover {
+	background-color: #39424b;
+}
+.main-block .irs--sharp .irs-handle:hover > i:first-child {
+	border-top-color: #39424b;
+}
+.main-block .irs--sharp .irs-handle.state_hover > i:first-child {
+	border-top-color: #39424b;
+}
+/*=======================*/
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+	.modal-content {
+		width: 100%;
+	}
+}

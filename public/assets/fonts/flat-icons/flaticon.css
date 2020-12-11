@@ -1,0 +1,61 @@
+	/*
+  	Flaticon icon font: Flaticon
+  	Creation date: 22/06/2016 15:30
+  	*/
+
+@font-face {
+  font-family: "Flaticon";
+  src: url("./Flaticon.eot");
+  src: url("./Flaticon.eot?#iefix") format("embedded-opentype"),
+       url("./Flaticon.woff") format("woff"),
+       url("./Flaticon.ttf") format("truetype"),
+       url("./Flaticon.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("./Flaticon.svg#Flaticon") format("svg");
+  }
+}
+
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before,
+[class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
+  font-family: Flaticon;
+        font-size: 20px;
+font-style: normal;
+margin-left: 20px;
+}
+
+.flaticon-align:before { content: "\f100"; }
+.flaticon-bold:before { content: "\f101"; }
+.flaticon-capital-letter:before { content: "\f102"; }
+.flaticon-capitals:before { content: "\f103"; }
+.flaticon-center-alignment:before { content: "\f104"; }
+.flaticon-center-alignment-1:before { content: "\f105"; }
+.flaticon-columns:before { content: "\f106"; }
+.flaticon-file:before { content: "\f107"; }
+.flaticon-font:before { content: "\f108"; }
+.flaticon-font-1:before { content: "\f109"; }
+.flaticon-guides:before { content: "\f10a"; }
+.flaticon-indent:before { content: "\f10b"; }
+.flaticon-italic:before { content: "\f10c"; }
+.flaticon-justify-align:before { content: "\f10d"; }
+.flaticon-left-align:before { content: "\f10e"; }
+.flaticon-left-alignment:before { content: "\f10f"; }
+.flaticon-left-indent:before { content: "\f110"; }
+.flaticon-line-spacing:before { content: "\f111"; }
+.flaticon-list:before { content: "\f112"; }
+.flaticon-list-1:before { content: "\f113"; }
+.flaticon-list-2:before { content: "\f114"; }
+.flaticon-print:before { content: "\f115"; }
+.flaticon-right-indent:before { content: "\f116"; }
+.flaticon-save:before { content: "\f117"; }
+.flaticon-search:before { content: "\f118"; }
+.flaticon-strikethrough:before { content: "\f119"; }
+.flaticon-subscript:before { content: "\f11a"; }
+.flaticon-table:before { content: "\f11b"; }
+.flaticon-table-1:before { content: "\f11c"; }
+.flaticon-underline:before { content: "\f11d"; }

@@ -1,0 +1,640 @@
+@media (max-width:1650px) {
+
+#feat .tcard {
+    padding-bottom: 85px !important;
+}
+
+}
+
+@media (min-width:1201px) and (max-width:1350px) {
+
+h2.titleh2.event-title {
+    font-size: 22px;
+}
+
+a.btn.btn-bg.view-contest {
+    font-size: 12px;
+    padding: 12px 15px;
+    letter-spacing: 0;
+}
+
+.txt-card {
+    padding: 20px 15px;
+}
+
+span.date-abs {
+    font-size: 26px;
+    width: 90px;
+}
+
+#feat p.content {
+    line-height: unset;
+}
+
+}
+
+@media (max-width:1200px) {
+
+h2.titleh2.event-title {
+    font-size: 20px;
+}
+
+#feat p.content {
+    padding-bottom: 10px;
+    line-height: unset;
+}
+
+a.btn.btn-bg.view-contest {
+    font-size: 12px;
+    padding: 12px 15px;
+    letter-spacing: 0;
+}
+
+.txt-card {
+    padding: 18px 15px;
+    box-shadow: 0px 0px 11px 0px #0002;
+}
+
+span.date-abs {
+    font-size: 22px;
+    width: 80px;
+}
+
+#about p {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+h2.titleh2 {
+    font-size: 42px;
+}
+
+.fa-ul i.fas {
+    font-size: 11px;
+    width: 22px;
+    height: 22px;
+    line-height: 23px;
+}
+
+ul.fa-ul li {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.pricing .card-price {
+    font-size: 2.8rem;
+}
+
+#navbarNavAltMarkup a.nav-link {
+    padding: 42px 0px;
+    font-size: 15px;
+    margin-right: 20px;
+}
+
+.slider-content h2 {
+    font-size: 48px;
+}
+
+
+
+}
+
+
+@media (max-width:1100px) {
+	
+#navbarNavAltMarkup a.nav-link {
+    padding: 38px 0px;
+    margin-right: 15px;
+    font-size: 14px;
+}
+
+img.logo {
+    max-height: 70px;
+    transition: all ease 0.5s;
+}
+
+.fixed-top img.logo {
+    max-height: 55px;
+}
+
+.fixed-top #navbarNavAltMarkup a.nav-link {
+    padding: 29px 0 31px;
+}
+
+span.date-abs {
+    font-size: 18px;
+    width: 70px;
+}
+
+h2.titleh2.event-title {
+    font-size: 16px;
+}
+
+#feat p.content {
+    font-size: 12px;
+}
+
+div#about {
+    padding: 10px 0 70px;
+}
+
+#about p, .pricing .col-md-12 > p, #tests > .container > p, body p {
+    font-size: 14px;
+}
+
+footer#footer p, footer#footer a, footer#footer li {
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+h2.titleh2 {
+    font-size: 36px;
+}
+
+footer h2.titleh2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+button.btn.btn-primary.nletter {
+    width: 130px;
+    font-size: 14px;
+    line-height: 38px;
+}
+
+.cta input.form-control {
+    line-height: 40px;
+    padding: 4px 135px 2px 20px;
+}
+
+a.btn.btn-bg {
+    padding: 15px 20px;
+}
+
+.reg-login a {
+    font-size: 14px;
+    letter-spacing: 0;
+}
+
+#about p {
+    margin-bottom: 10px;
+}
+
+#about a.btn.btn-bg.mt-4 {
+    margin-top: 15px !important;
+}
+
+.btn {
+    font-size: 14px;
+}
+
+.card-body > p {
+    font-size: 16px;
+    font-weight: 300;
+}
+
+#feat .col-md-12 > p {
+    font-size: 16px;
+}
+	
+}
+
+@media (max-width:999px) {
+	
+.feat-event div.owl-item {
+    transform: scale(1);
+}
+
+.fe-abs {
+    display: block;
+    padding: 20px;
+}
+
+span.date-abs {
+    left: 30px;
+}
+
+.txt-card {
+    bottom: 70px;
+    top: unset;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 80%;
+    max-width: 460px;
+}
+
+.cta h2.titleh2 {
+    margin-bottom: 15px;
+}
+
+h2.titleh2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+#tests .tcard {
+    background: linear-gradient(152deg, #f47f34, #fdb92e);
+    color: #fff;
+    max-width: 500px;
+    margin: 0 auto;
+    width: 90%;
+}
+
+#feat .tcard {
+    padding-bottom: 0 !important;
+}
+
+button.btn.btn-primary.nletter {
+    width: 120px;
+}
+
+.cta input.form-control {
+    line-height: 40px;
+    padding: 4px 125px 2px 20px;
+}
+
+.cta input.form-control::placeholder {
+    color: #fff;
+	font-size: 12px;
+}
+
+footer h2.titleh2:after {
+    width: 35px;
+}
+
+footer h2.titleh2 {
+    font-size: 18px;
+}
+
+footer .col {
+    padding: 0 5px;
+}
+
+.slider-content {
+    padding: 9vw 0 11vw;
+}
+
+iv#floating-search h2 {
+    margin-bottom: 30px;
+    font-size: 36px;
+}
+
+.slider-content h2 {
+    font-size: 38px;
+}
+
+#navbarNavAltMarkup a.nav-link {
+    padding: 10px !important;
+    margin-right: 0;
+    font-size: 14px;
+    border: none !important;
+    margin-bottom: 5px;
+    color: #fff;
+}
+
+img.logo {
+    max-height: 55px;
+}
+
+div#navbarNavAltMarkup {
+    position: fixed;
+    width: 100vw;
+    left: 0;
+    padding: 100px 20px 20px;
+    top: 0;
+    z-index: 9;
+    height: 100vh;
+    background: #fde72e;
+}
+
+button.navbar-toggler {
+    position: relative !important;
+    z-index: 99 !important;
+    display: block;
+}
+
+a.navbar-brand {
+    position: relative;
+    z-index: 99;
+}
+
+header {
+    padding-bottom: 85px;
+}
+
+nav#navbar_top {
+    position: fixed;
+    z-index: 9;
+    width: 100%;
+}
+
+#navbarNavAltMarkup a.nav-link.active, #navbarNavAltMarkup a.nav-link:hover {
+    border-top: 4px solid #ffa500;
+    color: #fff;
+    letter-spacing: 1px;
+    background: #fff6;
+}
+
+#navbarNavAltMarkup a.nav-link:hover {
+    background: #fff3;
+}
+
+.reg-login a.btn {
+    font-size: 13px;
+    letter-spacing: 0;
+    border: none !important;
+    background: #fff !important;
+    padding: 12px 25px !important;
+    font-weight: 500;
+    margin-right: 10px !important;
+    color: #fde72e !important;
+    top: 0;
+}
+
+#feat .col-md-12 > p {
+    margin: 0 auto 20px;
+}
+	
+}
+
+@media (max-width: 700px) {
+	
+div.txt-card {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.fe-abs {
+    padding: 20px 0;
+}
+
+div#feat {
+    padding-bottom: 30px !important;
+}
+
+#feat .owl-nav {
+    bottom: unset;
+    top: 30%;
+}
+
+#about .col-md-5, #about .col-md-7 {
+	width: 100%;
+}
+
+#about .col-md-5 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.cta h2.titleh2:after, #about h2.titleh2:after {
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+}
+
+#about h2.titleh2 {
+    text-align: center;
+}
+
+.cta .col-md-7, .cta .col-md-5 {
+    text-align: center;
+}
+
+form.subs {
+    max-width: 400px;
+    width: 100%;
+    margin: 20px auto 0;
+}
+
+footer .col.col2, footer .col.col3 {
+    width: 50%;
+    flex: 50%;
+}
+
+footer .col.col1, footer .col.col4 {
+    width: 100%;
+    flex: 100%;
+}
+
+#footer .copyright p {
+    font-size: 12px;
+}
+
+h2.titleh2 {
+    font-size: 28px;
+}
+
+.pricing .card {
+    width: 100%;
+    margin: 10px auto;
+    max-width: 360px;
+    flex: 100%;
+}
+
+.pricing .card-price {
+    font-size: 2rem;
+}
+
+.pricing .card-title {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.fa-ul i.fas {
+    font-size: 8px;
+    width: 16px;
+    height: 16px;
+    line-height: 18px;
+    position: relative;
+    top: -1px;
+}
+
+ul.fa-ul li {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.card-body a.btn.btn-block.btn-primary {
+    margin: 30px auto;
+    padding: 18px 20px 15px;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+.card-body > p {
+    font-size: 14px;
+    font-weight: 300;
+}
+
+div#floating-search {
+    top: 0px;
+    width: 90%;
+    margin: 50px auto 25PX;
+    box-shadow: 0px 0px 11px 0px #0002;
+}
+
+#floating-search .col-md-6 .form-group {
+    border-right: none;
+    padding-left: 0;
+}
+
+#floating-search > .row {
+    background: transparent;
+}
+
+#floating-search span.input-group-text.px-4 {
+    left: 8px;
+}
+
+#floating-search span.input-group-text i {
+    font-size: 13px;
+}
+
+#floating-search > .row > div input {
+    background: #edecec;
+    margin-bottom: 10px;
+    border-radius: 30px;
+    padding: 0 15px;
+    font-size: 14px;
+}
+
+input#floatingInputGrid {
+    padding-left: 35px !important;
+}
+
+#floating-search button.btn.btn-primary {
+    font-size: 14px;
+    width: 160px;
+    line-height: 24px;
+    position: relative;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    margin: 0 auto;
+    display: block;
+}
+
+div#floating-search h2 {
+    font-size: 24px;
+}
+
+#feat .col-md-12 > p {
+    font-size: 14px;
+}
+
+.reg-login a.btn {
+    font-size: 12px;
+    padding: 12px 20px !important;
+}
+
+.popupp .col-md-7 {
+    padding: 20px 15px 0;
+}
+
+.form-group label {
+    font-size: 12px;
+    margin-bottom: 0;
+}
+
+.mform input.form-control {
+    line-height: 35px;
+    font-size: 12px;
+}
+
+.mform .form-group {
+    margin-bottom: 10px;
+}
+
+.popupp .col-md-5 {
+    padding: 30px 20px 10px;
+}
+
+h3.titleh3 {
+    font-size: 18px;
+}
+
+h3.titleh3:after {
+    width: 35px;
+}
+
+div.modal-dialog {
+    top: 5vh;
+    max-height: 90vh;
+    border-radius: 7px;
+    overflow: auto;
+}
+
+p.flx {
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.popupp .col-md-7 > p {
+    margin-bottom: 10px;
+    font-size: 12px;
+}
+
+.mform .btn.btn-bg {
+    padding: 12px 25px;
+    font-size: 12px;
+}
+
+p.dhacc.tc {
+    margin-top: 15px;
+    margin-bottom: 20px;
+    font-size: 12px;
+}
+
+.popupp h2.titleh2.tc {
+    font-size: 24px;
+}
+
+.modal button.close {
+    right: 5px;
+    top: 5px;
+    background: #fff;
+    color: #f68f32;
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+    box-shadow: 0px 0px 11px 0px #0002;
+}
+
+ul.social-icon li {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+}
+
+.mform .form-control.col-6 {
+    width: 100%;
+    flex: 100%;
+    max-width: 100%;
+}
+
+.mform .form-group.col-6 {
+    width: 100%;
+    flex: 100%;
+    max-width: 100%;
+}
+
+.popupp .col-md-12 {
+    padding: 0;
+}
+
+.mform .form-group.col-12:last-of-type {
+    margin-bottom: 15px;
+}
+
+form.vform.mform.row > .btn {
+    margin: 5px auto 0;
+}
+
+#vendorModal .modal-content {
+    padding-bottom: 0;
+}
+
+}
