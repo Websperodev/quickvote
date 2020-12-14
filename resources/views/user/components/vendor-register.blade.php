@@ -35,11 +35,11 @@
             </div>
             <div class="form-group col-6">
             <label>Phone Number</label>
-              <input type="number" name="phone" class="form-control" placeholder="Your Number">
+              <input type="text" name="phone" class="form-control" placeholder="Your Number">
             </div>
             <div class="form-group col-6">
             <label>Alternate Phone Number</label>
-              <input type="number" name="alternate_phn" class="form-control" placeholder="Your Alternate Number">
+              <input type="text" name="alternate_phn" class="form-control" placeholder="Your Alternate Number">
             </div>
             <div class="form-group addrs col-12">
             <label>Address</label>

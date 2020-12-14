@@ -90,11 +90,19 @@ $(document).ready(function () {
   $('#openSignUp').click(function() {
     $('#loginModal').modal('hide');
     $('#registerModal').modal('show');
+   
+    setTimeout(function(){
+      jQuery("body").addClass("modal-open");
+    }, 700);
+    
   });
 
   $('#vendorSignUp').click(function() {
     $('#registerModal').modal('hide');
     $('#vendorModal').modal('show');
+    setTimeout(function(){
+      jQuery("body").addClass("modal-open");
+    }, 700);
   });
 
   $('#resetPass').click(function() {
