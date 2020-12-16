@@ -1,5 +1,5 @@
-@extends('vendor.layouts.master')
-@section("meta_page_title") Vendor | Quickvote | Dashboard @endsection
+@extends('admin.layouts.master')
+@section("meta_page_title") Admin | Quickvote | Dashboard @endsection
 @section("page_title") Dashboard @endsection
 
 
@@ -16,7 +16,7 @@
                     {!! session('message.text') !!}
                     </div>
                 @endif
-                <form id="my_account_form" method="post" action="{{ route('vendor.update.profile') }}">
+                <form id="my_account_form" method="post" action="{{ route('admin.update.profile') }}">
                 	@csrf
 
                     <div class="row">

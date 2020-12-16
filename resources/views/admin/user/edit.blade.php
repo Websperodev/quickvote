@@ -1,6 +1,6 @@
-@extends('vendor.layouts.master')
-@section("meta_page_title") Vendor | Quickvote | Dashboard @endsection
-@section("page_title") Dashboard @endsection
+@extends('admin.layouts.master')
+@section("meta_page_title") Admin | Quickvote | Dashboard @endsection
+@section("page_title") Users @endsection
 
 
 @section("content")
@@ -10,13 +10,15 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="mb-3 header-title">My Account</h4>
+                <h4 class="mb-3 header-title">Users</h4>
                 @if(session()->has('message.level'))
                     <div class="alert alert-{{ session('message.level') }}"> 
                     {!! session('message.text') !!}
                     </div>
                 @endif
-                <form id="my_account_form" method="post" action="{{ route('vendor.update.profile') }}">
+
+                {!! Form::open(array('route' => 'admin.edit-user', 'id' => 'edit_user_form', 'method' => 'post' )) !!}
+
                 	@csrf
 
                     <div class="row">
@@ -52,14 +54,28 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12 form-group cus-form-group">
+                        <div class="col-md-6 form-group cus-form-group">
                             <label for="email">Email</label>
-                            <input type="text" readonly="readonly" class="form-control" value="{{ isset($user->email) ? $user->email : ''}}" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter Contact Name">
+                            <input type="text" readonly="readonly" class="form-control" value="{{ isset($user->email) ? $user->email : ''}}" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter Email">
                             @if($errors->has('email'))
                                 <div class="error">{{ $errors->first('email') }}</div>
                             @endif
                         </div>
+                        <div class="col-md-6 form-group cus-form-group">
+                            <label for="email">User Type</label>
+                            <select class="form-control" name="user_type">
+                                <option value="">Select Type</option>
+                                <option value="user" {{ $user->type == 'user' ? 'selected' : '' }} title="User">User</option>
+                                <option value="vendor" {{ $user->type == 'vendor' ? 'selected' : '' }}  title="Vendor">Vendor</option> 
+                            </select>
+                            
+                            @if($errors->has('user_type'))
+                                <div class="error">{{ $errors->first('user_type') }}</div>
+                            @endif
+                        </div>
+                        
                     </div>
+
                     <div class="row">
                         <div class="col-md-6 form-group cus-form-group">
                             <label for="phone">Phone Number</label>
@@ -144,6 +160,7 @@
                             @endif
                         </div>
                     </div>
+                    <input type="hidden" name="user_id" value="{{ isset($user->id ) ? $user->id  : ''}}"> 
 
                     <div class="btn-right">
                     <button type="submit" class="btn btn-primary waves-effect waves-light ladda-button">Submit</button>

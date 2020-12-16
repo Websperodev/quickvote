@@ -1,7 +1,7 @@
 <?php
 return [
 
-	'test' 			=> '123',
+	'email-verify-link' => 'http://127.0.0.1:8000/email-verify?id=',
  	'countries' => array("AF" => "Afghanistan",
 "AX" => "Åland Islands",
 "AL" => "Albania",

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User\Auth;
+namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -41,58 +41,55 @@ class LoginController extends Controller
      * @return void
      */
     public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
+    { 
+      if(Auth::user()) {   
+        return redirect()->route('admin.dashboard');
+      }else{
+        return redirect()->route('admin.login');
+      }
     }
-    protected function index(Request $request)
+    protected function index(Request $request){
+      return view('admin.pages.login');
+    }
+    protected function login(Request $request)
     { 
         $validator = Validator::make($request->all(), [
             'email'     => 'required',
             'password'  => 'required|min:8'
         ]);
 
-        if ($validator->fails())
+        if($validator->fails())
         {
-            return Response::json(['success' => false, 'status' => 2, 'errors'=> $validator->errors()->all()]);
+            return redirect()->back()->withErrors(['errors', $validator->errors()->all()]);
         }
         try{
-
           $userData = User::where('email' , $request->email)->first();
           $remember = ($request->has('remember')) ? true : false;
 
           if(!empty($userData) ){
-
-            if($userData->email_verified_at == ''){
-              return Response::json(['success' => false, 'status' => 2, 'errors' => ['Email Not Verified']]);
-            }else{
-                $auth = Auth::attempt(
-                    [
-                        'email'     => $request->get('email'),
-                        'password'  => $request->get('password')    
-                    ], $remember
-                );
+            $auth = Auth::attempt(
+                [
+                    'email'     => $request->get('email'),
+                    'password'  => $request->get('password')    
+                ], $remember
+            );
                 
-              if($auth){
-                return Response::json(['success' => true, 'status' => 1, 'user_type' => $userData->type  ,'message' => 'Loggedin successfully']);
-              }else{
-                return Response::json(['success' => false, 'status' => 2, 'errors' => ['Wrong email or password']]);
-
-              }
+            if($auth){
+                 return redirect()->route('admin.dashboard');
+            }else{
+              return redirect()->back()->withErrors(['errors', ['Wrong email or password']]);
             }
             
           }else{
-              return Response::json(['success' => false, 'status' => 2, 'errors' => ['User not found']]);
+              return redirect()->back()->withErrors(['errors', ['User not found']]);
           }
 
         }catch (\Exception $e) {
-          return Response::json(['success' => false, 'status' => 2, 'errors' => ['Something went wrong']]);
-        }
-        
-        
-        
+          return  redirect()->back()->withErrors(['errors', $e->getMessage()]);
+        }  
     }
     public function logout(Request $request) {
       Auth::logout();
-      return redirect('/');
+      return redirect('/admin');
     }
 }

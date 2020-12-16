@@ -1,5 +1,5 @@
 @extends('vendor.layouts.master')
-@section("meta_page_title") Vendor | Quickvote | Dashboard @endsection
+@section("meta_page_title") Admin | Quickvote | Dashboard @endsection
 @section("page_title") Dashboard @endsection
 
 
@@ -10,13 +10,13 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="mb-3 header-title">My Account</h4>
+                <h4 class="mb-3 header-title">Users</h4>
                 @if(session()->has('message.level'))
                     <div class="alert alert-{{ session('message.level') }}"> 
                     {!! session('message.text') !!}
                     </div>
                 @endif
-                <form id="my_account_form" method="post" action="{{ route('vendor.update.profile') }}">
+                <form id="my_account_form" method="post" action="{{ route('admin.update.profile') }}">
                 	@csrf
 
                     <div class="row">

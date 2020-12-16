@@ -19,6 +19,9 @@
           <div class="col-md-7">
           <h3 class="titleh3">Login</h3>
           <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+
+
+
             <form id="login-frm-user"  class="lform mform login-frm-user">
             <div class="alert alert-danger" style="display:none"></div>
             <div class="form-group">
@@ -31,6 +34,12 @@
             </div>
             <p class="flx"><span class="rem"><input type="Checkbox" class="form-control" name="remember" value="remember"> Remember me</span> <span class="forgot"><a href="javascript:void(0);" id="resetPass">Forgot Password?</a></span></p>
             <button class="btn btn-bg">Log In</button>
+           <hr>
+            <div class="form-group row mb-0">
+             <div class="col-md-8 offset-md-4">
+                <a href="{{ url('/auth/redirect/facebook') }}" class="btn btn-primary"><i class="fa fa-facebook"></i> Facebook</a>
+            </div>
+            </div>
             <br>
             <p class="dhacc tc">Don't Have an account? <a class="signup" href="javascript:void(0);" id="openSignUp">Sign Up here</a></p>
           </form>
