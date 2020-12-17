@@ -114,7 +114,7 @@ class RegisterController extends Controller
                 return Response::json(['success' => false, 'status' => 2, 'errors' => ['Registration failed']]);
             }
         }catch (\Exception $e) {
-          return Response::json(['success' => false, 'status' => 2, 'errors' => ['Something went wrong']]);
+          return Response::json(['success' => false, 'status' => 2, 'errors' => $e->getMessage()]);
         }
         
     }

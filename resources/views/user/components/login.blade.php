@@ -41,6 +41,13 @@
             </div>
             </div>
             <br>
+            <a href="{{ url('auth/google') }}" style="margin-top: 20px;" class="btn btn-lg btn-success btn-block">
+              <strong>Login With Google</strong>
+            </a> 
+            <hr>
+            <div class="col-md-8 col-md-offset-4">
+              <a href="{{url('/auth/redirect/twitter')}}" class="btn btn-primary">Login with Twitter</a>
+            </div>
             <p class="dhacc tc">Don't Have an account? <a class="signup" href="javascript:void(0);" id="openSignUp">Sign Up here</a></p>
           </form>
           </div>

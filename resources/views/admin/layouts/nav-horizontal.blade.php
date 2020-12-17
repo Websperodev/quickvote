@@ -17,14 +17,14 @@
                         <li>
                             <a href="{{ route('admin.users') }}">Users</a>
                         </li>
-                        
-                     
                     </ul>
                 </li>
                 <li>
                     <a href="{{ route('admin.users') }}">Users</a>
                 </li>
-                
+                <li>
+                    <a href="{{ route('admin.users') }}">Categories</a>
+                </li>
               
                
 

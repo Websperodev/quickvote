@@ -15,10 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::post('user-registration', 'User\Auth\RegisterController@create')->name('user.registration');
 
 Route::namespace('User\Auth')->group(function () {
-	
+	Route::post('user-register', 'RegisterController@create')->name('user.register');
 	Route::get('email-verify', 'RegisterController@varifyEmail')->name('user.verify');
 	Route::post('user-login', 'LoginController@index')->name('user.login');
 	Route::get('user-logout', 'LoginController@logout')->name('user.logout');
@@ -69,7 +68,10 @@ Route::namespace('Admin')->group(function () {
 // Route::get('/callback', 'SocialAuthFacebookController@callback');
 
 Route::get('/auth/redirect/{provider}', 'SocialController@redirect');
-  Route::get('/callback/{provider}', 'SocialController@callback');
+Route::get('/callback/{provider}', 'SocialController@callback');
+Route::get('auth/google', 'SocialController@redirectToGoogle');
+Route::get('auth/google/callback', 'SocialController@handleGoogleCallback');
+Route::get('/auth/twitter/callback', 'SocialController@twitterCallback');
 
 
 

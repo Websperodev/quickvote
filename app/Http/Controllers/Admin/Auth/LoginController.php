@@ -63,7 +63,7 @@ class LoginController extends Controller
             return redirect()->back()->withErrors(['errors', $validator->errors()->all()]);
         }
         try{
-          $userData = User::where('email' , $request->email)->first();
+          $userData = User::where(['email' => $request->email, 'type' => 'admin'])->first();
           $remember = ($request->has('remember')) ? true : false;
 
           if(!empty($userData) ){
@@ -77,11 +77,16 @@ class LoginController extends Controller
             if($auth){
                  return redirect()->route('admin.dashboard');
             }else{
-              return redirect()->back()->withErrors(['errors', ['Wrong email or password']]);
+              $request->session()->flash('message.level', 'danger');
+              $request->session()->flash('message.text', 'Invalid Username or Password');
+              return redirect()->back();
+              
             }
             
           }else{
-              return redirect()->back()->withErrors(['errors', ['User not found']]);
+              $request->session()->flash('message.level', 'danger');
+              $request->session()->flash('message.text', 'Invalid Username or Password');
+              return redirect()->back();
           }
 
         }catch (\Exception $e) {

@@ -10,6 +10,11 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
+                    @if(session()->has('message.level'))
+                        <div class="alert alert-{{ session('message.level') }}"> 
+                        {!! session('message.text') !!}
+                        </div>
+                    @endif
                     <form method="POST" action="{{ route('admin.login') }}">
                         @csrf
 
@@ -18,6 +23,7 @@
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
