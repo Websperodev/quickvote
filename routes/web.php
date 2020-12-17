@@ -73,6 +73,7 @@ Route::get('auth/google', 'SocialController@redirectToGoogle');
 Route::get('auth/google/callback', 'SocialController@handleGoogleCallback');
 Route::get('/auth/twitter/callback', 'SocialController@twitterCallback');
 
+Route::get('privacy-policy', 'HomeController@openPage')->name('privacy-policy');
 
 
 //Route::get('/home', 'HomeController@index');

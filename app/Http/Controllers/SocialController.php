@@ -26,10 +26,8 @@ class SocialController extends Controller
 	public function twitterCallback(SocialTwitterAccountService $service)
     {	
     	$getInfo = Socialite::driver('twitter')->user(); 
-    	print_r($getInfo);
-    	dd('dsjfjsdg');
-        $user = $service->createOrGetUser(Socialite::driver('twitter')->user());
-        Auth::login($user);
+    	$user = $this->createUser($getInfo,'twitter'); 
+	    Auth::login($user);
 	    return redirect('/#');
     }
 

@@ -22,7 +22,7 @@
       <ul class="footer-li">
         <li><a href="#">Legal</a></li>
         <li><a href="#">Term Of Services</a></li>
-        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="{{ route('privacy-policy') }}">Privacy Policy</a></li>
         <li><a href="#">FAQs</a></li>
         <li><a href="#">Contact Us</a></li>
       </ul>

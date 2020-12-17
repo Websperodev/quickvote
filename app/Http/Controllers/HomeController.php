@@ -47,5 +47,7 @@ class HomeController extends Controller
         die;
 
     }
+    public function openPage(){
+        return view('front.privacy-policy');
+    }
 }
-https://localhost:8080/home
