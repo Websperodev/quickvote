@@ -1379,3 +1379,40 @@ a.signup {
 .reg-login.show {
     position: relative;
 }
+
+a.sc-icon {
+    display: block;
+    width: 215px;
+    padding: 12px;
+    text-align: left;
+    margin: 0 auto 10px;
+    background: #4267B2;
+    color: #fff;
+    border-radius: 40px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+}
+
+a.sc-icon:hover {
+    opacity: 0.9;
+}
+
+a.sc-icon i {
+    position: relative;
+    top: 1px;
+    left: 0;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+a.sc-icon.twicon {
+    background: #1DA1F2;
+}
+
+a.sc-icon.gglicon {
+    background: #db3236;
+}
+
+

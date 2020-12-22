@@ -13,6 +13,9 @@ use Auth;
 use Session;
 use Response;
 use App\User;
+use App\Cities;
+use App\States;
+use App\Countries;
 
 
 
@@ -82,7 +85,10 @@ class ProfileController extends Controller
 
     public function myAccount(Request $request){
         $user = Auth::user();
-        return view('admin.pages.my-account')->with('user',$user);
+        $countries = Countries::get();
+        $states = States::get();
+        $cities = Cities::get();
+        return view('admin.pages.my-account')->with(['user' => $user, 'countries' => $countries, 'states' => $states, 'cities' => $cities,]);
     }
     public function updateProfile(Request $request){
         $validator = Validator::make($request->all(), [
@@ -107,10 +113,10 @@ class ProfileController extends Controller
             $user->alternate_phone = $data['alternate_phone'];
             $user->address1 = $data['address1'];
             $user->address2 = $data['address2'];
-            $user->city = $data['city'];
-            $user->state = $data['state'];
+            $user->city_id = $data['city'];
+            $user->state_id = $data['state'];
             $user->postal = $data['postal'];
-            $user->country = $data['county'];
+            $user->country_id = $data['country'];
             $user->description = $data['description'];
             $user->update();
             $request->session()->flash('message.level', 'success');

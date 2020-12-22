@@ -85,10 +85,10 @@ class RegisterController extends Controller
             $user->alternate_phone = $data['alternate_phn'];
             $user->address1 = $data['address1'];
             $user->address2 = $data['address2'];
-            $user->city = $data['city'];
-            $user->state = $data['state'];
+            $user->city_id = $data['city'];
+            $user->state_id = $data['state'];
             $user->postal = $data['postal'];
-            $user->country = $data['county'];
+            $user->country_id = $data['country'];
             $user->description = $data['description'];
             $user->save();
 

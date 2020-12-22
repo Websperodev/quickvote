@@ -29,21 +29,19 @@
     						    <div class="error">{{ $errors->first('category_name') }}</div>
     						@endif
                      </div>
+                    
                     <div class="col-md-12 form-group cus-form-group">
-                            <label for="last_name">Image</label>
-
-                            @if(isset($category->image) && $category->image != '')
-                                <img src="{{ isset($category->image) ? $category->image : ''}}" width="150" height="150">
-                            @endif
-
-                            <input type="hidden" name="old_file" value="{{ isset($category->image ) ? $category->image  : ''}}"> 
-                            <input type="file" class="form-control" value="{{ isset($category->image) ? $category->image : ''}}" name="image_name" id="image_name" aria-describedby="emailHelp" placeholder="Choose Image">
-                            @if($errors->has('image_name'))
-    						    <div class="error">{{ $errors->first('image_name') }}</div>
-    						@endif
+                        <label for="image">Image</label>
+                        @if(isset($category->image) && $category->image != '')
+                            <img src="{{ isset($category->image) ? $category->image : ''}}" width="150" height="150">
+                        @endif
+                        <input type="hidden" name="old_file" value="{{ isset($category->image ) ? $category->image  : ''}}">
+                        <input type="file" class="form-control" value="{{ isset($category->image) ? $category->image : ''}}" name="image_name" id="image_name" aria-describedby="emailHelp" placeholder="Choose Image">
+                        @if($errors->has('image_name'))
+                            <div class="error">{{ $errors->first('image_name') }}</div>
+                        @endif
                     </div>
-                     
-                      
+                    
                     <div class="col-md-12 form-group cus-form-group">
                             <label for="description">Description</label>
                             <textarea type="text" name="description" class="form-control" placeholder="Description here..">{{ isset($category->description ) ? $category->description  : ''}}</textarea>
@@ -55,7 +53,7 @@
                     <input type="hidden" name="category_id" value="{{ isset($category->id ) ? $category->id  : ''}}"> 
 
                     <div class="btn-right">
-                    <button type="submit" class="btn btn-primary waves-effect waves-light ladda-button">Submit</button>
+                    <button type="submit" class="btn btn-bg ladda-button">Submit</button>
                     </div>
                 </form>
             </div> <!-- end card-body-->

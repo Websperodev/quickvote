@@ -35,18 +35,12 @@
             <p class="flx"><span class="rem"><input type="Checkbox" class="form-control" name="remember" value="remember"> Remember me</span> <span class="forgot"><a href="javascript:void(0);" id="resetPass">Forgot Password?</a></span></p>
             <button class="btn btn-bg">Log In</button>
            <hr>
-            <div class="form-group row mb-0">
-             <div class="col-md-8 offset-md-4">
-                <a href="{{ url('/auth/redirect/facebook') }}" class="btn btn-primary"><i class="fa fa-facebook"></i> Facebook</a>
-            </div>
-            </div>
-            <br>
-            <a href="{{ url('auth/google') }}" style="margin-top: 20px;" class="btn btn-lg btn-success btn-block">
-              <strong>Login With Google</strong>
-            </a> 
-            <hr>
-            <div class="col-md-8 col-md-offset-4">
-              <a href="{{url('/auth/redirect/twitter')}}" class="btn btn-primary">Login with Twitter</a>
+            <div class="form-group row mb-0 social-logins">
+              <div class="col-md-12">
+                <a href="{{ url('/auth/redirect/facebook') }}" class="sc-icon fbicon"> <i class="fab fa-facebook-f"></i>Login With Facebook</a>
+                <a href="{{ url('auth/google') }}" class="sc-icon gglicon"> <i class="fab fa-google"></i> Login With Google </a>
+                <a href="{{url('/auth/redirect/twitter')}}" class="sc-icon twicon"><i class="fab fa-twitter"></i> Login with Twitter</a>
+              </div>
             </div>
             <p class="dhacc tc">Don't Have an account? <a class="signup" href="javascript:void(0);" id="openSignUp">Sign Up here</a></p>
           </form>

@@ -142,7 +142,7 @@ class EventsController extends Controller
             ->addColumn('image',function($allEvents) {
                 $img = '-';
                 if($allEvents->image != ''){
-                    $img = '<img src="'. $allEvents->image .'" width="100" height="100">';
+                    $img = '<img src="'. url($allEvents->image) .'" width="100" height="100">';
                 }
                 
                 return $img;
@@ -194,7 +194,7 @@ class EventsController extends Controller
             try{
                
                 $data = $request->all();
-                $existing = Event::where('name', $data['event_title'])->count();
+                $existing = Event::where('name', $data['event_title'])->where('id', '!=', $request->get('event_id') )->count();
                 if($existing > 0){
                     $request->session()->flash('message.level', 'danger');
                     $request->session()->flash('message.text', 'Event already exists');

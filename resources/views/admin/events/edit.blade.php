@@ -188,7 +188,7 @@
                     <input type="hidden" name="event_id" value="{{ $event->id }}">
 
                     <div class="btn-right">
-                    <button type="submit" class="btn btn-primary waves-effect waves-light ladda-button">Submit</button>
+                    <button type="submit" class="btn btn-bg ladda-button">Submit</button>
                     </div>
                 </form>
             </div> <!-- end card-body-->

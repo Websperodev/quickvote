@@ -177,7 +177,7 @@
                     </div>
 
                     <div class="btn-right">
-                    <button type="submit" class="btn btn-primary waves-effect waves-light ladda-button">Submit</button>
+                    <button type="submit" class="btn btn-bg ladda-button">Submit</button>
                     </div>
                 </form>
             </div> <!-- end card-body-->
@@ -219,7 +219,7 @@ bkLib.onDomLoaded(function() {
         // new nicEditor({maxHeight : 100}).panelInstance('area5');
 });
 
-  $('#country').change(function(){
+    $('#country').change(function(){
         var cid = $(this).val();
         var url = '{{ route("states", ":id") }}';
         url = url.replace(':id', cid);
@@ -279,11 +279,7 @@ bkLib.onDomLoaded(function() {
                       console.log(err);
                     }
             });
-        }
-
-
-
-       
+        }   
         
     }); 
  

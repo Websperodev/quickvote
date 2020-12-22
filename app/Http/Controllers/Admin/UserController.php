@@ -12,11 +12,12 @@ use Auth;
 use Session;
 use Response;
 use App\User;
+use App\Cities;
+use App\States;
+use App\Countries;
 use App\ModelHasRoles;
-
+use Carbon\Carbon;
 use Yajra\Datatables\Datatables;
-
-
 
 
 class UserController extends Controller
@@ -52,9 +53,7 @@ class UserController extends Controller
 
             if ($validator->fails())
             {
-                $request->session()->flash('message.level', 'danger');
-                $request->session()->flash('message.text', $validator->errors()->all());
-                return redirect()->back();
+                return redirect()->back()->withErrors($validator);
             }
             try{
                 $data = $request->all();
@@ -77,11 +76,12 @@ class UserController extends Controller
                 $user->alternate_phone = $data['alternate_phone'];
                 $user->address1 = $data['address1'];
                 $user->address2 = $data['address2'];
-                $user->city = $data['city'];
-                $user->state = $data['state'];
+                $user->city_id = $data['city'];
+                $user->state_id = $data['state'];
                 $user->postal = $data['postal'];
-                $user->country = $data['county'];
+                $user->country_id = $data['country'];
                 $user->description = $data['description'];
+                $user->email_verified_at = Carbon::now();
                 $user->save();
                 if($data['user_type'] == 'vendor'){
                     $role = Role::find('2');
@@ -108,7 +108,10 @@ class UserController extends Controller
             }
         }
         if($request->isMethod('get')){
-            return view('admin.user.add');
+            $countries = Countries::get();
+            $states = States::get();
+            $cities = Cities::get();
+            return view('admin.user.add')->with([ 'states' => $states, 'cities' => $cities, 'countries' => $countries]);
         }
     }
 
@@ -180,10 +183,10 @@ class UserController extends Controller
                 $user->alternate_phone = $data['alternate_phone'];
                 $user->address1 = $data['address1'];
                 $user->address2 = $data['address2'];
-                $user->city = $data['city'];
-                $user->state = $data['state'];
+                $user->city_id = $data['city'];
+                $user->state_id = $data['state'];
                 $user->postal = $data['postal'];
-                $user->country = $data['county'];
+                $user->country_id = $data['country'];
                 $user->description = $data['description'];
                 $user->update();
 
@@ -219,7 +222,11 @@ class UserController extends Controller
         if($request->isMethod('get')){
             $id = $request->get('id');
             $user = User::find($id);
-            return view('admin.user.edit')->with('user',$user);
+            $countries = Countries::get();
+            $states = States::get();
+            $cities = Cities::get();
+
+            return view('admin.user.edit')->with(['user' => $user,'states' => $states, 'cities' => $cities, 'countries' => $countries]);
         }
     }
 

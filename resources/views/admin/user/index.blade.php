@@ -24,10 +24,9 @@
                 </div>
                 <div class="col-6">
                 
-                <buttion class="btn btn-info" style="float: right;">
-                    <a href="{{ route('admin.add.user') }}" style="color: black">Add User</a>
-                </buttion>
-                         
+                
+                    <a class="btn btn-bg" href="{{ route('admin.add.user') }}" style="color: black">Add User</a>
+                
                 </div>
                </div>
                 <p class="sub-header">View and manage account users on this page.</p>

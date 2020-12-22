@@ -1,6 +1,5 @@
 @extends('user.layouts.main')
 
-
 @section('content')
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">

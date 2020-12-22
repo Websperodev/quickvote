@@ -37,7 +37,7 @@ class DashboardController extends Controller
     }
     public function getStates(Request $request){
         $id = $request->id;
-        $states = States::where("country_id",$id)
+        $states = States::orderBy('name')->where("country_id",$id)
                 ->pluck("name","id");
         return response()->json($states);
     }

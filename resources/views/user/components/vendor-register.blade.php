@@ -48,15 +48,16 @@
               <input type="text" name="city" class="form-control col-6 fl" placeholder="City Name">
               <input type="text" name="state" class="form-control col-6 fr" placeholder="State/Province">
               <input type="text" name="postal" class="form-control col-6 fl" placeholder="Postal / Zip Code">
-            <?php          
-              $countries = config('constants.countries');        
-            ?>
-            <select class="form-control col-6 fr" name="county">
-              <option value="">Select Country</option>
-              @foreach($countries as $key => $value)
-              <option value="<?= $key ?>" title="<?= htmlspecialchars($value) ?>"><?= htmlspecialchars($value) ?></option>
-              @endforeach
-            </select>
+            
+              <select class="form-control col-6 fr" name="country" id="country" aria-describedby="emailHelp">
+                  <option value="">Select Country</option>
+                  @foreach($countries as $country)
+                      <option value="{{ $country->id }}">{{ $country->name }}</option>
+                  @endforeach
+              </select>
+
+                           
+          
             </div>
             <div class="form-group col-12">
             <label>Your Description</label>

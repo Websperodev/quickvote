@@ -93,22 +93,53 @@
                         </div>
                     </div>
                     <div class="row">   
-                        <div class="col-md-6 form-group cus-form-group">
-                            <label for="city">City</label>
-                            <input type="text" class="form-control" value="{{ isset($user->city) ? $user->city : ''}}" name="city" id="city" aria-describedby="emailHelp" placeholder="Enter City">
-                            @if($errors->has('city'))
-                                <div class="error">{{ $errors->first('city') }}</div>
+                         <div class="col-md-6 form-group cus-form-group">
+                            <label for="country">Country</label>
+                            
+                            <select class="form-control" name="country" id="country" aria-describedby="emailHelp">
+                                <option value="">Select Country</option>
+                                @foreach($countries as $country)
+                                    <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                @endforeach
+                            </select>
+
+                            @if($errors->has('country'))
+                                <div class="error">{{ $errors->first('country') }}</div>
                             @endif
                         </div>
+
                         <div class="col-md-6 form-group cus-form-group">
                             <label for="state">State</label>
-                            <input type="text" class="form-control" value="{{ isset($user->state) ? $user->state : ''}}" name="state" id="state" aria-describedby="emailHelp" placeholder="Enter State">
+                            
+                            <select class="form-control" name="state" id="state" aria-describedby="emailHelp">
+                                <option value="">Select State</option>
+                                @foreach($states as $state)
+                                    <option value="{{ $state->id }}">{{ $state->name }}</option>
+                                @endforeach
+                            </select>
+
                             @if($errors->has('state'))
                                 <div class="error">{{ $errors->first('state') }}</div>
                             @endif
                         </div>
+                    
+                        
+                       
                     </div>
                     <div class="row">
+                         <div class="col-md-6 form-group cus-form-group">
+                            <label for="city">City</label>
+                            <select class="form-control" name="city" id="city" aria-describedby="emailHelp">
+                                <option value="">Select City</option>
+                                @foreach($cities as $city)
+                                    <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                @endforeach
+                            </select>
+                            
+                            @if($errors->has('city'))
+                                <div class="error">{{ $errors->first('city') }}</div>
+                            @endif
+                        </div>
                         <div class="col-md-6 form-group cus-form-group">
                             <label for="postal">Postal</label>
                             <input type="text" class="form-control" value="{{ isset($user->postal) ? $user->postal : ''}}" name="postal" id="postal" aria-describedby="emailHelp" placeholder="Enter Postal">
@@ -116,24 +147,8 @@
                                 <div class="error">{{ $errors->first('postal') }}</div>
                             @endif
                         </div>
-                        <?php
-                            
-                        $countries = config('constants.countries');
-                        $userCountry = isset($user->country) ? $user->country : '';
-                        ?>
-                        <div class="col-md-6 form-group cus-form-group">
-                            <label for="country">Country</label>
-                                                      
-                            <select class="form-control" name="county">
-                              <option value="">Select Country</option>
-                                @foreach($countries as $key => $value)
-                                <option value="<?= $key ?>" {{ $userCountry == $key ? 'selected' : ''}} title="<?= htmlspecialchars($value) ?>"><?= htmlspecialchars($value) ?></option>
-                                @endforeach
-                            </select>
-                            @if($errors->has('country'))
-                                <div class="error">{{ $errors->first('country') }}</div>
-                            @endif
-                        </div>
+                        
+                        
                     </div>
                     <div class="row">    
                         <div class="col-md-12 form-group cus-form-group">
@@ -146,7 +161,7 @@
                     </div>
 
                     <div class="btn-right">
-                    <button type="submit" class="btn btn-primary waves-effect waves-light ladda-button">Submit</button>
+                        <button type="submit" class="btn btn-bg ladda-button">Submit</button>
                     </div>
                 </form>
             </div> <!-- end card-body-->
@@ -158,6 +173,74 @@
 
 
 @section('script-bottom')
+
+<script type="text/javascript">
+    
+    $('#country').change(function(){
+        var cid = $(this).val();
+        var url = '{{ route("states", ":id") }}';
+        url = url.replace(':id', cid);
+       
+        if(cid){
+            $.ajax({
+                    type: 'GET',
+                    url: url,
+                    success: function (res) {
+                      console.log('response',res);
+                      if(res){
+                        $("#state").empty();
+                        $("#state").append('<option>Select</option>');
+                        $.each(res,function(key,value){
+                          $("#state").append('<option value="'+key+'">'+value+'</option>');
+                        });
+                      
+                      }else{
+                        $("#state").empty();
+                      }
+                      
+                    },
+                    error: function(err) {
+                      console.log(err);
+                    }
+            });
+        }
+
+       
+    });
+    $('#state').change(function(){
+        var sid = $(this).val();
+
+        var url = '{{ route("cities", ":id") }}';
+        url = url.replace(':id', sid);
+       console.log(url);
+
+        if(sid){
+            $.ajax({
+                    type: 'GET',
+                    url: url,
+                    success: function (res) {
+                    console.log('response',res);
+                        if(res)
+                        {
+                            $("#city").empty();
+                            $("#city").append('<option>Select City</option>');
+                            $.each(res,function(key,value){
+                                $("#city").append('<option value="'+key+'">'+value+'</option>');
+                            });
+                        }else{
+                            $("#city").empty();
+                        }
+                      
+                    },
+                    error: function(err) {
+                      console.log(err);
+                    }
+            });
+        }   
+        
+    }); 
+    
+</script>
 
 
 @endsection

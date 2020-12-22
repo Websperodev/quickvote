@@ -2,6 +2,8 @@
 return [
 
 	'email-verify-link' => 'http://127.0.0.1:8000/email-verify?id=',
+	'reset-password-link' => 'http://127.0.0.1:8000/reset-password?id=',
+
  	'countries' => array("AF" => "Afghanistan",
 "AX" => "Åland Islands",
 "AL" => "Albania",

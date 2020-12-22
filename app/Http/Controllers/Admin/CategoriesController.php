@@ -117,7 +117,7 @@ class CategoriesController extends Controller
             ->addColumn('image',function($allCategories) {
                 $img = '-';
                 if($allCategories->image != ''){
-                    $img = '<img src="'. $allCategories->image .'" width="100" height="100">';
+                    $img = '<img src="'. url($allCategories->image) .'" width="100" height="100">';
                 }
                 
                 return $img;

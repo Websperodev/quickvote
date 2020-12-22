@@ -8,17 +8,13 @@ use Spatie\Permission\Models\Permission;
 use App\User;
 
 
-class HomeController extends Controller
+class TestController extends Controller
 {
    
     public function index()
     {  
-        dd('gggggggggggg');
+        dd('nnnnnnnnn');
         return view('user.pages.homepage');
     }
-    public function vendorTest(){
-        echo "abcd";
-        die;
-
-    }
+    
 }

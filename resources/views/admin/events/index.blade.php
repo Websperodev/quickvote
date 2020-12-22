@@ -23,11 +23,7 @@
                     <h4 class="header-title">Manage Events</h4>
                 </div>
                 <div class="col-6">
-                
-                <buttion class="btn btn-info" style="float: right;">
-                    <a href="{{ route('admin.add.event') }}" style="color: black">Add Event</a>
-                </buttion>
-                         
+                    <a class="btn btn-bg" href="{{ route('admin.add.event') }}">Add Event</a>     
                 </div>
                </div>
                 <p class="sub-header">View and manage events on this page.</p>

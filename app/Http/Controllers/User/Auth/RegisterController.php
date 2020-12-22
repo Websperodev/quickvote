@@ -97,7 +97,7 @@ class RegisterController extends Controller
             $email_content['data'] = 'User Registered successfully';
 
             $encrypted = $this->my_simple_crypt($user->id, 'e' );
-            $link = 'http://127.0.0.1:8000/email-verify?id='.$encrypted;
+            $link = config('constants.email-verify-link').$encrypted;
             $email_content['link'] = $link;
             $email_information = array('to_email'=> $data['email'],'from_name'=>'QuickVote','from_email'=>config('app.email'),'subject'=>'Registration Email');
             
@@ -173,7 +173,7 @@ class RegisterController extends Controller
                 $email_content['data'] = 'Password reset';
 
                 $encrypted = $this->my_simple_crypt($user->id, 'e' );
-                $link = 'http://127.0.0.1:8000/reset-password?id='.$encrypted;
+                $link = config('constants.reset-password-link').$encrypted;
                 $email_content['link'] = $link;
                 $email_information = array('to_email'=> $user->email,'from_name'=>'QuickVote','from_email'=>config('app.email'),'subject'=>'Registration Email');
                 
