@@ -12,6 +12,7 @@ use Auth;
 use Session;
 use Response;
 use App\User;
+use App\ModelHasRoles;
 
 use Yajra\Datatables\Datatables;
 
@@ -185,13 +186,19 @@ class UserController extends Controller
                 $user->country = $data['county'];
                 $user->description = $data['description'];
                 $user->update();
-                if($data['user_type'] == 'vendor'){
-                    $role = Role::find('2');
-                    $user->roles()->attach($role);
-                }else{
-                    $role = Role::find('3');
-                    $user->roles()->attach($role);
+
+                if( $data['user_type'] != $user->type){
+                    ModelHasRoles::where('model_id',$data['user_id'])->delete();
+                    if($data['user_type'] == 'vendor'){
+                        $role = Role::find('2');
+                        $user->roles()->attach($role);
+                    }else{
+                        $role = Role::find('3');
+                        $user->roles()->attach($role);
+                    }
+
                 }
+                
                 
             
                 if($user->id != ''){
