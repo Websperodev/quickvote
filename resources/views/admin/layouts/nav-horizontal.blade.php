@@ -23,7 +23,10 @@
                     <a href="{{ route('admin.users') }}">Users</a>
                 </li>
                 <li>
-                    <a href="{{ route('admin.users') }}">Categories</a>
+                    <a href="{{ route('admin.categories') }}">Categories</a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.events') }}">Events</a>
                 </li>
               
                

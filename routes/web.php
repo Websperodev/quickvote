@@ -62,6 +62,24 @@ Route::namespace('Admin')->group(function () {
 	Route::post('get-users', 'UserController@allUsers')->name('admin.getUsers');
 	Route::any('edit-user', 'UserController@editUser')->name('admin.edit-user');
 	Route::post('delete-user', 'UserController@deleteUser')->name('admin.users.delete');
+
+	Route::get('categories', 'CategoriesController@index')->name('admin.categories');
+	Route::any('add-category', 'CategoriesController@addCategory')->name('admin.add.category');
+	Route::post('get-categories', 'CategoriesController@allCategories')->name('admin.getCategories');
+	Route::any('edit-categories', 'CategoriesController@editCategory')->name('admin.edit-category');
+	Route::post('delete-category', 'CategoriesController@deleteCategory')->name('admin.category.delete');
+
+	Route::get('events', 'EventsController@index')->name('admin.events');
+	Route::any('add-event', 'EventsController@addEvent')->name('admin.add.event');
+	Route::post('get-events', 'EventsController@allEvents')->name('admin.getEvents');
+	Route::any('edit-event', 'EventsController@editEvent')->name('admin.edit.event');
+	Route::post('delete-event', 'EventsController@deleteEvent')->name('admin.event.delete');
+    
+	Route::get('/getCountries','DashboardController@getCountries');
+	Route::get('/getStates/{id}','DashboardController@getStates')->name('states');
+	Route::get('/getCities/{id}','DashboardController@getCities')->name('cities');
+
+
 });	
 
 // Route::get('/redirect', 'SocialAuthFacebookController@redirect');

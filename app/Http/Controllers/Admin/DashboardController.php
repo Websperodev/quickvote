@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\User;
+use App\Cities;
+use App\States;
 
 
 class DashboardController extends Controller
@@ -29,9 +31,20 @@ class DashboardController extends Controller
     {   
         return view('admin.pages.dashboard');
     }
-    public function vendorTest(){
-        echo "abcd";
-        die;
+    public function getCountries(){
+        
 
+    }
+    public function getStates(Request $request){
+        $id = $request->id;
+        $states = States::where("country_id",$id)
+                ->pluck("name","id");
+        return response()->json($states);
+    }
+    public function getCities(Request $request){
+        $id = $request->id;
+        $cities= Cities::where("state_id",$id)
+                ->pluck("name","id");
+        return response()->json($cities);
     }
 }
