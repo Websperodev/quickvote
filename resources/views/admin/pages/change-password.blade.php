@@ -1,4 +1,4 @@
-@extends('vendor.layouts.master')
+@extends('admin.layouts.master')
 @section("meta_page_title") Admin | Quickvote | Dashboard @endsection
 @section("page_title") Dashboard @endsection
 
