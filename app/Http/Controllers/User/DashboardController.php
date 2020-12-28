@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\User;
-
+use App\Models\Countries;
 
 class DashboardController extends Controller
 {
@@ -26,8 +26,9 @@ class DashboardController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {   
-        return view('user.pages.dashboard');
+    {  
+        $countries = Countries::get(); 
+        return view('user.pages.dashboard',compact('countries'));
     }
     public function vendorTest(){
         echo "abcd";

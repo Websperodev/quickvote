@@ -634,7 +634,7 @@ div.card-body {
     margin-bottom: 0;
 }
 
-.cta h2.titleh2, .cta p span{
+.cta h2.titleh2, .cta p {
     color: #fff ;
 }
 
@@ -1443,3 +1443,74 @@ img.w-img {
 }
 
 
+.error{ 
+    color:red !important;   
+}
+
+.dropdown-menu.dropdown-menu-right.profile-dropdown.show {  
+    padding-bottom: 0;     
+}
+.dropdown-header.noti-title h6  {
+    padding: 0;     
+    width: 100%;   
+    font-size: 14px;    
+    font-weight: 600;   
+    color: #000;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.dropdown-menu.dropdown-menu-right.profile-dropdown.show a {    
+    background: background: linear-gradient(152deg, #f47f34, #fdb92e);;      
+    color: #fff;    
+    font-size: 13px;    
+    padding: 12px;  
+    border-top: 1px solid #f7f7f7;  
+    border-radius: 0;   
+    margin: 0;  
+    letter-spacing: 0.5px;  
+    font-weight: 500;   
+    text-align: center; 
+    top: 0; 
+    border-radius: 30px;
+}
+/*.dropdown-menu.dropdown-menu-right.profile-dropdown.show a:not(:last-child):hover {
+    background: #f7f7f7;  
+    color: #fff;       
+}
+.dropdown-menu.dropdown-menu-right.profile-dropdown.show .dropdown-divider {    
+    display: none;  
+}*/
+.reg-login.show {  
+    position: relative;    
+}
+a.sc-icon { 
+    display: block;     
+    width: 215px;   
+    padding: 12px;  
+    text-align: left;   
+    margin: 0 auto 10px;    
+    background: #4267B2;    
+    color: #fff;    
+    border-radius: 40px;    
+    font-size: 12px;    
+    text-transform: uppercase;  
+    letter-spacing: 1px;    
+    text-decoration: none;  
+}
+a.sc-icon:hover {  
+    opacity: 0.9;       
+}
+a.sc-icon i {  
+    position: relative;    
+    top: 1px;      
+    left: 0;   
+    margin-right: 10px; 
+    margin-left: 10px;
+}
+a.sc-icon.twicon {  
+    background: #1DA1F2;       
+}
+a.sc-icon.gglicon { 
+    background: #db3236;
+}
