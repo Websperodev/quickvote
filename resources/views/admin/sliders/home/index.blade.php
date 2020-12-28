@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
-@section("meta_page_title") Dashboard | Events @endsection
-@section("page_title") Events @endsection
+@section("meta_page_title") Dashboard | Sliders | Home @endsection
+@section("page_title") Sliders @endsection
 @section("css")
     <style type="text/css">
         form#add_user_form .modal-body .form-group {position: relative;}
@@ -10,7 +10,7 @@
 @section("page_directory")
     <ol class="breadcrumb m-0">
         <li class="breadcrumb-item"><a href="{!! route('admin.dashboard') !!}">Dashboard</a></li>
-        <li class="breadcrumb-item active">Events</li>
+        <li class="breadcrumb-item active">Sliders</li>
     </ol>
 @endsection
 @section("content")
@@ -20,20 +20,22 @@
             <div class="card-body">
                <div class="row">
                 <div class="col-6">
-                    <h4 class="header-title">Manage Events</h4>
+                    <h4 class="header-title">Manage Home Slider Images</h4>
                 </div>
                 <div class="col-6">
-                    <a class="btn btn-bg" href="{{ route('admin.add.event') }}">Add Event</a>     
+                
+                
+                    <a class="btn btn-bg" href="{{ route('admin.add.homeSlider') }}" style="color: black">Add Images</a>
+                      
                 </div>
                </div>
-                <p class="sub-header">View and manage events on this page.</p>
-                <table id="events-table" class="table table-hover m-0 table-centered dt-responsive nowrap w-100">
+                <p class="sub-header">View and manage home slider on this page.</p>
+                <table id="home-slider-table" class="table table-hover m-0 table-centered dt-responsive nowrap w-100">
                     <thead>
                         <tr>
-                            <th>Name</th>
+                            <th>Heading1</th>
+                            <th>Heading2</th>
                             <th>Image</th>
-                            <th>Organizer Name</th>
-                            <th>Country</th>
                             <th>Created</th>
                             <th>Action</th>
                         </tr>
@@ -58,7 +60,7 @@
         var table_instance; 
         var initialized = false;
         
-        table_instance = $('#events-table').DataTable({
+        table_instance = $('#home-slider-table').DataTable({
             "language": {
                 "paginate": {
                     "previous": "<i class='mdi mdi-chevron-left'>",
@@ -68,7 +70,7 @@
             },
             'drawCallback': function (oSettings) {
                 if (!initialized) {
-                    $('#events-table_filter.dataTables_filter').each(function () {
+                    $('#home-slider-table_filter.dataTables_filter').each(function () {
                         initialized = true;
                     });
                 }
@@ -80,7 +82,7 @@
             serverSide: true,
             order: [], //Initial no order.
             ajax: {
-                url: "{{ route('admin.getEvents') }}",
+                url: "{{ route('admin.getHomeSlider') }}",
                 method: 'POST'
             },
             columnDefs: [
@@ -95,22 +97,21 @@
                 }
             ],
             columns: [
-                {data: 'name', name: 'name'},
+                {data: 'heading1', name: 'heading1'},
+                {data: 'heading2', name: 'heading2'},
                 {data: 'image', name: 'image'},
-                {data: 'organizer_name', name: 'organizer_name'},
-                {data: 'country', name: 'country'},
                 {data: 'created_at', name: 'created_at'},
                 {data: 'action', name: 'action', "searchable": false, "orderable": false, width: '50px', className : "text-center"}
             ],
         });
     
      
-    function deleteEvent(obj,id) 
+    function deleteSlider(obj,id) 
     {
-        let list_name = $(obj).data('listname');
+       
         Swal.fire({
-            title: 'Delete Event?',
-            text: "Do you really want to delete this event and all data related to this event?",
+            title: 'Delete Image?',
+            text: "Do you really want to delete this Image and all data related to this Image?",
             type: 'warning',
             showCancelButton: true,
             showLoaderOnConfirm: true,
@@ -120,8 +121,8 @@
         }).then((result) => {
             if (result.value) {
                 $('#full_page_loader').removeClass('d-none');
-                $.post('{{ route("admin.event.delete") }}', {
-                    id: id,
+                $.post('{{ route("admin.homeSlider.delete") }}', {
+                     id: id,
                     _token: "{!! csrf_token() !!}"
                 }, function (data) {
                     $('#full_page_loader').addClass('d-none');
@@ -147,6 +148,5 @@
         })
     }
 
-    
     </script>
 @endsection

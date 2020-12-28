@@ -7,14 +7,11 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File; 
 use Illuminate\Support\Facades\Validator;
 
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
-
 use Auth;
 use Session;
 use Response;
 use App\User;
-use App\Categories;
+use App\Models\Categories;
 
 use Yajra\Datatables\Datatables;
 
@@ -172,7 +169,12 @@ class CategoriesController extends Controller
                 if ($request->hasFile('image_name')) {
                     
                     if ($request->file('image_name')->isValid()) {
-                        File::delete($data['old_file']);
+                        
+                        if(file_exists(public_path($data['old_file']))){
+                            unlink(public_path($data['old_file']));
+                            File::delete(public_path($data['old_file']));
+                        }
+
                     
                         $validated = $request->validate([
                             'image_name' => 'string|max:40',
@@ -188,7 +190,7 @@ class CategoriesController extends Controller
                 }
                 
             
-                if($user->id != ''){
+                if($category->id != ''){
                     $request->session()->flash('message.level', 'success');
                     $request->session()->flash('message.text', 'Category Updated successfully.');
                     return redirect()->back();
@@ -210,7 +212,7 @@ class CategoriesController extends Controller
         }
     }
 
-     public function deleteCategory(Request $request){
+    public function deleteCategory(Request $request){
         $validator = Validator::make($request->all(), [
             'id' => 'required|numeric',
         ]);
@@ -219,6 +221,10 @@ class CategoriesController extends Controller
         }
         try{
             $category = Categories::find($request->input('id'));
+            if(file_exists(public_path($category->image))){
+                unlink(public_path($category->image));
+                File::delete(public_path($category->image));
+            }
             $category->delete();
            
             if($category){

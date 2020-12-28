@@ -28,6 +28,7 @@ Route::namespace('User\Auth')->group(function () {
 
 Route::namespace('User')->group(function () {
 	Route::get('/', 'UserController@index')->name('/');
+	Route::get('about-us', 'UserController@getAbout')->name('about-us');
 	Route::get('/dashboard', 'DashboardController@index')->name('user.dashboard');
 	Route::post('password-update', 'ProfileController@changePassword')->name('user.updatePass');
 	Route::post('edit-profile', 'ProfileController@updateProfile')->name('user.editProfile');
@@ -78,6 +79,26 @@ Route::namespace('Admin')->group(function () {
 	Route::get('/getCountries','DashboardController@getCountries');
 	Route::get('/getStates/{id}','DashboardController@getStates')->name('states');
 	Route::get('/getCities/{id}','DashboardController@getCities')->name('cities');
+
+	Route::get('/page/{name}','PageController@getPage')->name('admin.page');
+	Route::post('/add-home','PageController@addHomePage')->name('admin.pages.home');
+	Route::post('/add-about','PageController@addAboutPage')->name('admin.pages.about');
+
+	
+	Route::resource('testimonials', 'TestimonialController');
+	Route::post('get-testimonials', 'TestimonialController@getTestimonial')->name('admin.getTestimonial');
+
+	Route::get('/slider/{name}','PageController@getSlider')->name('admin.slider');
+	Route::any('/add-slider','PageController@addHomeSlider')->name('admin.add.homeSlider');
+	Route::post('get-home-slider', 'PageController@allHomeSlider')->name('admin.getHomeSlider');
+	Route::any('/edit-slider','PageController@editHomeSlider')->name('admin.edit.homeSlider');
+	Route::post('delete-slider', 'PageController@deleteHomeSlider')->name('admin.homeSlider.delete');
+	Route::any('/add-trusted-slider','PageController@addTrustedSlider')->name('admin.add.trustedBrands');
+	Route::post('get-brands-slider', 'PageController@allTrustedBrandsSlider')->name('admin.getTrustedBrandsSlider');
+	Route::any('/edit-trusted-slider','PageController@editTrustedBrandsSlider')->name('admin.edit.trustedBrandsSlider');
+
+	Route::resource('services', 'ServicesController');
+    
 
 
 });	

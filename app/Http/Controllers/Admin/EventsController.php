@@ -13,11 +13,11 @@ use Spatie\Permission\Models\Permission;
 use Auth;
 use Session;
 use Response;
-use App\Event;
-use App\States;
-use App\Cities;
-use App\Countries;
-use App\Categories;
+use App\Models\Event;
+use App\Models\States;
+use App\Models\Cities;
+use App\Models\Countries;
+use App\Models\Categories;
 
 
 use Yajra\Datatables\Datatables;
@@ -266,6 +266,10 @@ class EventsController extends Controller
         }
         try{
             $event = Event::find($request->input('id'));
+            if(file_exists(public_path($event->image))){
+                unlink(public_path($event->image));
+                File::delete(public_path($event->image));
+            }
             $event->delete();
            
             if($event){

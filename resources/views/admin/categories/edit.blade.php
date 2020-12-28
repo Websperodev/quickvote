@@ -44,7 +44,7 @@
                     
                     <div class="col-md-12 form-group cus-form-group">
                             <label for="description">Description</label>
-                            <textarea type="text" name="description" class="form-control" placeholder="Description here..">{{ isset($category->description ) ? $category->description  : ''}}</textarea>
+                            <textarea type="text" name="description" id="description" class="form-control" placeholder="Description here..">{{ isset($category->description ) ? $category->description  : ''}}</textarea>
                             @if($errors->has('description'))
                                 <div class="error">{{ $errors->first('description') }}</div>
                             @endif
@@ -65,6 +65,14 @@
 
 
 @section('script-bottom')
+<script type="text/javascript" src="{{ URL::asset('assets/js/nicEdit-latest.js') }}"></script>
+<script type="text/javascript">
+
+bkLib.onDomLoaded(function() {
+    new nicEditor({ maxHeight : 100 }).panelInstance('description');
+});
+</script>
+
 
 
 @endsection

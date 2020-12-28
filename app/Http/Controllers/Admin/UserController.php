@@ -12,10 +12,11 @@ use Auth;
 use Session;
 use Response;
 use App\User;
-use App\Cities;
-use App\States;
-use App\Countries;
-use App\ModelHasRoles;
+use App\Models\Cities;
+use App\Models\States;
+use App\Models\Countries;
+use App\Models\ModelHasRoles;
+
 use Carbon\Carbon;
 use Yajra\Datatables\Datatables;
 

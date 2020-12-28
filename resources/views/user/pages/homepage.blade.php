@@ -3,28 +3,24 @@
 @section('content')
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
-    <div class="carousel-item active slide1">
-      <div class="slider-content">
-      <h4>Ever Wished For</h4>
-      <h2>Transparent DigitalPolls?</h2>
-      <p>Create a poll Contest in seconds. Your voters can vote from any location on any device.</p>
-      <div class="lmore">
-        <a href="#" class="btn btn-bg"> Learn More</a>
-        <a href="#" class="btn btn-bd"> Get Started</a>
+    @if(isset($sliders['home']) && !empty($sliders['home']))
+      @foreach($sliders['home'] as $k => $slider)
+      <div class="carousel-item @if($k == '0') active  @endif slide1" style="background-image:url({!! asset("$slider->img1") !!})">
+        <div class="slider-content">
+        <h4>{!! $slider['heading1'] !!}</h4>
+        <h2>{!! $slider['heading2'] !!}</h2>
+        <p>{!! $slider['description'] !!}</p>
+        <div class="lmore">
+          <a href="#" class="btn btn-bg"> Learn More</a>
+          <a href="#" class="btn btn-bd"> Get Started</a>
+        </div>
+        </div>
       </div>
-      </div>
-    </div>
-    <div class="carousel-item slide1">
-      <div class="slider-content">
-      <h4>Ever Wished For</h4>
-      <h2>Transparent DigitalPolls?</h2>
-      <p>Create a poll Contest in seconds. Your voters can vote from any location on any device.</p>
-      <div class="lmore">
-        <a href="#" class="btn btn-bg"> Learn More</a>
-        <a href="#" class="btn btn-bd"> Get Started</a>
-      </div>
-      </div>
-    </div>
+      @endforeach
+    @endif
+
+   
+
     </div>
     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
     <span class="prev-icon" aria-hidden="true"><img src="{{asset('img/prev.png')}}"></span>
@@ -56,12 +52,13 @@
     </div>
   </div>
   
+
   <div id="feat" class="feat-event py-5">
     <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <h2 class="titleh2 tc">Featured Event</h2>
-      <p>We support all types of poll events, here are some recent events created on our platform.</p>
+        <h2 class="titleh2 tc">{!! isset($pageData['featured event']['heading1']) ? ucfirst($pageData['featured event']['heading1']) : '' !!}</h2>
+      <p> {!! isset($pageData['featured event']['description']) ? ucfirst($pageData['featured event']['description']) : 'We support all types of poll events, here are some recent events created on our platform.' !!} </p>
       <div class="owl-carousel owl-theme">
         <div class="item first prev">
           <div class="tcard border-0 py-3 px-4">
@@ -120,15 +117,17 @@
     </div>
     </div>
   </div>
+
   
   <div id="about">
     <div class="container">
     <div class="row vcenter">
-      <div class="col-md-5"><img src="{{asset('img/aboutt.png')}}"></div>
+      <div class="col-md-5"><img src="{{ isset($pageData['about quickvote']['img1']) ? url($pageData['about quickvote']['img1']) : asset('img/aboutt.png') }}"></div>
       <div class="col-md-7">
-        <h2 class="titleh2">About Quickvote</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident. </p>
-      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dolore mque laudantium, totam rem aperiam, eaque ipsa quae ab illo.</p>
+        <h2 class="titleh2">{!! isset($pageData['about quickvote']['heading1']) ? ucfirst($pageData['about quickvote']['heading1']) : 'About Quickvote' !!}</h2>
+      <p> {!! isset($pageData['about quickvote']['description']) ? ucfirst($pageData['about quickvote']['description']) : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident. </p>
+      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dolore mque laudantium, totam rem aperiam, eaque ipsa quae ab illo.</p>' !!}
+
       <a href="" class="btn btn-bg mt-4">Read More</a>
       </div>
     </div>
@@ -139,8 +138,8 @@
     <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <h2 class="titleh2 tc">Our Pricing</h2>
-      <p>Our platform is free to use, users just have to sign up to vote but you can also use our freemium or paid plan for instant voting and other cool features. </p>
+        <h2 class="titleh2 tc">{!! isset($pageData['our pricing']['heading1']) ? ucfirst($pageData['our pricing']['heading1']) : 'Our Pricing' !!}</h2>
+      <p>{!! isset($pageData['our pricing']['description']) ? ucfirst($pageData['our pricing']['description']) : 'Our platform is free to use, users just have to sign up to vote but you can also use our freemium or paid plan for instant voting and other cool features.' !!} </p>
       <div class="cards row">
         <div class="col-6 card free">
         <div class="card-body">
@@ -179,102 +178,5 @@
     </div>
   </div>
   
-  <div id="tests">
-    <div class="container text-center">
-    <h2 class="titleh2 tc">What Our Client Say</h2>
-    <p>Our platform is free to use, users just have to sign up to vote but you can also use our freemium or paid plan for instant voting and other cool features. </p>
-    <div class="owl-carousel owl-theme">
-      <div class="item first prev">
-        <div class="tcard border-0 py-3 px-4">
-          <div class="row justify-content-center"> <img src="{{asset('img/t1.png')}}" class="img-fluid profile-pic mb-4 mt-3"> </div>
-          <h6 class="mb-3 mt-2">Marielle Haag</h6>
-          <p class="content mb-3 mx-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim.</p>
-        </div>
-      </div>
-      <div class="item show">
-        <div class="tcard border-0 py-3 px-4">
-          <div class="row justify-content-center"> <img src="{{asset('img/t2.png')}}" class="img-fluid profile-pic mb-4 mt-3"> </div>
-          <h6 class="mb-3 mt-2">Ximena Vegara</h6>
-          <p class="content mb-3 mx-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim.</p>
-        </div>
-      </div>
-      <div class="item next">
-        <div class="tcard border-0 py-3 px-4">
-          <div class="row justify-content-center"> <img src="{{asset('img/t3.png')}}" class="img-fluid profile-pic mb-4 mt-3"> </div>
-          <h6 class="mb-3 mt-2">John Paul</h6>
-          <p class="content mb-3 mx-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim.</p>
-        </div>
-      </div>
-      <div class="item last">
-        <div class="tcard border-0 py-3 px-4">
-          <div class="row justify-content-center"> <img src="{{asset('img/t2.png')}}" class="img-fluid profile-pic mb-4 mt-3"> </div>
-          <h6 class="mb-3 mt-2">William Doe</h6>
-          <p class="content mb-3 mx-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim.</p>
-        </div>
-      </div>
-    </div>
-    </div>
-  </div>
   
-  <div class="cta py-5">
-    <div class="container">
-    <div class="row vcenter">
-      <div class="col-md-7">
-      <h2 class="titleh2">News and  Updates</h2>
-      <p>Subscribe to our newsletter and receive the latest news from QuickVote.</p>
-      </div>
-      <div class="col-md-5">
-      <form class="subs">
-        <div class="form-group">
-        <input type="text" class="form-control" name="newsletter" placeholder="Enter Your Email">
-        <button type="submit" class="btn btn-primary nletter">Subscribe</button>
-        </div>      
-      </form>
-      </div>
-    </div>
-    </div>
-  </div>
-  
-  <div class="brands py-5 my-3">
-    <div class="container">
-    <h2 class="titleh2 tc">Trusted By Great Brands In Nigeria</h2>
-
-    <div class="customer-logos">
-      <div class="slide"><img src="{{asset('img/1.png')}}"></div>
-      <div class="slide"><img src="{{asset('img/2.png')}}"></div>
-      <div class="slide"><img src="{{asset('img/3.png')}}"></div>
-      <div class="slide"><img src="{{asset('img/4.png')}}"></div>
-      <div class="slide"><img src="{{asset('img/5.png')}}"></div>
-      <div class="slide"><img src="{{asset('img/6.png')}}"></div>
-      <div class="slide"><img src="{{asset('img/7.png')}}"></div>
-    </div>    
-    </div>
-
-    <script>
-    $(document).ready(function(){
-      $('.customer-logos').slick({
-        slidesToShow: 5,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 1500,
-        arrows: false,
-        dots: false,
-          pauseOnHover: true,
-          responsive: [{
-          breakpoint: 768,
-          settings: {
-            slidesToShow: 3
-          }
-        }, {
-          breakpoint: 520,
-          settings: {
-            slidesToShow: 2
-          }
-        }]
-      });
-    });
-    </script>
-    
-   
-  </div>
 @endsection

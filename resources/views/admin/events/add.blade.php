@@ -186,7 +186,7 @@
 </div> 
 
 
-<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>
+<script type="text/javascript" src="{{ URL::asset('assets/js/nicEdit-latest.js') }}"></script>
 <script type="text/javascript">
 
 $( "#start-date" ).datepicker({
@@ -284,9 +284,6 @@ bkLib.onDomLoaded(function() {
     }); 
  
 </script>
-      
-    
-
 
 
 @endsection
