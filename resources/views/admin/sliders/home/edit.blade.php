@@ -24,7 +24,7 @@
                     <div class="col-md-12 form-group cus-form-group">
                         <label for="image">Image</label>
                         @if(isset($slider->img1) && $slider->img1 != '')
-                            <img src="{{ isset($slider->img1) ? $slider->img1 : ''}}" width="150" height="150">
+                            <img src="{{ isset($slider->img1) ? url($slider->img1) : ''}}" width="150" height="150">
                         @endif
                         <input type="file" class="form-control" name="image" id="image" aria-describedby="emailHelp" placeholder="Choose Image">
 
