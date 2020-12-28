@@ -22,7 +22,7 @@
   <div id="about" class="about-page">
     <div class="container">
     <div class="row vcenter">
-      <div class="col-md-5"><img src="url({!! $pageData['aboutus']['about quickvote']['img1'] !!})"></div>
+      <div class="col-md-5"><img src="{!! $pageData['aboutus']['about quickvote']['img1'] !!}"></div>
       <div class="col-md-7">
         <h2 class="titleh2">{!! isset($pageData['aboutus']['about quickvote']['heading1']) ? ucfirst($pageData['aboutus']['about quickvote']['heading1']) : 'About Quickvote' !!}</h2>
       <p>{!! isset($pageData['aboutus']['about quickvote']['description']) ? ucfirst($pageData['aboutus']['about quickvote']['description']) : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident. </p>
