@@ -50,8 +50,8 @@ class ServicesController extends Controller
                                         "name.*"         => "required",
                                         "description"    => "required",
                                         "description.*"  => "required",
-                                        "image"          => "sometime|required",
-                                        "image.*"        => "sometime|required",
+                                        "image"          => "sometimes|required",
+                                        "image.*"        => "sometimes|required",
                                     ]);
 
         if ($validator->fails())
