@@ -73,7 +73,7 @@
                         @foreach($services as $i => $service)
                         <div class="col-md-12 form-group cus-form-group">
                             <label for="image">Image {{$i+1}}</label>
-                            <img src="{{ $service->image }}" width="150" height="150">
+                            <img src="{{ url($service->image) }}" width="150" height="150">
                             <input type="hidden" name="existing_img[]" value="{{ $service->image }}">
 
                             <input type="file" class="form-control" name="image[]" id="image" aria-describedby="emailHelp" placeholder="Choose Image">
