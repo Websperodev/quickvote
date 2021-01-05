@@ -24,11 +24,18 @@ Route::namespace('User\Auth')->group(function () {
 	Route::post('forget-password', 'RegisterController@forgetPassword')->name('forget.password');
 	Route::get('reset-password', 'RegisterController@openResetPassword')->name('reset.password');
 	Route::post('reset-password', 'RegisterController@resetPassword')->name('change.password');
+
+	Route::post('user.contact', 'RegisterController@sendContact')->name('user.contact');
 });
 
 Route::namespace('User')->group(function () {
 	Route::get('/', 'UserController@index')->name('/');
 	Route::get('about-us', 'UserController@getAbout')->name('about-us');
+	Route::get('pricing', 'UserController@getPricing')->name('pricing');
+	Route::get('contact', 'UserController@getContact')->name('contact');
+	Route::get('faq', 'UserController@getFaq')->name('faq');
+	
+
 	Route::get('/dashboard', 'DashboardController@index')->name('user.dashboard');
 	Route::post('password-update', 'ProfileController@changePassword')->name('user.updatePass');
 	Route::post('edit-profile', 'ProfileController@updateProfile')->name('user.editProfile');
@@ -70,6 +77,7 @@ Route::namespace('Admin')->group(function () {
 	Route::any('edit-categories', 'CategoriesController@editCategory')->name('admin.edit-category');
 	Route::post('delete-category', 'CategoriesController@deleteCategory')->name('admin.category.delete');
 
+
 	Route::get('events', 'EventsController@index')->name('admin.events');
 	Route::any('add-event', 'EventsController@addEvent')->name('admin.add.event');
 	Route::post('get-events', 'EventsController@allEvents')->name('admin.getEvents');
@@ -83,10 +91,16 @@ Route::namespace('Admin')->group(function () {
 	Route::get('/page/{name}','PageController@getPage')->name('admin.page');
 	Route::post('/add-home','PageController@addHomePage')->name('admin.pages.home');
 	Route::post('/add-about','PageController@addAboutPage')->name('admin.pages.about');
+	Route::post('/add-contact','PageController@addContactPage')->name('admin.pages.contact');
+	Route::post('/pricing','PageController@addPricingPage')->name('admin.pages.pricing');
+
 
 	
 	Route::resource('testimonials', 'TestimonialController');
 	Route::post('get-testimonials', 'TestimonialController@getTestimonial')->name('admin.getTestimonial');
+
+	Route::resource('faqs', 'FaqController');
+	Route::post('get-faqs', 'FaqController@getFaqs')->name('admin.getFaqs');
 
 	Route::get('/slider/{name}','PageController@getSlider')->name('admin.slider');
 	Route::any('/add-slider','PageController@addHomeSlider')->name('admin.add.homeSlider');
@@ -96,7 +110,8 @@ Route::namespace('Admin')->group(function () {
 	Route::any('/add-trusted-slider','PageController@addTrustedSlider')->name('admin.add.trustedBrands');
 	Route::post('get-brands-slider', 'PageController@allTrustedBrandsSlider')->name('admin.getTrustedBrandsSlider');
 	Route::any('/edit-trusted-slider','PageController@editTrustedBrandsSlider')->name('admin.edit.trustedBrandsSlider');
-
+	Route::get('/banners/{name}','PageController@getBanners')->name('admin.banners');
+	Route::post('add-banner', 'PageController@addBanner')->name('admin.banner');
 	Route::resource('services', 'ServicesController');
     
 

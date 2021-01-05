@@ -22,7 +22,8 @@ input#image {
     padding: 5px;
 }
 
-#edit_event_form label[for="image"] + img {
+
+.custum-frm label[for="image"] + img {
     display: block;
     height: auto;
     width: 200px;

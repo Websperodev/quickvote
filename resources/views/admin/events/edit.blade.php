@@ -17,7 +17,7 @@
                     </div>
                 @endif
 
-                {!! Form::open(array('route' => 'admin.edit.event', 'id' => 'edit_event_form', 'method' => 'post', 'enctype' => 'multipart/form-data' )) !!}
+                {!! Form::open(array('route' => 'admin.edit.event', 'id' => 'edit_event_form', 'class' => 'custum-frm'  ,'method' => 'post', 'enctype' => 'multipart/form-data' )) !!}
                     @csrf
 
                     <div class="row">

@@ -634,10 +634,9 @@ div.card-body {
     margin-bottom: 0;
 }
 
-.cta h2.titleh2, .cta p {
-    color: #fff ;
+.cta h2.titleh2, .cta p, .cta p span {
+    color: #fff !important;
 }
-
 .cta input.form-control::placeholder {
     color: #fff;
 }
@@ -1421,11 +1420,16 @@ img.w-img {
     display: none;
 }
 
-.serv-body:hover img.o-img {
+/*.serv-body:hover img.o-img {
     display: none;
 }
 
 .serv-body:hover img.w-img {
+    display: inline-block;
+}*/
+
+serv-body:hover img {
+    filter: brightness(0) invert(1);
     display: inline-block;
 }
 
@@ -1513,4 +1517,454 @@ a.sc-icon.twicon {
 }
 a.sc-icon.gglicon { 
     background: #db3236;
+}
+
+/********************************30-12-20********************************/
+
+div#contact-page {
+    background-image: url(../img/contact.jpg);
+    background-size: cover;
+}
+
+.banner.breadcrumb {
+    margin-bottom: 0;
+}
+
+.banner .slider-content {
+    padding: 6vw 0;
+}
+
+.contact-form {
+    padding: 80px 0;
+}
+
+.contact-form .col-md-12 {
+    max-width: 1550px;
+    width: 90%;
+    margin: 0 auto;
+    padding: 40px 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 11px 0px #0001;
+}
+
+.form-group.w50 {
+    width: 50%;
+    float: left;
+    padding: 10px 25px;
+}
+
+.form .form-group label {
+    margin-bottom: 5px;
+}
+
+.form-group.w100 {
+    padding: 10px 25px;
+    width: 100%;
+    float: left;
+    margin-bottom: 40px;
+}
+
+textarea#message {
+    resize: none;
+    height: 100px;
+}
+
+.form-control {
+    border: none;
+    border-bottom: 1px solid #000;
+    border-radius: 0;
+    padding: 0;
+    height: 50px;
+    line-height: 40px;
+    font-size: 14px;
+}
+
+.form > p {
+    display: flex;
+    width: 100%;
+    padding: 10px 25px;
+}
+
+div#mapp {
+    position: relative;
+}
+
+.addrs {
+    position: absolute;
+    background: linear-gradient(152deg, #f47f34, #fdb92e);
+    max-width: 520px;
+    top: 5vw;
+    left: 5vw;
+    padding: 20px;
+}
+
+.addrs h3.titleh3 {
+    font-size: 22px;
+    color: #fff;
+}
+
+.direc.col-8 {
+    max-width: calc(100% - 100px);
+    flex: calc(100% - 100px);
+}
+
+.dicon.col-4 {
+    width: 130px;
+    flex: 130px;
+    max-width: 100px;
+    float: right;
+}
+
+.addrs > div {
+    padding: 0;
+}
+
+span.icnn {
+    color: #fff;
+    text-align: center;
+    display: block;
+    width: auto;
+    float: revert;
+}
+
+span.map-icn {
+    display: block;
+    background: #fff;
+    width: 100px;
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.direc * {
+    color: #fff;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+p.larger-map {
+    width: 100%;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin: 20px 0 5px;
+}
+
+span.reviews {
+    color: #fff;
+}
+
+a.btn.lmap {
+    background: #fff;
+    padding: 16px 20px 15px;
+    line-height: 14px;
+    font-size: 14px;
+    border-radius: 30px;
+    color: #f89931;
+    font-weight: 600;
+}
+
+.direc.col-8 a {
+    text-decoration: none;
+}
+
+.embeded-map iframe {
+    display: block;
+}
+
+div#price-page {
+    background-image: url(../img/price.jpg);
+    background-size: cover;
+}
+
+/*******************************31-12-20*************************************/
+
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+  background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+.tab {
+  display: none;
+}
+
+button {
+  background-color: #4CAF50;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 17px;
+  font-family: Raleway;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+#prevBtn {
+  background-color: #bbbbbb;
+}
+
+form#vendForm .form-group {
+    float: left;
+    margin-bottom: 15px;
+}
+
+#vendForm input, #vendForm textarea, #vendForm select {
+    line-height: 40px;
+    padding: 0;
+    border: none;
+    border-bottom: 1px solid #000;
+    border-radius: 0;
+    font-size: 14px;
+    width: 100%;
+    height: 41px;
+}
+
+#vendForm input:focus, #vendForm textarea:focus, #vendForm select:focus {
+    outline: none;
+}
+
+.step-dots {
+    display: none;
+}
+
+#vendForm .form-group.col-12 input, #vendForm .form-group.col-12 select {
+    width: calc(50% - 15px);
+}
+
+#vendForm .form-group.col-12.multii input, #vendForm .form-group.col-12.multii select {
+    margin-bottom: 10px;
+}
+
+button#nextBtn, button#prevBtn {
+    padding: 15px 20px;
+    line-height: initial;
+    border-radius: 40px;
+    min-width: 120px;
+}
+/**********************************05-01-2021*****************************************/
+
+.faqs .card {
+    border-radius: 0;
+    border: none;
+    margin-bottom: -1px;
+}
+
+.faqs .card-header {
+    padding: 0;
+    border-radius: 0;
+    border: none;
+    margin: 0;
+    display: block;
+}
+
+.faqs a.card-link {
+    width: 100%;
+    padding: 20px;
+    display: block;
+    border-radius: 0;
+    color: #000;
+    background: #fff;
+    border: 1px solid #dadada;
+    margin: 0 !important;
+    position: relative;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.faqs a.card-link:not(.collapsed) {
+    background: linear-gradient(152deg, #f47f34, #fdb92e);
+    color: #fff;
+    border: none;
+}
+
+.faqs .collapse {
+    display: block;
+    height: 0;
+    overflow: hidden;
+    transition: all ease 0.5s;
+}
+
+.faqs .collapse.show {
+    border: 1px solid;
+    border-image-slice: 1;
+    border-width: 1px;
+    border-image-source: linear-gradient(to right, #f47f34, #fcb02f);
+    height: auto;
+    transition: all ease 0.5s;
+    position: relative;
+    z-index: 2;
+}
+
+.faqs .card-body {
+    border: none;
+    padding: 1rem;
+}
+
+.faqs {
+    padding: 60px 0;
+}
+
+.faqs a.card-link.collapsed:after {
+    transform: rotate(90deg);
+    transition: all ease 0.5s;
+}
+
+.faqs a.card-link:after {
+    content: ">";
+    display: block;
+    position: absolute;
+    right: 15px;
+    top: 17px;
+    transform: rotate(-90deg);
+    transition: all ease 0.5s;
+    font-weight: 500;
+}
+
+div#faq-page {
+    background-image: url(../img/faqimg.jpg);
+    background-size: cover;
+}
+
+div#event-page {
+    background-image: url(../img/create-event-img.jpg);
+    background-size: cover;
+}
+
+.filterr.col-12 .btn:after {
+    content: "|";
+    position: absolute;
+    right: -5px;
+    top: -1px;
+}
+
+.filterr.col-12 .btn:focus {
+    color: #000;
+}
+
+.filterr.col-12 .btn {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0px 10px;
+    border-radius: 0;
+    line-height: initial;
+    position: relative;
+    color: #929191;
+}
+
+.filterr.col-12 .btn:last-child:after {
+    display: none;
+}
+
+.filterr.col-12 {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+#eve .fe-abs {
+    display: block;
+}
+
+#eve .gallery_product {
+    margin-bottom: 20px;
+}
+
+#eve .tcard {
+    padding: 0 !important;
+    position: relative;
+}
+
+#eve .tcard img {
+    margin: 0 !important;
+}
+
+#eve .fe-abs {
+    display: block;
+    padding: 0;
+}
+
+#eve span.date-abs {
+    font-size: 18px;
+    width: 70px;
+    left: 20px;
+    top: 20px;
+}
+
+#eve .txt-card {
+    width: 100%;
+    position: unset;
+    padding: 20px;
+}
+
+.event-name {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.event-name:before {
+    content: "";
+    width: 4px;
+    height: 100%;
+    position: absolute;
+    background: linear-gradient(152deg, #f47f34, #fdb92e);
+    left: -20px;
+}
+
+span.tickets {
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: #ffa500;
+}
+
+span.etime {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.etime i.far.fa-clock {
+    color: #fff;
+    background: linear-gradient(152deg, #f47f34, #fdb92e);
+    padding: 6px;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-right: 7px;
+}
+
+span.eprice {
+    background: linear-gradient(152deg, #f47f34, #fdb92e);
+    color: #fff;
+    padding: 4px 10px;
+    float: right;
+    border-radius: 4px;
+    line-height: initial;
+}
+
+.btn.btn-grad-bd.ticket-details {
+    padding: 12px 25px;
+    font-size: 14px;
+    line-height: initial;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin: 30px 0 20px;
+    z-index: 1;
+}
+
+.btn.btn-grad-bd.ticket-details:before {
+    width: calc(100% - 2px);
+    height: calc(100% - 2px);
+}
+
+
+#floating-search .form-control {
+    height: 44px;
+}
+
+#floating-search.evnt .col-md-6 .form-group {
+    padding-left: 0px;
 }

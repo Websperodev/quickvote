@@ -17,6 +17,8 @@ use Session;
 use Response;
 use Carbon\Carbon;
 
+use App\Models\ContactQuerie;
+
 class RegisterController extends Controller
 {
     /*
@@ -261,6 +263,39 @@ class RegisterController extends Controller
         }
            
            
+    }
+
+    public function sendContact(Request $request){
+       
+        $validator = Validator::make($request->all(), [
+            'name'     => 'required',
+            'email'    => 'required|email',
+            'subject'  => 'required',
+            'phone'    => 'required',
+            'message'  => 'required',
+        ]);
+
+        if ($validator->fails())
+        {
+            return Response::json(['success' => false, 'status' => 2, 'errors'=> $validator->errors()->all()]);
+        }
+        try{
+
+            $query = new ContactQuerie();
+            $query->name = $request->get('name');
+            $query->email = $request->get('email');
+            $query->subject = $request->get('subject');
+            $query->phone = $request->get('phone');
+            $query->message = $request->get('message');
+            $query->save();
+            return Response::json(['success' => true, 'status' => 1, 'message' => 'Request Submitted Successfully!!']);
+
+        }catch (\Exception $e) {
+          return Response::json(['success' => false, 'status' => 2, 'errors' => [$e->getMessage()]]);
+        }
+        
+        die;
+
     }
     
 }

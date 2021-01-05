@@ -18,10 +18,8 @@
       </div>
       @endforeach
     @endif
-
-   
-
     </div>
+
     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
     <span class="prev-icon" aria-hidden="true"><img src="{{asset('img/prev.png')}}"></span>
     <span class="visually-hidden">Previous</span>
@@ -30,7 +28,7 @@
     <span class="next-icon" aria-hidden="true"><img src="{{asset('img/next.png')}}"></span>
     <span class="visually-hidden">Next</span>
     </a>
-  </div>
+</div>
   
   <div id="floating-search" class="container">
     <h2>Browse Voting Contests</h2>
@@ -134,7 +132,7 @@
     </div>
   </div>
   
-  <div class="pricing">
+  <!-- <div class="pricing">
     <div class="container">
     <div class="row">
       <div class="col-md-12">
@@ -176,7 +174,10 @@
       </div>
     </div>
     </div>
-  </div>
-  
+  </div> -->
+  @include('user.components.pricing-plans')
+  @include('user.components.testimonial')
+  @include('user.components.newsletter')
+  @include('user.components.trusted-brands')
   
 @endsection

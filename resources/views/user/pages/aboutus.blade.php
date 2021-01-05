@@ -1,22 +1,19 @@
 @extends('user.layouts.main')
 
 @section('content')
- 
   <div id="carouselabt1" class="abt-page carousel slide" data-ride="carousel">
     <div class="carousel-inner">
-    <div class="carousel-item active slide1">
-      <div class="slider-content">
-      <h4>All You Need To Know</h4>
-      <h2>About QuickVote</h2>
-      <p>Create a poll Contest in seconds. Your voters can vote from any location on any device.</p>
-      <div class="lmore breadcrumb">
-        <p>Home | <span>About US</span></p>
-      </div>
+      <div class="carousel-item active slide1" style="background-image: {{ isset($banners['img']) ? url($banners['img']) : url("img/Banner-img1.jpg") }}">
+        <div class="slider-content">
+          <h4>{{ isset($banners['heading1']) ? $banners['heading1'] : 'All You Need To Know' }}</h4>
+          <h2>{{ isset($banners['heading2']) ? $banners['heading2'] : 'About QuickVote' }}</h2>
+          <p>{{ isset($banners['description']) ? $banners['description'] : 'Create a poll Contest in seconds. Your voters can vote from any location on any device.' }}</p>
+          <div class="lmore breadcrumb">
+            <p>Home | <span>About US</span></p>
+          </div>
+        </div>
       </div>
     </div>
-    
-    </div>
-    
   </div>
   
   <div id="about" class="about-page">
@@ -106,6 +103,10 @@
     </div>
     </div>
   </div>
+
+  @include('user.components.testimonial')
+  @include('user.components.newsletter')
+  @include('user.components.trusted-brands')
   
   
   

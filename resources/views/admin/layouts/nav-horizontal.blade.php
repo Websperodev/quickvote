@@ -23,6 +23,15 @@
                         <li>
                             <a href="{{ route('admin.page',['name' => 'testimonials']) }}">Testimonials</a>
                         </li>
+                        <li>
+                            <a href="{{ route('admin.page',['name' => 'pricing']) }}">Pricing</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('faqs.index') }}">Faq</a>
+                        </li>
+                        <!-- <li>
+                            <a href="{{ route('admin.page',['name' => 'contact']) }}">Contact</a>
+                        </li> -->
                         
                     </ul>
                 </li>
@@ -38,6 +47,26 @@
                         </li>
                     </ul>
                 </li>
+
+                <li class="has-submenu">
+                    <a href="javascript:void(0)">
+                        <i class="fa fa-file" aria-hidden="true"></i>Banners &nbsp;<div class="arrow-down"></div></a>
+                    <ul class="submenu">
+                        <li>
+                            <a href="{{ route('admin.banners',['name' => 'aboutus']) }}">About Banners</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.banners',['name' => 'contact']) }}">Contact</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.banners',['name' => 'pricing']) }}">Pricing</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.banners',['name' => 'faq']) }}">Faq</a>
+                        </li>
+                    </ul>
+                </li>
+
 
                 <li>
                     <a href="{{ route('admin.users') }}">Users</a>

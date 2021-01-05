@@ -16,7 +16,7 @@
                     {!! session('message.text') !!}
                     </div>
                 @endif
-                 {!! Form::open(array('route' => 'admin.pages.home', 'id' => 'add_home_form', 'method' => 'post', 'enctype' => 'multipart/form-data' )) !!}
+                 {!! Form::open(array('route' => 'admin.pages.home', 'id' => 'add_home_form', 'class' => 'custum-frm','method' => 'post', 'enctype' => 'multipart/form-data' )) !!}
 
                     @csrf
                     <div class="featured-event">

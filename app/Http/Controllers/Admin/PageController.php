@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Validator;
 
 use App\Models\Page;
 use App\Models\Slider;
+use App\Models\Banner;
+use App\Models\PricingPlans;
 
 use Yajra\Datatables\Datatables;
 use Response;
@@ -34,9 +36,7 @@ class PageController extends Controller
         $page = $request->name;
 
         if($page == 'home'){
-
             $page = Page::where('page_name','home')->get();
-
             if($page->count() > 0){
                 $data = [];
                 foreach($page as $val){
@@ -45,11 +45,9 @@ class PageController extends Controller
                 return view('admin.pages.home')->with('data',$data);
             }else{
                 return view('admin.pages.home');
-            }
-            
+            }  
         }
         if($page == 'about'){ 
-           
             $page = Page::where('page_name','aboutus')->get();
             if($page->count() > 0){
                 $data = [];
@@ -61,10 +59,51 @@ class PageController extends Controller
                 return view('admin.pages.about');
             }
         }
-
         if($page == 'testimonials'){
             return redirect()->route('testimonials.index');
         }
+        if($page == 'pricing'){ 
+            $page = PricingPlans::get();
+            $data = [];
+            
+            if($page->count() > 0){
+                foreach($page as $key => $value){
+                    $newK = $key+1;
+                    $data['page_heading'] = $value['page_heading'];
+                    $data['description'] =  $value['description'];
+                    $planType = "planType".$newK;
+                    $planAmount = 'planAmount'.$newK;
+                    $planHeading = 'planHeading'.$newK;
+                    $planFeatures = 'planFeatures'.$newK;
+                    $planButtonText = 'planButtonText'.$newK;
+                    $data[$planType] = $value['plan_type'];
+                    $data[$planAmount] =  $value['plan_amount'];
+                    $data[$planHeading] =  $value['plan_heading'];
+                    $data[$planFeatures] =  $value['plan_features'];
+                    $data[$planButtonText] =  $value['button_text'];                    
+                    $data['page_heading'] = $value['page_heading'];
+                    $data['description'] =  $value['description'];
+
+                }
+                return view('admin.pages.pricing')->with('data',$data);
+            }else{
+                return view('admin.pages.pricing');
+            }
+        }
+        if($page == 'contact'){ 
+            $page = Page::where('page_name','contact')->get();
+            if($page->count() > 0){
+                $data = [];
+                foreach($page as $val){
+                    $data[$val->section] = $val;
+                }
+                return view('admin.pages.contact')->with('data',$data);
+            }else{
+                return view('admin.pages.contact');
+            }
+        }
+
+        
         
     }
 
@@ -661,6 +700,221 @@ class PageController extends Controller
 
     }
 
+    public function addContactPage(Request $request){
+        $validator = Validator::make($request->all(), [
+                                        'banner_heading1'     => 'required',
+                                        'banner_heading2'     => 'required',
+                                        'banner_img'          => 'required',
+                                    ]);
+
+        if ($validator->fails())
+        {  
+            return redirect()->back()->withErrors($validator);
+        }
+
+        try{
+
+            $page = Page::where('page_name','contact')->count();
+            $msg = 'Data inserted successfully';
+
+            if($page > 0){
+                Page::where('page_name','contact')->delete();
+                $msg = 'Data updated successfully';
+            }
+
+            $page = new Page; 
+            $page->page_name = 'contact';
+            $page->section = 'banner';
+            $page->heading1 = $request->get('banner_heading1');
+            $page->heading2 = $request->get('banner_heading2');
+            $page->save();
+
+            if ($request->hasFile('banner_img')) {
+                if($request->get('existing_banner_img') != ''){
+                    if(file_exists(public_path($request->get('existing_banner_img')))){
+                        unlink(public_path($request->get('existing_banner_img')));
+                        File::delete(public_path($request->get('existing_banner_img')));
+                    }
+                }
+                if ($request->file('banner_img')->isValid()) {
+                    $validated = $request->validate([
+                        'banner_img' => 'string|max:40',
+                        'banner_img' => 'mimes:jpeg,png|max:1014',
+                    ]);
+                    $file = request()->file('banner_img');
+                    $fileName = md5($file->getClientOriginalName() . time()) . "." . $file->getClientOriginalExtension();
+                    $file->move('./uploads/images/', $fileName); 
+                    $img = '/uploads/images/'.$fileName;
+                    $page->img1 =  $img;
+                    $page->update();
+                }
+            }
+            
+            $request->session()->flash('message.level', 'success');
+            $request->session()->flash('message.text', $msg);
+            return redirect()->back();
+        }catch (\Exception $e) {
+            $request->session()->flash('message.level', 'danger');
+            $request->session()->flash('message.text', $e->getMessage());
+            return redirect()->back()->withErrors($e->getMessage());
+        }
+
+    }
+    public function addPricingPage(Request $request){
+        
+        $validator = Validator::make($request->all(), [
+                                        'page_heading'     => 'required',
+                                        'page_text'        => 'required'
+                                    ]);
+
+        if ($validator->fails())
+        {  
+            return redirect()->back()->withErrors($validator);
+        }
+
+        try{
+                        
+            $page = PricingPlans::count();
+            $msg = 'Data inserted successfully';
+
+            if($page > 0){
+                PricingPlans::truncate();
+                $msg = 'Data updated successfully';
+            }
+
+            $planType = $request->get('plan_type');
+            $planAmount = $request->get('plan_amount');
+            $planHeading = $request->get('plan_heading');
+            $features = $request->get('features');
+            $buttonText = $request->get('button_text');
+            $pageHeading = $request->get('page_heading');
+            $pageText = $request->get('page_text');
+
+            
+            foreach($planType as $key => $value){
+                $pricingPlans = new PricingPlans();
+                $pricingPlans->plan_type = $planType[$key];
+                $pricingPlans->plan_amount = $planAmount[$key];
+                $pricingPlans->plan_heading = $planHeading[$key];
+                $pricingPlans->plan_features = $features[$key];
+                $pricingPlans->button_text = $buttonText[$key];
+                $pricingPlans->page_heading = $pageHeading;
+                $pricingPlans->description = $pageText;
+                $pricingPlans->button_text = $buttonText[$key];
+                $pricingPlans->save();
+            }
+            $request->session()->flash('message.level', 'success');
+            $request->session()->flash('message.text', $msg);
+            return redirect()->back();
+        }catch (\Exception $e) {
+            $request->session()->flash('message.level', 'danger');
+            $request->session()->flash('message.text', $e->getMessage());
+            return redirect()->back()->withErrors($e->getMessage());
+        }
+
+    }
+
+    public function getBanners(Request $request){
+        $banner =  $request->name;
+
+        $page = Banner::where('page',$banner)->get();
+        $data = [];
+        if($page->count() > 0){
+            $data = $page[0]; 
+        }
+        
+        if( $banner == 'aboutus'){
+            return view('admin.banners.aboutus')->with('data',$data);;
+        }
+        if( $banner == 'contact'){
+            return view('admin.banners.contact')->with('data',$data);;
+        }
+        if( $banner == 'pricing'){
+            return view('admin.banners.pricing')->with('data',$data);;
+        }
+        if( $banner == 'faq'){
+            return view('admin.banners.faq')->with('data',$data);;
+        }
+
+    }
+
+    public function addBanner(Request $request){
+
+        $validator = Validator::make($request->all(), [
+                                        'banner_heading1'     => 'required',
+                                        'banner_heading2'     => 'required',
+                                        'banner_description'  => 'required',
+                                        'banner_img'          => 'sometimes|required',
+                                    ]);
+
+        if ($validator->fails())
+        {  
+            return redirect()->back()->withErrors($validator);
+        }
+        
+        $existingBanner = Banner::where('page', $request->get('banner'))->get();
+        $msg = 'Data inserted successfully';
+        
+        if($existingBanner->count() > 0){
+            $msg = 'Data updated successfully';
+            $banner = Banner::find($existingBanner[0]['id']);
+            $banner->heading1 = $request->get('banner_heading1');
+            $banner->heading2 = $request->get('banner_heading2');
+            $banner->description = $request->get('banner_description');
+            $banner->update();
+
+            if ($request->hasFile('banner_img')) {
+                if($request->get('existing_banner_img') != ''){
+                    if(file_exists(public_path($request->get('existing_banner_img')))){
+                        unlink(public_path($request->get('existing_banner_img')));
+                        File::delete(public_path($request->get('existing_banner_img')));
+                    }
+                }  
+                if ($request->file('banner_img')->isValid()) {
+                    $validated = $request->validate([
+                        'banner_img' => 'string|max:40',
+                        'banner_img' => 'mimes:jpeg,png|max:1014',
+                    ]);
+                    $file = request()->file('banner_img');
+                    $fileName = md5($file->getClientOriginalName() . time()) . "." . $file->getClientOriginalExtension();
+                    $file->move('./uploads/images/', $fileName); 
+                    $img = '/uploads/images/'.$fileName;
+                    $banner->img =  $img;
+                    $banner->update();
+                }
+            }
+
+            $request->session()->flash('message.level', 'success');
+            $request->session()->flash('message.text', $msg);
+            return redirect()->back();
+        }else{
+            $banner = new Banner();
+            $banner->page = $request->get('banner');
+            $banner->heading1 = $request->get('banner_heading1');
+            $banner->heading2 = $request->get('banner_heading2');
+            $banner->description = $request->get('banner_description');
+            $banner->save();
+
+            if ($request->hasFile('banner_img')) {
+                if ($request->file('banner_img')->isValid()) {
+                    $validated = $request->validate([
+                        'banner_img' => 'string|max:40',
+                        'banner_img' => 'mimes:jpeg,png|max:1014',
+                    ]);
+                    $file = request()->file('banner_img');
+                    $fileName = md5($file->getClientOriginalName() . time()) . "." . $file->getClientOriginalExtension();
+                    $file->move('./uploads/images/', $fileName); 
+                    $img = '/uploads/images/'.$fileName;
+                    $banner->img =  $img;
+                    $banner->update();
+                }
+            }
+            $request->session()->flash('message.level', 'success');
+            $request->session()->flash('message.text', $msg);
+            return redirect()->back();
+        }
+        
+    }
 
 
 
