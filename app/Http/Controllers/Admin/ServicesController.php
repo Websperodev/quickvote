@@ -50,8 +50,8 @@ class ServicesController extends Controller
                                         "name.*"         => "required",
                                         "description"    => "required",
                                         "description.*"  => "required",
-                                        "image"          => "sometimes|required",
-                                        "image.*"        => "sometimes|required",
+                                        "image"          => "required",
+                                        "image.*"        => "required",
                                     ]);
 
         if ($validator->fails())
@@ -69,17 +69,9 @@ class ServicesController extends Controller
             
             if(!empty($existing_id)){
                 foreach($name as $k => $val){
-
-                    $service_id = $existing_id[$k];
-                    $service = Service::find($service_id); 
-                    $service->name = $val;
-                    $service->text   = $description[$k];
-                    $service->type   = $request->get('type');
-                    $service->update();
-                    
+                    $img = '';
                     if($request->hasFile('image'))
                     {   
-
                         if(isset($files[$k])){
                             if(file_exists(public_path($existing_img[$k]))){
                                 unlink(public_path($existing_img[$k]));
@@ -88,36 +80,40 @@ class ServicesController extends Controller
                             $file = $files[$k];
                             $fileName = md5($file->getClientOriginalName() . time()) . "." . $file->getClientOriginalExtension();
                             $file->move('./uploads/images/', $fileName); 
-                            $img = '/uploads/images/'.$fileName;
-                            $service->image =  $img;
-                            $service->update();      
-                        }
-                        
+                            $img = '/uploads/images/'.$fileName;      
+                        }  
                     }
 
+                    $service_id      = $existing_id[$k];
+                    $service         = Service::find($service_id); 
+                    $service->name   = $val;
+                    $service->text   = $description[$k];
+                    $service->type   = $request->get('type');
+                    $service->image  =  $img;
+                    $service->update();
                 }
                 $request->session()->flash('message.level', 'success');
                 $request->session()->flash('message.text', 'Services added successfully');
                 return redirect()->back();
             }else{
              
-                foreach($name as $k => $val){   
-                    $service = new Service; 
-                    $service->name = $val;
-                    $service->text   = $description[$k];
-                    $service->type   = $request->get('type');
-                    $service->save();
+                foreach($name as $k => $val){
+                    $img = '';
                     if($request->hasFile('image'))
                     {   
                         $file = $files[$k];
                         $fileName = md5($file->getClientOriginalName() . time()) . "." . $file->getClientOriginalExtension();
                         $file->move('./uploads/images/', $fileName); 
-                        $img = '/uploads/images/'.$fileName;
-                        $service->image =  $img;
-                        $service->update();      
+                        $img = '/uploads/images/'.$fileName;      
                     }
-                }
 
+                    $service         = new Service; 
+                    $service->name   = $val;
+                    $service->text   = $description[$k];
+                    $service->type   = $request->get('type');
+                    $service->image  =  $img;
+                    $service->save(); 
+                }
                 $request->session()->flash('message.level', 'success');
                 $request->session()->flash('message.text', 'Services added successfully');
                 return redirect()->back();

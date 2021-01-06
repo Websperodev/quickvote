@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section("meta_page_title") Admin | Quickvote | Slider @endsection
-@section("page_title") Slider @endsection
+@section("page_title") <a href="{!! route('admin.slider',['name' => 'trusted_brands']) !!}" class="head-a">Slider</a> > Add @endsection
 
 
 @section("content")
@@ -17,20 +17,21 @@
                     </div>
                 @endif
 
-                {!! Form::open(array('route' => 'admin.add.trustedBrands', 'id' => 'add_slider_form', 'method' => 'post', 'enctype' => 'multipart/form-data' )) !!}
+                {!! Form::open(array('route' => 'admin.add.trustedBrands', 'id' => 'add_slider_form', 'method' => 'post', 'class' => 'custum-frm', 'enctype' => 'multipart/form-data' )) !!}
 
                     @csrf
+                    <div class="slider mb-2">
+                        <div class="col-md-12 form-group cus-form-group">
+                            <label for="image" class="col-12">Image</label>
+                            <input type="file" class="form-control" name="image" id="image" aria-describedby="emailHelp" placeholder="Choose Image">
+                            @if($errors->has('image'))
+                                <div class="error">{{ $errors->first('image') }}</div>
+                            @endif
+                        </div>
 
-                    <div class="col-md-12 form-group cus-form-group">
-                        <label for="image">Image</label>
-                        <input type="file" class="form-control" name="image" id="image" aria-describedby="emailHelp" placeholder="Choose Image">
-                        @if($errors->has('image'))
-                            <div class="error">{{ $errors->first('image') }}</div>
-                        @endif
-                    </div>
-
-                    <div class="btn-right">
-                    <button type="submit" class="btn btn-bg ladda-button">Submit</button>
+                        <div class="btn-right">
+                        <button type="submit" class="btn btn-bg ladda-button">Submit</button>
+                        </div>
                     </div>
                  {!! Form::close() !!}
 

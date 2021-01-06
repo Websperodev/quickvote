@@ -17,7 +17,16 @@
                     </div>
                 @endif
 
-                
+                @error('image.*')
+                    <div class="alert alert-danger">The image field is required.</div>
+                @enderror
+                @error('name.*')
+                    <div class="alert alert-danger">The name field is required.</div>
+                @enderror
+                @error('description.*')
+                    <div class="alert alert-danger">The description field is required.</div>
+                @enderror
+
                 	@csrf
 
                     {!! Form::open(array('route' => 'services.store', 'id' => 'add_services_form', 'method' => 'post', 'enctype' => 'multipart/form-data' )) !!}
@@ -125,6 +134,7 @@
 
 
 @section('script-bottom')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 <script type="text/javascript" src="{{ URL::asset('assets/js/nicEdit-latest.js') }}"></script>
 <script type="text/javascript">
 
@@ -132,8 +142,22 @@ bkLib.onDomLoaded(function() {
     new nicEditor({ maxHeight : 100 }).panelInstance('description1');
     new nicEditor({ maxHeight : 100 }).panelInstance('description2');
     new nicEditor({ maxHeight : 100 }).panelInstance('description3');
-    new nicEditor({ maxHeight : 100 }).panelInstance('description4');
+    // new nicEditor({ maxHeight : 100 }).panelInstance('description4');
 });
-</script>
 
+$('#add_services_form').validate({
+    rules:{
+        "image[]": "required",
+        "name[]": "required",
+        "description[]": "required"
+        },
+    messages: {
+        "image[]": "Image is required",
+        "name[]": "Name is required",
+        "description[]": "Description is required",
+
+        }
+})
+</script>
+    
 @endsection

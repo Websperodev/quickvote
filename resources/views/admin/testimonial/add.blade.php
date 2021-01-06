@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section("meta_page_title") Admin | Quickvote | Testimonials @endsection
-@section("page_title") Testimonials @endsection
+@section("page_title") <a class="head-a" href="{!! route('testimonials.index') !!}"> Testimonials </a> > Add @endsection
 
 
 @section("content")
@@ -17,36 +17,37 @@
                     </div>
                 @endif
 
-                {!! Form::open(array('route' => 'testimonials.store', 'id' => 'add_testimonial_form', 'method' => 'post', 'enctype' => 'multipart/form-data' )) !!}
+                {!! Form::open(array('route' => 'testimonials.store', 'id' => 'add_testimonial_form', 'method' => 'post','class' => 'custum-frm', 'enctype' => 'multipart/form-data' )) !!}
 
                 	@csrf
+                    <div id="add-frm">
+                        <div class="col-md-12 form-group cus-form-group">
+                            <label for="image" class="col-12">Image</label>
+                            <input type="file" class="form-control" name="image" id="image" aria-describedby="emailHelp" placeholder="Choose Image">
+                            @if($errors->has('image'))
+                                <div class="error">{{ $errors->first('image') }}</div>
+                            @endif
+                        </div>
 
-                    <div class="col-md-12 form-group cus-form-group">
-                        <label for="image">Image</label>
-                        <input type="file" class="form-control" name="image" id="image" aria-describedby="emailHelp" placeholder="Choose Image">
-                        @if($errors->has('image'))
-                            <div class="error">{{ $errors->first('image') }}</div>
-                        @endif
-                    </div>
+                        <div class="col-md-12 form-group cus-form-group">
+                            <label for="name" class="col-12">Name</label>
+                            <input type="text" class="form-control"  name="name" id="name" aria-describedby="emailHelp" placeholder="Enter Name">
+                            @if($errors->has('name'))
+    						    <div class="error">{{ $errors->first('name') }}</div>
+    						@endif
+                     	</div>
+            
+                     	<div class="col-md-12 form-group cus-form-group">
+                            <label for="description" class="col-12">Description</label>
+                            <textarea type="text" name="description" id="description" class="form-control" placeholder="Description here.."></textarea>
+                            @if($errors->has('description'))
+                                <div class="error">{{ $errors->first('description') }}</div>
+                            @endif
+                        </div>
 
-                    <div class="col-md-12 form-group cus-form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control"  name="name" id="name" aria-describedby="emailHelp" placeholder="Enter Name">
-                        @if($errors->has('name'))
-						    <div class="error">{{ $errors->first('name') }}</div>
-						@endif
-                 	</div>
-        
-                 	<div class="col-md-12 form-group cus-form-group">
-                        <label for="description">Description</label>
-                        <textarea type="text" name="description" id="description" class="form-control" placeholder="Description here.."></textarea>
-                        @if($errors->has('description'))
-                            <div class="error">{{ $errors->first('description') }}</div>
-                        @endif
-                    </div>
-
-                    <div class="btn-right">
-                    <button type="submit" class="btn btn-bg ladda-button">Submit</button>
+                        <div class="btn-right">
+                        <button type="submit" class="btn btn-bg ladda-button">Submit</button>
+                        </div>
                     </div>
                 </form>
             </div> <!-- end card-body-->

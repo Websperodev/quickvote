@@ -3,11 +3,11 @@
 @section('content')
   <div id="carouselabt1" class="abt-page carousel slide" data-ride="carousel">
     <div class="carousel-inner">
-      <div class="carousel-item active slide1" style="background-image: {{ isset($banners['img']) ? url($banners['img']) : url("img/Banner-img1.jpg") }}">
+      <div class="carousel-item active slide1" style="background-image:url({!! isset($banners['img']) ? $banners['img'] : 'img/Banner-img1.jpg' !!})">
         <div class="slider-content">
-          <h4>{{ isset($banners['heading1']) ? $banners['heading1'] : 'All You Need To Know' }}</h4>
-          <h2>{{ isset($banners['heading2']) ? $banners['heading2'] : 'About QuickVote' }}</h2>
-          <p>{{ isset($banners['description']) ? $banners['description'] : 'Create a poll Contest in seconds. Your voters can vote from any location on any device.' }}</p>
+          <h4>{!! isset($banners['heading1']) ? $banners['heading1'] : 'All You Need To Know' !!}</h4>
+          <h2>{!! isset($banners['heading2']) ? $banners['heading2'] : 'About QuickVote' !!}</h2>
+          <p>{!! isset($banners['description']) ? $banners['description'] : 'Create a poll Contest in seconds. Your voters can vote from any location on any device.' !!}</p>
           <div class="lmore breadcrumb">
             <p>Home | <span>About US</span></p>
           </div>
@@ -19,7 +19,7 @@
   <div id="about" class="about-page">
     <div class="container">
     <div class="row vcenter">
-      <div class="col-md-5"><img src="{!! $pageData['aboutus']['about quickvote']['img1'] !!}"></div>
+      <div class="col-md-5"><img src="{!! url($pageData['aboutus']['about quickvote']['img1']) !!}"></div>
       <div class="col-md-7">
         <h2 class="titleh2">{!! isset($pageData['aboutus']['about quickvote']['heading1']) ? ucfirst($pageData['aboutus']['about quickvote']['heading1']) : 'About Quickvote' !!}</h2>
       <p>{!! isset($pageData['aboutus']['about quickvote']['description']) ? ucfirst($pageData['aboutus']['about quickvote']['description']) : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident. </p>
@@ -60,7 +60,7 @@
   <div id="create" class="py-5">
     <div class="container">
     <div class="row vcenter">
-      <div class="col-md-5"><img src="url({{ $pageData['aboutus']['dedicated']['img1'] }}) "></div>
+      <div class="col-md-5"><img src="{!! url($pageData['aboutus']['dedicated']['img1']) !!}"></div>
       <div class="col-md-7">
         <h2 class="titleh2"> {!! isset($pageData['aboutus']['dedicated']['heading1']) ? ucfirst($pageData['aboutus']['dedicated']['heading1']) : 'We are dedicated to making your poll contest a success.' !!} </h2>
       <p>{!! isset($pageData['aboutus']['dedicated']['description']) ? ucfirst($pageData['aboutus']['dedicated']['description']) : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident. ' !!}  </p>

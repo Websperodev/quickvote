@@ -835,6 +835,12 @@ class PageController extends Controller
         if( $banner == 'faq'){
             return view('admin.banners.faq')->with('data',$data);;
         }
+        if( $banner == 'services'){
+            return view('admin.banners.services')->with('data',$data);;
+        }
+        if( $banner == 'our-team'){
+            return view('admin.banners.our-team')->with('data',$data);;
+        }
 
     }
 

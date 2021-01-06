@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section("meta_page_title") Admin | Quickvote | Testimonials @endsection
-@section("page_title") Testimonials @endsection
+@section("page_title") <a class="head-a" href="{!! route('testimonials.index') !!}"> Testimonials </a> > Edit @endsection
 
 
 @section("content")
@@ -17,42 +17,43 @@
                     </div>
                 @endif
 
-                {!! Form::open(array('route' => ['testimonials.update', $testimonial->id ], 'id' => 'edit_testimonial_form', 'method' => 'put', 'enctype' => 'multipart/form-data' )) !!}
+                {!! Form::open(array('route' => ['testimonials.update', $testimonial->id ], 'id' => 'edit_testimonial_form', 'class' => 'custum-frm','method' => 'put', 'enctype' => 'multipart/form-data' )) !!}
 
                 	@csrf
+                    <div id="add-frm">
+                        <div class="col-md-12 form-group cus-form-group">
+                            <label for="image" class="col-12">Image</label>
+                            @if(isset($testimonial->img) && $testimonial->img != '')
+                                <img src="{{ isset($testimonial->img) ? $testimonial->img : ''}}" width="150" height="150">
+                            @endif
+                            <input type="file" class="form-control" name="image" id="image" aria-describedby="emailHelp" placeholder="Choose Image">
+                            <input type="hidden" value="{{ isset($testimonial->img) ? $testimonial->img : '' }}" name="existing_img">
+                            @if($errors->has('image'))
+                                <div class="error">{{ $errors->first('image') }}</div>
+                            @endif
+                        </div>
 
-                    <div class="col-md-12 form-group cus-form-group">
-                        <label for="image">Image</label>
-                        @if(isset($testimonial->img) && $testimonial->img != '')
-                            <img src="{{ isset($testimonial->img) ? $testimonial->img : ''}}" width="150" height="150">
-                        @endif
-                        <input type="file" class="form-control" name="image" id="image" aria-describedby="emailHelp" placeholder="Choose Image">
-                        <input type="hidden" value="{{ isset($testimonial->img) ? $testimonial->img : '' }}" name="existing_img">
-                        @if($errors->has('image'))
-                            <div class="error">{{ $errors->first('image') }}</div>
-                        @endif
-                    </div>
+                        <div class="col-md-12 form-group cus-form-group">
+                            <label for="name" class="col-12">Name</label>
+                            <input type="text" class="form-control" value="{{ isset($testimonial->name) ? $testimonial->name : '' }}" name="name" id="name" aria-describedby="emailHelp" placeholder="Enter Name">
+                            @if($errors->has('name'))
+    						    <div class="error">{{ $errors->first('name') }}</div>
+    						@endif
+                     	</div>
+            
+                     	<div class="col-md-12 form-group cus-form-group">
+                            <label for="description" class="col-12">Description</label>
+                            <textarea type="text" name="description" id="description" class="form-control" placeholder="Description here..">{{ isset($testimonial->description) ? $testimonial->description : '' }}</textarea>
+                            @if($errors->has('description'))
+                                <div class="error">{{ $errors->first('description') }}</div>
+                            @endif
+                        </div>
 
-                    <div class="col-md-12 form-group cus-form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" value="{{ isset($testimonial->name) ? $testimonial->name : '' }}" name="name" id="name" aria-describedby="emailHelp" placeholder="Enter Name">
-                        @if($errors->has('name'))
-						    <div class="error">{{ $errors->first('name') }}</div>
-						@endif
-                 	</div>
-        
-                 	<div class="col-md-12 form-group cus-form-group">
-                        <label for="description">Description</label>
-                        <textarea type="text" name="description" id="description" class="form-control" placeholder="Description here..">{{ isset($testimonial->description) ? $testimonial->description : '' }}</textarea>
-                        @if($errors->has('description'))
-                            <div class="error">{{ $errors->first('description') }}</div>
-                        @endif
+                        <div class="btn-right">
+                            <button type="submit" class="btn btn-bg ladda-button">Submit</button>
+                        </div>
                     </div>
-
-                    <div class="btn-right">
-                    <button type="submit" class="btn btn-bg ladda-button">Submit</button>
-                    </div>
-                </form>
+                {!! Form::close() !!}
             </div> <!-- end card-body-->
         </div> 
     </div>

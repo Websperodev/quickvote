@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section("meta_page_title") Admin | Quickvote | Faqs @endsection
-@section("page_title") Faqs @endsection
+@section("page_title") <a href="{!! route('faqs.index') !!}" class="head-a"> Faqs </a> > Edit @endsection
 
 
 @section("content")

@@ -34,8 +34,6 @@ Route::namespace('User')->group(function () {
 	Route::get('pricing', 'UserController@getPricing')->name('pricing');
 	Route::get('contact', 'UserController@getContact')->name('contact');
 	Route::get('faq', 'UserController@getFaq')->name('faq');
-	
-
 	Route::get('/dashboard', 'DashboardController@index')->name('user.dashboard');
 	Route::post('password-update', 'ProfileController@changePassword')->name('user.updatePass');
 	Route::post('edit-profile', 'ProfileController@updateProfile')->name('user.editProfile');

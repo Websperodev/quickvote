@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\User;
+use App\Models\Event;
 use App\Models\Cities;
 use App\Models\States;
 
@@ -29,7 +30,11 @@ class DashboardController extends Controller
      */
     public function index()
     {   
-        return view('admin.pages.dashboard');
+        $vendorCount = '';
+        $eventCount = '';
+        $vendorCount = User::where('type','vendor')->count();
+        $eventCount = Event::count();
+        return view('admin.pages.dashboard', compact('eventCount','vendorCount'));
     }
     public function getCountries(){
         

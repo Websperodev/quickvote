@@ -20,16 +20,16 @@
 
                     @csrf
                      <div class="top-banner">
-                        <label for="about quick">Top Banner</label>
+                        <label for="about quick" class="col-12">Top Banner</label>
                         <div class="row">
-                            <label for="heading">Heading 1</label>
+                            <label for="heading" class="col-12">Heading 1</label>
                             <input type="text" class="form-control"  name="banner_heading1" value="{{ isset($data['heading1']) ? $data['heading1'] : '' }}" id="banner_heading1" aria-describedby="emailHelp" placeholder="Enter heading">
                             @if($errors->has('banner_heading1'))
                                 <div class="error">{{ $errors->first('banner_heading1') }}</div>
                             @endif
                         </div>
                         <div class="row">
-                            <label for="heading">Heading 2</label>
+                            <label for="heading" class="col-12">Heading 2</label>
                             <input type="text" class="form-control"  name="banner_heading2" value="{{ isset($data['heading2']) ? $data['heading2'] : '' }}" id="banner_heading2" aria-describedby="emailHelp" placeholder="Enter heading">
                             @if($errors->has('banner_heading2'))
                                 <div class="error">{{ $errors->first('banner_heading2') }}</div>
@@ -37,7 +37,7 @@
                         </div>
 
                         <div class="row">
-                            <label for="text">Text</label>
+                            <label for="text" class="col-12">Text</label>
                             <textarea type="text" name="banner_description" id="banner_description" class="form-control" placeholder="Description here..">{{ isset($data['description']) ? $data['description'] : '' }}</textarea>
                             @if($errors->has('banner_description'))
                                 <div class="error">{{ $errors->first('banner_description') }}</div>
@@ -45,9 +45,9 @@
                         </div>
 
                         <div class="row">
-                            <label for="text">Image</label>
+                            <label for="text" class="col-12">Image</label>
                             @if(isset($data['img']) && $data['img'] != '' )
-                              <img src="{{ url($data['img']) }}" width="150" height="150">
+                              <img src="{{ url($data['img']) }}" width="250" height="200">
                             @endif
 
                             <input type="file" name="banner_img" id="banner_img" class="form-control" placeholder="Choose Image">
@@ -56,12 +56,14 @@
                             @endif
                             <input type="hidden" name="existing_banner_img" value="{{ isset($data['img1']) ? $data['img1'] : '' }}">
                         </div>
+                        <input type="hidden" name="banner" value="aboutus">
+                        <div class="col-12 btn-right">
+                            <button type="submit" class="btn btn-bg ladda-button">Submit</button>
+                        </div>
 
                     </div> 
-                    <input type="hidden" name="banner" value="aboutus">
-                    <div class="btn-right">
-                        <button type="submit" class="btn btn-bg ladda-button">Submit</button>
-                    </div>
+                    
+                    
                 {!! Form::close() !!}
 
             </div> <!-- end card-body-->

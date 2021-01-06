@@ -2,7 +2,7 @@
 
 @section('content')
  
-<div id="faq-page" class="banner breadcrumb" style="background-image: {{ isset($banners['img']) ? $banners['img'] : '' }}">
+<div id="faq-page" class="banner breadcrumb" style="background-image:url({!! isset($banners['img']) ? $banners['img'] : 'img/faqimg.jpg' !!})" >
     <div class="slider-content">
     <h4>{{ isset($banners['heading1']) ? $banners['heading1'] : '' }}</h4>
     <h2>{{ isset($banners['heading1']) ? $banners['heading2'] : '' }}</h2>
@@ -19,12 +19,12 @@
         <div class="card">
           <div class="card-header">
             <a class="card-link {{ ($key > 0) ? 'collapsed' : '' }}" data-toggle="collapse" href="#collapse{{$key}}">
-              {{  $faq->question }}
+              {!!  $faq->question !!}
             </a>
           </div>
           <div id="collapse{{$key}}" class="collapse {{ ($key == 0) ? 'show' : '' }}" data-parent="#accordion">
             <div class="card-body">
-             {{  $faq->answer }}
+             {!!  $faq->answer !!}
             </div>
           </div>
         </div>

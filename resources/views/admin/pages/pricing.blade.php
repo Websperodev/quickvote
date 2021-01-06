@@ -20,129 +20,96 @@
                  {!! Form::open(array('route' => 'admin.pages.pricing', 'id' => 'add_pricing_form','class' => 'custum-frm', 'method' => 'post', 'enctype' => 'multipart/form-data' )) !!}
 
                     @csrf
-
-                   <!--  <div class="top-banner">
-                        <label for="about quick">Top Banner</label>
+                    <div id="pricing">
                         <div class="row">
-                            <label for="heading">Heading 1</label>
-                            <input type="text" class="form-control"  name="banner_heading1" value="{{ isset($data['banner']['heading1']) ? $data['banner']['heading1'] : '' }}" id="banner_heading1" aria-describedby="emailHelp" placeholder="Enter heading">
-                            @if($errors->has('banner_heading1'))
-                                <div class="error">{{ $errors->first('banner_heading1') }}</div>
+                            <label for="heading" class="col-12">Page Heading</label>
+                            <input type="text" class="form-control"  name="page_heading" value="{{ isset($data['page_heading']) ? $data['page_heading'] :''}}" id="banner_heading2" aria-describedby="emailHelp" placeholder="Enter heading">
+                            @if($errors->has('page_heading'))
+                                <div class="error">{{ $errors->first('page_heading') }}</div>
                             @endif
                         </div>
                         <div class="row">
-                            <label for="heading">Heading 2</label>
-                            <input type="text" class="form-control"  name="banner_heading2" value="{{ isset($data['banner']['heading2']) ? $data['banner']['heading2'] : '' }}" id="banner_heading2" aria-describedby="emailHelp" placeholder="Enter heading">
-                            @if($errors->has('banner_heading2'))
-                                <div class="error">{{ $errors->first('banner_heading2') }}</div>
+                            <label for="heading" class="col-12">Page Text</label>
+                            <textarea type="text" name="page_text" id="page_text" class="form-control" placeholder="Description here..">{{ isset($data['description']) ? $data['description'] :''}}</textarea>
+                            @if($errors->has('page_text'))
+                                <div class="error">{{ $errors->first('page_text') }}</div>
                             @endif
                         </div>
-
                         <div class="row">
-                            <label for="text">Image</label>
-                            @if(isset($data['banner']['img1']) && $data['banner']['img1'] != '' )
-                            <img src="{{ url($data['banner']['img1']) }}" width="150" height="150">
+                            <label for="heading" class="col-12">Plan Type</label>
+                            <input type="text" class="form-control"  name="plan_type[]" value="{{ isset($data['planType1']) ? $data['planType1'] :''}}" id="banner_heading2" aria-describedby="emailHelp" placeholder="Enter heading">
+                            @if($errors->has('plan_type'))
+                                <div class="error">{{ $errors->first('plan_type') }}</div>
                             @endif
-
-                            <input type="file" name="banner_img" id="banner_img" class="form-control" placeholder="Choose Image">
-                            @if($errors->has('banner_img'))
-                                <div class="error">{{ $errors->first('banner_img') }}</div>
+                        </div>
+                        <div class="row">
+                            <label for="heading" class="col-12">Plan Amount</label>
+                            <input type="text" class="form-control"  name="plan_amount[]" value="{{ isset($data['planAmount1']) ? $data['planAmount1'] :''}}" id="banner_heading2" aria-describedby="emailHelp" placeholder="Enter heading">
+                            @if($errors->has('plan_amount'))
+                                <div class="error">{{ $errors->first('plan_amount') }}</div>
                             @endif
-                            <input type="hidden" name="existing_banner_img" value="{{ isset($data['banner']['img1']) ? $data['banner']['img1'] : '' }}">
+                        </div>
+                        <div class="row">
+                            <label for="heading" class="col-12">Plan Heading</label>
+                            <input type="text" class="form-control"  name="plan_heading[]" value="{{ isset($data['planHeading1']) ? $data['planHeading1'] :''}}" id="banner_heading2" aria-describedby="emailHelp" placeholder="Enter heading">
+                            @if($errors->has('plan_heading'))
+                                <div class="error">{{ $errors->first('plan_heading') }}</div>
+                            @endif
+                        </div>
+                        <div class="row">
+                            <label for="text" class="col-12">Features</label>
+                            <textarea type="text" name="features[]" id="features" class="form-control" placeholder="Description here..">{{ isset($data['planFeatures1']) ? $data['planFeatures1'] :''}}</textarea>
+                            @if($errors->has('features'))
+                                <div class="error">{{ $errors->first('features') }}</div>
+                            @endif
+                        </div>  
+                        <div class="row">
+                            <label for="heading" class="col-12">Button Text</label>
+                            <input type="text" class="form-control"  name="button_text[]" value="{{ isset($data['planButtonText1']) ? $data['planButtonText1'] :''}}" id="banner_heading2" aria-describedby="emailHelp" placeholder="Enter Button text">
+                            @if($errors->has('button_text'))
+                                <div class="error">{{ $errors->first('button_text') }}</div>
+                            @endif
                         </div>
 
-                    </div> 
- -->
-                    <div class="row">
-                        <label for="heading">Page Heading</label>
-                        <input type="text" class="form-control"  name="page_heading" value="{{ isset($data['page_heading']) ? $data['page_heading'] :''}}" id="banner_heading2" aria-describedby="emailHelp" placeholder="Enter heading">
-                        @if($errors->has('page_heading'))
-                            <div class="error">{{ $errors->first('page_heading') }}</div>
-                        @endif
-                    </div>
-                    <div class="row">
-                        <label for="heading">Page Text</label>
-                        <textarea type="text" name="page_text" id="page_text" class="form-control" placeholder="Description here..">{{ isset($data['description']) ? $data['description'] :''}}</textarea>
-                        @if($errors->has('page_text'))
-                            <div class="error">{{ $errors->first('page_text') }}</div>
-                        @endif
-                    </div>
+                         <div class="row">
+                            <label for="heading">Plan Type</label>
+                            <input type="text" class="form-control"  name="plan_type[]" value="{{ isset($data['planType2']) ? $data['planType2'] :''}}" id="banner_heading2" aria-describedby="emailHelp" placeholder="Enter heading">
+                            @if($errors->has('plan_type'))
+                                <div class="error">{{ $errors->first('plan_type') }}</div>
+                            @endif
+                        </div>
+                        <div class="row">
+                            <label for="heading" class="col-12">Plan Amount</label>
+                            <input type="text" class="form-control"  name="plan_amount[]" value="{{ isset($data['planAmount2']) ? $data['planAmount2'] :''}}" id="banner_heading2" aria-describedby="emailHelp" placeholder="Enter heading">
+                            @if($errors->has('plan_amount'))
+                                <div class="error">{{ $errors->first('plan_amount') }}</div>
+                            @endif
+                        </div>
+                        <div class="row">
+                            <label for="heading" class="col-12">Plan Heading</label>
+                            <input type="text" class="form-control"  name="plan_heading[]" value="{{ isset($data['planHeading2']) ? $data['planHeading2'] :''}}" id="banner_heading2" aria-describedby="emailHelp" placeholder="Enter heading">
+                            @if($errors->has('plan_heading'))
+                                <div class="error">{{ $errors->first('plan_heading') }}</div>
+                            @endif
+                        </div>
+                        <div class="row">
+                            <label for="text" class="col-12">Features</label>
+                            <textarea type="text" name="features[]" id="features" class="form-control" placeholder="Description here..">{{ isset($data['planFeatures2']) ? $data['planFeatures2'] :''}}</textarea>
+                            @if($errors->has('features'))
+                                <div class="error">{{ $errors->first('features') }}</div>
+                            @endif
+                        </div>  
+                        <div class="row">
+                            <label for="heading" class="col-12">Button Text</label>
+                            <input type="text" class="form-control"  name="button_text[]" value="{{ isset($data['planButtonText2']) ? $data['planButtonText2'] :''}}" id="banner_heading2" aria-describedby="emailHelp" placeholder="Enter Button text">
+                            @if($errors->has('button_text'))
+                                <div class="error">{{ $errors->first('button_text') }}</div>
+                            @endif
+                        </div>
 
-                   
-                    <div class="row">
-                        <label for="heading">Plan Type</label>
-                        <input type="text" class="form-control"  name="plan_type[]" value="{{ isset($data['planType1']) ? $data['planType1'] :''}}" id="banner_heading2" aria-describedby="emailHelp" placeholder="Enter heading">
-                        @if($errors->has('plan_type'))
-                            <div class="error">{{ $errors->first('plan_type') }}</div>
-                        @endif
-                    </div>
-                    <div class="row">
-                        <label for="heading">Plan Amount</label>
-                        <input type="text" class="form-control"  name="plan_amount[]" value="{{ isset($data['planAmount1']) ? $data['planAmount1'] :''}}" id="banner_heading2" aria-describedby="emailHelp" placeholder="Enter heading">
-                        @if($errors->has('plan_amount'))
-                            <div class="error">{{ $errors->first('plan_amount') }}</div>
-                        @endif
-                    </div>
-                    <div class="row">
-                        <label for="heading">Plan Heading</label>
-                        <input type="text" class="form-control"  name="plan_heading[]" value="{{ isset($data['planHeading1']) ? $data['planHeading1'] :''}}" id="banner_heading2" aria-describedby="emailHelp" placeholder="Enter heading">
-                        @if($errors->has('plan_heading'))
-                            <div class="error">{{ $errors->first('plan_heading') }}</div>
-                        @endif
-                    </div>
-                    <div class="row">
-                        <label for="text">Features</label>
-                        <textarea type="text" name="features[]" id="features" class="form-control" placeholder="Description here..">{{ isset($data['planFeatures1']) ? $data['planFeatures1'] :''}}</textarea>
-                        @if($errors->has('features'))
-                            <div class="error">{{ $errors->first('features') }}</div>
-                        @endif
-                    </div>  
-                    <div class="row">
-                        <label for="heading">Button Text</label>
-                        <input type="text" class="form-control"  name="button_text[]" value="{{ isset($data['planButtonText1']) ? $data['planButtonText1'] :''}}" id="banner_heading2" aria-describedby="emailHelp" placeholder="Enter Button text">
-                        @if($errors->has('button_text'))
-                            <div class="error">{{ $errors->first('button_text') }}</div>
-                        @endif
-                    </div>
-
-                     <div class="row">
-                        <label for="heading">Plan Type</label>
-                        <input type="text" class="form-control"  name="plan_type[]" value="{{ isset($data['planType2']) ? $data['planType2'] :''}}" id="banner_heading2" aria-describedby="emailHelp" placeholder="Enter heading">
-                        @if($errors->has('plan_type'))
-                            <div class="error">{{ $errors->first('plan_type') }}</div>
-                        @endif
-                    </div>
-                    <div class="row">
-                        <label for="heading">Plan Amount</label>
-                        <input type="text" class="form-control"  name="plan_amount[]" value="{{ isset($data['planAmount2']) ? $data['planAmount2'] :''}}" id="banner_heading2" aria-describedby="emailHelp" placeholder="Enter heading">
-                        @if($errors->has('plan_amount'))
-                            <div class="error">{{ $errors->first('plan_amount') }}</div>
-                        @endif
-                    </div>
-                    <div class="row">
-                        <label for="heading">Plan Heading</label>
-                        <input type="text" class="form-control"  name="plan_heading[]" value="{{ isset($data['planHeading2']) ? $data['planHeading2'] :''}}" id="banner_heading2" aria-describedby="emailHelp" placeholder="Enter heading">
-                        @if($errors->has('plan_heading'))
-                            <div class="error">{{ $errors->first('plan_heading') }}</div>
-                        @endif
-                    </div>
-                    <div class="row">
-                        <label for="text">Features</label>
-                        <textarea type="text" name="features[]" id="features" class="form-control" placeholder="Description here..">{{ isset($data['planFeatures2']) ? $data['planFeatures2'] :''}}</textarea>
-                        @if($errors->has('features'))
-                            <div class="error">{{ $errors->first('features') }}</div>
-                        @endif
-                    </div>  
-                    <div class="row">
-                        <label for="heading">Button Text</label>
-                        <input type="text" class="form-control"  name="button_text[]" value="{{ isset($data['planButtonText2']) ? $data['planButtonText2'] :''}}" id="banner_heading2" aria-describedby="emailHelp" placeholder="Enter Button text">
-                        @if($errors->has('button_text'))
-                            <div class="error">{{ $errors->first('button_text') }}</div>
-                        @endif
-                    </div>
-
-                    <div class="btn-right">
-                        <button type="submit" class="btn btn-bg ladda-button">Submit</button>
+                        <div class="btn-right">
+                            <button type="submit" class="btn btn-bg ladda-button">Submit</button>
+                        </div>
                     </div>
                 {!! Form::close() !!}
 

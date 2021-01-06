@@ -11,7 +11,7 @@
         <link href="{{ URL::asset('assets/css/app.min.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{ URL::asset('assets/css/admin.css')}}" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-         
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
         <!-- <script src="{{ asset('js/app.js') }}" defer></script> -->
 

@@ -19,8 +19,8 @@
 			                </div>
 			                <div class="col-6">
 			                    <div class="text-right">
-			                        <h3 class="text-dark mt-1"><span data-plugin="counterup">0</span></h3>
-			                        <p class="text-muted mb-1 text-truncate">Active Users</p>
+			                        <h3 class="text-dark mt-1"><span data-plugin="counterup">{!! $vendorCount !!}</span></h3>
+			                        <p class="text-muted mb-1 text-truncate">Total Vendors</p>
 			                    </div>
 			                </div>
 			            </div> <!-- end row-->
@@ -38,8 +38,8 @@
 			                </div>
 			                <div class="col-6">
 			                    <div class="text-right">
-			                        <h3 class="text-dark mt-1"><span data-plugin="counterup">0</span></h3>
-			                        <p class="text-muted mb-1 text-truncate">Paid Users</p>
+			                        <h3 class="text-dark mt-1"><span data-plugin="counterup">{!! $eventCount !!}</span></h3>
+			                        <p class="text-muted mb-1 text-truncate">Total Events</p>
 			                    </div>
 			                </div>
 			            </div> <!-- end row-->

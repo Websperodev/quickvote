@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section("meta_page_title") Admin | Quickvote | Dashboard @endsection
-@section("page_title") Users @endsection
+@section("page_title") <a class="head-a" href="{!! route('admin.users') !!}"> Users </a> > Edit @endsection
 
 
 @section("content")
@@ -17,10 +17,10 @@
                     </div>
                 @endif
 
-                {!! Form::open(array('route' => 'admin.edit-user', 'id' => 'edit_user_form', 'method' => 'post' )) !!}
+                {!! Form::open(array('route' => 'admin.edit-user', 'id' => 'edit_user_form','class' => 'custum-frm', 'method' => 'post' )) !!}
 
                 	@csrf
-
+                    <div class="user-frm mb-2">
                     <div class="row">
                         <div class="col-md-6 form-group cus-form-group">
                             <label for="first_name">First Name</label>
@@ -113,39 +113,35 @@
                             $userCountry = isset($user->country_id) ? $user->country_id : '';
                             $userState = isset($user->state_id) ? $user->state_id : '';
                             $userCity = isset($user->city_id) ? $user->city_id : '';
-                        ?>
+                    ?>
+                    <div class="col-md-6 form-group cus-form-group">
+                        <label for="country">Country</label>
+                        
+                        <select class="form-control" name="country" id="country" aria-describedby="emailHelp">
+                            <option value="">Select Country</option>
+                            @foreach($countries as $country)
+                                <option {{ $userCountry == $country->id ? 'selected' : ''}} value="{{ $country->id }}">{{ $country->name }}</option>
+                            @endforeach
+                        </select>
 
-                        <div class="col-md-6 form-group cus-form-group">
-                            <label for="country">Country</label>
-                            
-                            <select class="form-control" name="country" id="country" aria-describedby="emailHelp">
-                                <option value="">Select Country</option>
-                                @foreach($countries as $country)
-                                    <option {{ $userCountry == $country->id ? 'selected' : ''}} value="{{ $country->id }}">{{ $country->name }}</option>
-                                @endforeach
-                            </select>
+                        @if($errors->has('country'))
+                            <div class="error">{{ $errors->first('country') }}</div>
+                        @endif
+                    </div>
+                    <div class="col-md-6 form-group cus-form-group">
+                        <label for="state">State</label>
+                        
+                        <select class="form-control" name="state" id="state" aria-describedby="emailHelp">
+                            <option value="">Select State</option>
+                            @foreach($states as $state)
+                                <option {{ $userState == $state->id ? 'selected' : ''}} value="{{ $state->id }}">{{ $state->name }}</option>
+                            @endforeach
+                        </select>
 
-                            @if($errors->has('country'))
-                                <div class="error">{{ $errors->first('country') }}</div>
-                            @endif
-                        </div>
-
-
-                       
-                        <div class="col-md-6 form-group cus-form-group">
-                            <label for="state">State</label>
-                            
-                            <select class="form-control" name="state" id="state" aria-describedby="emailHelp">
-                                <option value="">Select State</option>
-                                @foreach($states as $state)
-                                    <option {{ $userState == $state->id ? 'selected' : ''}} value="{{ $state->id }}">{{ $state->name }}</option>
-                                @endforeach
-                            </select>
-
-                            @if($errors->has('state'))
-                                <div class="error">{{ $errors->first('state') }}</div>
-                            @endif
-                        </div>
+                        @if($errors->has('state'))
+                            <div class="error">{{ $errors->first('state') }}</div>
+                        @endif
+                    </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 form-group cus-form-group">
@@ -188,7 +184,8 @@
                     <div class="btn-right">
                     <button type="submit" class="btn btn-bg ladda-button">Submit</button>
                     </div>
-                </form>
+                </div>
+                {!! Form::close() !!}
             </div> <!-- end card-body-->
         </div> 
     </div>

@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section("meta_page_title") Admin | Quickvote | Slider @endsection
-@section("page_title") Slider @endsection
+@section("page_title") <a class="head-a" href="{!! route('admin.slider',['name' => 'trusted_brands']) !!}">Slider</a> > Edit @endsection
 
 
 @section("content")
@@ -32,13 +32,15 @@
                         @if($errors->has('image'))
                             <div class="error">{{ $errors->first('image') }}</div>
                         @endif
+
+                        <input type="hidden" value="{{ isset($slider->id) ? $slider->id : '' }}" name="id">
+                        <div class="btn-right">
+                        <button type="submit" class="btn btn-bg ladda-button">Submit</button>
+                        </div>
                     </div>
 
                    
-                    <input type="hidden" value="{{ isset($slider->id) ? $slider->id : '' }}" name="id">
-                    <div class="btn-right">
-                    <button type="submit" class="btn btn-bg ladda-button">Submit</button>
-                    </div>
+                    
                 {!! Form::close() !!}
             </div> <!-- end card-body-->
         </div> 

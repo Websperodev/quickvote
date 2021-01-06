@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
-@section("meta_page_title") Admin | Quickvote | Pricing Banner @endsection
-@section("page_title") Pricing @endsection
+@section("meta_page_title") Admin | Quickvote | Our Team Banner @endsection
+@section("page_title") Our Team @endsection
 
 
 @section("content")
@@ -10,7 +10,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="mb-3 header-title">Contact Page Banner</h4>
+                <h4 class="mb-3 header-title">Our Team Page Banner</h4>
                 @if(session()->has('message.level'))
                     <div class="alert alert-{{ session('message.level') }}"> 
                     {!! session('message.text') !!}
@@ -57,7 +57,7 @@
                             @endif
                             <input type="hidden" name="existing_banner_img" value="{{ isset($data['img1']) ? $data['img1'] : '' }}">
                         </div>
-                        <input type="hidden" name="banner" value="pricing">
+                        <input type="hidden" name="banner" value="our-team">
                         <div class="btn-right">
                             <button type="submit" class="btn btn-bg ladda-button">Submit</button>
                         </div>

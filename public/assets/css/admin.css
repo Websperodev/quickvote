@@ -220,9 +220,63 @@ button.btn.login-btns {
 }
 
 .ladda-button.btn{
-margin:0 4px;
+margin:40px 0px 0px 0px;
 }
 
+form.custum-frm > div {
+    padding: 15px;
+    box-shadow: 0 0 11px 0px #0002;
+}
+
+form.custum-frm > div > .row, form.custum-frm > div .col-12 {
+    margin: 0;
+    padding: 0;
+}
+
+form.custum-frm > div > label {
+    margin-bottom: 10px !important;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #000;
+}
+
+form.custum-frm > div label {
+    margin-bottom: 5px !important;
+    line-height: initial;
+}
+
+form.custum-frm > div > .row, form.custum-frm > div .col-12 {
+    margin: 0;
+    padding: 0;
+}
+
+form.custum-frm > div > .row {
+    margin-bottom: 10px;
+}
+
+form.custum-frm [type=file] {
+    padding: 4px;
+}
+
+form.custum-frm textarea {
+    resize: none;
+    height: 80px;
+}
+
+form.custum-frm > div > .row img {
+   /* max-width: 120px;*/
+    height: auto;
+    border: 5px solid #fff;
+    margin: 2px 0 10px;
+    box-shadow: 0px 0px 11px 0px #0002;
+}
+
+form.custum-frm .btn-right.submit-btn {
+    box-shadow: none;
+}
+.head-a{
+    color: #f47f34;
+}
 
 /*====================== Responsive Css ==========================*/
 @media(max-width: 991px){
