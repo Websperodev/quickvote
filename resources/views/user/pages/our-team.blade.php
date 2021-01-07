@@ -2,7 +2,7 @@
 
 @section('content')
   
-<div id="team-page" class="banner breadcrumb"  style="background-image:url({!! isset($banners['img']) ? $banners['img'] : 'img/price.jpg' !!})">
+<div id="team-page" class="banner breadcrumb"  style="background-image:url({!! isset($banners['img']) ? asset($banners['img']) : 'img/price.jpg' !!})">
     <div class="slider-content">
     <h4>{{ isset($banners['heading1']) ? $banners['heading1'] : 'Quickvote Team' }}</h4>
     <h2>{{ isset($banners['heading1']) ? $banners['heading1'] : 'Our Team' }}</h2>

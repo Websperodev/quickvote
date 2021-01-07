@@ -3,7 +3,7 @@
 @section('content')
   <div id="carouselabt1" class="abt-page carousel slide" data-ride="carousel">
     <div class="carousel-inner">
-      <div class="carousel-item active slide1" style="background-image:url({!! isset($banners['img']) ? $banners['img'] : 'img/Banner-img1.jpg' !!})">
+      <div class="carousel-item active slide1" style="background-image:url({!! isset($banners['img']) ? asset($banners['img']) : 'img/Banner-img1.jpg' !!})">
         <div class="slider-content">
           <h4>{!! isset($banners['heading1']) ? $banners['heading1'] : 'All You Need To Know' !!}</h4>
           <h2>{!! isset($banners['heading2']) ? $banners['heading2'] : 'About QuickVote' !!}</h2>
