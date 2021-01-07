@@ -1351,6 +1351,7 @@ div#about.about-page {
     padding-top: 60px;
 }
 
+
 .serv-body {
     border: none;
     border-radius: 1rem;
@@ -1359,6 +1360,7 @@ div#about.about-page {
     padding: 20px;
     text-align: center;
     background: #fff;
+    margin-bottom: 30px;
 }
 
 h3.titleh3.tc:after {
