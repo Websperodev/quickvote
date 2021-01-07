@@ -35,12 +35,13 @@
       <div class="col col2">
       <h2 class="titleh2">Navigation</h2>
       <ul class="footer-li">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
+        <li><a href="{{ route('/') }}">Home</a></li>
+        <li><a href="{{ route('about-us') }}">About</a></li>
         <li><a href="#">Create Contest</a></li>
         <li><a href="#">View Contests</a></li>
-        <li><a href="#">How It Works</a></li>
-        <li><a href="#">Pricing</a></li>
+        <li><a href="#{{ route('our-services') }}>Services</a></li>
+        <li><a href="{{ route('pricing') }}">Pricing</a></li>
+        <li><a href="{{ route('our-team') }}">Our Team</a></li>
       </ul>
       </div>
       <div class="col col3">
@@ -49,8 +50,9 @@
         <li><a href="#">Legal</a></li>
         <li><a href="#">Term Of Services</a></li>
         <li><a href="{{ route('privacy-policy') }}">Privacy Policy</a></li>
-        <li><a href="#">FAQs</a></li>
-        <li><a href="#">Contact Us</a></li>
+        <li><a href="{{ route('faq') }}">FAQs</a></li>
+        <li><a href="{{ route('contact') }}">Contact Us</a></li>
+
       </ul>
       </div>
       <div class="col col4">

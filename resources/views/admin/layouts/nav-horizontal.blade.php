@@ -29,6 +29,9 @@
                         <li>
                             <a href="{{ route('faqs.index') }}">Faq</a>
                         </li>
+                        <li>
+                            <a href="{{ route('team.index') }}">Our Team</a>
+                        </li>
                         <!-- <li>
                             <a href="{{ route('admin.page',['name' => 'contact']) }}">Contact</a>
                         </li> -->

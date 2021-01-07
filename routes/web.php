@@ -26,6 +26,7 @@ Route::namespace('User\Auth')->group(function () {
 	Route::post('reset-password', 'RegisterController@resetPassword')->name('change.password');
 
 	Route::post('user.contact', 'RegisterController@sendContact')->name('user.contact');
+
 });
 
 Route::namespace('User')->group(function () {
@@ -34,6 +35,10 @@ Route::namespace('User')->group(function () {
 	Route::get('pricing', 'UserController@getPricing')->name('pricing');
 	Route::get('contact', 'UserController@getContact')->name('contact');
 	Route::get('faq', 'UserController@getFaq')->name('faq');
+	Route::get('our-services', 'UserController@openServices')->name('our-services');
+	Route::get('our-team', 'UserController@openTeam')->name('our-team');
+
+
 	Route::get('/dashboard', 'DashboardController@index')->name('user.dashboard');
 	Route::post('password-update', 'ProfileController@changePassword')->name('user.updatePass');
 	Route::post('edit-profile', 'ProfileController@updateProfile')->name('user.editProfile');
@@ -91,14 +96,19 @@ Route::namespace('Admin')->group(function () {
 	Route::post('/add-about','PageController@addAboutPage')->name('admin.pages.about');
 	Route::post('/add-contact','PageController@addContactPage')->name('admin.pages.contact');
 	Route::post('/pricing','PageController@addPricingPage')->name('admin.pages.pricing');
-
-
 	
 	Route::resource('testimonials', 'TestimonialController');
 	Route::post('get-testimonials', 'TestimonialController@getTestimonial')->name('admin.getTestimonial');
 
 	Route::resource('faqs', 'FaqController');
 	Route::post('get-faqs', 'FaqController@getFaqs')->name('admin.getFaqs');
+
+	Route::resource('team', 'TeamMemberController');
+	Route::post('get-team', 'TeamMemberController@getTeam')->name('admin.getTeam');
+	Route::get('/team-data','TeamMemberController@getPageData')->name('team.addData');
+	Route::post('/team-data','TeamMemberController@addPageData')->name('team.saveData');
+	Route::get('our-investors', 'TeamMemberController@openInvestors')->name('our.investors');
+	Route::post('/team-data','TeamMemberController@addInvestorData')->name('investor.saveData');
 
 	Route::get('/slider/{name}','PageController@getSlider')->name('admin.slider');
 	Route::any('/add-slider','PageController@addHomeSlider')->name('admin.add.homeSlider');
@@ -110,8 +120,7 @@ Route::namespace('Admin')->group(function () {
 	Route::any('/edit-trusted-slider','PageController@editTrustedBrandsSlider')->name('admin.edit.trustedBrandsSlider');
 	Route::get('/banners/{name}','PageController@getBanners')->name('admin.banners');
 	Route::post('add-banner', 'PageController@addBanner')->name('admin.banner');
-	Route::resource('services', 'ServicesController');
-    
+	Route::resource('services', 'ServicesController'); 
 
 
 });	

@@ -224,11 +224,11 @@ class PageController extends Controller
     public function addAboutPage(Request $request){
         $validator = Validator::make($request->all(), [
                                         'about_heading'          => 'required',
-                                        'about_description'     => 'required',
-                                        'services_heading'            => 'required',
-                                        'services_description'        => 'required',
-                                        'dedicated_heading'          => 'required',
-                                        'dedicated_description'      => 'required',
+                                        'about_description'      => 'required',
+                                        'services_heading'       => 'required',
+                                        'services_description'   => 'required',
+                                        'dedicated_heading'      => 'required',
+                                        'dedicated_description'  => 'required',
                                         'services_heading2'      => 'required',
                                         'services_description2'  => 'required',
                                     ]);
@@ -367,9 +367,9 @@ class PageController extends Controller
     public function addHomeSlider(Request $request){
         if($request->isMethod('post')){
             $validator = Validator::make($request->all(), [
-                'image'   => 'required',
-                'heading1'   => 'required',
-                'heading2'   => 'required',
+                'image'         => 'required',
+                'heading1'      => 'required',
+                'heading2'      => 'required',
                 'description'   => 'required',
 
             ]);

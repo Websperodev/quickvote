@@ -16,98 +16,97 @@
                     {!! session('message.text') !!}
                     </div>
                 @endif
-                <form id="my_account_form" method="post" action="{{ route('admin.update.profile') }}">
+                <form id="my_account_form" method="post" class = "custum-frm" action="{{ route('admin.update.profile') }}">
                 	@csrf
+                    <div class="my-account mb-2">
+                        <div class="row">
+                            <div class="col-md-6 form-group cus-form-group">
+                                <label for="first_name">First Name</label>
+                                <input type="text" class="form-control" value="{{ isset($user->first_name) ? $user->first_name : ''}}" name="first_name" id="first_name" aria-describedby="emailHelp" placeholder="Enter First Name">
+                                @if($errors->has('first_name'))
+        						    <div class="error">{{ $errors->first('first_name') }}</div>
+        						@endif
+                         	</div>
+                            <div class="col-md-6 form-group cus-form-group">
+                                <label for="last_name">Last Name</label>
+                                <input type="text" class="form-control" value="{{ isset($user->last_name) ? $user->last_name : ''}}" name="last_name" id="last_name" aria-describedby="emailHelp" placeholder="Enter Last Name">
+                                @if($errors->has('last_name'))
+        						    <div class="error">{{ $errors->first('last_name') }}</div>
+        						@endif
+                            </div>
+                        </div>
+                        <div class="row">
+                         	<div class="col-md-6 form-group cus-form-group">
+                                <label for="business_name">Business Name</label>
+                                <input type="text" class="form-control" value="{{ isset($user->business_name) ? $user->business_name : ''}}" name="business_name" id="business_name" aria-describedby="emailHelp" placeholder="Enter Business Name">
+                                @if($errors->has('business_name'))
+        						    <div class="error">{{ $errors->first('business_name') }}</div>
+        						@endif
+                            </div>
+                            <div class="col-md-6 form-group cus-form-group">
+                                <label for="contact_name">Contact Name</label>
+                                <input type="text" class="form-control" value="{{ isset($user->contact_name) ? $user->contact_name : ''}}" name="contact_name" id="contact_name" aria-describedby="emailHelp" placeholder="Enter Contact Name">
+                                @if($errors->has('contact_name'))
+                                    <div class="error">{{ $errors->first('contact_name') }}</div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group cus-form-group">
+                                <label for="email">Email</label>
+                                <input type="text" readonly="readonly" class="form-control" value="{{ isset($user->email) ? $user->email : ''}}" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter Contact Name">
+                                @if($errors->has('email'))
+                                    <div class="error">{{ $errors->first('email') }}</div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group cus-form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="text" class="form-control" value="{{ isset($user->phone) ? $user->phone : ''}}" name="phone" id="phone" aria-describedby="emailHelp" placeholder="Enter Phone Number">
+                                @if($errors->has('phone'))
+                                    <div class="error">{{ $errors->first('phone') }}</div>
+                                @endif
+                            </div>
+                            <div class="col-md-6 form-group cus-form-group">
+                                <label for="alternate_phone">Alternate Phone Number</label>
+                                <input type="text" class="form-control" value="{{ isset($user->alternate_phone) ? $user->alternate_phone : ''}}" name="alternate_phone" id="alternate_phone" aria-describedby="emailHelp" placeholder="Enter Alternate Phone Number">
+                                @if($errors->has('alternate_phone'))
+                                    <div class="error">{{ $errors->first('alternate_phone') }}</div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group cus-form-group">
+                                <label for="address1">Address1</label>
+                                <input type="text" class="form-control" value="{{ isset($user->address1) ? $user->address1 : ''}}" name="address1" id="address1" aria-describedby="emailHelp" placeholder="Enter Address1">
+                                @if($errors->has('address1'))
+                                    <div class="error">{{ $errors->first('address1') }}</div>
+                                @endif
+                            </div>
+                            <div class="col-md-6 form-group cus-form-group">
+                                <label for="address1">Address2</label>
+                                <input type="text" class="form-control" value="{{ isset($user->address2) ? $user->address2 : ''}}" name="address2" id="address2" aria-describedby="emailHelp" placeholder="Enter Address2">
+                                @if($errors->has('address2'))
+                                    <div class="error">{{ $errors->first('address2') }}</div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="row">   
+                             <div class="col-md-6 form-group cus-form-group">
+                                <label for="country">Country</label>
+                                
+                                <select class="form-control" name="country" id="country" aria-describedby="emailHelp">
+                                    <option value="">Select Country</option>
+                                    @foreach($countries as $country)
+                                        <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                    @endforeach
+                                </select>
 
-                    <div class="row">
-                        <div class="col-md-6 form-group cus-form-group">
-                            <label for="first_name">First Name</label>
-                            <input type="text" class="form-control" value="{{ isset($user->first_name) ? $user->first_name : ''}}" name="first_name" id="first_name" aria-describedby="emailHelp" placeholder="Enter First Name">
-                            @if($errors->has('first_name'))
-    						    <div class="error">{{ $errors->first('first_name') }}</div>
-    						@endif
-                     	</div>
-                        <div class="col-md-6 form-group cus-form-group">
-                            <label for="last_name">Last Name</label>
-                            <input type="text" class="form-control" value="{{ isset($user->last_name) ? $user->last_name : ''}}" name="last_name" id="last_name" aria-describedby="emailHelp" placeholder="Enter Last Name">
-                            @if($errors->has('last_name'))
-    						    <div class="error">{{ $errors->first('last_name') }}</div>
-    						@endif
+                                @if($errors->has('country'))
+                                    <div class="error">{{ $errors->first('country') }}</div>
+                                @endif
                         </div>
-                    </div>
-                    <div class="row">
-                     	<div class="col-md-6 form-group cus-form-group">
-                            <label for="business_name">Business Name</label>
-                            <input type="text" class="form-control" value="{{ isset($user->business_name) ? $user->business_name : ''}}" name="business_name" id="business_name" aria-describedby="emailHelp" placeholder="Enter Business Name">
-                            @if($errors->has('business_name'))
-    						    <div class="error">{{ $errors->first('business_name') }}</div>
-    						@endif
-                        </div>
-                        <div class="col-md-6 form-group cus-form-group">
-                            <label for="contact_name">Contact Name</label>
-                            <input type="text" class="form-control" value="{{ isset($user->contact_name) ? $user->contact_name : ''}}" name="contact_name" id="contact_name" aria-describedby="emailHelp" placeholder="Enter Contact Name">
-                            @if($errors->has('contact_name'))
-                                <div class="error">{{ $errors->first('contact_name') }}</div>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 form-group cus-form-group">
-                            <label for="email">Email</label>
-                            <input type="text" readonly="readonly" class="form-control" value="{{ isset($user->email) ? $user->email : ''}}" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter Contact Name">
-                            @if($errors->has('email'))
-                                <div class="error">{{ $errors->first('email') }}</div>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 form-group cus-form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="text" class="form-control" value="{{ isset($user->phone) ? $user->phone : ''}}" name="phone" id="phone" aria-describedby="emailHelp" placeholder="Enter Phone Number">
-                            @if($errors->has('phone'))
-                                <div class="error">{{ $errors->first('phone') }}</div>
-                            @endif
-                        </div>
-                        <div class="col-md-6 form-group cus-form-group">
-                            <label for="alternate_phone">Alternate Phone Number</label>
-                            <input type="text" class="form-control" value="{{ isset($user->alternate_phone) ? $user->alternate_phone : ''}}" name="alternate_phone" id="alternate_phone" aria-describedby="emailHelp" placeholder="Enter Alternate Phone Number">
-                            @if($errors->has('alternate_phone'))
-                                <div class="error">{{ $errors->first('alternate_phone') }}</div>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 form-group cus-form-group">
-                            <label for="address1">Address1</label>
-                            <input type="text" class="form-control" value="{{ isset($user->address1) ? $user->address1 : ''}}" name="address1" id="address1" aria-describedby="emailHelp" placeholder="Enter Address1">
-                            @if($errors->has('address1'))
-                                <div class="error">{{ $errors->first('address1') }}</div>
-                            @endif
-                        </div>
-                        <div class="col-md-6 form-group cus-form-group">
-                            <label for="address1">Address2</label>
-                            <input type="text" class="form-control" value="{{ isset($user->address2) ? $user->address2 : ''}}" name="address2" id="address2" aria-describedby="emailHelp" placeholder="Enter Address2">
-                            @if($errors->has('address2'))
-                                <div class="error">{{ $errors->first('address2') }}</div>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="row">   
-                         <div class="col-md-6 form-group cus-form-group">
-                            <label for="country">Country</label>
-                            
-                            <select class="form-control" name="country" id="country" aria-describedby="emailHelp">
-                                <option value="">Select Country</option>
-                                @foreach($countries as $country)
-                                    <option value="{{ $country->id }}">{{ $country->name }}</option>
-                                @endforeach
-                            </select>
-
-                            @if($errors->has('country'))
-                                <div class="error">{{ $errors->first('country') }}</div>
-                            @endif
-                        </div>
-
                         <div class="col-md-6 form-group cus-form-group">
                             <label for="state">State</label>
                             
@@ -121,24 +120,21 @@
                             @if($errors->has('state'))
                                 <div class="error">{{ $errors->first('state') }}</div>
                             @endif
+                        </div>       
                         </div>
-                    
-                        
-                       
-                    </div>
-                    <div class="row">
-                         <div class="col-md-6 form-group cus-form-group">
-                            <label for="city">City</label>
-                            <select class="form-control" name="city" id="city" aria-describedby="emailHelp">
-                                <option value="">Select City</option>
-                                @foreach($cities as $city)
-                                    <option value="{{ $city->id }}">{{ $city->name }}</option>
-                                @endforeach
-                            </select>
-                            
-                            @if($errors->has('city'))
-                                <div class="error">{{ $errors->first('city') }}</div>
-                            @endif
+                        <div class="row">
+                             <div class="col-md-6 form-group cus-form-group">
+                                <label for="city">City</label>
+                                <select class="form-control" name="city" id="city" aria-describedby="emailHelp">
+                                    <option value="">Select City</option>
+                                    @foreach($cities as $city)
+                                        <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                    @endforeach
+                                </select>
+                                
+                                @if($errors->has('city'))
+                                    <div class="error">{{ $errors->first('city') }}</div>
+                                @endif
                         </div>
                         <div class="col-md-6 form-group cus-form-group">
                             <label for="postal">Postal</label>
@@ -146,22 +142,21 @@
                             @if($errors->has('postal'))
                                 <div class="error">{{ $errors->first('postal') }}</div>
                             @endif
+                        </div>   
                         </div>
-                        
-                        
-                    </div>
-                    <div class="row">    
-                        <div class="col-md-12 form-group cus-form-group">
-                            <label for="description">Description</label>
-                            <textarea type="text" name="description" class="form-control" placeholder="Description here..">{{ isset($user->description ) ? $user->description  : ''}}</textarea>
-                            @if($errors->has('description'))
-                                <div class="error">{{ $errors->first('description') }}</div>
-                            @endif
+                        <div class="row">    
+                            <div class="col-md-12 form-group cus-form-group">
+                                <label for="description">Description</label>
+                                <textarea type="text" name="description" class="form-control" placeholder="Description here..">{{ isset($user->description ) ? $user->description  : ''}}</textarea>
+                                @if($errors->has('description'))
+                                    <div class="error">{{ $errors->first('description') }}</div>
+                                @endif
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="btn-right">
-                        <button type="submit" class="btn btn-bg ladda-button">Submit</button>
+                        <div class="btn-right">
+                            <button type="submit" class="btn btn-bg ladda-button">Submit</button>
+                        </div>
                     </div>
                 </form>
             </div> <!-- end card-body-->

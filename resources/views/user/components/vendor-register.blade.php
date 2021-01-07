@@ -1,183 +1,359 @@
+<!--Modal Vendor-->
 <div class="modal fade" id="vendorModal" tabindex="-2" role="dialog" aria-labelledby="VendorModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-body">        
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <div class="row popupp">
-          <div class="col-md-12">
-          <h3 class="titleh3">Vendor Registration Form</h3>
-          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
-          <form id="vendForm" class="vform mform row" action="/action_page.php">
-            <div class="tab">
-              <h3 class="titleh3">Company Information</h3>
-              <p>Fill the form below keenly to participate in the Art and Fair exhibition. Forms that are not completly filled will not be accepted.</p>
-              <div class="form-group col-6">
-              <label>Name of Company</label>
-              <input type="text" class="form-control" placeholder="Your Company Name">
-              </div>
-              <div class="form-group col-6">
-              <label>Address</label>
-              <input type="text" class="form-control" placeholder="Your Address">
-              </div>
-              <div class="form-group col-6">
-              <label>City</label>
-              <input type="text" class="form-control" placeholder="Your City">
-              </div>
-              <div class="form-group col-6">
-              <label>State</label>
-              <input type="text" class="form-control" placeholder="Your State">
-              </div>
-              <div class="form-group col-6">
-              <label>Country</label>
-              <select>
-                <option>Select Country</option>
-                <option>India</option>
-                <option>US</option>
-                <option>Canada</option>
-              </select>
-              </div>
-              <div class="form-group col-6">
-              <label>Phone Number</label>
-              <input type="number" class="form-control" placeholder="Your Number">
-              </div>
-              <div class="form-group col-12">
-              <label>E-mail</label>
-              <input type="Email" class="form-control" placeholder="Your Email">
-              </div>
-              <div class="form-group col-6">
-              <label>Website</label>
-              <input type="text" class="form-control" placeholder="Website Name">
-              </div>
-              <div class="form-group col-12">
-              <label>Company Description</label>
-              <textarea type="text" class="form-control" placeholder="Company Description here.."> </textarea>
-              </div>
-              </div>
-            <div class="tab">
-              <h3 class="titleh3">Personal Information</h3>
-              <p>Fill the form below keenly to participate in the Art and Fair exhibition. Forms that are not completly filled will not be accepted.</p>
-              <div class="form-group col-12">
-              <label>Vendor Name</label>
-              <input type="text" class="form-control col-6 fl" placeholder="First Name">
-              <input type="text" class="form-control col-6 fr" placeholder="Last Name">
-              </div>
-              <div class="form-group col-6">
-              <label>Business Name</label>
-              <input type="text" class="form-control" placeholder="Your Business Name">
-              </div>
-              <div class="form-group col-6">
-              <label>E-mail</label>
-              <input type="Email" class="form-control" placeholder="Your Email">
-              </div>
-              <div class="form-group col-6">
-              <label>Phone Number</label>
-              <input type="number" class="form-control" placeholder="Your Number">
-              </div>
-              <div class="form-group col-6">
-              <label>Alternate Phone Number</label>
-              <input type="number" class="form-control" placeholder="Your Alternate Number">
-              </div>
-              <div class="form-group col-12">
-              <label>Address</label>
-              <input type="text" class="form-control col-6 fl" placeholder="Street Address">
-              <input type="text" class="form-control col-6 fr" placeholder="Street Address Line 2">
-              <input type="text" class="form-control col-6 fl" placeholder="City Name">
-              <input type="text" class="form-control col-6 fr" placeholder="State/Province">
-              <input type="text" class="form-control col-6 fl" placeholder="Postal / Zip Code">
-              <select class="form-control col-6 fr">
-                <option>Select Country</option>
-                <option>India</option>
-              </select>
-              </div>
-              </div>
-            <div class="tab">
-              <h3 class="titleh3">Personal Information</h3>
-              <p>Fill the form below keenly to participate in the Art and Fair exhibition. Forms that are not completly filled will not be accepted.</p>
-              <div class="form-group col-6">
-              <label>Account Holder Name</label>
-              <input type="text" class="form-control" placeholder="Account Holder Name">
-              </div>
-              <div class="form-group col-6">
-              <label>Account Number</label>
-              <input type="text" class="form-control" placeholder="Your Account Number">
-              </div>
-              <div class="form-group col-12">
-              <label>Bank Name</label>
-              <input type="text" class="form-control" placeholder="your Bank Name">
-              </div>
-              </div>
-              <div style="overflow:auto;">
-                <div style="float:right;">
-                  <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                  <button type="button" id="nextBtn" class="btn btn-bg" onclick="nextPrev(1)">Next</button>
-                </div>
-              </div>
-            </form>
+  <div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-body">        
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <div class="row popupp">
+      <div class="col-md-12">
+      <form id="vendForm" class="vform mform row" method="post">
+        @csrf
+      <div class="tab" id="tabs-1" style="display: block;">
+        <div class="col-12">
+          <h3 class="titleh3">Company Information</h3>
+          <p>Fill the form below keenly to participate in the Art and Fair exhibition. Forms that are not completly filled will not be accepted.</p>
+        </div>
+        <div class="form-group col-6">
+        <label>Name of Company</label>
+        <input type="text" class="form-control" name="company_name" placeholder="Your Company Name">
+        </div>
+        <div class="form-group col-6">
+        <label>Address</label>
+        <input type="text" class="form-control" name="company_address" placeholder="Your Address">
+        </div>
+        
+        <div class="form-group col-6">
+        <label>Country</label>
+        <select class="form-control" name="company_country" id="c_country">
+          <option value="">Select Country</option>
+          @foreach($countries as $key => $country)
+            <option value="{{$country->id}}"  {{ ($country->id == '161') ? 'selected':'' }}>{{$country->name}}</option>
+          @endforeach
+        </select>
+        </div>
+        <div class="form-group col-6">
+        <label>State</label>
+          <select class="form-control" name="company_state" id="c_state">
+            <option>Select State</option>
+          </select>
+        </div>
 
-          <!-- <form id="register-frm-vendor"  class="vform mform row register-frm-vendor">
+        <div class="form-group col-6">
+        <label>City</label>
+          <select class="form-control" name="company_city" id="c_city">
+            <option>Select City</option>
+          </select>
+        </div>
 
-            <div class="form-group col-12">
-            <label>Vendor Name</label>
-              <input type="text" name="first_name" class="form-control col-6 fl" placeholder="First Name">
-              <input type="text" name="last_name" class="form-control col-6 fr" placeholder="Last Name">
-            </div>
-            <div class="form-group col-6">
-            <label>Business Name</label>
-              <input type="text" name="business_name" class="form-control" placeholder="Your Business Name">
-            </div>
-            <div class="form-group col-6">
-            <label>Contact Name</label>
-              <input type="text" name="contact_name" class="form-control" placeholder="Your Contact Name">
-            </div>
-            <div class="form-group col-6">
-            <label>E-mail</label>
-              <input type="Email" name="email" class="form-control" placeholder="Your Email">
-            </div>
-            <div class="form-group col-6">
-            <label>Password</label>
-              <input type="password" name="password" class="form-control" placeholder="Your Password">
-            </div>
-            <div class="form-group col-6">
-            <label>Phone Number</label>
-              <input type="text" name="phone" class="form-control" placeholder="Your Number">
-            </div>
-            <div class="form-group col-6">
-            <label>Alternate Phone Number</label>
-              <input type="text" name="alternate_phn" class="form-control" placeholder="Your Alternate Number">
-            </div>
-            <div class="form-group addrs col-12">
-            <label>Address</label>
-              <input type="text" name="address1" class="form-control col-6 fl" placeholder="Street Address">
-              <input type="text" name="address2" class="form-control col-6 fr" placeholder="Street Address Line 2">
-              <input type="text" name="city" class="form-control col-6 fl" placeholder="City Name">
-              <input type="text" name="state" class="form-control col-6 fr" placeholder="State/Province">
-              <input type="text" name="postal" class="form-control col-6 fl" placeholder="Postal / Zip Code">
-            
-              <select class="form-control col-6 fr" name="country" id="country" aria-describedby="emailHelp">
-                  <option value="">Select Country</option>
-                  @foreach($countries as $country)
-                      <option value="{{ $country->id }}">{{ $country->name }}</option>
-                  @endforeach
-              </select>
+        <div class="form-group col-6">
+        <label>Phone Number</label>
+        <input type="number" class="form-control" name="company_phone" placeholder="Your Number">
+        </div>
+        <div class="form-group col-6">
+        <label>E-mail</label>
+        <input type="Email" class="form-control" name="company_email" placeholder="Your Email">
+        </div> 
+        <div class="form-group col-6">
+        <label>Website</label>
+        <input type="text" class="form-control" name="company_website" placeholder="Website Name">
+        </div> 
+        <div class="form-group col-12">
+        <label>Company Description</label>
+        <textarea type="text" class="form-control" name="company_description" placeholder="Company Description here.."> </textarea>
+        </div>
 
-                           
-          
-            </div>
-            <div class="form-group col-12">
-            <label>Your Description</label>
-              <textarea type="text" name="description" class="form-control" placeholder="Description here.."> </textarea>
-            </div>
-            <button class="btn btn-bg">Submit Form</button>
-          </form> -->
-
-
-
+        <div>
+          <div>
+            <button type="button" id="nxtBtn" class="btn btn-bg" onclick="nextPrev(2)">Next</button>
           </div>
         </div>
-        </div>
+        
       </div>
-      </div>
-  </div>
 
+      <div class="tab" id="tabs-2">
+        <div class="col-12">
+          <h3 class="titleh3">Personal Information</h3>
+          <p>Fill the form below keenly to participate in the Art and Fair exhibition. Forms that are not completly filled will not be accepted.</p>
+        </div>
+        <div class="form-group col-12">
+        <label>Vendor Name</label>
+        <input type="text" class="form-control col-6 fl" name="first_name" placeholder="First Name">
+        <input type="text" class="form-control col-6 fr" name="last_name" placeholder="Last Name">
+        </div>
+        <div class="form-group col-12">
+        <label>Business Name</label>
+        <input type="text" class="form-control" name="business_name" placeholder="Your Business Name">
+        </div>
+
+        <div class="form-group col-6">
+        <label>E-mail</label>
+        <input type="Email" class="form-control" name="email" placeholder="Your Email">
+        </div>
+        <div class="form-group col-6">
+        <label>Password</label>
+        <input type="password" class="form-control" name="password" placeholder="Your Password">
+        </div>
+
+        <div class="form-group col-6">
+        <label>Phone Number</label>
+        <input type="number" class="form-control" name="phone" placeholder="Your Number">
+        </div>
+        <div class="form-group col-6">
+        <label>Alternate Phone Number</label>
+        <input type="number" class="form-control" name="alternate_phone" placeholder="Your Alternate Number">
+        </div>
+        
+        <div class="form-group multii col-12">
+        <label>Address</label>
+        <input type="text" class="form-control col-6 fl" name="address1"  placeholder="Street Address">
+        <input type="text" class="form-control col-6 fr" name="address2"  placeholder="Street Address Line 2">   
+       <input type="text" class="form-control col-6 fl" name="postcode" placeholder="Postal / Zip Code">
+        <select class="form-control col-6 fr" name="country" id="country">
+          <option value="">Select Country</option>
+          @foreach($countries as $key => $country)
+            <option value="{{$country->id}}" {{ ($country->id == '161') ? 'selected':'' }}>{{$country->name}}</option>
+          @endforeach
+        </select>
+
+        <select class="form-control col-6 fl" name="state" id="state">
+          <option value="">Select State</option>
+        </select>
+
+        <select class="form-control col-6 fr" name="city" id="city">
+          <option value="">Select City</option>
+        </select>
+
+
+        </div>
+        <div>
+          <div>
+            <button type="button" id="btnPrevious" onclick="nextPrev(1)">Previous</button>
+            <button type="button" id="nxtBtn" class="btn btn-bg" onclick="nextPrev(3)">Next</button>
+          </div>
+        </div>
+        
+      </div>
+
+      <div class="tab" id="tabs-3">
+        <div class="col-12">
+          <h3 class="titleh3">Account Information</h3>
+          <p>Fill the form below keenly to participate in the Art and Fair exhibition. Forms that are not completly filled will not be accepted.</p>
+        </div>
+        <div class="form-group col-6">
+        <label>Account Holder Name</label>
+        <input type="text" class="form-control" name="account_holder_name" placeholder="Account Holder Name">
+        </div>
+        
+        <div class="form-group col-6">
+        <label>Account Number</label>
+        <input type="text" class="form-control" name="account_no" placeholder="Your Account Number">
+        </div>
+        
+        <div class="form-group col-12">
+        <label>Bank Name</label>
+        <input type="text" class="form-control" name="bank_name" placeholder="your Bank Name">
+        </div>
+
+        <div>
+          <div>
+            <button type="button" id="btnPrevious" onclick="nextPrev(2)">Previous</button>
+            <button type="submit" id="nxtBtn" class="btn btn-bg" >Submit</button>
+          </div>
+        </div>
+        
+      </div>
+        
+        <!-- <div style="overflow:auto;">
+          <div style="float:right;">
+            <button type="button" id="btnPrevious" onclick="nextPrev(-1)">Previous</button>
+            <button type="button" id="btnNext" class="btn btn-bg" onclick="nextPrev(1)">Next</button>
+          </div>
+        </div> -->
+        <!-- Circles which indicates the steps of the form: -->
+        <div class="step-dots" style="text-align:center;margin-top:40px;">
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        </div>
+      
+      </form>
+      </div>
+
+    </div>
+    </div>
+  </div>
+  </div>
+</div>
+<!-- Modal--->
+
+
+
+
+<script type="text/javascript">
+  function nextPrev(t){
+    var nxtTab = 'tabs-'+t;
+    $('.tab').css('display','none');
+    $('#'+nxtTab).css('display','block');
+    $('#tab-2').css('display','block');
+  }
+</script>
+<script type="text/javascript">
+  $(document).ready(function() {    
+    var cid = '161';
+    var url = '{{ route("states", ":id") }}';
+    url = url.replace(':id', cid);   
+      if(cid){
+          $.ajax({
+                  type: 'GET',
+                  url: url,
+                  success: function (res) {
+                    console.log('response',res);
+                    if(res){
+                      $("#c_state").empty();
+                      $("#c_state").append('<option>Select</option>');
+                      $.each(res,function(key,value){
+                        $("#c_state").append('<option value="'+key+'">'+value+'</option>');
+                      });
+
+                      $("#state").empty();
+                      $("#state").append('<option>Select</option>');
+                      $.each(res,function(key,value){
+                        $("#state").append('<option value="'+key+'">'+value+'</option>');
+                      });
+                    
+                    }else{
+                      $("#state").empty();
+                    }
+                    
+                  },
+                  error: function(err) {
+                    console.log(err);
+                  }
+          });
+      }
+  });
+  $('#c_country').change(function(){
+    var cid = $(this).val();
+    var url = '{{ route("states", ":id") }}';
+    url = url.replace(':id', cid);   
+      if(cid){
+          $.ajax({
+                  type: 'GET',
+                  url: url,
+                  success: function (res) {
+                    console.log('response',res);
+                    if(res){
+                      $("#c_state").empty();
+                      $("#c_state").append('<option>Select</option>');
+                      $.each(res,function(key,value){
+                        $("#c_state").append('<option value="'+key+'">'+value+'</option>');
+                      });
+                    
+                    }else{
+                      $("#c_state").empty();
+                    }
+                    
+                  },
+                  error: function(err) {
+                    console.log(err);
+                  }
+          });
+      }  
+  });
+
+    $('#c_state').change(function(){
+      var sid = $(this).val();
+      var url = '{{ route("cities", ":id") }}';
+      url = url.replace(':id', sid);
+        if(sid){
+            $.ajax({
+                    type: 'GET',
+                    url: url,
+                    success: function (res) {
+                    console.log('response',res);
+                        if(res)
+                        {
+                            $("#c_city").empty();
+                            $("#c_city").append('<option>Select City</option>');
+                            $.each(res,function(key,value){
+                                $("#c_city").append('<option value="'+key+'">'+value+'</option>');
+                            });
+                        }else{
+                            $("#c_city").empty();
+                        }
+                      
+                    },
+                    error: function(err) {
+                      console.log(err);
+                    }
+            });
+        }   
+        
+    }); 
+
+    $('#country').change(function(){
+        var cid = $(this).val();
+        var url = '{{ route("states", ":id") }}';
+        url = url.replace(':id', cid);
+       
+        if(cid){
+            $.ajax({
+                    type: 'GET',
+                    url: url,
+                    success: function (res) {
+                      console.log('response',res);
+                      if(res){
+                        $("#state").empty();
+                        $("#state").append('<option>Select</option>');
+                        $.each(res,function(key,value){
+                          $("#state").append('<option value="'+key+'">'+value+'</option>');
+                        });
+                      
+                      }else{
+                        $("#state").empty();
+                      }
+                      
+                    },
+                    error: function(err) {
+                      console.log(err);
+                    }
+            });
+        }
+
+       
+    });
+    $('#state').change(function(){
+        var sid = $(this).val();
+
+        var url = '{{ route("cities", ":id") }}';
+        url = url.replace(':id', sid);
+       
+
+        if(sid){
+            $.ajax({
+                    type: 'GET',
+                    url: url,
+                    success: function (res) {
+                    console.log('response',res);
+                        if(res)
+                        {
+                            $("#city").empty();
+                            $("#city").append('<option>Select City</option>');
+                            $.each(res,function(key,value){
+                                $("#city").append('<option value="'+key+'">'+value+'</option>');
+                            });
+                        }else{
+                            $("#city").empty();
+                        }
+                      
+                    },
+                    error: function(err) {
+                      console.log(err);
+                    }
+            });
+        }   
+        
+    }); 
+</script>

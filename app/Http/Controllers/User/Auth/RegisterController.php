@@ -293,9 +293,6 @@ class RegisterController extends Controller
         }catch (\Exception $e) {
           return Response::json(['success' => false, 'status' => 2, 'errors' => [$e->getMessage()]]);
         }
-        
-        die;
-
     }
     
 }

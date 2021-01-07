@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Vendor\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
+use Spatie\Permission\Models\Role;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -14,6 +15,9 @@ use Mail;
 use Auth;
 use Session;
 use Carbon\Carbon;
+
+use App\Models\AccountDetail;
+use App\Models\CompanyInformation;
 
 class RegisterController extends Controller
 {
@@ -56,11 +60,33 @@ class RegisterController extends Controller
      */
     protected function create(Request $request)
     {  
-        
+      
         $validator = Validator::make($request->all(), [
-            'first_name' => 'required',
-            'email'      => 'required',
-            'password'   => 'required|min:8'
+            'company_name'          => 'required',
+            'company_address'       => 'required',
+            'company_country'       => 'required',
+            'company_state'         => 'required',
+            'company_city'          => 'required',
+            'company_phone'         => 'required',
+            'company_email'         => 'required',
+            'company_website'       => 'required',
+            'company_description'   => 'required',
+            'first_name'            => 'required',
+            'last_name'             => 'required',
+            'business_name'         => 'required',
+            'email'                 => 'required',
+            'phone'                 => 'required',
+            'alternate_phone'       => 'required',
+            'address1'              => 'required',
+            'address2'              => 'required',
+            'city'                  => 'required',
+            'state'                 => 'required',
+            'postcode'              => 'required',
+            'country'               => 'required',
+            'account_holder_name'   => 'required',
+            'account_no'            => 'required',
+            'bank_name'             => 'required',
+            'password'              => 'required|min:8'
         ]);
 
         if ($validator->fails())
@@ -69,10 +95,12 @@ class RegisterController extends Controller
         }
         try{
             $data = $request->all();
+
             $existing = User::where('email', $data['email'])->count();
             if($existing > 0){
                 return Response::json(['success' => false, 'status' => 2, 'errors' => ['Email already exists']]);
             }
+
             $user = new User;
             $user->first_name = $data['first_name'];
             $user->last_name = $data['last_name'];
@@ -80,17 +108,35 @@ class RegisterController extends Controller
             $user->password =  Hash::make($data['password']);
             $user->type = 'vendor';
             $user->business_name = $data['business_name'];
-            $user->contact_name = $data['contact_name'];
             $user->phone = $data['phone'];
-            $user->alternate_phone = $data['alternate_phn'];
+            $user->alternate_phone = $data['alternate_phone'];
             $user->address1 = $data['address1'];
             $user->address2 = $data['address2'];
             $user->city_id = $data['city'];
             $user->state_id = $data['state'];
-            $user->postal = $data['postal'];
+            $user->postal = $data['postcode'];
             $user->country_id = $data['country'];
-            $user->description = $data['description'];
             $user->save();
+
+            $company = new CompanyInformation();
+            $company->vendor_id = $user->id;
+            $company->company_name = $data['company_name'];
+            $company->address = $data['company_address'];
+            $company->city_id = $data['company_country'];
+            $company->state_id = $data['company_state'];
+            $company->country_id = $data['company_city'];
+            $company->phone = $data['company_phone'];
+            $company->email = $data['company_email'];
+            $company->website = $data['company_website'];
+            $company->company_description = $data['company_description'];
+            $company->save();
+
+            $account = new AccountDetail();
+            $account->vendor_id = $user->id;
+            $account->account_holder_name = $data['account_holder_name'];
+            $account->account_number = $data['account_no'];
+            $account->bank_name = $data['bank_name'];
+            $account->save();
 
             $role = Role::find('2');
             $user->roles()->attach($role);
@@ -115,7 +161,7 @@ class RegisterController extends Controller
                 return Response::json(['success' => false, 'status' => 2, 'errors' => ['Registration failed']]);
             }
         }catch (\Exception $e) {
-          return Response::json(['success' => false, 'status' => 2, 'errors' => ['Something went wrong']]);
+          return Response::json(['success' => false, 'status' => 2, 'errors' => [$e->getMessage()]]);
         }
         
     }

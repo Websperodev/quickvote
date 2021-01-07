@@ -14,6 +14,7 @@ use App\Models\Banner;
 use App\Models\Slider;
 use App\Models\Service;
 use App\Models\Countries;
+use App\Models\TeamMember;
 use App\Models\Testimonial;
 use App\Models\PricingPlans;
 
@@ -24,9 +25,10 @@ class UserController extends Controller
     public function index()
     {  
         $countries = Countries::get();
+        $pageData = [];
+        $sliders = [];
         $data = Page::where('page_name', 'home')->get();
         if($data->count() > 0){
-            $pageData = [];
             foreach($data as $val){
                 $pageData[$val->section] = $val;
             }
@@ -36,7 +38,6 @@ class UserController extends Controller
         $slider = Slider::whereIn('name',$inArray)->get();
         $testimonials = Testimonial::all();
         if($slider->count() > 0){
-            $sliders = [];
             foreach($slider as $val){
                 $sliders[$val->name][] = $val;
             }       
@@ -157,5 +158,56 @@ class UserController extends Controller
             $banners = $faqBanner;
         }
         return view('user.pages.faq', compact('countries', 'faqs','banners'));
+    }
+    public function openServices(){
+        $countries = Countries::get();
+        $banners = [];
+        $sliders = [];
+        $servicesBanner = Banner::where('page', 'services')->first();
+        if(!empty($servicesBanner)){
+            $banners = $servicesBanner;
+        }
+        $services = Service::orderBy('id','desc')->limit('10')->get();
+        $inArray = ['trusted brands'];
+
+        $slider = Slider::whereIn('name',$inArray)->get();
+        if($slider->count() > 0){
+            foreach($slider as $val){
+                $sliders[$val->name][] = $val;
+            }       
+        }
+        $serviceData = Page::where(['page_name' => 'aboutus', 'section' => 'Our Services'])->first();
+
+        return view('user.pages.services', compact('countries','sliders','serviceData' ,'services','banners'));
+
+    }
+    public function openTeam(){
+        $countries = Countries::get();
+        $banners = [];
+        $sliders = [];
+        $teamData = [];
+
+        $servicesBanner = Banner::where('page', 'our-team')->first();
+        if(!empty($servicesBanner)){
+            $banners = $servicesBanner;
+        }
+        $services = Service::orderBy('id','desc')->limit('10')->get();
+        $inArray = ['trusted brands'];
+
+        $slider = Slider::whereIn('name',$inArray)->get();
+        if($slider->count() > 0){
+            foreach($slider as $val){
+                $sliders[$val->name][] = $val;
+            }       
+        }
+        $data = Page::whereIn('page_name', ['our-team','our-investors'])->get();
+        if($data->count() > 0){
+            foreach($data as $val){
+                $teamData[$val->section] = $val;
+            }
+                
+        }
+        $teamMember = TeamMember::all();
+        return view('user.pages.our-team', compact('countries','sliders','teamData' ,'services','banners'));
     }
 }
