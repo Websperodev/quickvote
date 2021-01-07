@@ -23,7 +23,7 @@
         @foreach($services as $service)
           <div class="col-4 serv">
           <div class="serv-body">
-            <img class="o-img" src="{!! asset($service->image) !!}">
+            <img class="o-img" src="{!! url($service->image) !!}">
             <h3 class="titleh3 tc">{!! ucfirst($service->name) !!}</h3>
             <p>{!! ucfirst($service->text) !!}</p>
           </div>
