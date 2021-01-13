@@ -176,16 +176,22 @@ class UserController extends Controller
                 $sliders[$val->name][] = $val;
             }       
         }
+        $testimonials = Testimonial::all();
+        $pageData = [];
         $serviceData = Page::where(['page_name' => 'aboutus', 'section' => 'Our Services'])->first();
-
-        return view('user.pages.services', compact('countries','sliders','serviceData' ,'services','banners'));
+        $data = Page::where(['page_name' => 'home', 'section' => 'testimonial'])->first();
+        if(!empty($data)){
+            $pageData['testimonial'] = $data; 
+        }
+        
+        return view('user.pages.services', compact('countries', 'pageData', 'sliders','serviceData' ,'services','banners','testimonials'));
 
     }
     public function openTeam(){
         $countries = Countries::get();
         $banners = [];
         $sliders = [];
-        $teamData = [];
+        $pageData = [];
 
         $servicesBanner = Banner::where('page', 'our-team')->first();
         if(!empty($servicesBanner)){
@@ -203,11 +209,14 @@ class UserController extends Controller
         $data = Page::whereIn('page_name', ['our-team','our-investors'])->get();
         if($data->count() > 0){
             foreach($data as $val){
-                $teamData[$val->section] = $val;
+                $pageData[$val->section] = $val;
             }
                 
         }
+        $testimonials = Testimonial::all();
+
         $teamMember = TeamMember::all();
-        return view('user.pages.our-team', compact('countries','sliders','teamData' ,'services','banners'));
+        
+        return view('user.pages.our-team', compact('countries','sliders','pageData','testimonials' ,'services','banners', 'teamMember'));
     }
 }

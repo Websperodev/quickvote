@@ -179,7 +179,6 @@ $(document).ready(function () {
              
          },
          submitHandler: function (form) {
-          alert();
              $.ajax({
                 type: 'POST',
                 url: "{{ route('vendor.register') }}",
