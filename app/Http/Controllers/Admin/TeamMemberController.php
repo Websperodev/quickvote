@@ -117,7 +117,7 @@ class TeamMemberController extends Controller
     public function store(Request $request)
     { 
         $validator = Validator::make($request->all(), [
-                                        'image'       => 'required',
+                                        'image'       => 'sometimes|required',
                                         'name'         => 'required',
                                         'designation'         => 'required',
                                     ]);

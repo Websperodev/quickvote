@@ -98,11 +98,11 @@
 
         <div class="form-group col-6">
         <label>Phone Number</label>
-        <input type="number" class="form-control" name="phone" placeholder="Your Number">
+        <input type="text" class="form-control" name="phone" placeholder="Your Number">
         </div>
         <div class="form-group col-6">
         <label>Alternate Phone Number</label>
-        <input type="number" class="form-control" name="alternate_phone" placeholder="Your Alternate Number">
+        <input type="text" class="form-control" name="alternate_phone" placeholder="Your Alternate Number">
         </div>
         
         <div class="form-group multii col-12">
@@ -129,7 +129,7 @@
         </div>
         <div>
           <div>
-            <button type="button" id="btnPrevious" onclick="nextPrev(1)">Previous</button>
+            <button type="button" class="btn btn-bg" id="btnPrevious" onclick="nextPrev(1)">Previous</button>
             <button type="button" id="nxtBtn" class="btn btn-bg" onclick="nextPrev(3)">Next</button>
           </div>
         </div>
@@ -158,7 +158,7 @@
 
         <div>
           <div>
-            <button type="button" id="btnPrevious" onclick="nextPrev(2)">Previous</button>
+            <button type="button" class="btn btn-bg" id="btnPrevious" onclick="nextPrev(2)">Previous</button>
             <button type="submit" id="nxtBtn" class="btn btn-bg" >Submit</button>
           </div>
         </div>
