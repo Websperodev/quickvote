@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
-use App\Models\Faq;
 use App\Models\Page;
 use App\Models\TeamMember;
 use Yajra\Datatables\Datatables;
@@ -242,11 +241,11 @@ class TeamMemberController extends Controller
     public function destroy($id)
     { 
         try{
-            $faq = Faq::findOrFail($id);
-            $faq->delete();
+            $team = TeamMember::findOrFail($id);
+            $team->delete();
            
-            if($faq){
-                return Response::json(['success' => true, 'status' => 1, 'message' => "Faq has been deleted successfully."]);
+            if($team){
+                return Response::json(['success' => true, 'status' => 1, 'message' => "Member has been deleted successfully."]);
             }else{
                 return Response::json(['success' => false, 'status' => 2, "error" => 'Something went wrong.']);
             }
