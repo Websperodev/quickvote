@@ -247,44 +247,13 @@ class PageController extends Controller
                 $msg = 'Data updated successfully';
             }
 
-            $page = new Page; 
-            $page->page_name = 'aboutus';
-            $page->section = 'banner';
-            $page->heading1 = $request->get('banner_heading1');
-            $page->heading2 = $request->get('banner_heading2');
-            $page->description   = $request->get('banner_description');
-            $page->save();
-            if ($request->hasFile('banner_img')) {
-
-                if($request->get('existing_banner_img') != ''){
-                    if(file_exists(public_path($request->get('existing_banner_img')))){
-                        unlink(public_path($request->get('existing_banner_img')));
-                        File::delete(public_path($request->get('existing_banner_img')));
-                    }
-                }
-                
-                if ($request->file('banner_img')->isValid()) {
-                    $validated = $request->validate([
-                        'banner_img' => 'string|max:40',
-                        'banner_img' => 'mimes:jpeg,png|max:1014',
-                    ]);
-                    $file = request()->file('banner_img');
-                    $fileName = md5($file->getClientOriginalName() . time()) . "." . $file->getClientOriginalExtension();
-                    $file->move('./uploads/images/', $fileName); 
-                    $img = '/uploads/images/'.$fileName;
-                    $page->img1 =  $img;
-                    $page->update();
-                }
-            }
-
-
-
+           
             $page = new Page; 
             $page->page_name = 'aboutus';
             $page->section = 'about quickvote';
             $page->heading1 = $request->get('about_heading');
             $page->description   = $request->get('about_description');
-            $page->save();
+            
             if ($request->hasFile('about_img')) {
 
                 if($request->get('existing_about_img') != ''){
@@ -304,10 +273,10 @@ class PageController extends Controller
                     $file->move('./uploads/images/', $fileName); 
                     $img = '/uploads/images/'.$fileName;
                     $page->img1 =  $img;
-                    $page->update();
+                    
                 }
             }
-
+            $page->save();
 
             $page = new Page; 
             $page->page_name = 'aboutus';
@@ -321,7 +290,7 @@ class PageController extends Controller
             $page->section = 'dedicated';
             $page->heading1 = $request->get('dedicated_heading');
             $page->description   = $request->get('dedicated_description');
-            $page->save();
+            
             if ($request->hasFile('dedicated_img')) {
                 if($request->get('existing_dedicated_img') != ''){
                     if(file_exists(public_path($request->get('existing_dedicated_img')))){
@@ -340,10 +309,10 @@ class PageController extends Controller
                     $file->move('./uploads/images/', $fileName); 
                     $img = '/uploads/images/'.$fileName;
                     $page->img1 =  $img;
-                    $page->update();
+                    
                 }
             }
-
+            $page->save();
 
             $page = new Page; 
             $page->page_name = 'aboutus';

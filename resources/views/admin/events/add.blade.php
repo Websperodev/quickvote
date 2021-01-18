@@ -191,7 +191,7 @@ $timezoneArray = config('constants.timezones');
 
 
                         <div class="btn-right">
-                        <button type="submit" class="btn btn-bg ladda-button">Create Form</button>
+                        <button type="submit" class="btn btn-bg ladda-button">Create Event</button>
                         </div>
                     </div>
                 {!! Form::close() !!}
