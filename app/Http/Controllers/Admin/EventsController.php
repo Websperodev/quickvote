@@ -54,10 +54,10 @@ class EventsController extends Controller
                 'start_date'       => 'required',
                 'end_date'         => 'required',
                 'organiser_name'   => 'required',
-                'venue'            => 'required',
                 'city'             => 'required',
                 'state'            => 'required',
                 'country'          => 'required',
+                'event_category'   => 'required',
             ]);
 
             if ($validator->fails())
@@ -68,6 +68,7 @@ class EventsController extends Controller
                 $user = Auth::user();
                 
                 $data = $request->all();
+               
                 $existing = Event::where('name', $data['event_title'])->count();
                 if($existing > 0){
                     $request->session()->flash('message.level', 'danger');
@@ -82,14 +83,14 @@ class EventsController extends Controller
                 $event->category_id = $data['event_category'];
                 $event->start_date = date("Y-m-d", strtotime($data['start_date']));  
                 $event->end_date = date("Y-m-d", strtotime($data['end_date']));  
-                $event->venue = $data['venue'];
                 $event->city_id = $data['city'];
                 $event->state_id = $data['state'];
                 $event->country_id = $data['country'];
                 $event->timezone = $data['timezone'];
                 $event->description = $data['description'];
+                $event->event_priority = $data['event_priority'];
                 $event->user_id = $user->id;
-                $event->save();
+                
                 
                 if ($request->hasFile('image')) {
                     if ($request->file('image')->isValid()) {
@@ -102,9 +103,9 @@ class EventsController extends Controller
                         $file->move('./uploads/images/', $fileName); 
                         $img = '/uploads/images/'.$fileName;
                         $event->image =  $img;
-                        $event->update();
                     }
                 }
+                $event->save();
                 
                 if($event->id != ''){
                     $request->session()->flash('message.level', 'success');

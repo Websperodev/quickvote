@@ -86,7 +86,7 @@
     <div class="row">
       <div class="col-12">
       <h2 class="titleh2 tc">{!! isset($pageData['our-investors']['heading1']) ? $pageData['our-investors']['heading1'] : 'Our Investors' !!}</h2>
-      <p>{!! isset($pageData['our-investors']['description']) ? $pageData['our-investors']['description'] : 'Our platform is free to use, users just have to sign up to vote but you can also use our freemium or paid plan for instant voting and other cool features. Our platform is free to use, users just have to sign up to vote but you can also use our freemium or paid plan for instant voting and other cool features. Our platform is free to use, users just have to sign up to vote but you can also use our freemium or paid plan for instant voting and other cool features. Our platform is free to use, users just have to sign up to vote but you can also use our freemium or paid plan for instant voting and other cool features.' !!} </p>
+      <p> {!! isset($pageData['our-investors']['description']) ? $pageData['our-investors']['description'] : 'Our platform is free to use, users just have to sign up to vote but you can also use our freemium or paid plan for instant voting and other cool features. Our platform is free to use, users just have to sign up to vote but you can also use our freemium or paid plan for instant voting and other cool features. Our platform is free to use, users just have to sign up to vote but you can also use our freemium or paid plan for instant voting and other cool features. Our platform is free to use, users just have to sign up to vote but you can also use our freemium or paid plan for instant voting and other cool features.' !!}</p>
       </div>
     </div>
     </div>

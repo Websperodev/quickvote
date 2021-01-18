@@ -17,16 +17,16 @@
         </div>
         <div class="form-group col-6">
         <label>Name of Company</label>
-        <input type="text" class="form-control" name="company_name" placeholder="Your Company Name">
+        <input type="text" class="form-control" autocomplete="off" name="company_name" placeholder="Your Company Name">
         </div>
         <div class="form-group col-6">
         <label>Address</label>
-        <input type="text" class="form-control" name="company_address" placeholder="Your Address">
+        <input type="text" class="form-control" autocomplete="off" name="company_address" placeholder="Your Address">
         </div>
         
         <div class="form-group col-6">
         <label>Country</label>
-        <select class="form-control" name="company_country" id="c_country">
+        <select class="form-control" autocomplete="off" name="company_country" id="c_country">
           <option value="">Select Country</option>
           @foreach($countries as $key => $country)
             <option value="{{$country->id}}"  {{ ($country->id == '161') ? 'selected':'' }}>{{$country->name}}</option>
@@ -35,38 +35,38 @@
         </div>
         <div class="form-group col-6">
         <label>State</label>
-          <select class="form-control" name="company_state" id="c_state">
+          <select class="form-control" autocomplete="off" name="company_state" id="c_state">
             <option>Select State</option>
           </select>
         </div>
 
         <div class="form-group col-6">
         <label>City</label>
-          <select class="form-control" name="company_city" id="c_city">
+          <select class="form-control" autocomplete="off" name="company_city" id="c_city">
             <option>Select City</option>
           </select>
         </div>
 
         <div class="form-group col-6">
         <label>Phone Number</label>
-        <input type="number" class="form-control" name="company_phone" placeholder="Your Number">
+        <input type="number" class="form-control" autocomplete="off" name="company_phone" placeholder="Your Number">
         </div>
         <div class="form-group col-6">
         <label>E-mail</label>
-        <input type="Email" class="form-control" name="company_email" placeholder="Your Email">
+        <input type="Email" class="form-control" autocomplete="off" name="company_email" placeholder="Your Email">
         </div> 
         <div class="form-group col-6">
         <label>Website</label>
-        <input type="text" class="form-control" name="company_website" placeholder="Website Name">
+        <input type="text" class="form-control" autocomplete="off" name="company_website" placeholder="Website Name">
         </div> 
         <div class="form-group col-12">
         <label>Company Description</label>
-        <textarea type="text" class="form-control" name="company_description" placeholder="Company Description here.."> </textarea>
+        <textarea type="text" class="form-control" autocomplete="off" name="company_description" placeholder="Company Description here.."> </textarea>
         </div>
 
         <div>
           <div>
-            <button type="button" id="nxtBtn" class="btn btn-bg" onclick="nextPrev(2)">Next</button>
+            <button type="button" id="nxtBtn"  class="btn btn-bg" onclick="nextPrev(2)">Next</button>
           </div>
         </div>
         
@@ -79,49 +79,49 @@
         </div>
         <div class="form-group col-12">
         <label>Vendor Name</label>
-        <input type="text" class="form-control col-6 fl" name="first_name" placeholder="First Name">
-        <input type="text" class="form-control col-6 fr" name="last_name" placeholder="Last Name">
+        <input type="text" class="form-control col-6 fl" autocomplete="off" name="first_name" placeholder="First Name">
+        <input type="text" class="form-control col-6 fr" autocomplete="off" name="last_name" placeholder="Last Name">
         </div>
         <div class="form-group col-12">
         <label>Business Name</label>
-        <input type="text" class="form-control" name="business_name" placeholder="Your Business Name">
+        <input type="text" class="form-control" autocomplete="off" name="business_name" placeholder="Your Business Name">
         </div>
 
         <div class="form-group col-6">
         <label>E-mail</label>
-        <input type="Email" class="form-control" name="email" placeholder="Your Email">
+        <input type="Email" class="form-control" autocomplete="off" name="email" placeholder="Your Email">
         </div>
         <div class="form-group col-6">
         <label>Password</label>
-        <input type="password" class="form-control" name="password" placeholder="Your Password">
+        <input type="password" class="form-control" autocomplete="off" name="password" placeholder="Your Password">
         </div>
 
         <div class="form-group col-6">
         <label>Phone Number</label>
-        <input type="text" class="form-control" name="phone" placeholder="Your Number">
+        <input type="text" class="form-control" autocomplete="off" name="phone" placeholder="Your Number">
         </div>
         <div class="form-group col-6">
         <label>Alternate Phone Number</label>
-        <input type="text" class="form-control" name="alternate_phone" placeholder="Your Alternate Number">
+        <input type="text" class="form-control" autocomplete="off" name="alternate_phone" placeholder="Your Alternate Number">
         </div>
         
         <div class="form-group multii col-12">
         <label>Address</label>
-        <input type="text" class="form-control col-6 fl" name="address1"  placeholder="Street Address">
-        <input type="text" class="form-control col-6 fr" name="address2"  placeholder="Street Address Line 2">   
-       <input type="text" class="form-control col-6 fl" name="postcode" placeholder="Postal / Zip Code">
-        <select class="form-control col-6 fr" name="country" id="country">
+        <input type="text" class="form-control col-6 fl" name="address1" autocomplete="off" placeholder="Street Address">
+        <input type="text" class="form-control col-6 fr" name="address2" autocomplete="off"  placeholder="Street Address Line 2">   
+       <input type="text" class="form-control col-6 fl" name="postcode" autocomplete="off" placeholder="Postal / Zip Code">
+        <select class="form-control col-6 fr" autocomplete="off" name="country" id="country">
           <option value="">Select Country</option>
           @foreach($countries as $key => $country)
             <option value="{{$country->id}}" {{ ($country->id == '161') ? 'selected':'' }}>{{$country->name}}</option>
           @endforeach
         </select>
 
-        <select class="form-control col-6 fl" name="state" id="state">
+        <select class="form-control col-6 fl" name="state" autocomplete="off" id="state">
           <option value="">Select State</option>
         </select>
 
-        <select class="form-control col-6 fr" name="city" id="city">
+        <select class="form-control col-6 fr" name="city" autocomplete="off" id="city">
           <option value="">Select City</option>
         </select>
 
@@ -143,17 +143,17 @@
         </div>
         <div class="form-group col-6">
         <label>Account Holder Name</label>
-        <input type="text" class="form-control" name="account_holder_name" placeholder="Account Holder Name">
+        <input type="text" class="form-control" autocomplete="off" name="account_holder_name" placeholder="Account Holder Name">
         </div>
         
         <div class="form-group col-6">
         <label>Account Number</label>
-        <input type="text" class="form-control" name="account_no" placeholder="Your Account Number">
+        <input type="text" class="form-control" autocomplete="off" name="account_no" placeholder="Your Account Number">
         </div>
         
         <div class="form-group col-12">
         <label>Bank Name</label>
-        <input type="text" class="form-control" name="bank_name" placeholder="your Bank Name">
+        <input type="text" class="form-control" autocomplete="off" name="bank_name" placeholder="your Bank Name">
         </div>
 
         <div>

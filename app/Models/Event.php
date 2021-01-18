@@ -18,7 +18,7 @@ class Event extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'image', 'organizer_name', 'category_id', 'start_date', 'end_date', 'venue', 'city_id', 'state_id', 'country_id', 'timezone', 'description', 'user_id'
+        'name', 'image', 'organizer_name', 'category_id', 'start_date', 'end_date', 'venue', 'city_id', 'state_id', 'country_id', 'timezone', 'description', 'user_id','event_priority'
     ];
 
     public function category()

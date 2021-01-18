@@ -23,7 +23,7 @@
               <div class="alert alert-danger" style="display:none"></div>
               <div class="form-group">
               <label>Email Address</label>
-                <input type="text" name="email" class="form-control" placeholder="Enter your Email ID">
+                <input type="text" name="email" autocomplete="off" class="form-control" placeholder="Enter your Email ID">
               </div>    
               <div class="form-group">
               <label>Password</label>

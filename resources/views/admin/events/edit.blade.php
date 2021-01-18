@@ -3,7 +3,9 @@
 @section("page_title") <a href="{!! route('admin.events') !!}" class="head-a"> Events </a> > Edit @endsection
 
 @section("content")
-
+@php 
+$timezoneArray = config('constants.timezones');
+@endphp
 <div class="row justify-content-center">
     
     <div class="col-md-12">
@@ -32,7 +34,7 @@
                         $eventCategory = isset($event->category_id) ? $event->category_id : '';
                         ?>
                         <div class="row">
-                            <div class="col-md-12 form-group cus-form-group">
+                            <div class="col-md-6 form-group cus-form-group">
                                 <label for="event_category">Event Category</label>
 
                                 <select class="form-control" name="event_category" id="event_category" aria-describedby="emailHelp">
@@ -44,6 +46,19 @@
                                 
                                 @if($errors->has('event_category'))
                                     <div class="error">{{ $errors->first('event_category') }}</div>
+                                @endif
+                            </div>
+                              
+                            <div class="col-md-6 form-group cus-form-group">
+                                <label for="event_priority">Event Priority</label>
+                                <select class="form-control" name="event_priority"autocomplete="off" id="event_priority" aria-describedby="emailHelp">
+                                    <option value="">Choose Priority</option>
+                                    <option {{ ($event->event_priority == 'low') ? 'selected':'' }} value="low">Low</option>
+                                    <option {{ ($event->event_priority == 'medium') ? 'selected':'' }} value="medium">Medium</option>
+                                    <option {{ ($event->event_priority == 'high') ? 'selected':'' }} value="high">High</option>
+                                </select>
+                                @if($errors->has('event_priority'))
+                                    <div class="error">{{ $errors->first('event_priority') }}</div>
                                 @endif
                             </div>
                         </div>
@@ -99,7 +114,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="row">
+                       <!--  <div class="row">
                             <div class="col-md-12 form-group cus-form-group">
                                 <label for="venue">Venue</label>
                                 <input type="text" class="form-control" value="{{ isset($event->venue)? ucfirst($event->venue) : ''}}" name="venue" id="venue" aria-describedby="emailHelp" placeholder="Enter Venue">
@@ -107,14 +122,14 @@
                                     <div class="error">{{ $errors->first('venue') }}</div>
                                 @endif
                             </div>
-                        </div>
+                        </div> -->
                         <?php
                             $eventCountry = isset($event->country_id) ? $event->country_id : '';
                             $eventState = isset($event->state_id) ? $event->state_id : '';
                             $eventCity = isset($event->city_id) ? $event->city_id : '';
                         ?>
                         <div class="row">
-                            <div class="col-md-12 form-group cus-form-group">
+                            <div class="col-md-6 form-group cus-form-group">
                                 <label for="country">Country</label>
                                 
                                 <select class="form-control" name="country" id="country" aria-describedby="emailHelp">
@@ -128,9 +143,7 @@
                                     <div class="error">{{ $errors->first('country') }}</div>
                                 @endif
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12 form-group cus-form-group">
+                             <div class="col-md-6 form-group cus-form-group">
                                 <label for="state">State</label>
                                 
                                 <select class="form-control" name="state" id="state" aria-describedby="emailHelp">
@@ -145,8 +158,9 @@
                                 @endif
                             </div>
                         </div>
-                         <div class="row">
-                            <div class="col-md-12 form-group cus-form-group">
+                        <div class="row">
+                           
+                            <div class="col-md-6 form-group cus-form-group">
                                 <label for="city">City</label>
                                 <select class="form-control" name="city" id="city" aria-describedby="emailHelp">
                                     <option value="">Select City</option>
@@ -159,20 +173,27 @@
                                     <div class="error">{{ $errors->first('city') }}</div>
                                 @endif
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12 form-group cus-form-group">
+                            <div class="col-md-6 form-group cus-form-group">
                                 <label for="timezone">Timezone</label>
-                                <input type="text" class="form-control" value="{{ isset($event->timezone)? ucfirst($event->timezone) : ''}}" name="timezone" id="timezone" aria-describedby="emailHelp" placeholder="Enter Timezone">
+                                <select class="form-control" name="timezone" id="timezone" aria-describedby="emailHelp">
+                                    <option value="">Choose Timezone</option>
+                                    @foreach($timezoneArray as $time)
+                                        <option value="{{ $time }}" {{ $time == $event->timezone ? 'selected' : ''}}>{{ $time }}</option>
+                                    @endforeach
+                                </select>
+
+                                <!-- <input type="text" class="form-control" value="{{ isset($event->timezone)? ucfirst($event->timezone) : ''}}" name="timezone" id="timezone" aria-describedby="emailHelp" placeholder="Enter Timezone"> -->
                                 @if($errors->has('timezone'))
                                     <div class="error">{{ $errors->first('timezone') }}</div>
                                 @endif
                             </div>
                         </div>
+            
+                        
                         <input type="hidden" name="event_id" value="{{ $event->id }}">
 
                         <div class="btn-right">
-                        <button type="submit" class="btn btn-bg ladda-button">Submit</button>
+                        <button type="submit" class="btn btn-bg ladda-button">Update Event</button>
                         </div>
                     </div>    
                 {!! Form::close() !!}
