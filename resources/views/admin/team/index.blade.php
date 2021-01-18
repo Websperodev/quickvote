@@ -113,8 +113,8 @@
         url = url.replace(':id', id);
        
         Swal.fire({
-            title: 'Delete Faq?',
-            text: "Do you really want to delete this Faq and all data related to this Faq?",
+            title: 'Delete Member?',
+            text: "Do you really want to delete this Member and all data related to this Member?",
             type: 'warning',
             showCancelButton: true,
             showLoaderOnConfirm: true,
