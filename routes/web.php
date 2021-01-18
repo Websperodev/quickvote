@@ -106,7 +106,7 @@ Route::namespace('Admin')->group(function () {
 	Route::resource('team', 'TeamMemberController');
 	Route::post('get-team', 'TeamMemberController@getTeam')->name('admin.getTeam');
 	Route::get('/team-data','TeamMemberController@getPageData')->name('team.addData');
-	Route::post('/team-data','TeamMemberController@addPageData')->name('team.saveData');
+	Route::post('/save-data','TeamMemberController@addPageData')->name('team.saveData');
 	Route::get('our-investors', 'TeamMemberController@openInvestors')->name('our.investors');
 	Route::post('/team-data','TeamMemberController@addInvestorData')->name('investor.saveData');
 
