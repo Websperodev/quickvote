@@ -186,7 +186,7 @@
                         $("#state").empty();
                         $("#state").append('<option>Select</option>');
                         $.each(res,function(key,value){
-                          $("#state").append('<option value="'+key+'">'+value+'</option>');
+                          $("#state").append('<option value="'+value.id+'">'+value.name+'</option>');
                         });
                       
                       }else{
@@ -220,7 +220,7 @@
                             $("#city").empty();
                             $("#city").append('<option>Select City</option>');
                             $.each(res,function(key,value){
-                                $("#city").append('<option value="'+key+'">'+value+'</option>');
+                                $("#city").append('<option value="'+value.id+'">'+value.name+'</option>');
                             });
                         }else{
                             $("#city").empty();

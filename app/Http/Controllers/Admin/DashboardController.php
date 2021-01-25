@@ -43,13 +43,13 @@ class DashboardController extends Controller
     public function getStates(Request $request){
         $id = $request->id;
         $states = States::orderBy('name')->where("country_id",$id)
-                ->pluck("name","id");
+                ->get(['name','id']);
         return response()->json($states);
     }
     public function getCities(Request $request){
         $id = $request->id;
-        $cities= Cities::where("state_id",$id)
-                ->pluck("name","id");
+        $cities = Cities::orderBy('name')->where("state_id",$id)
+                ->get(['name','id']);
         return response()->json($cities);
     }
 }

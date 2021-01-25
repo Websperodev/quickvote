@@ -124,13 +124,14 @@ class RegisterController extends Controller
     public function varifyEmail(Request $request){
         $data = $request->all();
         $userId = $data['id'];
-      
+        
         $userId = $this->my_simple_crypt($userId, 'd' );
         $userData = User::find($userId);
         if(!empty($userData)){
             if($userData->email_verified_at == ''){
                 $userData->email_verified_at = Carbon::now();
                 $userData->update();
+                Auth::loginUsingId($userId);
                 return redirect('/')->with('message','Email Verified Successfully!');
             }else{
                 return redirect('/')->with('message','Already Verified!');

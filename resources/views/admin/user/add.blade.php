@@ -127,7 +127,7 @@
                                 <select class="form-control" name="country" id="country" aria-describedby="emailHelp">
                                     <option value="">Select Country</option>
                                     @foreach($countries as $country)
-                                        <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                        <option {{ $country->id == '161' ? 'selected' : '' }} value="{{ $country->id }}">{{ $country->name }}</option>
                                     @endforeach
                                 </select>
 
@@ -141,7 +141,7 @@
                                 <label for="state">State</label>
                                 
                                 <select class="form-control" name="state" id="state" aria-describedby="emailHelp">
-                                    <option value="">Select State</option>
+                                    
                                     @foreach($states as $state)
                                         <option value="{{ $state->id }}">{{ $state->name }}</option>
                                     @endforeach
@@ -201,6 +201,33 @@
 
 @section('script-bottom')
 <script type="text/javascript">
+
+    $(document).ready(function() {    
+    var cid = '161';
+    var url = '{{ route("states", ":id") }}';
+    url = url.replace(':id', cid);   
+      if(cid){
+          $.ajax({
+                  type: 'GET',
+                  url: url,
+                  success: function (res) {
+                    if(res){
+                      $("#state").empty();
+                      $.each(res,function(key,value){
+                        $("#state").append('<option value="'+value.id+'">'+value.name+'</option>');
+                      });
+                    
+                    }else{
+                      $("#state").empty();
+                    }
+                    
+                  },
+                  error: function(err) {
+                    console.log(err);
+                  }
+          });
+      }
+  });
     
     $('#country').change(function(){
         var cid = $(this).val();
@@ -217,7 +244,7 @@
                         $("#state").empty();
                         $("#state").append('<option>Select</option>');
                         $.each(res,function(key,value){
-                          $("#state").append('<option value="'+key+'">'+value+'</option>');
+                          $("#state").append('<option value="'+value.id+'">'+value.name+'</option>');
                         });
                       
                       }else{
@@ -251,7 +278,7 @@
                             $("#city").empty();
                             $("#city").append('<option>Select City</option>');
                             $.each(res,function(key,value){
-                                $("#city").append('<option value="'+key+'">'+value+'</option>');
+                                $("#city").append('<option value="'+value.id+'">'+value.name+'</option>');
                             });
                         }else{
                             $("#city").empty();

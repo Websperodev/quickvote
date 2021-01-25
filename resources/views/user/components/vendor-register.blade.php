@@ -209,18 +209,17 @@
                   type: 'GET',
                   url: url,
                   success: function (res) {
-                    console.log('response',res);
                     if(res){
                       $("#c_state").empty();
                       $("#c_state").append('<option>Select</option>');
                       $.each(res,function(key,value){
-                        $("#c_state").append('<option value="'+key+'">'+value+'</option>');
+                        $("#c_state").append('<option value="'+value.id+'">'+value.name+'</option>');
                       });
 
                       $("#state").empty();
                       $("#state").append('<option>Select</option>');
                       $.each(res,function(key,value){
-                        $("#state").append('<option value="'+key+'">'+value+'</option>');
+                        $("#state").append('<option value="'+value.id+'">'+value.name+'</option>');
                       });
                     
                     }else{
@@ -243,12 +242,11 @@
                   type: 'GET',
                   url: url,
                   success: function (res) {
-                    console.log('response',res);
                     if(res){
                       $("#c_state").empty();
                       $("#c_state").append('<option>Select</option>');
                       $.each(res,function(key,value){
-                        $("#c_state").append('<option value="'+key+'">'+value+'</option>');
+                        $("#c_state").append('<option value="'+value.id+'">'+value.name+'</option>');
                       });
                     
                     }else{
@@ -272,13 +270,12 @@
                     type: 'GET',
                     url: url,
                     success: function (res) {
-                    console.log('response',res);
                         if(res)
                         {
                             $("#c_city").empty();
                             $("#c_city").append('<option>Select City</option>');
                             $.each(res,function(key,value){
-                                $("#c_city").append('<option value="'+key+'">'+value+'</option>');
+                                $("#c_city").append('<option value="'+value.id+'">'+value.name+'</option>');
                             });
                         }else{
                             $("#c_city").empty();
@@ -303,12 +300,11 @@
                     type: 'GET',
                     url: url,
                     success: function (res) {
-                      console.log('response',res);
                       if(res){
                         $("#state").empty();
                         $("#state").append('<option>Select</option>');
                         $.each(res,function(key,value){
-                          $("#state").append('<option value="'+key+'">'+value+'</option>');
+                          $("#state").append('<option value="'+value.id+'">'+value.name+'</option>');
                         });
                       
                       }else{
@@ -326,28 +322,24 @@
     });
     $('#state').change(function(){
         var sid = $(this).val();
-
         var url = '{{ route("cities", ":id") }}';
         url = url.replace(':id', sid);
        
-
         if(sid){
             $.ajax({
                     type: 'GET',
                     url: url,
                     success: function (res) {
-                    console.log('response',res);
                         if(res)
                         {
                             $("#city").empty();
                             $("#city").append('<option>Select City</option>');
                             $.each(res,function(key,value){
-                                $("#city").append('<option value="'+key+'">'+value+'</option>');
+                                $("#city").append('<option value="'+value.id+'">'+value.name+'</option>');
                             });
                         }else{
                             $("#city").empty();
                         }
-                      
                     },
                     error: function(err) {
                       console.log(err);
