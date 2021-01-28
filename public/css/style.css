@@ -31,7 +31,7 @@ body p {
 body header * {
 	font-family: 'Montserrat', sans-serif;
 }
-#
+
 img.logo {
     max-height: 80px;
     transition: all ease 0.5s;
@@ -61,7 +61,7 @@ nav.navbar.navbar-expand-lg {
 }
 
 #navbarNavAltMarkup a.nav-link {
-    padding: 41px 0px ;
+    padding: 46px 0px ;
     border-top: 4px solid #0000;
     margin-right: 30px;
     color: #1c2331;

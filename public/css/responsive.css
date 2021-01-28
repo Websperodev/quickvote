@@ -355,6 +355,10 @@ nav#navbar_top {
 #feat .col-md-12 > p {
     margin: 0 auto 20px;
 }
+
+.col-4.serv, .col-3.serv {
+    min-width: 50%;
+}
 	
 }
 
@@ -636,5 +640,55 @@ form.vform.mform.row > .btn {
 #vendorModal .modal-content {
     padding-bottom: 0;
 }
+
+.slider-content h4 {
+    font-size: 14px;
+    font-weight: 400;
+    width: 100%;
+    padding: 0 20px;
+	letter-spacing: 2px;
+}
+
+.slider-content h4:before, .slider-content h4:after {
+    width: 20px;
+}
+
+.slider-content h4:before {
+    left: 0px;
+}
+
+.slider-content h4:after {
+    right: 0px;
+}
+
+.faqs a.card-link {
+    font-size: 16px;
+    padding: 15px;
+}
+
+.slider-content h2 {
+    font-size: 30px;
+}
+
+.faqs .card-body span {
+    font-size: 14px !important;
+}
+
+.lmore.breadcrumb p {
+    font-size: 12px;
+}
+
+footer h2.titleh2 {
+    font-weight: 500;
+}
+
+.col-4.serv, .col-3.serv {
+    flex: 0 0 100%;
+    min-width: 100%;
+}
+
+
+
+
 
 }
