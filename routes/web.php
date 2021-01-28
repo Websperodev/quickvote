@@ -80,7 +80,6 @@ Route::namespace('Admin')->group(function () {
 	Route::any('edit-categories', 'CategoriesController@editCategory')->name('admin.edit-category');
 	Route::post('delete-category', 'CategoriesController@deleteCategory')->name('admin.category.delete');
 
-
 	Route::get('events', 'EventsController@index')->name('admin.events');
 	Route::any('add-event', 'EventsController@addEvent')->name('admin.add.event');
 	Route::post('get-events', 'EventsController@allEvents')->name('admin.getEvents');
@@ -96,7 +95,12 @@ Route::namespace('Admin')->group(function () {
 	Route::post('/add-about','PageController@addAboutPage')->name('admin.pages.about');
 	Route::post('/add-contact','PageController@addContactPage')->name('admin.pages.contact');
 	Route::post('/pricing','PageController@addPricingPage')->name('admin.pages.pricing');
+
+	Route::resource('contestant', 'ContestantController');
+	Route::post('get-contestant', 'ContestantController@getContestant')->name('admin.getContestant');
+	Route::post('contestant-update/{id}', 'ContestantController@update')->name('contestant.update');
 	
+
 	Route::resource('testimonials', 'TestimonialController');
 	Route::post('get-testimonials', 'TestimonialController@getTestimonial')->name('admin.getTestimonial');
 
