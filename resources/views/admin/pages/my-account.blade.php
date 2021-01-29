@@ -105,7 +105,7 @@
                                 <select class="form-control" name="country" id="country" aria-describedby="emailHelp">
                                     <option value="">Select Country</option>
                                     @foreach($countries as $country)
-                                        <option {{ (isset($user->country_id) && $user->country_id == $country->id) ? 'selected' : '' }} value="{{ $country->id }}">{{ $country->name }}</option>
+                                        <option {{ $userCountry == $country->id ? 'selected' : ''}} value="{{ $country->id }}">{{ $country->name }}</option>
                                     @endforeach
                                 </select>
 
