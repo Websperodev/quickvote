@@ -18,6 +18,12 @@
                 @endif
                 <form id="my_account_form" method="post" class = "custum-frm" action="{{ route('admin.update.profile') }}">
                 	@csrf
+
+                    @php
+                        $userCountry = isset($user->country_id) ? $user->country_id : '161';
+                        $userState = isset($user->state_id) ? $user->state_id : '';
+                        $userCity = isset($user->city_id) ? $user->city_id : '';
+                    @endphp
                     <div class="my-account mb-2">
                         <div class="row">
                             <div class="col-md-6 form-group cus-form-group">
@@ -99,7 +105,7 @@
                                 <select class="form-control" name="country" id="country" aria-describedby="emailHelp">
                                     <option value="">Select Country</option>
                                     @foreach($countries as $country)
-                                        <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                        <option {{ (isset($user->country_id) && $user->country_id == $country->id) ? 'selected' : '' }} value="{{ $country->id }}">{{ $country->name }}</option>
                                     @endforeach
                                 </select>
 
@@ -112,9 +118,7 @@
                             
                             <select class="form-control" name="state" id="state" aria-describedby="emailHelp">
                                 <option value="">Select State</option>
-                                @foreach($states as $state)
-                                    <option value="{{ $state->id }}">{{ $state->name }}</option>
-                                @endforeach
+                               
                             </select>
 
                             @if($errors->has('state'))
@@ -127,9 +131,7 @@
                                 <label for="city">City</label>
                                 <select class="form-control" name="city" id="city" aria-describedby="emailHelp">
                                     <option value="">Select City</option>
-                                    @foreach($cities as $city)
-                                        <option value="{{ $city->id }}">{{ $city->name }}</option>
-                                    @endforeach
+                                   
                                 </select>
                                 
                                 @if($errors->has('city'))
@@ -170,6 +172,73 @@
 @section('script-bottom')
 
 <script type="text/javascript">
+    $(document).ready(function() {    
+    var cid = "{{ isset($userCountry) ? $userCountry:'161' }}";
+    var url = '{{ route("states", ":id") }}';
+    url = url.replace(':id', cid);   
+    console.log('cid',cid);
+    var stateId = "{{ isset($userState) ? $userState : '' }}";
+    var cityUrl = '{{ route("cities", ":id") }}';
+    cityUrl = cityUrl.replace(':id', stateId);   
+    console.log('sid',stateId);
+    var cityId = "{{ isset($userCity) ? $userCity : '' }}";
+    var selected = '';
+
+    if(cid){
+        $.ajax({
+            type: 'GET',
+            url: url,
+              success: function (res) {
+                if(res){
+                  $("#state").empty();
+                  $.each(res,function(key,value){
+                    if(stateId == value.id ){
+                        selected = "selected";
+                    }else{
+                        selected = '';
+                    }
+                    $("#state").append('<option '+ selected +' value="'+value.id+'">'+value.name+'</option>');
+                  });
+                
+                }else{
+                  $("#state").empty();
+                }
+                
+              },
+              error: function(err) {
+                console.log(err);
+              }
+          });
+    }
+
+    if(stateId){
+        $.ajax({
+                type: 'GET',
+                url: cityUrl,
+                success: function (res) {
+                    if(res)
+                    {
+                        $("#city").empty();
+                        
+                        $.each(res,function(key,value){
+                        if(cityId == value.id ){
+                            selected = "selected";
+                        }else{
+                            selected = '';
+                        }
+                            $("#city").append('<option '+ selected +' value="'+value.id+'">'+value.name+'</option>');
+                        });
+                    }else{
+                        $("#city").empty();
+                    }
+                  
+                },
+                error: function(err) {
+                  console.log(err);
+                }
+        });
+    } 
+});
     
     $('#country').change(function(){
         var cid = $(this).val();

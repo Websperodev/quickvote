@@ -23,7 +23,7 @@
                     <div class="user-frm mb-2">
                     <div class="row">
                         <div class="col-md-6 form-group cus-form-group">
-                            <label for="first_name">First Name</label>
+                            <label for="first_name">First Name<span class="required_field required_red">*</span></label>
                             <input type="text" class="form-control" value="{{ isset($user->first_name) ? $user->first_name : ''}}" name="first_name" id="first_name" aria-describedby="emailHelp" placeholder="Enter First Name">
                             @if($errors->has('first_name'))
     						    <div class="error">{{ $errors->first('first_name') }}</div>
@@ -55,14 +55,14 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6 form-group cus-form-group">
-                            <label for="email">Email</label>
+                            <label for="email">Email<span class="required_field required_red">*</span></label>
                             <input type="text" readonly="readonly" class="form-control" value="{{ isset($user->email) ? $user->email : ''}}" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter Email">
                             @if($errors->has('email'))
                                 <div class="error">{{ $errors->first('email') }}</div>
                             @endif
                         </div>
                         <div class="col-md-6 form-group cus-form-group">
-                            <label for="email">User Type</label>
+                            <label for="email">User Type<span class="required_field required_red">*</span></label>
                             <select class="form-control" name="user_type">
                                 <option value="">Select Type</option>
                                 <option value="user" {{ $user->type == 'user' ? 'selected' : '' }} title="User">User</option>
@@ -133,9 +133,6 @@
                         
                         <select class="form-control" name="state" id="state" aria-describedby="emailHelp">
                             <option value="">Select State</option>
-                            @foreach($states as $state)
-                                <option {{ $userState == $state->id ? 'selected' : ''}} value="{{ $state->id }}">{{ $state->name }}</option>
-                            @endforeach
                         </select>
 
                         @if($errors->has('state'))
@@ -148,9 +145,6 @@
                             <label for="city">City</label>
                             <select class="form-control" name="city" id="city" aria-describedby="emailHelp">
                                 <option value="">Select City</option>
-                                @foreach($cities as $city)
-                                    <option {{ $userCity == $city->id ? 'selected' : ''}} value="{{ $city->id }}">{{ $city->name }}</option>
-                                @endforeach
                             </select>
                             
                             @if($errors->has('city'))
@@ -196,6 +190,73 @@
 
 @section('script-bottom')
 <script type="text/javascript">
+$(document).ready(function() {    
+    var cid = "{{ isset($userCountry) ? $userCountry:'161' }}";
+    var url = '{{ route("states", ":id") }}';
+    url = url.replace(':id', cid);   
+    console.log('cid',cid);
+    var stateId = "{{ isset($userState) ? $userState : '' }}";
+    var cityUrl = '{{ route("cities", ":id") }}';
+    cityUrl = cityUrl.replace(':id', stateId);   
+    console.log('sid',stateId);
+    var cityId = "{{ isset($userCity) ? $userCity : '' }}";
+    var selected = '';
+
+    if(cid){
+        $.ajax({
+            type: 'GET',
+            url: url,
+              success: function (res) {
+                if(res){
+                  $("#state").empty();
+                  $.each(res,function(key,value){
+                    if(stateId == value.id ){
+                        selected = "selected";
+                    }else{
+                        selected = '';
+                    }
+                    $("#state").append('<option '+ selected +' value="'+value.id+'">'+value.name+'</option>');
+                  });
+                
+                }else{
+                  $("#state").empty();
+                }
+                
+              },
+              error: function(err) {
+                console.log(err);
+              }
+          });
+    }
+
+    if(stateId){
+        $.ajax({
+                type: 'GET',
+                url: cityUrl,
+                success: function (res) {
+                    if(res)
+                    {
+                        $("#city").empty();
+                        
+                        $.each(res,function(key,value){
+                        if(cityId == value.id ){
+                            selected = "selected";
+                        }else{
+                            selected = '';
+                        }
+                            $("#city").append('<option '+ selected +' value="'+value.id+'">'+value.name+'</option>');
+                        });
+                    }else{
+                        $("#city").empty();
+                    }
+                  
+                },
+                error: function(err) {
+                  console.log(err);
+                }
+        });
+    } 
+});
     
     $('#country').change(function(){
         var cid = $(this).val();

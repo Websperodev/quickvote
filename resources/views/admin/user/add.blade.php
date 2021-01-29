@@ -23,7 +23,7 @@
                     <div class="user-frm mb-2">
                         <div class="row">
                             <div class="col-md-6 form-group cus-form-group">
-                                <label for="first_name">First Name</label>
+                                <label for="first_name">First Name <span class="required_field required_red">*</span></label>
                                 <input type="text" class="form-control" value="{{ isset($user->first_name) ? $user->first_name : ''}}" name="first_name" id="first_name" aria-describedby="emailHelp" placeholder="Enter First Name">
                                 @if($errors->has('first_name'))
         						    <div class="error">{{ $errors->first('first_name') }}</div>
@@ -55,7 +55,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12 form-group cus-form-group">
-                                <label for="email">Email</label>
+                                <label for="email">Email <span class="required_field required_red">*</span></label>
                                 <input type="text"  class="form-control" value="{{ isset($user->email) ? $user->email : ''}}" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter Email">
                                 @if($errors->has('email'))
                                     <div class="error">{{ $errors->first('email') }}</div>
@@ -66,14 +66,14 @@
 
                          <div class="row">
                             <div class="col-md-6 form-group cus-form-group">
-                                <label for="email">Password</label>
+                                <label for="email">Password <span class="required_field required_red">*</span></label>
                                 <input type="text"  class="form-control" name="password" id="password" aria-describedby="emailHelp" placeholder="Enter Password">
                                 @if($errors->has('password'))
                                     <div class="error">{{ $errors->first('password') }}</div>
                                 @endif
                             </div>
                              <div class="col-md-6 form-group cus-form-group">
-                                <label for="email">User Type</label>
+                                <label for="email">User Type <span class="required_field required_red">*</span></label>
                                 <select class="form-control" name="user_type">
                                     <option value="">Select Type</option>
                                     <option value="user"  title="User">User</option>
@@ -141,10 +141,7 @@
                                 <label for="state">State</label>
                                 
                                 <select class="form-control" name="state" id="state" aria-describedby="emailHelp">
-                                    
-                                    @foreach($states as $state)
-                                        <option value="{{ $state->id }}">{{ $state->name }}</option>
-                                    @endforeach
+                                <option value="">Select State</option>  
                                 </select>
 
                                 @if($errors->has('state'))
@@ -157,9 +154,6 @@
                                 <label for="city">City</label>
                                 <select class="form-control" name="city" id="city" aria-describedby="emailHelp">
                                     <option value="">Select City</option>
-                                    @foreach($cities as $city)
-                                        <option value="{{ $city->id }}">{{ $city->name }}</option>
-                                    @endforeach
                                 </select>
                                 
                                 @if($errors->has('city'))
