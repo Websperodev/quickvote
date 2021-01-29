@@ -22,7 +22,7 @@
                     @csrf
 
                     <div class="col-md-12 form-group cus-form-group">
-                        <label for="image">Image</label>
+                        <label for="image">Image <span class='required_field required_red'>*</span></label>
                         @if(isset($slider->img1) && $slider->img1 != '')
                             <img src="{{ isset($slider->img1) ? url($slider->img1) : ''}}" width="150" height="150">
                         @endif

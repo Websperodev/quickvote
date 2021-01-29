@@ -21,7 +21,7 @@
                 	@csrf
                     <div id="faq" class="mb-2">
                         <div class="col-md-12 form-group cus-form-group">
-                            <label for="question" class="col-12">Question</label>
+                            <label for="question" class="col-12">Question <span class='required_field required_red'>*</span></label>
                             <input type="text" class="form-control"  name="question" id="question" aria-describedby="emailHelp" placeholder="Enter question">
                             @if($errors->has('question'))
     						    <div class="error">{{ $errors->first('question') }}</div>
@@ -29,7 +29,7 @@
                      	</div>
             
                      	<div class="col-md-12 form-group cus-form-group">
-                            <label for="answer" class="col-12">Answer</label>
+                            <label for="answer" class="col-12">Answer <span class='required_field required_red'>*</span></label>
                             <textarea type="text" name="answer" id="answer" class="form-control" placeholder="answer here.."></textarea>
                             @if($errors->has('answer'))
                                 <div class="error">{{ $errors->first('answer') }}</div>

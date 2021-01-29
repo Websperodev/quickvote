@@ -22,7 +22,7 @@
                 	@csrf
                     <div id="add-frm">
                         <div class="col-md-12 form-group cus-form-group">
-                            <label for="image" class="col-12">Image</label>
+                            <label for="image" class="col-12">Image <span class='required_field required_red'>*</span></label>
                             <input type="file" class="form-control" name="image" id="image" aria-describedby="emailHelp" placeholder="Choose Image">
                             @if($errors->has('image'))
                                 <div class="error">{{ $errors->first('image') }}</div>
@@ -30,7 +30,7 @@
                         </div>
 
                         <div class="col-md-12 form-group cus-form-group">
-                            <label for="name" class="col-12">Name</label>
+                            <label for="name" class="col-12">Name <span class='required_field required_red'>*</span></label>
                             <input type="text" class="form-control"  name="name" id="name" aria-describedby="emailHelp" placeholder="Enter Name">
                             @if($errors->has('name'))
     						    <div class="error">{{ $errors->first('name') }}</div>
@@ -38,7 +38,7 @@
                      	</div>
             
                      	<div class="col-md-12 form-group cus-form-group">
-                            <label for="description" class="col-12">Description</label>
+                            <label for="description" class="col-12">Description <span class='required_field required_red'>*</span></label>
                             <textarea type="text" name="description" id="description" class="form-control" placeholder="Description here.."></textarea>
                             @if($errors->has('description'))
                                 <div class="error">{{ $errors->first('description') }}</div>

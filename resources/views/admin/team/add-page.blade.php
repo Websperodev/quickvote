@@ -22,7 +22,7 @@
 
                     <div id="faq" class="mb-2">
                         <div class="col-md-12 form-group cus-form-group">
-                            <label for="heading" class="col-12">Heading</label>
+                            <label for="heading" class="col-12">Heading <span class='required_field required_red'>*</span></label>
                             <input type="text" class="form-control" value="{!! isset($teamData[0]['heading1']) ? $teamData[0]['heading1'] : '' !!}"  name="heading" id="heading" aria-describedby="emailHelp" placeholder="Enter Heading">
                             @if($errors->has('heading'))
     						    <div class="error">{{ $errors->first('heading') }}</div>
@@ -30,7 +30,7 @@
                      	</div>
             
                      	<div class="col-md-12 form-group cus-form-group">
-                            <label for="name" class="col-12">Description</label>
+                            <label for="name" class="col-12">Description <span class='required_field required_red'>*</span></label>
                             <textarea type="text" name="description" id="description" class="form-control" placeholder="Description here..">{!! isset($teamData[0]['description']) ? $teamData[0]['description'] : '' !!}</textarea>
 
                             @if($errors->has('description'))

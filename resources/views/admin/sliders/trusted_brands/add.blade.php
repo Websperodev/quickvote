@@ -22,7 +22,7 @@
                     @csrf
                     <div class="slider mb-2">
                         <div class="col-md-12 form-group cus-form-group">
-                            <label for="image" class="col-12">Image</label>
+                            <label for="image" class="col-12">Image <span class='required_field required_red'>*</span></label>
                             <input type="file" class="form-control" name="image" id="image" aria-describedby="emailHelp" placeholder="Choose Image">
                             @if($errors->has('image'))
                                 <div class="error">{{ $errors->first('image') }}</div>

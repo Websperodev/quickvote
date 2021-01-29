@@ -146,10 +146,9 @@ $timezoneArray = config('constants.timezones');
                                 <label for="state">State</label>
                                 
                                 <select class="form-control" autocomplete="off" name="state" id="state" aria-describedby="emailHelp">
-                                    <option value="">Select State</option>
-                                    @foreach($states as $state)
+                                   <!--  @foreach($states as $state)
                                         <option value="{{ $state->id }}">{{ $state->name }}</option>
-                                    @endforeach
+                                    @endforeach -->
                                 </select>
 
                                 @if($errors->has('state'))
@@ -159,20 +158,21 @@ $timezoneArray = config('constants.timezones');
                         </div>
 
                         <div class="row">
-                            
                             <div class="col-md-6 form-group cus-form-group">
                                 <label for="city">City</label>
-                                <select class="form-control" name="city" autocomplete="off" id="city" aria-describedby="emailHelp">
-                                    <option value="">Choose City</option>
-                                    @foreach($cities as $city)
+                                <select class="form-control" name="city" id="city" aria-describedby="emailHelp">
+                                    <option value="">Select City</option>
+                                   <!--  @foreach($cities as $city)
                                         <option value="{{ $city->id }}">{{ $city->name }}</option>
-                                    @endforeach
+                                    @endforeach -->
                                 </select>
                                 
                                 @if($errors->has('city'))
                                     <div class="error">{{ $errors->first('city') }}</div>
                                 @endif
                             </div>
+                            
+                         
                             <div class="col-md-6 form-group cus-form-group">
                                 <label for="timezone">Timezone</label>
                                 
@@ -237,30 +237,29 @@ $(document).ready(function() {
     var cid = '161';
     var url = '{{ route("states", ":id") }}';
     url = url.replace(':id', cid);   
-      if(cid){
-          $.ajax({
-                  type: 'GET',
-                  url: url,
-                  success: function (res) {
-                    console.log('response',res);
-                    if(res){
-                      $("#state").empty();
-                      $("#state").append('<option>Select</option>');
-                      $.each(res,function(key,value){
-                        $("#state").append('<option value="'+value.id+'">'+value.name+'</option>');
-                      });
-                    
-                    }else{
-                      $("#state").empty();
-                    }
-                    
-                  },
-                  error: function(err) {
-                    console.log(err);
-                  }
+    if(cid){
+        $.ajax({
+            type: 'GET',
+            url: url,
+              success: function (res) {
+                console.log('response',res);
+                if(res){
+                  $("#state").empty();
+                  $.each(res,function(key,value){
+                    $("#state").append('<option value="'+value.id+'">'+value.name+'</option>');
+                  });
+                
+                }else{
+                  $("#state").empty();
+                }
+                
+              },
+              error: function(err) {
+                console.log(err);
+              }
           });
-      }
-  });
+    }
+});
 
 $('#country').change(function(){
     var cid = $(this).val();

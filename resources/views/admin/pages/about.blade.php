@@ -22,7 +22,7 @@
                     <div class="about-quick mb-2">
                         <label for="about quick" class="col-12">About Quickvote</label>
                         <div class="row">
-                            <label for="heading" class="col-12">Heading</label>
+                            <label for="heading" class="col-12">Heading <span class='required_field required_red'>*</span></label>
                             <input type="text" class="form-control"  name="about_heading" value="{{ isset($data['about quickvote']['heading1']) ? $data['about quickvote']['heading1'] : '' }}" id="about_heading" aria-describedby="emailHelp" placeholder="Enter heading">
                             @if($errors->has('about_heading'))
                                 <div class="error">{{ $errors->first('about_heading') }}</div>
@@ -30,7 +30,7 @@
                          </div>
 
                         <div class="row">
-                            <label for="text" class="col-12">Text</label>
+                            <label for="text" class="col-12">Text <span class='required_field required_red'>*</span></label>
                             <textarea type="text" name="about_description" id="about_description" class="form-control" placeholder="Description here..">{{ isset($data['about quickvote']['description']) ? $data['about quickvote']['description'] : '' }}</textarea>
                             @if($errors->has('about_description'))
                                 <div class="error">{{ $errors->first('about_description') }}</div>
@@ -38,7 +38,7 @@
                         </div>
 
                         <div class="row">
-                            <label for="text" class="col-12">Image</label>
+                            <label for="text" class="col-12">Image <span class='required_field required_red'>*</span></label>
                             @if(isset($data['about quickvote']['img1']) && $data['about quickvote']['img1'] != '' )
                             <img src="{{ url($data['about quickvote']['img1']) }}" width="150" height="150">
                             @endif
@@ -55,7 +55,7 @@
                     <div class="our_services mb-2">
                         <label for="our_services" class="col-12" >Our Services</label>
                         <div class="row">
-                            <label for="heading" class="col-12">Heading</label>
+                            <label for="heading" class="col-12">Heading <span class='required_field required_red'>*</span></label>
                             <input type="text" class="form-control" name="services_heading" value="{{ isset($data['our services']['heading1']) ? $data['our services']['heading1'] : '' }}" id="services_heading" aria-describedby="emailHelp" placeholder="Enter heading">
                             @if($errors->has('services_heading'))
                                 <div class="error">{{ $errors->first('services_heading') }}</div>
@@ -63,7 +63,7 @@
                         </div>
 
                         <div class="row">
-                            <label for="text" class="col-12">Text</label>
+                            <label for="text" class="col-12">Text <span class='required_field required_red'>*</span></label>
                             <textarea type="text" name="services_description" id="services_description" class="form-control" placeholder="Description here..">{{ isset($data['our services']['description']) ? $data['our services']['description'] : '' }}</textarea>
                             @if($errors->has('services_description'))
                                 <div class="error">{{ $errors->first('services_description') }}</div>
@@ -78,7 +78,7 @@
                     <div class="dedicated mb-2">
                         <label for="dedicated" class="col-12">We are dedicated</label>
                         <div class="row">
-                            <label for="heading" class="col-12">Heading</label>
+                            <label for="heading" class="col-12">Heading <span class='required_field required_red'>*</span></label>
                             <input type="text" class="form-control" name="dedicated_heading" value="{{ isset($data['dedicated']['heading1']) ? $data['dedicated']['heading1'] : '' }}" id="dedicated_heading" aria-describedby="emailHelp" placeholder="Enter heading">
                             @if($errors->has('dedicated_heading'))
                                 <div class="error">{{ $errors->first('dedicated_heading') }}</div>
@@ -86,14 +86,14 @@
                         </div>
 
                         <div class="row">
-                            <label for="text" class="col-12">Text</label>
+                            <label for="text" class="col-12">Text <span class='required_field required_red'>*</span></label>
                             <textarea type="text" name="dedicated_description" id="dedicated_description" class="form-control" placeholder="Description here..">{{ isset($data['dedicated']['description']) ? $data['dedicated']['description'] : '' }}</textarea>
                             @if($errors->has('dedicated_description'))
                                 <div class="error">{{ $errors->first('dedicated_description') }}</div>
                             @endif
                         </div>
                         <div class="row">
-                            <label for="text" class="col-12">Image</label>
+                            <label for="text" class="col-12">Image <span class='required_field required_red'>*</span></label>
                             @if(isset($data['dedicated']['img1']) && $data['dedicated']['img1'] != '' )
                             <img src="{{ url($data['dedicated']['img1']) }}" width="150" height="150">
                             @endif
@@ -109,7 +109,7 @@
                     <div class="news mb-2">
                         <label for="news" class="col-12">Our Services</label>
                         <div class="row">
-                            <label for="heading" class="col-12">Heading</label>
+                            <label for="heading" class="col-12">Heading <span class='required_field required_red'>*</span></label>
                             <input type="text" class="form-control" name="services_heading2" value="{{ isset($data['our services2']['heading1']) ? $data['our services2']['heading1'] : '' }}" id="services_heading2" aria-describedby="emailHelp" placeholder="Enter heading">
                             @if($errors->has('services_heading2'))
                                 <div class="error">{{ $errors->first('services_heading2') }}</div>
@@ -117,7 +117,7 @@
                         </div>
 
                         <div class="row">
-                            <label for="text" class="col-12">Text</label>
+                            <label for="text" class="col-12">Text <span class='required_field required_red'>*</span></label>
                             <textarea type="text" name="services_description2" id="services_description2" class="form-control" placeholder="Description here..">{{ isset($data['our services2']['description']) ? $data['our services2']['description'] : '' }}</textarea>
                             @if($errors->has('services_description2'))
                                 <div class="error">{{ $errors->first('services_description2') }}</div>

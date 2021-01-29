@@ -176,13 +176,12 @@ class EventsController extends Controller
 
     public function editEvent(Request $request){
 
-       if($request->isMethod('post')){ 
+       if($request->isMethod('post')){  
             $validator = Validator::make($request->all(), [
                 'event_title'      => 'required',
                 'start_date'       => 'required',
                 'end_date'         => 'required',
                 'organiser_name'   => 'required',
-                'venue'            => 'required',
                 'city'             => 'required',
                 'state'            => 'required',
                 'country'          => 'required',
@@ -201,15 +200,13 @@ class EventsController extends Controller
                     $request->session()->flash('message.text', 'Event already exists');
                     return redirect()->back();
                 }
-
-                  
+                 
                 $event = Event::find($request->get('event_id'));
                 $event->name = $data['event_title'];
                 $event->organizer_name = $data['organiser_name'];
                 $event->category_id = $data['event_category'];
                 $event->start_date = date("Y-m-d", strtotime($data['start_date']));  
                 $event->end_date = date("Y-m-d", strtotime($data['end_date']));  
-                $event->venue = $data['venue'];
                 $event->city_id = $data['city'];
                 $event->state_id = $data['state'];
                 $event->country_id = $data['country'];

@@ -20,16 +20,16 @@
 
                     @csrf
                      <div class="top-banner mb-2">
-                        <label for="about quick" class="col-12">Top Banner</label>
+                        <label for="about quick" class="col-12">Top Banner </label>
                         <div class="row">
-                            <label for="heading">Heading 1</label>
+                            <label for="heading">Heading 1 <span class='required_field required_red'>*</span></label>
                             <input type="text" class="form-control"  name="banner_heading1" value="{{ isset($data['heading1']) ? $data['heading1'] : '' }}" id="banner_heading1" aria-describedby="emailHelp" placeholder="Enter heading">
                             @if($errors->has('banner_heading1'))
                                 <div class="error">{{ $errors->first('banner_heading1') }}</div>
                             @endif
                         </div>
                         <div class="row">
-                            <label for="heading" class="col-12">Heading 2</label>
+                            <label for="heading" class="col-12">Heading 2 <span class='required_field required_red'>*</span></label>
                             <input type="text" class="form-control"  name="banner_heading2" value="{{ isset($data['heading2']) ? $data['heading2'] : '' }}" id="banner_heading2" aria-describedby="emailHelp" placeholder="Enter heading">
                             @if($errors->has('banner_heading2'))
                                 <div class="error">{{ $errors->first('banner_heading2') }}</div>
@@ -37,7 +37,7 @@
                         </div>
 
                         <div class="row">
-                            <label for="text" class="col-12">Text</label>
+                            <label for="text" class="col-12">Text <span class='required_field required_red'>*</span></label>
                             <textarea type="text" name="banner_description" id="banner_description" class="form-control" placeholder="Description here..">{{ isset($data['description']) ? $data['description'] : '' }}</textarea>
                             @if($errors->has('banner_description'))
                                 <div class="error">{{ $errors->first('banner_description') }}</div>
@@ -45,7 +45,7 @@
                         </div>
 
                         <div class="row">
-                            <label for="text" class="col-12">Image</label>
+                            <label for="text" class="col-12">Image <span class='required_field required_red'>*</span></label>
 
                             @if(isset($data['img']) && $data['img'] != '' )
                                 <img src="{{ url($data['img']) }}" width="150" height="150">

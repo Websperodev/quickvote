@@ -21,7 +21,7 @@
                 	@csrf
                     <div id="faq" class="mb-2">
                         <div class="col-md-12 form-group cus-form-group">
-                            <label for="question" class="col-12">Image</label>
+                            <label for="question" class="col-12">Image <span class='required_field required_red'>*</span></label>
                             <input type="file" class="form-control"  name="image" id="image" aria-describedby="emailHelp" placeholder="Choose Image">
                             @if($errors->has('image'))
     						    <div class="error">{{ $errors->first('image') }}</div>
@@ -29,7 +29,7 @@
                      	</div>
             
                      	<div class="col-md-12 form-group cus-form-group">
-                            <label for="name" class="col-12">Name</label>
+                            <label for="name" class="col-12">Name <span class='required_field required_red'>*</span></label>
                             <input type="text" name="name" id="name" class="form-control" placeholder="Enter name" />
                             @if($errors->has('name'))
                                 <div class="error">{{ $errors->first('name') }}</div>
@@ -37,7 +37,7 @@
                         </div>
 
                         <div class="col-md-12 form-group cus-form-group">
-                            <label for="designation" class="col-12">Designation</label>
+                            <label for="designation" class="col-12">Designation <span class='required_field required_red'>*</span></label>
                             <input type="text" name="designation" id="designation" class="form-control" placeholder="Enter designation" />
                             @if($errors->has('designation'))
                                 <div class="error">{{ $errors->first('designation') }}</div>

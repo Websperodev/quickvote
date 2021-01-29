@@ -23,7 +23,7 @@
 
                    
                     <div class="col-md-12 form-group cus-form-group">
-                        <label for="question">Question</label>
+                        <label for="question">Question <span class='required_field required_red'>*</span></label>
                         <input type="text" class="form-control" value="{{ isset($faq->question) ? $faq->question : '' }}" name="question" id="question" aria-describedby="emailHelp" placeholder="Enter question">
                         @if($errors->has('question'))
 						    <div class="error">{{ $errors->first('question') }}</div>
@@ -31,7 +31,7 @@
                  	</div>
         
                  	<div class="col-md-12 form-group cus-form-group">
-                        <label for="answer">Answer</label>
+                        <label for="answer">Answer <span class='required_field required_red'>*</span></label>
                         <textarea type="text" name="answer" id="answer" class="form-control" placeholder="Answer here..">{{ isset($faq->answer) ? $faq->answer : '' }}</textarea>
                         @if($errors->has('answer'))
                             <div class="error">{{ $errors->first('answer') }}</div>

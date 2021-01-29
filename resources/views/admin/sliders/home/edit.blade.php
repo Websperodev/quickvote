@@ -22,7 +22,7 @@
                     @csrf
                     <div class="slider mb-2">
                         <div class="col-md-12 form-group cus-form-group">
-                            <label for="image" class="col-12">Image</label>
+                            <label for="image" class="col-12">Image <span class='required_field required_red'>*</span></label>
                             @if(isset($slider->img1) && $slider->img1 != '')
                                 <img src="{{ isset($slider->img1) ? url($slider->img1) : ''}}" width="150" height="150">
                             @endif
@@ -35,14 +35,14 @@
                         </div>
 
                         <div class="col-md-12 form-group cus-form-group">
-                            <label for="name" class="col-12">Heading1</label>
+                            <label for="name" class="col-12">Heading1 <span class='required_field required_red'>*</span></label>
                             <input type="text" class="form-control" value="{{ isset($slider->heading1) ? $slider->heading1 : '' }}" name="heading1" id="heading1" aria-describedby="emailHelp" placeholder="Enter top heading">
                             @if($errors->has('heading1'))
                                 <div class="error">{{ $errors->first('heading1') }}</div>
                             @endif
                         </div>
                         <div class="col-md-12 form-group cus-form-group">
-                            <label for="name" class="col-12">Heading2</label>
+                            <label for="name" class="col-12">Heading2 <span class='required_field required_red'>*</span></label>
                             <input type="text" class="form-control" value="{{ isset($slider->heading2) ? $slider->heading2 : '' }}" name="heading2" id="heading2" aria-describedby="emailHelp" placeholder="Enter top heading">
                             @if($errors->has('heading2'))
                                 <div class="error">{{ $errors->first('heading2') }}</div>

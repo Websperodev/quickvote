@@ -148,9 +148,9 @@ $timezoneArray = config('constants.timezones');
                                 
                                 <select class="form-control" name="state" id="state" aria-describedby="emailHelp">
                                     <option value="">Select State</option>
-                                    @foreach($states as $state)
+                                   <!--  @foreach($states as $state)
                                         <option {{ $eventState == $state->id ? 'selected' : ''}} value="{{ $state->id }}">{{ $state->name }}</option>
-                                    @endforeach
+                                    @endforeach -->
                                 </select>
 
                                 @if($errors->has('state'))
@@ -164,9 +164,9 @@ $timezoneArray = config('constants.timezones');
                                 <label for="city">City</label>
                                 <select class="form-control" name="city" id="city" aria-describedby="emailHelp">
                                     <option value="">Select City</option>
-                                    @foreach($cities as $city)
+                                    <!-- @foreach($cities as $city)
                                         <option {{ $eventCity == $city->id ? 'selected' : ''}} value="{{ $city->id }}">{{ $city->name }}</option>
-                                    @endforeach
+                                    @endforeach -->
                                 </select>
                                 
                                 @if($errors->has('city'))
@@ -205,6 +205,73 @@ $timezoneArray = config('constants.timezones');
 
 <script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>
 <script type="text/javascript">
+$(document).ready(function() {    
+    var cid = "{{ isset($eventCountry) ? $eventCountry:'161' }}";
+    var url = '{{ route("states", ":id") }}';
+    url = url.replace(':id', cid);   
+    console.log('cid',cid);
+    var stateId = "{{ isset($eventState) ? $eventState : '' }}";
+    var cityUrl = '{{ route("cities", ":id") }}';
+    cityUrl = cityUrl.replace(':id', stateId);   
+    console.log('sid',stateId);
+    var cityId = "{{ isset($eventCity) ? $eventCity : '' }}";
+    var selected = '';
+
+    if(cid){
+        $.ajax({
+            type: 'GET',
+            url: url,
+              success: function (res) {
+                if(res){
+                  $("#state").empty();
+                  $.each(res,function(key,value){
+                    if(stateId == value.id ){
+                        selected = "selected";
+                    }else{
+                        selected = '';
+                    }
+                    $("#state").append('<option '+ selected +' value="'+value.id+'">'+value.name+'</option>');
+                  });
+                
+                }else{
+                  $("#state").empty();
+                }
+                
+              },
+              error: function(err) {
+                console.log(err);
+              }
+          });
+    }
+
+    if(stateId){
+        $.ajax({
+                type: 'GET',
+                url: cityUrl,
+                success: function (res) {
+                    if(res)
+                    {
+                        $("#city").empty();
+                        
+                        $.each(res,function(key,value){
+                        if(cityId == value.id ){
+                            selected = "selected";
+                        }else{
+                            selected = '';
+                        }
+                            $("#city").append('<option '+ selected +' value="'+value.id+'">'+value.name+'</option>');
+                        });
+                    }else{
+                        $("#city").empty();
+                    }
+                  
+                },
+                error: function(err) {
+                  console.log(err);
+                }
+        });
+    } 
+});
 
 $( "#start-date" ).datepicker({
     format: "mm/dd/yy",
@@ -236,7 +303,7 @@ bkLib.onDomLoaded(function() {
         // new nicEditor({maxHeight : 100}).panelInstance('area5');
 });
 
-  $('#country').change(function(){
+$('#country').change(function(){
         var cid = $(this).val();
         var url = '{{ route("states", ":id") }}';
         url = url.replace(':id', cid);
@@ -266,40 +333,40 @@ bkLib.onDomLoaded(function() {
         }
 
        
-    });
-    $('#state').change(function(){
-        var sid = $(this).val();
+});
+$('#state').change(function(){
+    var sid = $(this).val();
 
-        var url = '{{ route("cities", ":id") }}';
-        url = url.replace(':id', sid);
-       console.log(url);
+    var url = '{{ route("cities", ":id") }}';
+    url = url.replace(':id', sid);
+   console.log(url);
 
-        if(sid){
-            $.ajax({
-                    type: 'GET',
-                    url: url,
-                    success: function (res) {
-                    console.log('response',res);
-                        if(res)
-                        {
-                            $("#city").empty();
-                            $("#city").append('<option>Select City</option>');
-                            $.each(res,function(key,value){
-                                $("#city").append('<option value="'+value.id+'">'+value.name+'</option>');
-                            });
-                        }else{
-                            $("#city").empty();
-                        }
-                      
-                    },
-                    error: function(err) {
-                      console.log(err);
+    if(sid){
+        $.ajax({
+                type: 'GET',
+                url: url,
+                success: function (res) {
+                console.log('response',res);
+                    if(res)
+                    {
+                        $("#city").empty();
+                        $("#city").append('<option>Select City</option>');
+                        $.each(res,function(key,value){
+                            $("#city").append('<option value="'+value.id+'">'+value.name+'</option>');
+                        });
+                    }else{
+                        $("#city").empty();
                     }
-            });
-        }       
-        
-    }); 
- 
+                  
+                },
+                error: function(err) {
+                  console.log(err);
+                }
+        });
+    }       
+    
+}); 
+
 </script>
 
 @endsection
