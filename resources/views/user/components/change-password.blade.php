@@ -25,16 +25,19 @@
             <div class="form-group">
             <label>Old Password</label>
               <input type="password" name="old_password" id="old_password" class="form-control" placeholder="Enter your Password">
+              <span><i class="fa fa-eye" aria-hidden="true" onclick="showPassword('old_password')"></i></span>
             </div>
 
             <div class="form-group">
             <label>New Password</label>
               <input type="password" name="new_password" id="new_password" class="form-control" placeholder="Enter your Password">
+              <span><i class="fa fa-eye" aria-hidden="true" onclick="showPassword('new_password')"></i></span>
             </div>
 
             <div class="form-group">
             <label>Confirm Password</label>
               <input type="password" name="confirm_password" id="confirm_password" class="form-control" placeholder="Enter your Confirm Password">
+              <span><i class="fa fa-eye" aria-hidden="true" onclick="showPassword('confirm_password')"></i></span>
             </div>  
             
             <button class="btn btn-bg">Submit</button>
@@ -48,3 +51,13 @@
       </div>
 
   </div>
+  <script type="text/javascript">
+    function showPassword(id) {
+      var x = document.getElementById(id);
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
+    } 
+  </script>

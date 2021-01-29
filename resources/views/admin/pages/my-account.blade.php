@@ -115,7 +115,7 @@
                         </div>
                         <div class="col-md-6 form-group cus-form-group">
                             <label for="state">State</label>
-                            
+                            <option value="">Choose State</option>
                             <select class="form-control" name="state" id="state" aria-describedby="emailHelp">
                                 <option value="">Select State</option>
                                
@@ -130,7 +130,7 @@
                              <div class="col-md-6 form-group cus-form-group">
                                 <label for="city">City</label>
                                 <select class="form-control" name="city" id="city" aria-describedby="emailHelp">
-                                    <option value="">Select City</option>
+                                    <option value="">Choose City</option>
                                    
                                 </select>
                                 

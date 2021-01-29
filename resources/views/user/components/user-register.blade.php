@@ -27,11 +27,14 @@
               </div>    
               <div class="form-group">
               <label>Password</label>
-                <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+                <input type="password" name="password" id="user-password" class="form-control" placeholder="Password">
+                <span><i class="fa fa-eye" aria-hidden="true" onclick="showPassword('user-password')"></i></span>
               </div>
               <div class="form-group">
               <label>Confirm Password</label>
-                <input type="password" name="confirm_password" class="form-control" placeholder="Password">
+                <input type="password" name="confirm_password" id="user-confirmpass" class="form-control" placeholder="Password">
+                <span><i class="fa fa-eye" aria-hidden="true" onclick="showPassword('user-confirmpass')"></i></span>
+               
               </div>
 
               <button class="btn btn-bg">Sign Up</button>
@@ -44,3 +47,4 @@
         </div>
         </div>
   </div>
+  

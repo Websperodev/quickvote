@@ -81,9 +81,19 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 <script src="{{asset('js/custom.js')}}"></script>
-<script>
+<script type="text/javascript">
+
+    function showPassword(id) {
+      var x = document.getElementById(id);
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
+    } 
 $(document).ready(function () {
   $('.modal').on('hidden.bs.modal', function () {
+    $('.alert-danger').hide();
     $(this).find('form').trigger('reset');
   })
 
@@ -123,7 +133,7 @@ $(document).ready(function () {
             },
             confirm_password: {
                 required: true,
-                equalTo : "#password"
+                equalTo : "#user-password"
             },
              
          },
@@ -162,56 +172,122 @@ $(document).ready(function () {
   });
 
   $("#vendForm").validate({
-         ignore: ":hidden",
-         rules: {
-            first_name: {
-                required: true,
-                minlength: 3
-            },
-            email: {
-                required: true,
-                email: true
-            },
-            password: {
-                required: true,
-                minlength: 8
-            },
-             
-         },
-         submitHandler: function (form) {
-             $.ajax({
-                type: 'POST',
-                url: "{{ route('vendor.register') }}",
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                data: $('form#vendForm').serialize(),
-                success: function (response) {
-                  console.log(response);
-                  if(response.success == true){
-                    Swal.fire({
-                      position: 'center',
-                      icon: 'success',
-                      title: response.message,
-                      text: 'Please verify Email',
-                      showConfirmButton: false,
-                      showCloseButton: true,
-                      
-                    })
-                    $('.tab').css('display','none');
-                    $('#tabs-1').css('display','block');
-                    $('#vendorModal').modal('hide');
-                  }else{
-                     $.each(response.errors, function(key, value){
-                        $('.alert-danger').show();
-                        $('.alert-danger').append('<p>'+value+'</p>');
-                      });
-                  }
-                },
-                error: function(err) {
-                  console.log(err);
-                }
-             });
-             return false; // required to block normal submit since you used ajax
-         }
+    ignore: ":hidden",
+    rules: {
+      company_name: {
+          required: true,
+          minlength: 3
+      },
+      company_address: {
+          required: true,
+  
+      },
+      company_country: {
+          required: true, 
+      },
+      company_state: {
+          required: true, 
+      },
+      company_city: {
+          required: true, 
+      },
+      company_phone: {
+          required: true, 
+      },
+      company_email: {
+          required: true, 
+      },
+      company_website: {
+          required: true, 
+      },
+      company_description: {
+          required: true, 
+      },
+      first_name: {
+          required: true, 
+      },
+      last_name: {
+          required: true, 
+      },
+      business_name: {
+          required: true, 
+      },
+      email: {
+          required: true, 
+      },
+      password: {
+          required: true, 
+      },
+      phone: {
+          required: true, 
+      },
+      alternate_phone: {
+          required: true, 
+      },
+      address1: {
+          required: true, 
+      },
+      address2: {
+          required: true, 
+      },
+      postcode: {
+          required: true, 
+      },
+      country: {
+          required: true, 
+      },
+      state: {
+          required: true, 
+      },
+      city: {
+          required: true, 
+      },
+      account_holder_name: {
+          required: true, 
+      },
+      account_no: {
+          required: true, 
+      },
+      bank_name: {
+          required: true, 
+      }
+       
+    },
+    submitHandler: function (form) {
+      console.log('vendor reg');
+       $.ajax({
+          type: 'POST',
+          url: "{{ route('vendor.register') }}",
+          headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+          data: $('form#vendForm').serialize(),
+          success: function (response) {
+            console.log(response);
+            if(response.success == true){
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: response.message,
+                text: 'Please verify Email',
+                showConfirmButton: false,
+                showCloseButton: true,
+                
+              })
+              $('.tab').css('display','none');
+              $('#tabs-1').css('display','block');
+              $('#vendorModal').modal('hide');
+            }else{
+               $.each(response.errors, function(key, value){
+                  $('.alert-danger').show();
+                  $('.alert-danger').append('<p>'+value+'</p>');
+                });
+            }
+          },
+          error: function(err) {
+            console.log(err);
+          }
+       });
+       return false; // required to block normal submit since you used ajax
+    }
   });
 
   $("#login-frm-user").validate({

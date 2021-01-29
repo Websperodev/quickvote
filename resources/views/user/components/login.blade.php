@@ -23,14 +23,15 @@
 
 
             <form id="login-frm-user"  class="lform mform login-frm-user">
-            <div class="alert alert-danger" style="display:none"></div>
+            <div class="alert alert-danger"  style="display:none"></div>
             <div class="form-group">
             <label>Email Address</label>
               <input type="text" name="email" class="form-control" placeholder="Enter your Email ID">
             </div>    
             <div class="form-group">
             <label>Password</label>
-              <input type="password" name="password" class="form-control" placeholder="Password">
+              <input type="password" id="login-password" name="password" class="form-control" placeholder="Password">
+              <span><i class="fa fa-eye" aria-hidden="true" onclick="showPassword('login-password')"></i></span>
             </div>
             <p class="flx"><span class="rem"><input type="Checkbox" class="form-control" name="remember" value="remember"> Remember me</span> <span class="forgot"><a href="javascript:void(0);" id="resetPass">Forgot Password?</a></span></p>
             <button class="btn btn-bg">Log In</button>

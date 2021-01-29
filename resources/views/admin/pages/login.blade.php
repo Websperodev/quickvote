@@ -38,6 +38,7 @@
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                <span><i class="fa fa-eye" aria-hidden="true" onclick="showPassword('password')"></i></span>
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -75,3 +76,13 @@
     </div>
 </div>
 @endsection
+<script type="text/javascript">
+    function showPassword(id) {
+      var x = document.getElementById(id);
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
+    } 
+</script>

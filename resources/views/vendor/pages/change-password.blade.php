@@ -21,6 +21,7 @@
                     <div class="form-group cus-form-group">
                         <label for="old_password">Old Password</label>
                         <input type="password" class="form-control" name="old_password" id="old_password" aria-describedby="emailHelp" placeholder="Enter old password">
+                        <span><i class="fa fa-eye" aria-hidden="true" onclick="showPassword('old_password')"></i></span>
                         @if($errors->has('old_password'))
 						    <div class="error">{{ $errors->first('old_password') }}</div>
 						@endif
@@ -28,6 +29,7 @@
                     <div class="form-group cus-form-group">
                         <label for="new_password">New Password</label>
                         <input type="password" class="form-control" name="new_password" id="new_password" aria-describedby="emailHelp" placeholder="Enter New Password">
+                        <span><i class="fa fa-eye" aria-hidden="true" onclick="showPassword('new_password')"></i></span>
                         @if($errors->has('new_password'))
 						    <div class="error">{{ $errors->first('new_password') }}</div>
 						@endif
@@ -35,6 +37,7 @@
                  	<div class="form-group cus-form-group">
                         <label for="confirm_password">Confirm Password</label>
                         <input type="password" class="form-control" name="confirm_password" id="confirm_password" aria-describedby="emailHelp" placeholder="Enter Confirm Password">
+                        <span><i class="fa fa-eye" aria-hidden="true" onclick="showPassword('confirm_password')"></i></span>
                         @if($errors->has('confirm_password'))
 						    <div class="error">{{ $errors->first('confirm_password') }}</div>
 						@endif
@@ -53,6 +56,16 @@
 
 
 @section('script-bottom')
+<script type="text/javascript">
+    function showPassword(id) {
+      var x = document.getElementById(id);
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
+    } 
+</script>
 
 
 @endsection

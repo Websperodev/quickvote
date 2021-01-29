@@ -88,6 +88,7 @@ class ProfileController extends Controller
         $countries = Countries::get();
         $states = States::get();
         $cities = Cities::get();
+        
         return view('admin.pages.my-account')->with(['user' => $user, 'countries' => $countries, 'states' => $states, 'cities' => $cities,]);
     }
     public function updateProfile(Request $request){

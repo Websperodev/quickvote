@@ -8,7 +8,7 @@
     </button>
     <div class="row popupp">
       <div class="col-md-12">
-      <form id="vendForm" class="vform mform row" method="post">
+      <form id="vendForm" class="vform mform row vendForm">
         @csrf
       <div class="tab" id="tabs-1" style="display: block;">
         <div class="col-12">
@@ -93,7 +93,8 @@
         </div>
         <div class="form-group col-6">
         <label>Password</label>
-        <input type="password" class="form-control" autocomplete="off" name="password" placeholder="Your Password">
+        <input type="password" id="vendor-password" class="form-control" autocomplete="off" name="password" placeholder="Your Password">
+        <span><i class="fa fa-eye" aria-hidden="true" onclick="showPassword('vendor-password')"></i></span>
         </div>
 
         <div class="form-group col-6">
