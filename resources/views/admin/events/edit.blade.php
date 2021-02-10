@@ -87,7 +87,7 @@ $timezoneArray = config('constants.timezones');
                             <div class="col-md-12 form-group cus-form-group">
                                 <label for="image">Image</label>
                                 @if(isset($event->image) && $event->image != '' )
-                                <img src="{{ $event->image }}" width="150" height="150">
+                                <img src="{{ url($event->image) }}" width="150" height="150">
                                 @endif
                                 <input type="file"  class="form-control" name="image" id="image" aria-describedby="emailHelp" placeholder="Choose Image">
                                 @if($errors->has('image'))
@@ -188,6 +188,45 @@ $timezoneArray = config('constants.timezones');
                                 @endif
                             </div>
                         </div>
+                        @if(!empty($event->tickets))
+                            @foreach($event->tickets as $ticket)
+                            <div class="row">
+                                <div class="col-md-4 form-group cus-form-group">
+                                    <label for="image">Ticket Name</label>
+                                    <input type="text" value="{{ $ticket->name }}"  class="form-control" name="ticket_name[]" aria-describedby="emailHelp" placeholder="Ticket Name">
+                                </div>
+                                <div class="col-md-4 form-group cus-form-group">
+                                    <label for="image">Quantity available</label>
+                                    <input type="text" value="{{ $ticket->quantity }}" class="form-control" name="quantity[]" aria-describedby="emailHelp" placeholder="Quantity available">
+                                </div>
+                                 <div class="col-md-2 form-group cus-form-group">
+                                    <label for="image">Price</label>
+                                    <input type="text" {{ ($ticket->ticket_type == 'free')? "readonly" :'' }} value="{{ $ticket->price }}" class="form-control" value="'+price+'" name="price[]" aria-describedby="emailHelp" placeholder="Price">
+                                </div>
+                                <div class="col-md-2 form-group cus-form-group">
+                                    <label for="image">Delete Ticket</label>
+                                    <a href="#" class="" onclick='deleteTicket("{{ $ticket->id }}");'>Delete</a>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 form-group cus-form-group">
+                                    <label for="image">Start Date</label>
+                                    <input type="text" value="{{ $ticket->start_date }}" class="form-control datepicker" name="ticket_start_date[]" aria-describedby="emailHelp" placeholder="Start date">
+                                </div>
+                                <div class="col-md-6 form-group cus-form-group">
+                                    <label for="image">End Date</label>
+                                    <input type="text" value="{{ $ticket->end_date }}" class="form-control ticket_end_date" name="ticketend_date[]" aria-describedby="emailHelp" placeholder="End Date">
+                                </div>
+                                <input type="hidden" value="{{ $ticket->ticket_type }}" class="form-control" value="" name="ticket_type[]" aria-describedby="emailHelp" placeholder="Price"></div>
+                            @endforeach
+                        @endif
+
+                        <button type="button" class="btn btn-bg ladda-button" data-toggle="modal" data-target="#ticketModal">Add Ticket</button>
+
+                        <div id="ticket-div" class="input_fields_wrap">
+                            
+                        </div>
             
                         
                         <input type="hidden" name="event_id" value="{{ $event->id }}">
@@ -202,9 +241,170 @@ $timezoneArray = config('constants.timezones');
     </div>
 </div> 
 
+<div class="modal fade" id="ticketModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Ticket</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12 form-group cus-form-group">
+                    <label for="lbl">What type of ticket do you want to add?</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 form-group cus-form-group">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+                <div class="col-md-4 form-group cus-form-group">
+                    <button type="button" class="btn btn-secondary" onclick="openModal('paid');">Paid Ticket</button>
+                </div>
+                <div class="col-md-4 form-group cus-form-group">
+                    <button type="button" class="btn btn-secondary" onclick="openModal('free');">Free Ticket</button>
+                </div>
+            </div>
+
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="FreeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12 form-group cus-form-group">
+                    <label for="lbl">How many free ticket types do you wish to add?:</label>
+                    <input type="text" autocomplete="off" class="form-control" name="ticket_no" id="free-no"  aria-describedby="emailHelp" placeholder="Enter Ticket no">
+                </div>
+            </div>
+            <div class="row">
+              
+                <div class="col-md-4 form-group cus-form-group">
+                    <button type="button" class="btn btn-secondary add_ticket_button">OK</button>
+                </div>
+            </div>
+
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="paidModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12 form-group cus-form-group">
+                    <label for="lbl">How many paid ticket types do you wish to add?:</label>
+                    <input type="text" autocomplete="off" class="form-control" name="ticket_no" id="paid-no" aria-describedby="emailHelp" placeholder="Enter Ticket no">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 form-group cus-form-group">
+                    <button type="button" class="btn btn-secondary add_ticket_button">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
 
 <script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>
 <script type="text/javascript">
+
+$(document).ready(function() {
+    var ticketNo        = $('#free-no').val(); //maximum input boxes allowed
+    var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+    var add_button      = $(".add_ticket_button"); //Add button ID
+
+    console.log('ticketNo',ticketNo );
+    var x = 0; //initlal text box count
+    $(add_button).click(function(e){ //on add input button click
+        // e.preventDefault();
+        var ticketNo = '';
+        var price = '';
+        var readonly = '';
+        var ttype = '';
+        if($('#free-no').val() != ''){
+            ticketNo = $('#free-no').val();
+            price = 'free';
+            readonly = "readonly";
+            ttype = 'free';
+        }
+        if($('#paid-no').val() != ''){
+            ticketNo = $('#paid-no').val();
+            ttype = 'paid';
+        }
+        console.log('aaa',ticketNo );
+        for(x=0; x<ticketNo; x++){ //max input box allowed
+             //text box increment
+            console.log('x',x);
+            $(wrapper).append('<div class="row"><div class="col-md-4 form-group cus-form-group"><label for="image">Ticket Name</label><input type="text"  class="form-control" name="ticket_name[]" aria-describedby="emailHelp" placeholder="Ticket Name"></div><div class="col-md-4 form-group cus-form-group"><label for="image">Quantity available</label><input type="text"  class="form-control" name="quantity[]" aria-describedby="emailHelp" placeholder="Quantity available"></div> <div class="col-md-2 form-group cus-form-group"><label for="image">Price</label><input type="text"  class="form-control" '+readonly+' value="'+price+'" name="price[]" aria-describedby="emailHelp" placeholder="Price"></div><div class="col-md-2 form-group cus-form-group"><label for="image">Remove Ticket</label><a href="#" class="remove_field">Remove</a></div></div><div class="row"><div class="col-md-6 form-group cus-form-group"><label for="image">Start Date</label><input type="text"  class="form-control datepicker" name="ticket_start_date[]" aria-describedby="emailHelp" placeholder="Start date"></div><div class="col-md-6 form-group cus-form-group"><label for="image">End Date</label><input type="text" class="form-control ticket_end_date" name="ticketend_date[]" aria-describedby="emailHelp" placeholder="End Date"></div><input type="hidden"  class="form-control" value="'+ttype+'" name="ticket_type[]" aria-describedby="emailHelp" placeholder="Price"></div>'); 
+
+        }
+        $('#FreeModal').modal('hide');
+        $('#paidModal').modal('hide');
+    });
+
+    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+        e.preventDefault(); $(this).parent('div').parent('div').remove(); x--;
+    });
+    
+
+});
+
+
+function openModal(par){
+    if(par == 'paid'){
+        $('#paidModal').modal('show');
+    }
+    if(par == 'free'){
+        $('#FreeModal').modal('show');
+    }
+
+    $('#ticketModal').modal('hide');
+}
+
+function deleteTicket(id){
+    var url = '{{ route("deleteTicket", ":id") }}';
+    url = url.replace(':id', id);
+   console.log(url);
+    $.ajax({
+            type: 'GET',
+            url: url,
+              success: function (res) {
+                console.log(res);
+                if(res.success == true){
+                    Swal.fire({
+                    type: 'success',
+                    title: 'Success!',
+                    text: res.message,
+                    confirmButtonClass: 'btn btn-confirm mt-2',
+                    }).then((result) => {
+                      // Reload the Page
+                      location.reload();
+                    });
+                }else{
+                  
+                }
+                
+              },
+              error: function(err) {
+                console.log(err);
+              }
+          });
+
+}
 $(document).ready(function() {    
     var cid = "{{ isset($eventCountry) ? $eventCountry:'161' }}";
     var url = '{{ route("states", ":id") }}';

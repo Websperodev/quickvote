@@ -12,11 +12,10 @@ class CompanyInformation extends Model
         'vendor_id','company_name', 'address', 'city_id', 'state_id', 'country_id', 'phone', 'email', 'website', 'company_description'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
+    public function user()
+    {
+        return $this->belongsTo(App\User::class,'id','vendor_id');
+    }
     
 
    

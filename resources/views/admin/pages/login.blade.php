@@ -15,7 +15,7 @@
                         {!! session('message.text') !!}
                         </div>
                     @endif
-                    <form method="POST" action="{{ route('admin.login') }}">
+                    <form method="POST" class="mform" action="{{ route('admin.login') }}">
                         @csrf
 
                         <div class="form-group row">

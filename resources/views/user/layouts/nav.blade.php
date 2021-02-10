@@ -17,7 +17,7 @@
         <a class="nav-link" href="{{ route('contact') }}">Contact</a>
       </div>
       <div class="reg-login">
-        <a href="" class="btn btn-bg" data-toggle="modal" data-target="#vendorModal">Create Event</a>
+        <a href="{{ route('search-event') }}" class="btn btn-bg">Create Event</a>
 
     
         @if(Auth::user())

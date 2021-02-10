@@ -15,6 +15,7 @@ use Session;
 use Response;
 use App\Models\Event;
 use App\Models\States;
+use App\Models\Ticket;
 use App\Models\Cities;
 use App\Models\Countries;
 use App\Models\Categories;
@@ -42,13 +43,14 @@ class EventsController extends Controller
      */
     public function index()
     {   
+
         return view('admin.events.index');
     }
 
     public function addEvent(Request $request){
 
         if($request->isMethod('post')){ 
-
+            
             $validator = Validator::make($request->all(), [
                 'event_title'      => 'required',
                 'start_date'       => 'required',
@@ -66,7 +68,6 @@ class EventsController extends Controller
             }
             try{
                 $user = Auth::user();
-                
                 $data = $request->all();
                
                 $existing = Event::where('name', $data['event_title'])->count();
@@ -75,7 +76,6 @@ class EventsController extends Controller
                     $request->session()->flash('message.text', 'Event already exists');
                     return redirect()->back();
                 }
-
                   
                 $event = new Event;
                 $event->name = $data['event_title'];
@@ -90,8 +90,7 @@ class EventsController extends Controller
                 $event->description = $data['description'];
                 $event->event_priority = $data['event_priority'];
                 $event->user_id = $user->id;
-                
-                
+                     
                 if ($request->hasFile('image')) {
                     if ($request->file('image')->isValid()) {
                         $validated = $request->validate([
@@ -106,7 +105,27 @@ class EventsController extends Controller
                     }
                 }
                 $event->save();
-                
+
+                $ticketName = $request->get('ticket_name');
+                $ticketType = $request->get('ticket_type');
+                $ticketQuantity = $request->get('quantity');
+                $ticketPrice = $request->get('price');
+                $ticketStartDate = $request->get('ticket_start_date');
+                $ticketEndDate = $request->get('ticketend_date');
+
+                foreach($ticketName as $key => $ticket){
+                    $ticket =  new Ticket;
+                    $ticket->event_id = $event->id;
+                    $ticket->ticket_type = $ticketType[$key];
+                    $ticket->name = $ticketName[$key];
+                    $ticket->quantity = $ticketQuantity[$key];
+                    $ticket->price = $ticketPrice[$key];
+                    $ticket->start_date = $ticketStartDate[$key];
+                    $ticket->end_date = $ticketEndDate[$key];
+                    $ticket->created_by = $user->id;
+                    $ticket->save();
+                }
+
                 if($event->id != ''){
                     $request->session()->flash('message.level', 'success');
                     $request->session()->flash('message.text', 'Event Added successfully.');
@@ -123,7 +142,6 @@ class EventsController extends Controller
             }
         }
         if($request->isMethod('get')){
-
             $categories = Categories::get();
             $countries = Countries::get();
             $states = States::get();
@@ -192,7 +210,7 @@ class EventsController extends Controller
                 return redirect()->back()->withErrors($validator);
             }
             try{
-               
+                $user = Auth::user();
                 $data = $request->all();
                 $existing = Event::where('name', $data['event_title'])->where('id', '!=', $request->get('event_id') )->count();
                 if($existing > 0){
@@ -213,6 +231,27 @@ class EventsController extends Controller
                 $event->timezone = $data['timezone'];
                 $event->description = $data['description'];
                 $event->update();
+
+                $ticketName = $request->get('ticket_name');
+                $ticketType = $request->get('ticket_type');
+                $ticketQuantity = $request->get('quantity');
+                $ticketPrice = $request->get('price');
+                $ticketStartDate = $request->get('ticket_start_date');
+                $ticketEndDate = $request->get('ticketend_date');
+                $deleteTicket = Ticket::where('event_id', $event->id)->delete();
+                foreach($ticketName as $key => $ticket){
+                    $ticket =  new Ticket;
+                    $ticket->event_id = $event->id;
+                    $ticket->ticket_type = $ticketType[$key];
+                    $ticket->name = $ticketName[$key];
+                    $ticket->quantity = $ticketQuantity[$key];
+                    $ticket->price = $ticketPrice[$key];
+                    $ticket->start_date = $ticketStartDate[$key];
+                    $ticket->end_date = $ticketEndDate[$key];
+                    $ticket->created_by = $user->id;
+                    $ticket->save();
+                }
+
                 
                 if ($request->hasFile('image')) {
                     if ($request->file('image')->isValid()) {
@@ -251,6 +290,7 @@ class EventsController extends Controller
             $cities = Cities::get();
             $id = $request->get('id');
             $event = Event::find($id);
+
             return view('admin.events.edit')->with([ 'event' => $event,'categories' => $categories, 'states' => $states, 'cities' => $cities, 'countries' => $countries]);
         }
     }

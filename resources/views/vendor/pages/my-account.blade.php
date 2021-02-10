@@ -44,10 +44,10 @@
     						@endif
                         </div>
                         <div class="col-md-6 form-group cus-form-group">
-                            <label for="contact_name">Contact Name</label>
-                            <input type="text" class="form-control" value="{{ isset($user->contact_name) ? $user->contact_name : ''}}" name="contact_name" id="contact_name" aria-describedby="emailHelp" placeholder="Enter Contact Name">
-                            @if($errors->has('contact_name'))
-                                <div class="error">{{ $errors->first('contact_name') }}</div>
+                            <label for="contact_name">Company Name</label>
+                            <input type="text" class="form-control" value="{{ isset($user->company->company_name) ? $user->company->company_name : ''}}" name="company_name" id="contact_name" aria-describedby="emailHelp" placeholder="Enter Contact Name">
+                            @if($errors->has('company_name'))
+                                <div class="error">{{ $errors->first('company_name') }}</div>
                             @endif
                         </div>
                     </div>
@@ -147,8 +147,8 @@
                     </div>
                     <div class="row">    
                         <div class="col-md-12 form-group cus-form-group">
-                            <label for="description">Description</label>
-                            <textarea type="text" name="description" class="form-control" placeholder="Description here..">{{ isset($user->description ) ? $user->description  : ''}}</textarea>
+                            <label for="description">Company Description</label>
+                            <textarea type="text" name="description" class="form-control" placeholder="Description here..">{{ isset($user->company->company_description ) ? $user->company->company_description  : ''}}</textarea>
                             @if($errors->has('description'))
                                 <div class="error">{{ $errors->first('description') }}</div>
                             @endif

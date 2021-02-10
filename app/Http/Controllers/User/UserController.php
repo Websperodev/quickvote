@@ -10,14 +10,15 @@ use App\User;
 
 use App\Models\Faq;
 use App\Models\Page;
+use App\Models\Event;
 use App\Models\Banner;
 use App\Models\Slider;
 use App\Models\Service;
 use App\Models\Countries;
 use App\Models\TeamMember;
+use App\Models\Categories;
 use App\Models\Testimonial;
 use App\Models\PricingPlans;
-
 
 class UserController extends Controller
 {
@@ -214,9 +215,53 @@ class UserController extends Controller
                 
         }
         $testimonials = Testimonial::all();
-
         $teamMember = TeamMember::all();
         
         return view('user.pages.our-team', compact('countries','sliders','pageData','testimonials' ,'services','banners', 'teamMember'));
     }
+
+    public function openSearch(){
+        $countries = Countries::get();
+        $banners = [];
+        $sliders = [];
+        $pageData = [];
+
+        $servicesBanner = Banner::where('page', 'our-team')->first();
+        if(!empty($servicesBanner)){
+            $banners = $servicesBanner;
+        }
+        $services = Service::orderBy('id','desc')->limit('10')->get();
+        $inArray = ['trusted brands'];
+
+        $slider = Slider::whereIn('name',$inArray)->get();
+        if($slider->count() > 0){
+            foreach($slider as $val){
+                $sliders[$val->name][] = $val;
+            }       
+        }
+        $data = Page::whereIn('page_name', ['our-team','our-investors'])->get();
+        if($data->count() > 0){
+            foreach($data as $val){
+                $pageData[$val->section] = $val;
+            }
+                
+        }
+        $testimonials = Testimonial::all();
+        $teamMember = TeamMember::all();
+        $allCategories = Categories::all();
+        $allEvents = Event::all();
+
+        
+        
+        return view('user.pages.event', compact('countries','sliders','pageData','testimonials' ,'services','banners', 'teamMember', 'allCategories' , 'allEvents'));
+
+    }
+
+
+
+
+
+
+
+
 }

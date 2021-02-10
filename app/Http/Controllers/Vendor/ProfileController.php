@@ -14,7 +14,7 @@ use Session;
 use Response;
 use App\User;
 use App\Models\Countries;
-
+use App\Models\CompanyInformation;
 
 
 class ProfileController extends Controller
@@ -103,8 +103,6 @@ class ProfileController extends Controller
             $user->first_name = $data['first_name'];
             $user->last_name = $data['last_name'];
             $user->business_name = $data['business_name'];
-            $user->contact_name = $data['contact_name'];
-            $user->phone = $data['phone'];
             $user->alternate_phone = $data['alternate_phone'];
             $user->address1 = $data['address1'];
             $user->address2 = $data['address2'];
@@ -112,10 +110,17 @@ class ProfileController extends Controller
             $user->state_id = $data['state'];
             $user->postal = $data['postal'];
             $user->country_id = $data['county'];
-            $user->description = $data['description'];
+            // $user->description = $data['description'];
             $user->update();
+
+            $company = CompanyInformation::where('vendor_id',$user->id)->first();
+            $company->company_name = $data['company_name'];
+            $company->company_description = $data['description'];
+            $company->update();
+            
             $request->session()->flash('message.level', 'success');
             $request->session()->flash('message.text', 'Profile updated successfully.');
+
             return redirect()->back();
             
         }catch (\Exception $e) {

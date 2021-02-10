@@ -30,6 +30,10 @@ class Event extends Authenticatable
     {
         return $this->belongsTo(Countries::class,'country_id');
     }
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class,'event_id','id');
+    }
 
     
 }

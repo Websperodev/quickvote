@@ -279,6 +279,20 @@ form.custum-frm .btn-right.submit-btn {
 .head-a{
     color: #f47f34;
 }
+.mform .form-control {
+    line-height: 40px;
+    padding: 0;
+    border: none;
+    border-bottom: 1px solid #000;
+    border-radius: 0;
+    font-size: 14px;
+}
+.mform i.fa {
+    position: absolute;
+    bottom: 18px;
+    color: #111;
+    right: 15px;
+}
 
 /*====================== Responsive Css ==========================*/
 @media(max-width: 991px){

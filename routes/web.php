@@ -37,6 +37,8 @@ Route::namespace('User')->group(function () {
 	Route::get('faq', 'UserController@getFaq')->name('faq');
 	Route::get('our-services', 'UserController@openServices')->name('our-services');
 	Route::get('our-team', 'UserController@openTeam')->name('our-team');
+	Route::get('search-event', 'UserController@openSearch')->name('search-event');
+
 
 
 	Route::get('/dashboard', 'DashboardController@index')->name('user.dashboard');
@@ -125,6 +127,9 @@ Route::namespace('Admin')->group(function () {
 	Route::get('/banners/{name}','PageController@getBanners')->name('admin.banners');
 	Route::post('add-banner', 'PageController@addBanner')->name('admin.banner');
 	Route::resource('services', 'ServicesController'); 
+
+	Route::get('/deleteTicket/{id}','TicketController@deleteTicket')->name('deleteTicket');
+
 
 
 });	

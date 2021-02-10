@@ -61,6 +61,7 @@ class RegisterController extends Controller
     protected function create(Request $request)
     {  
       
+      
         $validator = Validator::make($request->all(), [
             'company_name'          => 'required',
             'company_address'       => 'required',

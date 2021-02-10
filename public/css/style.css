@@ -1214,6 +1214,28 @@ h3.titleh3:after {
     font-size: 14px;
 }
 
+.mform label.error {
+    position: absolute;
+    bottom: -21px;
+    margin-bottom: 0;
+    font-size: 10px;
+}
+
+.mform i.fa {
+    position: absolute;
+    bottom: 18px;
+    color: #111;
+    right: 0;
+}
+
+.rating-stars .fa {
+    font-size: 10px;
+}
+
+.mform .form-group i.fa:active {
+    color: #faaa2f;
+}
+
 .mform select.form-control.col-6 {
     height: 41px;
 }
@@ -1225,6 +1247,7 @@ h3.titleh3:after {
 .mform .form-group {
     margin-bottom: 35px;
     display: block;
+    position: relative;
 }
 
 .mform .form-control.col-6.fr {
