@@ -39,18 +39,16 @@ class CategoriesController extends Controller
     }
 
     public function addCategory(Request $request){
-
         if($request->isMethod('post')){ 
-
             $validator = Validator::make($request->all(), [
                 'category_name'   => 'required',
             ]);
-
             if ($validator->fails())
             {  
                 return redirect()->back()->withErrors($validator);
             }
             try{
+
                 $user = Auth::user();
                 $data = $request->all();
                 $existing = Categories::where('name', $data['category_name'])->count();
@@ -59,13 +57,12 @@ class CategoriesController extends Controller
                     $request->session()->flash('message.text', 'Category already exists');
                     return redirect()->back();
                 }
-
                 $category = new Categories;
                 $category->name = $data['category_name'];
                 $category->description = $data['description'];
                 $category->created_by = $user->id;
-                
-                if ($request->hasFile('image_name')) {
+
+                if ($request->hasFile('image_name')) {               
                     if ($request->file('image_name')->isValid()) {
                         $validated = $request->validate([
                             'image_name' => 'string|max:40',
@@ -124,9 +121,7 @@ class CategoriesController extends Controller
            ->addColumn('action',function($allCategories) {
                 $str = '<div class="btn-group dropdown">
                 <a href="javascript: void(0);" class="table-action-btn dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-horizontal"></i></a>
-                <div class="dropdown-menu dropdown-menu-right"><a data-toggle="tooltip" data-placement="top" title="Edit" class="dropdown-item"  href="'.route('admin.edit-category',['id'=>$allCategories['id']]).'"><i class="mdi mdi-pencil mr-1 text-muted font-18 vertical-middle"></i> Edit Category</a>';
-
-                
+                <div class="dropdown-menu dropdown-menu-right"><a data-toggle="tooltip" data-placement="top" title="Edit" class="dropdown-item"  href="'.route('admin.edit-category',['id'=>$allCategories['id']]).'"><i class="mdi mdi-pencil mr-1 text-muted font-18 vertical-middle"></i> Edit Category</a>';               
                 $str .= '<a data-toggle="tooltip" data-placement="top" title="Delete" class="dropdown-item"   onclick="deleteCategory(this,'.$allCategories['id'].')" href="javascript:void(0);" ><i class="mdi mdi-delete mr-1 text-muted font-18 vertical-middle"></i> Delete Category</a>';
                 $str .= '</div></div>';
                 return $str;

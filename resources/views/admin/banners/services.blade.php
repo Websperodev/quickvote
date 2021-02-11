@@ -74,12 +74,16 @@
 
 @section('script-bottom')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/js/nicEdit-latest.js') }}"></script>
+<!--<script type="text/javascript" src="{{ URL::asset('assets/js/nicEdit-latest.js') }}"></script>-->
+<script src="{{url('assets/ckeditor/ckeditor.js')}}"></script>
 <script type="text/javascript">
-    bkLib.onDomLoaded(function() {
-        new nicEditor({ maxHeight : 100 }).panelInstance('banner_description');
-    });
-
+//    bkLib.onDomLoaded(function() {
+//        new nicEditor({ maxHeight : 100 }).panelInstance('banner_description');
+//    });
+CKEDITOR.replace('banner_description', {
+    height: '20%',
+    width: '100%'
+});
 $('#add_about_form').validate({
     rules:{
         banner_heading1:{

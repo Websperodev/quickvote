@@ -50,12 +50,16 @@
 
 
 @section('script-bottom')
-<script type="text/javascript" src="{{ URL::asset('assets/js/nicEdit-latest.js') }}"></script>
+<!--<script type="text/javascript" src="{{ URL::asset('assets/js/nicEdit-latest.js') }}"></script>-->
+<script src="{{url('assets/ckeditor/ckeditor.js')}}"></script>
 <script type="text/javascript">
-
-bkLib.onDomLoaded(function() {
-    new nicEditor({ maxHeight : 100 }).panelInstance('answer');
+CKEDITOR.replace('answer', {
+    height: '20%',
+    width: '100%'
 });
+//bkLib.onDomLoaded(function() {
+//    new nicEditor({ maxHeight : 100 }).panelInstance('answer');
+//});
 </script>
 
 @endsection

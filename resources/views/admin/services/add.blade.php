@@ -135,15 +135,22 @@
 
 @section('script-bottom')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/js/nicEdit-latest.js') }}"></script>
+<!--<script type="text/javascript" src="{{ URL::asset('assets/js/nicEdit-latest.js') }}"></script>-->
+<script src="{{url('assets/ckeditor/ckeditor.js')}}"></script>
 <script type="text/javascript">
-
-bkLib.onDomLoaded(function() {
-    new nicEditor({ maxHeight : 100 }).panelInstance('description1');
-    new nicEditor({ maxHeight : 100 }).panelInstance('description2');
-    new nicEditor({ maxHeight : 100 }).panelInstance('description3');
-    // new nicEditor({ maxHeight : 100 }).panelInstance('description4');
+CKEDITOR.replace('description[]', {
+    height: '20%',
+    width: '100%'
 });
+
+
+
+//bkLib.onDomLoaded(function() {
+//    new nicEditor({ maxHeight : 100 }).panelInstance('description1');
+//    new nicEditor({ maxHeight : 100 }).panelInstance('description2');
+//    new nicEditor({ maxHeight : 100 }).panelInstance('description3');
+//    // new nicEditor({ maxHeight : 100 }).panelInstance('description4');
+//});
 
 $('#add_services_form').validate({
     rules:{

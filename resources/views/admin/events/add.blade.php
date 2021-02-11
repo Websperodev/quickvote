@@ -280,8 +280,8 @@ $timezoneArray = config('constants.timezones');
   </div>
 </div>
 
-<script type="text/javascript" src="{{ URL::asset('assets/js/nicEdit-latest.js') }}"></script>
-
+<!--<script type="text/javascript" src="{{ URL::asset('assets/js/nicEdit-latest.js') }}"></script>-->
+<script src="{{url('assets/ckeditor/ckeditor.js')}}"></script>
  
 <script type="text/javascript">   
 $( ".datepicker_init" ).datepicker({
@@ -363,9 +363,6 @@ $(document).ready(function() {
 });
 
 
-
-
-
     $(document).ready(function() {
     var ticketNo        = $('#free-no').val(); //maximum input boxes allowed
     var wrapper         = $(".input_fields_wrap"); //Fields wrapper
@@ -422,15 +419,20 @@ $( ".datetimepicker" ).datetimepicker({
     format:'m/d/Y H:i'
 });
 
+
 $( ".datepicker" ).datetimepicker();
 
-bkLib.onDomLoaded(function() {
-        new nicEditor({ maxHeight : 100 }).panelInstance('area1');
-        
-        // new nicEditor({iconsPath : '../nicEditorIcons.gif'}).panelInstance('area3');
-        // new nicEditor({buttonList : ['fontSize','bold','italic','underline','strikeThrough','subscript','superscript','html','image']}).panelInstance('area4');
-        // new nicEditor({maxHeight : 100}).panelInstance('area5');
+CKEDITOR.replace('area1', {
+    height: '20%',
+    width: '100%'
 });
+//bkLib.onDomLoaded(function() {
+//        new nicEditor({ maxHeight : 100 }).panelInstance('area1');
+//        
+//        // new nicEditor({iconsPath : '../nicEditorIcons.gif'}).panelInstance('area3');
+//        // new nicEditor({buttonList : ['fontSize','bold','italic','underline','strikeThrough','subscript','superscript','html','image']}).panelInstance('area4');
+//        // new nicEditor({maxHeight : 100}).panelInstance('area5');
+//});
 
 
 $('#country').change(function(){
