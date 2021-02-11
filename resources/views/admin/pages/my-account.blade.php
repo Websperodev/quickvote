@@ -172,7 +172,7 @@
 @section('script-bottom')
 
 <script type="text/javascript">
-    $(document).ready(function() {    
+$(document).ready(function() {    
     var cid = "{{ isset($userCountry) ? $userCountry:'161' }}";
     var url = '{{ route("states", ":id") }}';
     url = url.replace(':id', cid);   

@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 
 
-
 Route::namespace('User\Auth')->group(function () {
 	Route::post('user-register', 'RegisterController@create')->name('user.register');
 	Route::get('email-verify', 'RegisterController@varifyEmail')->name('user.verify');
@@ -58,7 +57,9 @@ Route::namespace('Vendor')->group(function () {
 	Route::post('update-password', 'ProfileController@changePassword')->name('vendor.update.password');
 	Route::get('/my-account', 'ProfileController@myAccount')->name('vendor.myaccount');
 	Route::post('/my-account', 'ProfileController@updateProfile')->name('vendor.update.profile');
-
+	Route::resource('event-categories', 'CategoriesController');
+	Route::post('all-categories', 'CategoriesController@allCategories')->name('vendor.getAllCategories');
+	Route::resource('event', 'EventsController');
 });	
 
 Route::namespace('Admin')->group(function () {

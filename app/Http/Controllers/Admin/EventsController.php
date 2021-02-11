@@ -81,8 +81,8 @@ class EventsController extends Controller
                 $event->name = $data['event_title'];
                 $event->organizer_name = $data['organiser_name'];
                 $event->category_id = $data['event_category'];
-                $event->start_date = date("Y-m-d", strtotime($data['start_date']));  
-                $event->end_date = date("Y-m-d", strtotime($data['end_date']));  
+                $event->start_date = date("Y-m-d H:i:s", strtotime($data['start_date']));  
+                $event->end_date = date("Y-m-d H:i:s", strtotime($data['end_date']));  
                 $event->city_id = $data['city'];
                 $event->state_id = $data['state'];
                 $event->country_id = $data['country'];
@@ -112,20 +112,21 @@ class EventsController extends Controller
                 $ticketPrice = $request->get('price');
                 $ticketStartDate = $request->get('ticket_start_date');
                 $ticketEndDate = $request->get('ticketend_date');
-
-                foreach($ticketName as $key => $ticket){
-                    $ticket =  new Ticket;
-                    $ticket->event_id = $event->id;
-                    $ticket->ticket_type = $ticketType[$key];
-                    $ticket->name = $ticketName[$key];
-                    $ticket->quantity = $ticketQuantity[$key];
-                    $ticket->price = $ticketPrice[$key];
-                    $ticket->start_date = $ticketStartDate[$key];
-                    $ticket->end_date = $ticketEndDate[$key];
-                    $ticket->created_by = $user->id;
-                    $ticket->save();
+                if(!empty($ticketName)){
+                    foreach($ticketName as $key => $ticket){
+                        $ticket =  new Ticket;
+                        $ticket->event_id = $event->id;
+                        $ticket->ticket_type = $ticketType[$key];
+                        $ticket->name = $ticketName[$key];
+                        $ticket->quantity = $ticketQuantity[$key];
+                        $ticket->price = $ticketPrice[$key];
+                        $ticket->start_date = $ticketStartDate[$key];
+                        $ticket->end_date = $ticketEndDate[$key];
+                        $ticket->created_by = $user->id;
+                        $ticket->save();
+                    }
                 }
-
+               
                 if($event->id != ''){
                     $request->session()->flash('message.level', 'success');
                     $request->session()->flash('message.text', 'Event Added successfully.');
@@ -163,11 +164,10 @@ class EventsController extends Controller
                 if($allEvents->image != ''){
                     $img = '<img src="'. url($allEvents->image) .'" width="100" height="100">';
                 }
-                
                 return $img;
             }) 
             ->addColumn('organizer_name',function($allEvents) {
-                return $allEvents->name;
+                return $allEvents->organizer_name;
             }) 
             ->addColumn('country',function($allEvents) {
                 return $allEvents->country->name;
@@ -223,36 +223,13 @@ class EventsController extends Controller
                 $event->name = $data['event_title'];
                 $event->organizer_name = $data['organiser_name'];
                 $event->category_id = $data['event_category'];
-                $event->start_date = date("Y-m-d", strtotime($data['start_date']));  
-                $event->end_date = date("Y-m-d", strtotime($data['end_date']));  
+                $event->start_date = date("Y-m-d H:i:s", strtotime($data['start_date']));  
+                $event->end_date = date("Y-m-d H:i:s", strtotime($data['end_date']));  
                 $event->city_id = $data['city'];
                 $event->state_id = $data['state'];
                 $event->country_id = $data['country'];
                 $event->timezone = $data['timezone'];
                 $event->description = $data['description'];
-                $event->update();
-
-                $ticketName = $request->get('ticket_name');
-                $ticketType = $request->get('ticket_type');
-                $ticketQuantity = $request->get('quantity');
-                $ticketPrice = $request->get('price');
-                $ticketStartDate = $request->get('ticket_start_date');
-                $ticketEndDate = $request->get('ticketend_date');
-                $deleteTicket = Ticket::where('event_id', $event->id)->delete();
-                foreach($ticketName as $key => $ticket){
-                    $ticket =  new Ticket;
-                    $ticket->event_id = $event->id;
-                    $ticket->ticket_type = $ticketType[$key];
-                    $ticket->name = $ticketName[$key];
-                    $ticket->quantity = $ticketQuantity[$key];
-                    $ticket->price = $ticketPrice[$key];
-                    $ticket->start_date = $ticketStartDate[$key];
-                    $ticket->end_date = $ticketEndDate[$key];
-                    $ticket->created_by = $user->id;
-                    $ticket->save();
-                }
-
-                
                 if ($request->hasFile('image')) {
                     if ($request->file('image')->isValid()) {
                         $validated = $request->validate([
@@ -264,10 +241,33 @@ class EventsController extends Controller
                         $file->move('./uploads/images/', $fileName); 
                         $img = '/uploads/images/'.$fileName;
                         $event->image =  $img;
-                        $event->update();
                     }
                 }
-                
+
+                $event->update();
+                $ticketName = $request->get('ticket_name');
+
+                if(!empty($ticketName)){
+                    $ticketType = $request->get('ticket_type');
+                    $ticketQuantity = $request->get('quantity');
+                    $ticketPrice = $request->get('price');
+                    $ticketStartDate = $request->get('ticket_start_date');
+                    $ticketEndDate = $request->get('ticketend_date');
+                    $deleteTicket = Ticket::where('event_id', $event->id)->delete();
+                    foreach($ticketName as $key => $ticket){
+                        $ticket =  new Ticket;
+                        $ticket->event_id = $event->id;
+                        $ticket->ticket_type = $ticketType[$key];
+                        $ticket->name = $ticketName[$key];
+                        $ticket->quantity = $ticketQuantity[$key];
+                        $ticket->price = $ticketPrice[$key];
+                        $ticket->start_date = $ticketStartDate[$key];
+                        $ticket->end_date = $ticketEndDate[$key];
+                        $ticket->created_by = $user->id;
+                        $ticket->save();
+                    }
+                }
+                 
                 if($event->id != ''){
                     $request->session()->flash('message.level', 'success');
                     $request->session()->flash('message.text', 'Event Updated successfully.');

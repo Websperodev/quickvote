@@ -2,8 +2,9 @@
         <script src="{{ URL::asset('assets/js/vendor.min.js')}}"></script>
 
         <!-- third party js -->
+
         <script src="{{ URL::asset('assets/libs/datatables/datatables.min.js')}}"></script>
-        <script src="{{ URL::asset('assets/libs/bootstrap-select/bootstrap-select.min.js')}}"></script>
+       <!--  <script src="{{ URL::asset('assets/libs/bootstrap-select/bootstrap-select.min.js')}}"></script> -->
         <script src="{{ URL::asset('assets/libs/ladda/ladda.min.js')}}"></script>
         <script src="{{ URL::asset('assets/libs/sweetalert2/sweetalert2.min.js')}}"></script>
     
@@ -19,6 +20,6 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-        </script>
+                </script>
         @yield('script-bottom')
         

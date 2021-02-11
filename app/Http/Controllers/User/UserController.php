@@ -7,7 +7,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
 use App\User;
-
+use Carbon\Carbon;
 use App\Models\Faq;
 use App\Models\Page;
 use App\Models\Event;
@@ -249,10 +249,11 @@ class UserController extends Controller
         $testimonials = Testimonial::all();
         $teamMember = TeamMember::all();
         $allCategories = Categories::all();
-        $allEvents = Event::all();
 
-        
-        
+        $mytime = Carbon::now();
+        $date = $mytime->toDateString();
+        $allEvents = Event::where('start_date','>',$date)->orderBy('id','desc')->get();
+       
         return view('user.pages.event', compact('countries','sliders','pageData','testimonials' ,'services','banners', 'teamMember', 'allCategories' , 'allEvents'));
 
     }

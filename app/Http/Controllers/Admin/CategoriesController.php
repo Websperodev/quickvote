@@ -52,12 +52,11 @@ class CategoriesController extends Controller
             }
             try{
                 $user = Auth::user();
-                
                 $data = $request->all();
                 $existing = Categories::where('name', $data['category_name'])->count();
                 if($existing > 0){
                     $request->session()->flash('message.level', 'danger');
-                    $request->session()->flash('message.text', 'Email already exists');
+                    $request->session()->flash('message.text', 'Category already exists');
                     return redirect()->back();
                 }
 
@@ -65,12 +64,9 @@ class CategoriesController extends Controller
                 $category->name = $data['category_name'];
                 $category->description = $data['description'];
                 $category->created_by = $user->id;
-                $category->save();
                 
                 if ($request->hasFile('image_name')) {
-                    
                     if ($request->file('image_name')->isValid()) {
-
                         $validated = $request->validate([
                             'image_name' => 'string|max:40',
                             'image_name' => 'mimes:jpeg,png|max:1014',
@@ -80,10 +76,10 @@ class CategoriesController extends Controller
                         $file->move('./uploads/images/', $fileName); 
                         $img = '/uploads/images/'.$fileName;
                         $category->image =  $img;
-                        $category->update();
                     }
                 }
-                
+                $category->save();
+
                 if($category->id != ''){
                     $request->session()->flash('message.level', 'success');
                     $request->session()->flash('message.text', 'Category Added successfully.');
@@ -164,18 +160,13 @@ class CategoriesController extends Controller
                 $category->name = $data['category_name'];
                 $category->description = $data['description'];
                 $category->created_by = $user->id;
-                $category->update();
-               
-                if ($request->hasFile('image_name')) {
-                    
+                
+                if ($request->hasFile('image_name')) {     
                     if ($request->file('image_name')->isValid()) {
-                        
                         if(file_exists(public_path($data['old_file']))){
                             unlink(public_path($data['old_file']));
                             File::delete(public_path($data['old_file']));
                         }
-
-                    
                         $validated = $request->validate([
                             'image_name' => 'string|max:40',
                             'image_name' => 'mimes:jpeg,png|max:1014',
@@ -184,11 +175,10 @@ class CategoriesController extends Controller
                         $fileName = md5($file->getClientOriginalName() . time()) . "." . $file->getClientOriginalExtension();
                         $file->move('./uploads/images/', $fileName); 
                         $img = '/uploads/images/'.$fileName;
-                        $category->image =  $img;
-                        $category->update();
+                        $category->image =  $img;   
                     }
                 }
-                
+                $category->update();
             
                 if($category->id != ''){
                     $request->session()->flash('message.level', 'success');
