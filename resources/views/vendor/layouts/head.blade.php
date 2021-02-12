@@ -38,8 +38,13 @@
                 height: auto !important;
             }
         </style>
-            <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-           
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="{{ URL::asset('assets/js/jquery.datetimepicker.full.js')}}"></script>
+        <script src="{{ URL::asset('assets/js/jquery.datetimepicker.full.min.js')}}"></script>
+        <script src="{{ URL::asset('assets/js/jquery.datetimepicker.min.js')}}"></script>
+        <link href="{{ URL::asset('assets/css/jquery.datetimepicker.min.css')}}" rel="stylesheet" type="text/css" />
+         <script src="{{ URL::asset('assets/libs/bootstrap-select/bootstrap-select.min.js')}}"></script>
+       
 
         @yield('bottom-css')

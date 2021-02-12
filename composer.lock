@@ -1584,6 +1584,7 @@
                 "datetime",
                 "time"
             ],
+
             "funding": [
                 {
                     "url": "https://opencollective.com/Carbon",
@@ -1594,6 +1595,7 @@
                     "type": "tidelift"
                 }
             ],
+
             "time": "2021-02-11T18:30:17+00:00"
         },
         {
