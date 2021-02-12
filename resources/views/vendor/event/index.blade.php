@@ -22,8 +22,9 @@
                 <div class="col-6">
                     <h4 class="header-title">Manage Events</h4>
                 </div>
+
                 <div class="col-6">
-                    <a class="btn btn-bg" href="{{ route('admin.add.event') }}">Add Event</a>     
+                    <a class="btn btn-bg" href="{{ route('event.create') }}">Add Event</a>     
                 </div>
                </div>
                 <p class="sub-header">View and manage events on this page.</p>
@@ -80,7 +81,7 @@
             serverSide: true,
             order: [], //Initial no order.
             ajax: {
-                url: "{{ route('admin.getEvents') }}",
+                url: "{{ route('event.getEvents') }}",
                 method: 'POST'
             },
             columnDefs: [
@@ -107,6 +108,9 @@
      
     function deleteEvent(obj,id) 
     {
+        var url = '{{ route("event.destroy", ":id") }}';
+        url = url.replace(':id', id);
+       
         let list_name = $(obj).data('listname');
         Swal.fire({
             title: 'Delete Event?',
@@ -120,8 +124,8 @@
         }).then((result) => {
             if (result.value) {
                 $('#full_page_loader').removeClass('d-none');
-                $.post('{{ route("admin.event.delete") }}', {
-                    id: id,
+                $.post(url, {
+                    _method: 'DELETE',
                     _token: "{!! csrf_token() !!}"
                 }, function (data) {
                     $('#full_page_loader').addClass('d-none');

@@ -1,7 +1,6 @@
-@extends('admin.layouts.master')
+@extends('vendor.layouts.master')
 @section("meta_page_title") Admin | Quickvote | Dashboard @endsection
-@section("page_title") <a href="{!! route('admin.events') !!}" class="head-a"> Events </a> > Add @endsection
-
+@section("page_title") <a href="{!! route('event.index') !!}" class="head-a"> Events </a> > Add @endsection
 
 @section("content")
 
@@ -22,7 +21,7 @@ $timezoneArray = config('constants.timezones');
                     </div>
                 @endif
 
-                {!! Form::open(array('route' => 'admin.add.event', 'id' => 'add_event_form', 'method' => 'post','class' => 'custum-frm', 'enctype' => 'multipart/form-data' )) !!}
+                {!! Form::open(array('route' => 'event.store', 'id' => 'add_event_form', 'method' => 'post','class' => 'custum-frm', 'enctype' => 'multipart/form-data' )) !!}
                 	@csrf
                     <div class="events-frm mb-2">
                         <div class="row">

@@ -15,7 +15,6 @@ class CreateTicketsTable extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('event_id');
             $table->string('ticket_type', 255);
             $table->string('name', 255);
             $table->string('quantity', 255);
@@ -23,6 +22,7 @@ class CreateTicketsTable extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->integer('created_by');
+            $table->foreignId('event_id')->constrained('events')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -20,8 +20,8 @@ class CreateEventsTable extends Migration
             $table->string('organizer_name', 255);
             $table->integer('category_id');
             $table->integer('user_id');
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->dateTime('start_date');
+            $table->dateTime('end_date');
             $table->string('venue', 255)->nullable();
             $table->string('city_id', 255);
             $table->string('state_id', 255);
@@ -29,6 +29,7 @@ class CreateEventsTable extends Migration
             $table->string('timezone', 255);
             $table->text('description')->nullable();
             $table->string('event_priority', 255)->nullable();
+            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }

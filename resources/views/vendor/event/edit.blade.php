@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('vendor.layouts.master')
 @section("meta_page_title") Admin | Quickvote | Dashboard @endsection
 @section("page_title") <a href="{!! route('admin.events') !!}" class="head-a"> Events </a> > Edit @endsection
 
@@ -17,9 +17,8 @@ $timezoneArray = config('constants.timezones');
                     {!! session('message.text') !!}
                     </div>
                 @endif
-
-                {!! Form::open(array('route' => 'admin.edit.event', 'id' => 'edit_event_form', 'class' => 'custum-frm'  ,'method' => 'post', 'enctype' => 'multipart/form-data' )) !!}
-                    @csrf
+                {!! Form::open(array('route' => ['event.update', $event->id ], 'id' => 'edit_event_form', 'method' => 'put','class' => 'custum-frm', 'enctype' => 'multipart/form-data' )) !!}
+                @csrf
                     <div class="events-frm mb-2">
                         <div class="row">
                             <div class="col-md-12 form-group cus-form-group">
@@ -151,9 +150,6 @@ $timezoneArray = config('constants.timezones');
                                 
                                 <select class="form-control" name="state" id="state" aria-describedby="emailHelp">
                                     <option value="">Select State</option>
-                                   <!--  @foreach($states as $state)
-                                        <option {{ $eventState == $state->id ? 'selected' : ''}} value="{{ $state->id }}">{{ $state->name }}</option>
-                                    @endforeach -->
                                 </select>
 
                                 @if($errors->has('state'))
@@ -167,9 +163,6 @@ $timezoneArray = config('constants.timezones');
                                 <label for="city">City</label>
                                 <select class="form-control" name="city" id="city" aria-describedby="emailHelp">
                                     <option value="">Select City</option>
-                                    <!-- @foreach($cities as $city)
-                                        <option {{ $eventCity == $city->id ? 'selected' : ''}} value="{{ $city->id }}">{{ $city->name }}</option>
-                                    @endforeach -->
                                 </select>
                                 
                                 @if($errors->has('city'))
@@ -208,7 +201,7 @@ $timezoneArray = config('constants.timezones');
                                 </div>
                                 <div class="col-md-2 form-group cus-form-group">
                                     <label for="image">Delete Ticket</label>
-                                    <a href="#" class="" onclick='deleteTicket("{{ $ticket->id }}");'>Delete</a>
+                                    <a href="javascript:void(0)" class="" onclick='deleteTicket("{{ $ticket->id }}");'>Delete</a>
                                 </div>
                             </div>
                             
@@ -322,6 +315,9 @@ $timezoneArray = config('constants.timezones');
   </div>
 </div>
 
+
+
+
 <script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>
 <script type="text/javascript">
 
@@ -352,7 +348,7 @@ $(document).ready(function() {
         for(x=0; x<ticketNo; x++){ //max input box allowed
              //text box increment
             console.log('x',x);
-            $(wrapper).append('<div class="row"><div class="col-md-4 form-group cus-form-group"><label for="image">Ticket Name</label><input type="text"  class="form-control" name="ticket_name[]" aria-describedby="emailHelp" placeholder="Ticket Name"></div><div class="col-md-4 form-group cus-form-group"><label for="image">Quantity available</label><input type="text"  class="form-control" name="quantity[]" aria-describedby="emailHelp" placeholder="Quantity available"></div> <div class="col-md-2 form-group cus-form-group"><label for="image">Price</label><input type="text"  class="form-control" '+readonly+' value="'+price+'" name="price[]" aria-describedby="emailHelp" placeholder="Price"></div><div class="col-md-2 form-group cus-form-group"><label for="image">Remove Ticket</label><a href="#" class="remove_field">Remove</a></div></div><div class="row"><div class="col-md-6 form-group cus-form-group"><label for="image">Start Date</label><input type="text"  class="form-control datepicker" name="ticket_start_date[]" aria-describedby="emailHelp" placeholder="Start date"></div><div class="col-md-6 form-group cus-form-group"><label for="image">End Date</label><input type="text" class="form-control ticket_end_date" name="ticketend_date[]" aria-describedby="emailHelp" placeholder="End Date"></div><input type="hidden"  class="form-control" value="'+ttype+'" name="ticket_type[]" aria-describedby="emailHelp" placeholder="Price"></div>'); 
+            $(wrapper).append('<div class="row"><div class="col-md-4 form-group cus-form-group"><label for="image">Ticket Name</label><input type="text"  class="form-control" name="ticket_name[]" aria-describedby="emailHelp" placeholder="Ticket Name"></div><div class="col-md-4 form-group cus-form-group"><label for="image">Quantity available</label><input type="text"  class="form-control" name="quantity[]" aria-describedby="emailHelp" placeholder="Quantity available"></div> <div class="col-md-2 form-group cus-form-group"><label for="image">Price</label><input type="text"  class="form-control" '+readonly+' value="'+price+'" name="price[]" aria-describedby="emailHelp" placeholder="Price"></div><div class="col-md-2 form-group cus-form-group"><label for="image">Remove Ticket</label><a href="javascript:void(0)" class="remove_field">Remove</a></div><div class="col-md-6 form-group cus-form-group"><label for="image">Start Date</label><input type="text"  class="form-control datepicker" name="ticket_start_date[]" aria-describedby="emailHelp" placeholder="Start date"></div><div class="col-md-6 form-group cus-form-group"><label for="image">End Date</label><input type="text" class="form-control ticket_end_date" name="ticketend_date[]" aria-describedby="emailHelp" placeholder="End Date"></div><input type="hidden"  class="form-control" value="'+ttype+'" name="ticket_type[]" aria-describedby="emailHelp" placeholder="Price"></div>'); 
 
         }
         $('#FreeModal').modal('hide');
