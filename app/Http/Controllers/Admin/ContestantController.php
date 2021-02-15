@@ -148,6 +148,10 @@ class ContestantController extends Controller {
         }
         if ($phone == '') {
             $error['number'] = 'Number field is required';
+        }else{
+            if (!preg_match('/^[0-9]+$/', $phone)) {
+                $error['number'] = 'Please enter valid number';
+            }
         }
 
 //        $validator = Validator::make($request->all(), [
@@ -161,11 +165,7 @@ class ContestantController extends Controller {
         if (!empty($error)) {
             $err = json_encode($error);
             return Response::json(['success' => false, 'status' => 3, 'inputvalidation' => $error]);
-        } else {
-            if (!preg_match('/^[0-9]+$/', $phone)) {
-                $error['number'] = 'Please enter valid number';
-            }
-        }
+        } 
 
         try {
 

@@ -54,7 +54,7 @@
             {!! Form::open(['id' => 'edit_contestant_form', 'enctype' => 'multipart/form-data'] ) !!}
             <div class="col-md-12 form-group cus-form-group">
                 <label for="name" class="col-12">Name</label>
-                <input type="text" name="name" id="name"  class="form-control" placeholder="Enter Contestant name" /></div>
+                <input type="text" name="name" id="name" class="form-control" placeholder="Enter Contestant name" /></div>
             <p id="error_name" style="color:red;"></p>
             <div class="col-md-12 form-group cus-form-group">
                 <label for="image" class="col-12">Image</label>
@@ -193,11 +193,7 @@ $(document).ready(function (e) {
 
                         $('#error_about').text(data.inputvalidation.about);
                     }
-
-
-
                 }
-
             },
             error(e) {
                 console.log(e);
