@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('vendor.layouts.master')
 @section("meta_page_title") Dashboard | Contestant  @endsection
 @section("page_title") Contestant @endsection
 @section("css")
@@ -9,7 +9,7 @@
 @endsection
 @section("page_directory")
 <ol class="breadcrumb m-0">
-    <li class="breadcrumb-item"><a href="{!! route('admin.dashboard') !!}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="{!! route('vendor.dashboard') !!}">Dashboard</a></li>
     <li class="breadcrumb-item active">Contestant</li>
 </ol>
 @endsection
@@ -23,7 +23,7 @@
                         <h4 class="header-title">Manage Contestant</h4>
                     </div>
                     <div class="col-6">
-                        <a class="btn btn-bg" href="{{ route('contestant.create') }}" style="color: black">Add Contestant</a>     
+                        <a class="btn btn-bg" href="{{ route('vendor.contestant.create') }}" style="color: black">Add Contestant</a>     
                     </div>
                 </div>
                 <p class="sub-header">View and manage Contestant users on this page.</p>
@@ -58,7 +58,7 @@
             <p id="error_name" style="color:red;"></p>
             <div class="col-md-12 form-group cus-form-group">
                 <label for="image" class="col-12">Image</label>
-                <img src="" id="existing_img">
+                <img src="" id="existing_img" style="height:80px;width:80px;">
                 <input type="file" name="image"  class="form-control" placeholder="Choose image" />
             </div>
             <div class="col-md-12 form-group cus-form-group">
@@ -116,7 +116,7 @@ table_instance = $('#contestant-table').DataTable({
     serverSide: true,
     order: [], //Initial no order.
     ajax: {
-        url: "{{ route('admin.getContestant') }}",
+        url: "{{ route('vendor.getContestant') }}",
         method: 'POST'
     },
     columnDefs: [
@@ -139,9 +139,14 @@ table_instance = $('#contestant-table').DataTable({
         {data: 'action', name: 'action', "searchable": false, "orderable": false, width: '50px', className: "text-center"}
     ],
 });
+function checkvalidation() {
+
+}
 $(document).ready(function (e) {
     $("#edit_contestant_form").on('submit', function (e) {
         e.preventDefault();
+        var formdata = new FormData(this);
+
         l = Ladda.create(document.querySelector('#edit_contestant_form .ladda-button'));
 
         $.ajax({
@@ -177,15 +182,22 @@ $(document).ready(function (e) {
                     $('#editContestantModal').modal('hide');
                 } else if (data.status == 3) {
                     if (data.inputvalidation.number) {
+
                         $('#error_number').text(data.inputvalidation.number);
                     }
                     if (data.inputvalidation.name) {
+
                         $('#error_name').text(data.inputvalidation.name);
                     }
                     if (data.inputvalidation.about) {
+
                         $('#error_about').text(data.inputvalidation.about);
                     }
+
+
+
                 }
+
             },
             error(e) {
                 console.log(e);

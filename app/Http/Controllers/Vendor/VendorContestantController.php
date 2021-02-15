@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Vendor;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -11,16 +11,17 @@ use Carbon\Carbon;
 use Yajra\Datatables\Datatables;
 use App\Models\Event;
 use App\Models\Contestant;
+use Session;
+use Auth;
 
-class ContestantController extends Controller {
-
+class VendorContestantController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        return view('admin.contestant.index');
+        return view('vendor.contestant.index');
     }
 
     /**
@@ -32,7 +33,9 @@ class ContestantController extends Controller {
         $mytime = Carbon::now();
         $date = $mytime->toDateString();
         $events = Event::where('start_date', '>', $date)->get();
-        return view('admin.contestant.add', compact('events'));
+//        echo '<pre>';
+//        print_r($events); die;
+        return view('vendor.contestant.add', compact('events'));
     }
 
     /**
@@ -42,12 +45,13 @@ class ContestantController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-
+//        echo '<pre>';
+//print_r($request->input()); die;
         $event_id = $request->get('event_id');
         $name = $request->get('name');
         $number = $request->get('number');
         $about = $request->get('about');
-
+        $user = Auth::user();
         if ($request->hasFile('image')) {
             $images = $request->file('image');
             foreach ($images as $key => $image) {
@@ -71,8 +75,8 @@ class ContestantController extends Controller {
     }
 
     public function getContestant(Request $request) {
-        $allContestant = Contestant::orderBy('created_at', 'desc')->get();
-
+        $user = Auth::user();
+        $allContestant = Contestant::where(['added_by' => $user['id']])->orderBy('created_at', 'desc')->get();
         return DataTables::of($allContestant)
                         ->addColumn('image', function($allContestant) {
                             $img = '<img src="' . url($allContestant->image) . '" width="100" height="100">';
@@ -98,8 +102,6 @@ class ContestantController extends Controller {
                 <a href="javascript: void(0);" class="table-action-btn dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-horizontal"></i></a>
                 <div class="dropdown-menu dropdown-menu-right"><a data-toggle="tooltip" data-placement="top" title="Edit" data-name="' . $allContestant->name . '" data-image="' . $allContestant->image . '" data-phone="' . $allContestant->phone . '" data-about="' . $allContestant->about . '" onclick="editcontestant(this,' . $allContestant->id . ')"   class="dropdown-item"  ><i class="mdi mdi-pencil mr-1 text-muted font-18 vertical-m
                 iddle"></i> Edit Contestant</a>';
-
-
                             $str .= '<a data-toggle="tooltip" data-placement="top" title="Delete" class="dropdown-item"   onclick="deleteContestant(this,' . $allContestant->id . ')" href="javascript:void(0);" ><i class="mdi mdi-delete mr-1 text-muted font-18 vertical-middle"></i> Delete Contestant</a>';
                             $str .= '</div></div>';
                             return $str;
@@ -126,93 +128,6 @@ class ContestantController extends Controller {
      */
     public function edit($id) {
         
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id) {
-        $name = $request->get('name');
-        $phone = $request->get('number');
-        $about = $request->get('about');
-        $error = [];
-        if ($name == '') {
-            $error['name'] = 'Name field is required';
-        }
-        if ($about == '') {
-            $error['about'] = 'About field is required';
-        }
-        if ($phone == '') {
-            $error['number'] = 'Number field is required';
-        }
-
-//        $validator = Validator::make($request->all(), [
-//                    'name' => 'required',
-//                    'number' => 'required',
-//        ]);
-//        if ($validator->fails()) {
-//            return Response::json(['success' => false, 'status' => 1, 'error' => 'Please fill required fields']);
-//        }
-
-        if (!empty($error)) {
-            $err = json_encode($error);
-            return Response::json(['success' => false, 'status' => 3, 'inputvalidation' => $error]);
-        } else {
-            if (!preg_match('/^[0-9]+$/', $phone)) {
-                $error['number'] = 'Please enter valid number';
-            }
-        }
-
-        try {
-
-            $contestant = Contestant::find($id);
-            $contestant->name = $request->get('name');
-            $contestant->phone = $request->get('number');
-            $contestant->about = $request->get('about');
-            if ($request->hasFile('image')) {
-
-                if (file_exists(public_path($request->get('existing_image')))) {
-                    unlink(public_path($request->get('existing_image')));
-                    File::delete(public_path($request->get('existing_image')));
-                }
-
-                $file = $request->file('image');
-                $fileName = md5($file->getClientOriginalName() . time()) . "." . $file->getClientOriginalExtension();
-                $file->move('./uploads/images/', $fileName);
-                $img = 'uploads/images/' . $fileName;
-                $contestant->image = $img;
-            }
-            $contestant->save();
-
-            return Response::json(['success' => true, 'status' => 1, 'message' => 'Contestant updated Successfully ']);
-        } catch (\Exception $e) {
-            return Response::json(['success' => false, 'status' => 2, 'error' => 'Something went wrong']);
-        }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id) {
-        try {
-            $contestant = Contestant::findOrFail($id);
-            $contestant->delete();
-
-            if ($contestant) {
-                return Response::json(['success' => true, 'status' => 1, 'message' => "Contestant has been deleted successfully."]);
-            } else {
-                return Response::json(['success' => false, 'status' => 2, "error" => 'Something went wrong.']);
-            }
-        } catch (\Exception $e) {
-            return Response::json(['success' => false, 'status' => 2, "error" => $e->getMessage()]);
-        }
     }
 
 }

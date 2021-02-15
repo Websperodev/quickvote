@@ -26,7 +26,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('contestant.index') }}">
+                            <a href="{{ route('VendorContestant.index') }}">
                                 <i class="fa fa-calendar" aria-hidden="true"></i> Contestants
                             </a>
                         </li>
