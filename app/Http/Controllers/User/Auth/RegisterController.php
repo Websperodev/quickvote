@@ -16,7 +16,11 @@ use Auth;
 use Session;
 use Response;
 use Carbon\Carbon;
-
+use App\Models\Page;
+use App\Models\Slider;
+use App\Models\Countries;
+use App\Models\Testimonial;
+use App\Models\PricingPlans;
 use App\Models\ContactQuerie;
 
 class RegisterController extends Controller
@@ -205,7 +209,28 @@ class RegisterController extends Controller
         $userId = $this->my_simple_crypt($userId, 'd' );
         $userData = User::find($userId);
         if(!empty($userData)){
-            return view('user.pages.homepage')->with(['page' => 'forgetPassword', 'user_id' => $userId ]);
+            $countries = Countries::get();
+            $pageData = [];
+            $sliders = [];
+            $data = Page::where('page_name', 'home')->get();
+            if($data->count() > 0){
+                foreach($data as $val){
+                    $pageData[$val->section] = $val;
+                }
+                    
+            }
+            $inArray = ['home','trusted brands'];
+            $slider = Slider::whereIn('name',$inArray)->get();
+            $testimonials = Testimonial::all();
+            if($slider->count() > 0){
+                foreach($slider as $val){
+                    $sliders[$val->name][] = $val;
+                }       
+            }
+        $pricingData = PricingPlans::get();
+
+        
+        return view('user.pages.homepage')->with(['page' => 'forgetPassword', 'user_id' => $userId, 'countries' => $countries, 'pageData' => $pageData, 'pricingData' => $pricingData , 'sliders' => $sliders, 'testimonials' => $testimonials ]);
         }else{
             return redirect('/')->with('message','Link Expired');
         }

@@ -83,14 +83,21 @@
 <script src="{{asset('js/custom.js')}}"></script>
 <script type="text/javascript">
 
-    function showPassword(id) {
-      var x = document.getElementById(id);
-      if (x.type === "password") {
-        x.type = "text";
-      } else {
-        x.type = "password";
-      }
-    } 
+$('.modal').on('hidden.bs.modal', function () {
+    $("form").each(function(){
+      $(this).validate().resetForm();
+    });
+});
+
+function showPassword(id) {
+  var x = document.getElementById(id);
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+} 
+
 $(document).ready(function () {
   $('.modal').on('hidden.bs.modal', function () {
     $('.alert-danger').hide();
@@ -144,7 +151,7 @@ $(document).ready(function () {
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 data: $('form.register-frm-user').serialize(),
                 success: function (response) {
-                  console.log(response);
+                  console.log('submit response',response);
                   if(response.success == true){
                     Swal.fire({
                       position: 'center',
@@ -162,6 +169,10 @@ $(document).ready(function () {
                         $('.alert-danger').append('<p>'+value+'</p>');
                       });
                   }
+                },
+                beforeSend: function() {
+                  $('.alert-danger').html('');
+                  $('.alert-danger').hide(); 
                 },
                 error: function(err) {
                   console.log(err);
@@ -284,6 +295,10 @@ $(document).ready(function () {
           },
           error: function(err) {
             console.log(err);
+          },
+          beforeSend: function() {
+            $('.alert-danger').html('');
+            $('.alert-danger').hide(); 
           }
        });
        return false; // required to block normal submit since you used ajax
@@ -329,6 +344,10 @@ $(document).ready(function () {
                   }
                   
                 },
+                beforeSend: function() {
+                  $('.alert-danger').html('');
+                  $('.alert-danger').hide(); 
+                },
                 error: function(err) {
                   console.log(err);
                 }
@@ -365,6 +384,8 @@ $(document).ready(function () {
                       showCloseButton: true,
                       
                     })
+
+                    $('#reset-frm').prop('disabled', true);
                     $('#forgetPassModal').modal('hide');
                     
                   }else{ 
@@ -375,6 +396,10 @@ $(document).ready(function () {
                       });  
                   }
                   
+                },
+                beforeSend: function() {
+                  $('.alert-danger').html('');
+                  $('.alert-danger').hide(); 
                 },
                 error: function(err) {
                   console.log(err);
@@ -416,6 +441,7 @@ $(document).ready(function () {
                       showCloseButton: true,
                       
                     })
+
                     $('#resetPassModal').modal('hide');
                     
                   }else{ 
@@ -426,6 +452,10 @@ $(document).ready(function () {
                       });  
                   }
                   
+                },
+                beforeSend: function() {
+                  $('.alert-danger').html('');
+                  $('.alert-danger').hide(); 
                 },
                 error: function(err) {
                   console.log(err);
@@ -481,6 +511,10 @@ $(document).ready(function () {
                       });  
                   }
                   
+                },
+                beforeSend: function() {
+                  $('.alert-danger').html('');
+                  $('.alert-danger').hide(); 
                 },
                 error: function(err) {
                   console.log(err);
@@ -538,6 +572,10 @@ $(document).ready(function () {
                   }
                   
                 },
+                beforeSend: function() {
+                  $('.alert-danger').html('');
+                  $('.alert-danger').hide(); 
+                },
                 error: function(err) {
                   console.log(err);
                 }
@@ -549,13 +587,7 @@ $(document).ready(function () {
 });
 
 </script>
-@if(isset($message) && $message != '')
-<script type="text/javascript">
-    $(document).ready(function() {
-        console.log("{{ $message }}");
-    });
-</script>
-@endif
+
 
 @if(isset($page) && $page == 'forgetPassword')
 <script type="text/javascript">

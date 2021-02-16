@@ -31,7 +31,7 @@
             </div>  
             <input type="hidden" name="user_id" value="{{ isset($user_id) ? $user_id:''}}">
             
-            <button class="btn btn-bg">Reset</button>
+            <button class="btn btn-bg" id="reset-btn">Reset</button>
             <br>
             <p> </p>
           </form>
