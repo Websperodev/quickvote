@@ -26,7 +26,7 @@
               <input type="text" name="email" class="form-control" placeholder="Enter your Email ID">
             </div>    
             
-            <button class="btn btn-bg">Reset</button>
+            <button class="btn btn-bg" id="reset-frm">Reset</button>
             <br>
             <p> </p>
           </form>

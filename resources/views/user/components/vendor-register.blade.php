@@ -10,7 +10,7 @@
       <div class="col-md-12">
       <form id="vendForm" class="vform mform row vendForm">
         @csrf
-      <div class="tab" id="tabs-1" style="display: block;">
+      <div class="vendor-tab" id="tabs-1" >
         <div class="col-12">
           <h3 class="titleh3">Company Information</h3>
           <p>Fill the form below keenly to participate in the Art and Fair exhibition. Forms that are not completly filled will not be accepted.</p>
@@ -36,14 +36,14 @@
         <div class="form-group col-6">
         <label>State</label>
           <select class="form-control" autocomplete="off" name="company_state" id="c_state">
-            <option>Select State</option>
+            <option value="">Select State</option>
           </select>
         </div>
 
         <div class="form-group col-6">
         <label>City</label>
           <select class="form-control" autocomplete="off" name="company_city" id="c_city">
-            <option>Select City</option>
+            <option value="">Select City</option>
           </select>
         </div>
 
@@ -72,7 +72,7 @@
         
       </div>
 
-      <div class="tab" id="tabs-2">
+      <div class="vendor-tab hide-div" id="tabs-2">
         <div class="col-12">
           <h3 class="titleh3">Personal Information</h3>
           <p>Fill the form below keenly to participate in the Art and Fair exhibition. Forms that are not completly filled will not be accepted.</p>
@@ -137,7 +137,7 @@
         
       </div>
 
-      <div class="tab" id="tabs-3">
+      <div class="vendor-tab hide-div" id="tabs-3">
         <div class="col-12">
           <h3 class="titleh3">Account Information</h3>
           <p>Fill the form below keenly to participate in the Art and Fair exhibition. Forms that are not completly filled will not be accepted.</p>
@@ -195,9 +195,9 @@
 <script type="text/javascript">
   function nextPrev(t){
     var nxtTab = 'tabs-'+t;
-    $('.tab').css('display','none');
-    $('#'+nxtTab).css('display','block');
-    $('#tab-2').css('display','block');
+    $('.vendor-tab').addClass("hide-div");
+    $('#'+nxtTab).removeClass("hide-div");
+    $('#tab-2').removeClass("hide-div");
   }
 </script>
 <script type="text/javascript">
@@ -206,34 +206,34 @@
     var url = '{{ route("states", ":id") }}';
     url = url.replace(':id', cid);   
       if(cid){
-          $.ajax({
-                  type: 'GET',
-                  url: url,
-                  success: function (res) {
-                    if(res){
-                      $("#c_state").empty();
-                      $("#c_state").append('<option>Select</option>');
-                      $.each(res,function(key,value){
-                        $("#c_state").append('<option value="'+value.id+'">'+value.name+'</option>');
-                      });
+        $.ajax({
+          type: 'GET',
+          url: url,
+          success: function (res) {
+            if(res){
+              $("#c_state").empty();
+              $("#c_state").append('<option>Select</option>');
+              $.each(res,function(key,value){
+                $("#c_state").append('<option value="'+value.id+'">'+value.name+'</option>');
+              });
 
-                      $("#state").empty();
-                      $("#state").append('<option>Select</option>');
-                      $.each(res,function(key,value){
-                        $("#state").append('<option value="'+value.id+'">'+value.name+'</option>');
-                      });
-                    
-                    }else{
-                      $("#state").empty();
-                    }
-                    
-                  },
-                  error: function(err) {
-                    console.log(err);
-                  }
-          });
+              $("#state").empty();
+              $("#state").append('<option>Select</option>');
+              $.each(res,function(key,value){
+                $("#state").append('<option value="'+value.id+'">'+value.name+'</option>');
+              });
+            
+            }else{
+              $("#state").empty();
+            }
+          },
+          error: function(err) {
+            console.log(err);
+          }
+        });
       }
   });
+
   $('#c_country').change(function(){
     var cid = $(this).val();
     var url = '{{ route("states", ":id") }}';
@@ -262,91 +262,91 @@
       }  
   });
 
-    $('#c_state').change(function(){
+  $('#c_state').change(function(){
+    var sid = $(this).val();
+    var url = '{{ route("cities", ":id") }}';
+    url = url.replace(':id', sid);
+      if(sid){
+          $.ajax({
+                  type: 'GET',
+                  url: url,
+                  success: function (res) {
+                      if(res)
+                      {
+                          $("#c_city").empty();
+                          $("#c_city").append('<option>Select City</option>');
+                          $.each(res,function(key,value){
+                              $("#c_city").append('<option value="'+value.id+'">'+value.name+'</option>');
+                          });
+                      }else{
+                          $("#c_city").empty();
+                      }
+                    
+                  },
+                  error: function(err) {
+                    console.log(err);
+                  }
+          });
+      }   
+      
+  }); 
+
+  $('#country').change(function(){
+      var cid = $(this).val();
+      var url = '{{ route("states", ":id") }}';
+      url = url.replace(':id', cid);
+     
+      if(cid){
+          $.ajax({
+                  type: 'GET',
+                  url: url,
+                  success: function (res) {
+                    if(res){
+                      $("#state").empty();
+                      $("#state").append('<option>Select</option>');
+                      $.each(res,function(key,value){
+                        $("#state").append('<option value="'+value.id+'">'+value.name+'</option>');
+                      });
+                    
+                    }else{
+                      $("#state").empty();
+                    }
+                    
+                  },
+                  error: function(err) {
+                    console.log(err);
+                  }
+          });
+      }
+
+     
+  });
+  $('#state').change(function(){
       var sid = $(this).val();
       var url = '{{ route("cities", ":id") }}';
       url = url.replace(':id', sid);
-        if(sid){
-            $.ajax({
-                    type: 'GET',
-                    url: url,
-                    success: function (res) {
-                        if(res)
-                        {
-                            $("#c_city").empty();
-                            $("#c_city").append('<option>Select City</option>');
-                            $.each(res,function(key,value){
-                                $("#c_city").append('<option value="'+value.id+'">'+value.name+'</option>');
-                            });
-                        }else{
-                            $("#c_city").empty();
-                        }
-                      
-                    },
-                    error: function(err) {
-                      console.log(err);
-                    }
-            });
-        }   
-        
-    }); 
-
-    $('#country').change(function(){
-        var cid = $(this).val();
-        var url = '{{ route("states", ":id") }}';
-        url = url.replace(':id', cid);
-       
-        if(cid){
-            $.ajax({
-                    type: 'GET',
-                    url: url,
-                    success: function (res) {
-                      if(res){
-                        $("#state").empty();
-                        $("#state").append('<option>Select</option>');
-                        $.each(res,function(key,value){
-                          $("#state").append('<option value="'+value.id+'">'+value.name+'</option>');
-                        });
-                      
+     
+      if(sid){
+          $.ajax({
+                  type: 'GET',
+                  url: url,
+                  success: function (res) {
+                      if(res)
+                      {
+                          $("#city").empty();
+                          $("#city").append('<option>Select City</option>');
+                          $.each(res,function(key,value){
+                              $("#city").append('<option value="'+value.id+'">'+value.name+'</option>');
+                          });
                       }else{
-                        $("#state").empty();
+                          $("#city").empty();
                       }
-                      
-                    },
-                    error: function(err) {
-                      console.log(err);
-                    }
-            });
-        }
-
-       
-    });
-    $('#state').change(function(){
-        var sid = $(this).val();
-        var url = '{{ route("cities", ":id") }}';
-        url = url.replace(':id', sid);
-       
-        if(sid){
-            $.ajax({
-                    type: 'GET',
-                    url: url,
-                    success: function (res) {
-                        if(res)
-                        {
-                            $("#city").empty();
-                            $("#city").append('<option>Select City</option>');
-                            $.each(res,function(key,value){
-                                $("#city").append('<option value="'+value.id+'">'+value.name+'</option>');
-                            });
-                        }else{
-                            $("#city").empty();
-                        }
-                    },
-                    error: function(err) {
-                      console.log(err);
-                    }
-            });
-        }   
-        
-    }); 
+                  },
+                  error: function(err) {
+                    console.log(err);
+                  }
+          });
+      }   
+      
+  }); 
 </script>
