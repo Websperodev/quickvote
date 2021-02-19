@@ -143,14 +143,19 @@
                     $('#event_data_ajax').children().remove();
                     $.each(data, function (key, value) {
                         var eventstartDate = new Date(value.start_date);
+                        var datemonth = (eventstartDate.getUTCDate()) + ' ' + GetMonthName(eventstartDate.getMonth() + 1);
                         var date = (eventstartDate.getUTCDate()) + "-" + (eventstartDate.getMonth() + 1) + "-" + (eventstartDate.getUTCFullYear());
                         var cHour = eventstartDate.getHours();
                         var cMin = eventstartDate.getMinutes();
+
                         var cSec = eventstartDate.getSeconds();
                         var tim = cHour + ":" + cMin + ":" + cSec;
+                        var tickets = value.tickets;
+                        
+                        
                         htmldata = '<div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter Most Recent"><div class="tcard border-0 py-3 px-4">\n\
             <div class="justify-content-center"> <img src="' + imageUrl + value.image + '" class="img-fluid profile-pic mb-4 mt-3" > </div><div class="fe-abs">\n\
-            <span class="date-abs">' + date + '</span>\n\
+            <span class="date-abs">' + datemonth + '</span>\n\
             <div class="txt-card"><div class="event-name"><h2 class="titleh2 event-title">' + value.name + '</h2>\n\
             <span class="tickets">Tickets From ' + minPrice + '</span></div><p class="time-price">\n\
             <span class="etime"><i class="far fa-clock"></i>  Start ' + tim + '</span>\n\
@@ -162,6 +167,12 @@
             });
         }
     });
+    function GetMonthName(monthNumber) {
+
+        var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+        return months[monthNumber - 1];
+
+    }
 
 </script>
 @include('user.components.newsletter')

@@ -1,5 +1,5 @@
 @extends('vendor.layouts.master')
-@section("meta_page_title") Dashboard | Events @endsection
+@section("meta_page_title") Vendor | Dashboard | Events @endsection
 @section("page_title") Events @endsection
 @section("css")
     <style type="text/css">

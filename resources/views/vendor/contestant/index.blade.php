@@ -203,67 +203,8 @@ $(document).ready(function (e) {
     });
 });
 
-// $('#edit_contestant_form').validate({
-//     submitHandler: function(form) {
-//         l = Ladda.create( document.querySelector('#edit_contestant_form .ladda-button'));
-//         console.log('update',update_url);
-
-//         $.ajax({
-//             type: "PUT",
-//             url: update_url,
-//             data: $("#edit_contestant_form").serialize(),
-//             dataType: "json",
-
-//             beforeSend: function () {
-//                 l.start();
-//             },
-//             success: function (data) {
-//                 console.log(data);
-//                 l.stop();
-//                 if (data.status == 2) {
-//                     Swal.fire({
-//                         type: 'error',
-//                         title: 'Error!',
-//                         text: data.error,
-//                         confirmButtonClass: 'btn btn-confirm mt-2',
-//                     });
-//                 }
-//                 else if (data.status == 1) {
-//                     Swal.fire({
-//                         type: 'success',
-//                         title: 'Success!',
-//                         text: data.message,
-//                         confirmButtonClass: 'btn btn-confirm mt-2',
-//                     });
-//                     table_instance.ajax.reload(null,true);
-
-//                 } 
-//                 $('#editContestantModal').modal('hide');
-//             },
-//             error: function (res) {
-//                 l.stop();
-//                 var error = res.responseJSON.message;
-//                 if(error == "") {
-//                     error = res.responseJSON.exception;
-//                 }
-//                 Swal.fire({
-//                     type: 'error',
-//                     title: 'Error!',
-//                     text: error,
-//                     confirmButtonClass: 'btn btn-confirm mt-2',
-//                 });
-//             },
-//             complete: function() {
-//                 l.stop();
-//             },
-//         });
-//     }
-// });
-
-
-
 function editcontestant(obj, id) {
-    update_url = "{{ url('contestant-update') }}/" + id;
+    update_url = "{{ url('vendor/contestant-update') }}/" + id;
 
     var url = '{{ url(":img") }}';
     url = url.replace(':img', $(obj).data('image'));
@@ -280,7 +221,7 @@ function editcontestant(obj, id) {
 }
 function deleteContestant(obj, id)
 {
-    var url = '{{ route("contestant.destroy", ":id") }}';
+    var url = '{{ route("vendor.contestant.destroy", ":id") }}';
     url = url.replace(':id', id);
 
     Swal.fire({
@@ -299,7 +240,7 @@ function deleteContestant(obj, id)
                 _method: 'DELETE',
                 _token: "{!! csrf_token() !!}"
             }, function (data) {
-                console.log('abc', data);
+                //console.log('abc', data);
                 $('#full_page_loader').addClass('d-none');
                 if (data.status == 1) {
                     Swal.fire({

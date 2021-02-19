@@ -332,6 +332,13 @@ class UserController extends Controller {
                                     }
                                 })
                                 ->get()->toArray();
+                if (!empty($allEvents)) {
+                    foreach ($allEvents as $key => $event) {
+                        $allEvents[$key]['tickets'] = DB::table('tickets')->where(['event_id' => $event['id']])->get()->toArray();
+                    }
+                }
+//                echo '<pre>';
+//                print_r($allEvents); die;
                 return json_encode($allEvents);
             } else {
 
