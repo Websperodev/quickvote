@@ -111,24 +111,24 @@
   } // end if
   </script>
 
- 
-  
+  @livewireStyles
+   
   </head>
 <body>
 
   @include('user.layouts.nav')
-   <div class="page-start"> 
-      @yield('content')
-   </div>
+  <div class="page-start"> 
+    @yield('content')
+  </div>
 
 
 
 
-    @include('user.layouts.footer')
+  @include('user.layouts.footer')
 
 
-  
-
+ 
+  @livewireScripts
 
 </body>
 </html>
