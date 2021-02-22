@@ -25,15 +25,14 @@
             </div>
         </div>
     </div>
-
     <div id="eve" class="events">
         <div class="container">
             <div class="row">
                 <div class="filterr col-12" align="center">
-                    <button class="btn btn-default filter-button" data-filter="all">All</button>
-                    <button class="btn btn-default filter-button" data-filter="Recent">Most Recent</button>
-                    <button class="btn btn-default filter-button" data-filter="Free">Free Forms</button>
-                    <button class="btn btn-default filter-button" data-filter="Paid">Paid Forms</button>
+                    <button class="btn btn-default filter-button" wire:click="searchTabList('all')" data-filter="all">All</button>
+                    <button class="btn btn-default filter-button" wire:click="searchTabList('Recent')" data-filter="Recent">Most Recent</button>
+                    <button class="btn btn-default filter-button" wire:click="searchTabList('Free')" data-filter="Free">Free Forms</button>
+                    <button class="btn btn-default filter-button" wire:click="searchTabList('Paid')" data-filter="Paid">Paid Forms</button>
                 </div>
                 <br/>
                 @foreach($allEvents as $event)
@@ -41,7 +40,6 @@
                 $minPrice = '';
                 $ticketType = [];
                 @endphp
-
                 @if(isset($event['tickets']) && !empty($event['tickets']))
                 @foreach($event['tickets'] as $tic)
                 @php 
@@ -58,7 +56,6 @@
                 $ticketType = array_unique($ticketType);
                 @endphp
                 @endif
-
                 <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter Most Recent">
                     <div class="tcard border-0 py-3 px-4">
                         <div class="justify-content-center"> <img src="{{ isset($event['image'])? url($event['image']) : '' }}" class="img-fluid profile-pic mb-4 mt-3"> </div>
@@ -70,7 +67,6 @@
                         $startDate = date('d-M', $yrdata);
                         $startTime = date("g:i a", strtotime($event['start_date']));
                         }
-
                         @endphp
                         <div class="fe-abs">
                             <span class="date-abs">{{ $startDate }}</span>
@@ -90,15 +86,8 @@
                         </div>
                     </div>
                 </div>
-
                 @endforeach
-
-
-
             </div>
-
-
         </div>
-
     </div>
 </div>
