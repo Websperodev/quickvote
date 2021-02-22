@@ -15,7 +15,7 @@
     </div>
 </div>
 
- @livewire('show-event')
 
+@livewire('show-event')
 
 @endsection

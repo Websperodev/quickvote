@@ -59,12 +59,12 @@ Route::namespace('Vendor')->group(function () {
     Route::post('getAllEvents', 'EventsController@allEvents')->name('event.getEvents');
 
 
-    Route::get('vendor/contestant', 'VendorContestantController@index')->name('VendorContestant.index');
-    Route::get('vendor/contestant-create', 'VendorContestantController@create')->name('vendor.contestant.create');
-    Route::post('vendor/contestant-store', 'VendorContestantController@store')->name('vendor.contestant.store');
-    Route::post('vendor/get-contestant', 'VendorContestantController@getContestant')->name('vendor.getContestant');
-     Route::post('contestant-update/{id}', 'ContestantController@update')->name('contestant.update');
-  
+    Route::get('vendor/contestant', 'ContestantController@index')->name('vendor.contestant.index');
+    Route::get('vendor/contestant-create', 'ContestantController@create')->name('vendor.contestant.create');
+    Route::post('vendor/contestant-store', 'ContestantController@store')->name('vendor.contestant.store');
+    Route::post('vendor/get-contestant', 'ContestantController@getContestant')->name('vendor.getContestant');
+    Route::post('vendor/contestant-update/{id}', 'ContestantController@update')->name('vendor.contestant.update');
+     Route::delete('vendor/contestant-delete/{id}', 'ContestantController@destroy')->name('vendor.contestant.destroy');
 });
 
 Route::namespace('Admin')->group(function () {

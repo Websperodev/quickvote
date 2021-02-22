@@ -1,5 +1,5 @@
 @extends('vendor.layouts.master')
-@section("meta_page_title") Admin | Quickvote | Dashboard @endsection
+@section("meta_page_title") Vendor | Quickvote | Dashboard @endsection
 @section("page_title") <a href="{!! route('admin.events') !!}" class="head-a"> Events </a> > Edit @endsection
 
 @section("content")
@@ -149,7 +149,7 @@ $timezoneArray = config('constants.timezones');
                                 <label for="state">State</label>
                                 
                                 <select class="form-control" name="state" id="state" aria-describedby="emailHelp">
-                                    <option value="">Select State</option>
+                                    <option value="{{$event->state_id}}">{{state_name($event->state_id)}}</option>
                                 </select>
 
                                 @if($errors->has('state'))
@@ -318,9 +318,13 @@ $timezoneArray = config('constants.timezones');
 
 
 
-<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>
+<!--<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>-->
+<script src="{{url('assets/ckeditor/ckeditor.js')}}"></script>
 <script type="text/javascript">
-
+                     CKEDITOR.replace('area1', {
+                                height: '20%',
+                                width: '100%'
+                            });
 $(document).ready(function() {
     var ticketNo        = $('#free-no').val(); //maximum input boxes allowed
     var wrapper         = $(".input_fields_wrap"); //Fields wrapper
@@ -476,13 +480,7 @@ $(document).ready(function() {
 });
 
 
-bkLib.onDomLoaded(function() {
-        new nicEditor({ maxHeight : 100 }).panelInstance('area1');
-        
-        // new nicEditor({iconsPath : '../nicEditorIcons.gif'}).panelInstance('area3');
-        // new nicEditor({buttonList : ['fontSize','bold','italic','underline','strikeThrough','subscript','superscript','html','image']}).panelInstance('area4');
-        // new nicEditor({maxHeight : 100}).panelInstance('area5');
-});
+
 
 $('#country').change(function(){
         var cid = $(this).val();

@@ -14,7 +14,8 @@ use App\Models\Contestant;
 use Session;
 use Auth;
 
-class VendorContestantController extends Controller {
+class ContestantController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
@@ -128,6 +129,94 @@ class VendorContestantController extends Controller {
      */
     public function edit($id) {
         
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id) {
+       
+        $name = $request->get('name');
+        $phone = $request->get('number');
+        $about = $request->get('about');
+        $error = [];
+        if ($name == '') {
+            $error['name'] = 'Name field is required';
+        }
+        if ($about == '') {
+            $error['about'] = 'About field is required';
+        }
+        if ($phone == '') {
+            $error['number'] = 'Number field is required';
+        } else {
+            if (!preg_match('/^[0-9]+$/', $phone)) {
+                $error['number'] = 'Please enter valid number';
+            }
+        }
+
+//        $validator = Validator::make($request->all(), [
+//                    'name' => 'required',
+//                    'number' => 'required',
+//        ]);
+//        if ($validator->fails()) {
+//            return Response::json(['success' => false, 'status' => 1, 'error' => 'Please fill required fields']);
+//        }
+
+        if (!empty($error)) {
+            $err = json_encode($error);
+            return Response::json(['success' => false, 'status' => 3, 'inputvalidation' => $error]);
+        }
+
+        try {
+
+            $contestant = Contestant::find($id);
+            $contestant->name = $request->get('name');
+            $contestant->phone = $request->get('number');
+            $contestant->about = $request->get('about');
+            if ($request->hasFile('image')) {
+
+                if (file_exists(public_path($request->get('existing_image')))) {
+                    unlink(public_path($request->get('existing_image')));
+                    File::delete(public_path($request->get('existing_image')));
+                }
+
+                $file = $request->file('image');
+                $fileName = md5($file->getClientOriginalName() . time()) . "." . $file->getClientOriginalExtension();
+                $file->move('./uploads/images/', $fileName);
+                $img = 'uploads/images/' . $fileName;
+                $contestant->image = $img;
+            }
+            $contestant->save();
+
+            return Response::json(['success' => true, 'status' => 1, 'message' => 'Contestant updated Successfully ']);
+        } catch (\Exception $e) {
+            return Response::json(['success' => false, 'status' => 2, 'error' => 'Something went wrong']);
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id) {
+        try {
+            $contestant = Contestant::findOrFail($id);
+            $contestant->delete();
+
+            if ($contestant) {
+                return Response::json(['success' => true, 'status' => 1, 'message' => "Contestant has been deleted successfully."]);
+            } else {
+                return Response::json(['success' => false, 'status' => 2, "error" => 'Something went wrong.']);
+            }
+        } catch (\Exception $e) {
+            return Response::json(['success' => false, 'status' => 2, "error" => $e->getMessage()]);
+        }
     }
 
 }
