@@ -1,7 +1,7 @@
 
 <?php
 
-use DB;
+
 
 if (!function_exists('getDateOnly')) {
 
@@ -14,12 +14,5 @@ if (!function_exists('getDateOnly')) {
     }
 
 }
-if (!function_exists('state_name')) {
 
-    function state_name($id) {
-        $state = DB::table('states')->where('id', $id)->first();
-        return $state->name;
-    }
-
-}
 ?>

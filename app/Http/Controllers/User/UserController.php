@@ -295,57 +295,57 @@ class UserController extends Controller {
 //            return view('user.pages.eventAjax', compact('allEvents'))->render();
 //        }
 //    }
-    function fetch_data(Request $request) {
-        $mytime = Carbon::now();
-        $date = $mytime->toDateString();
-        $allEvents = [];
-//        echo '<pre>';
-//        print_r($request->input());
-//        die;
-
-        if ($request->ajax()) {
-            if ($request->input()) {
-                $name = $request->input('keyname');
-                $cat = $request->input('category');
-                $eventDate = $request->input('eventdate');
-                $tabfillter = $request->input('tabfillter');
-                $allEvents = Event::where('end_date', '>', $date)
-                                ->where(function($allEvents) use ($eventDate, $request) {
-                                    if ($eventDate != "") {
-                                        $allEvents->where('end_date', '>', $eventDate);
-                                    }
-                                })
-                                ->where(function($allEvents) use ($name, $request) {
-                                    if ($name != "") {
-                                        $allEvents->where('name', 'like', '%' . $name . '%');
-                                    }
-                                })
-                                ->where(function($allEvents) use ($cat, $request) {
-                                    if ($cat != "") {
-                                        $allEvents->where('category_id', $cat);
-                                    }
-                                })
-                                ->where(function($allEvents) use ($tabfillter, $request) {
-                                    switch ($tabfillter) {
-                                        CASE 'all':
-                                            break;
-                                    }
-                                })
-                                ->get()->toArray();
-                if (!empty($allEvents)) {
-                    foreach ($allEvents as $key => $event) {
-                        $allEvents[$key]['tickets'] = DB::table('tickets')->where(['event_id' => $event['id']])->get()->toArray();
-                    }
-                }
-//                echo '<pre>';
-//                print_r($allEvents); die;
-                return json_encode($allEvents);
-            } else {
-
-                $allEvents = Event::where('end_date', '>', $date)->orderBy('id', 'desc')->get()->toArray();
-            }
-        }
-        return json_encode($allEvents);
-    }
+//    function fetch_data(Request $request) {
+//        $mytime = Carbon::now();
+//        $date = $mytime->toDateString();
+//        $allEvents = [];
+////        echo '<pre>';
+////        print_r($request->input());
+////        die;
+//
+//        if ($request->ajax()) {
+//            if ($request->input()) {
+//                $name = $request->input('keyname');
+//                $cat = $request->input('category');
+//                $eventDate = $request->input('eventdate');
+//                $tabfillter = $request->input('tabfillter');
+//                $allEvents = Event::where('end_date', '>', $date)
+//                                ->where(function($allEvents) use ($eventDate, $request) {
+//                                    if ($eventDate != "") {
+//                                        $allEvents->where('end_date', '>', $eventDate);
+//                                    }
+//                                })
+//                                ->where(function($allEvents) use ($name, $request) {
+//                                    if ($name != "") {
+//                                        $allEvents->where('name', 'like', '%' . $name . '%');
+//                                    }
+//                                })
+//                                ->where(function($allEvents) use ($cat, $request) {
+//                                    if ($cat != "") {
+//                                        $allEvents->where('category_id', $cat);
+//                                    }
+//                                })
+//                                ->where(function($allEvents) use ($tabfillter, $request) {
+//                                    switch ($tabfillter) {
+//                                        CASE 'all':
+//                                            break;
+//                                    }
+//                                })
+//                                ->get()->toArray();
+//                if (!empty($allEvents)) {
+//                    foreach ($allEvents as $key => $event) {
+//                        $allEvents[$key]['tickets'] = DB::table('tickets')->where(['event_id' => $event['id']])->get()->toArray();
+//                    }
+//                }
+////                echo '<pre>';
+////                print_r($allEvents); die;
+//                return json_encode($allEvents);
+//            } else {
+//
+//                $allEvents = Event::where('end_date', '>', $date)->orderBy('id', 'desc')->get()->toArray();
+//            }
+//        }
+//        return json_encode($allEvents);
+//    }
 
 }

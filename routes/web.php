@@ -37,7 +37,7 @@ Route::namespace('User')->group(function () {
     Route::get('our-team', 'UserController@openTeam')->name('our-team');
     Route::get('search-event', 'UserController@openSearch')->name('search-event');
     Route::post('search-event', 'UserController@openSearch')->name('search-event-post');
-    Route::post('search-event/fetch_data', 'UserController@fetch_data');
+//    Route::post('search-event/fetch_data', 'UserController@fetch_data');
     Route::get('/dashboard', 'DashboardController@index')->name('user.dashboard');
     Route::post('password-update', 'ProfileController@changePassword')->name('user.updatePass');
     Route::post('edit-profile', 'ProfileController@updateProfile')->name('user.editProfile');

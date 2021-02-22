@@ -44,7 +44,7 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <input type="date" class="form-control seachDate" onchange="checksearchInput()" name="date" value="" id="inputDate" placeholder="Date">
+                    <input type="date" class="form-control seachDate" onchange="checksearchInput()" name="eventDate" value="" id="inputDate" placeholder="Date">
                 </div>
             </div>
             <div class="col-md-2">
