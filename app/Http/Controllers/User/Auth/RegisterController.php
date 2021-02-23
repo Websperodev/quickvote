@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
+use Spatie\Permission\Models\Role;
+
 use Mail;
 use Auth;
 use Session;
@@ -99,6 +101,9 @@ class RegisterController extends Controller
             $user->type = 'user';
             $user->password = Hash::make($data['password']);
             $user->save();
+
+            $role = Role::find('3');
+            $user->roles()->attach($role);
             
             $email_content['data'] = 'User Registered successfully';
 
