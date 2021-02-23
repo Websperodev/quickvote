@@ -171,9 +171,13 @@ $timezoneArray = config('constants.timezones');
                             <label for="timezone">Timezone</label>
 
                             <select class="form-control" name="timezone" id="timezone" aria-describedby="emailHelp">
-                                <option value="">Choose Timezone</option>
-                                @foreach($timezoneArray as $time)
-                                <option value="{{ $time }}">{{ $time }}</option>
+                               
+                                @foreach($timezoneArray as $key=>$time)
+                                @if($key=='Africa/Lagos')
+                                <option value="{{ $key }}" selected>{{ $key }}</option>                                
+                                @else
+                                <option value="{{ $key }}">{{ $key }}</option>
+                                @endif
                                 @endforeach
                             </select>
 
@@ -417,7 +421,7 @@ $timezoneArray = config('constants.timezones');
 
         });
     });
-    function openModal(par) { 
+    function openModal(par) {
         if (par == 'paid') {
             $('#paidModal').modal('show');
         }

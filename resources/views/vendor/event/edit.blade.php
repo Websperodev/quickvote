@@ -172,8 +172,8 @@ $timezoneArray = config('constants.timezones');
                                 <label for="timezone">Timezone</label>
                                 <select class="form-control" name="timezone" id="timezone" aria-describedby="emailHelp">
                                     <option value="">Choose Timezone</option>
-                                    @foreach($timezoneArray as $time)
-                                        <option value="{{ $time }}" {{ $time == $event->timezone ? 'selected' : ''}}>{{ $time }}</option>
+                                    @foreach($timezoneArray as $key=>$time)
+                                        <option value="{{ $key }}" {{ $key == $event->timezone ? 'selected' : ''}}>{{ $key }}</option>
                                     @endforeach
                                 </select>
 
