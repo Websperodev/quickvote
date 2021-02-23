@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Yajra\Datatables\Datatables;
 use App\Models\Event;
 use App\Models\Contestant;
+use Auth;
 
 class ContestantController extends Controller {
 
@@ -47,7 +48,7 @@ class ContestantController extends Controller {
         $name = $request->get('name');
         $number = $request->get('number');
         $about = $request->get('about');
-
+        $user = Auth::user();
         if ($request->hasFile('image')) {
             $images = $request->file('image');
             foreach ($images as $key => $image) {
@@ -67,6 +68,8 @@ class ContestantController extends Controller {
         }
         if ($contestant->id != '') {
             return Response::json(['success' => true, 'status' => 1, 'message' => 'Contestant added Successfully ']);
+        } else {
+            return Response::json(['error' => true, 'status' => 0, 'message' => 'All feild are required']);
         }
     }
 
@@ -148,7 +151,7 @@ class ContestantController extends Controller {
         }
         if ($phone == '') {
             $error['number'] = 'Number field is required';
-        }else{
+        } else {
             if (!preg_match('/^[0-9]+$/', $phone)) {
                 $error['number'] = 'Please enter valid number';
             }
@@ -165,7 +168,7 @@ class ContestantController extends Controller {
         if (!empty($error)) {
             $err = json_encode($error);
             return Response::json(['success' => false, 'status' => 3, 'inputvalidation' => $error]);
-        } 
+        }
 
         try {
 

@@ -54,21 +54,21 @@
             {!! Form::open(['id' => 'edit_contestant_form', 'enctype' => 'multipart/form-data'] ) !!}
             <div class="col-md-12 form-group cus-form-group">
                 <label for="name" class="col-12">Name</label>
-                <input type="text" name="name" id="name"  class="form-control" placeholder="Enter Contestant name" /></div>
+                <input type="text" name="name" id="name"  class="form-control" required placeholder="Enter Contestant name" /></div>
             <p id="error_name" style="color:red;"></p>
             <div class="col-md-12 form-group cus-form-group">
                 <label for="image" class="col-12">Image</label>
-                <img src="" id="existing_img">
+                <img src="" id="existing_img" height="300px" width="100%">
                 <input type="file" name="image"  class="form-control" placeholder="Choose image" />
             </div>
             <div class="col-md-12 form-group cus-form-group">
                 <label for="number" class="col-12">Number</label>
-                <input type="text" name="number"  id="number" class="form-control" placeholder="Enter Number" />
+                <input type="text" name="number"  id="number" required class="form-control" placeholder="Enter Number" />
                 <p id="error_number" style="color:red;"></p>
             </div>
             <div class="col-md-12 form-group cus-form-group">
                 <label for="image" class="col-12">About</label>
-                <textarea type="text"  cols="50" class="form-control" name="about" id="about" placeholder="About here.."></textarea>
+                <textarea type="text"  cols="50" class="form-control" required name="about" id="about" placeholder="About here.."></textarea>
                 <p id="error_about" style="color:red;"></p>
             </div>
             <input type="hidden" name="existing_image"  id="existing_image" class="form-control" placeholder="Enter Number" />

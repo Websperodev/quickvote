@@ -59,7 +59,6 @@ class ContestantController extends Controller {
                 $fileName = md5($image->getClientOriginalName() . time()) . "." . $image->getClientOriginalExtension();
                 $image->move('./uploads/images/', $fileName);
                 $img = 'uploads/images/' . $fileName;
-
                 $contestant = new Contestant;
                 $contestant->event_id = $event_id;
                 $contestant->name = $name[$key];
