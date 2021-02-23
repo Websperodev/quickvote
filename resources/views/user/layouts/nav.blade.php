@@ -6,7 +6,7 @@
 
     <nav id="navbar_top" class="navbar navbar-expand-lg navbar-light">
     <div class="container">
-      <a class="navbar-brand" href="#"><img class="logo" src="{{asset('img/qv-logo.png')}}"></a>
+      <a class="navbar-brand" href="{{url('/')}}"><img class="logo" src="{{asset('img/qv-logo.png')}}"></a>
       <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" aria-controls="navbarNavAltMarkup">
       <span class="navbar-toggler-icon"></span>
       </button>

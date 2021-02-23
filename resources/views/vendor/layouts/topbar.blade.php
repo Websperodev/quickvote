@@ -17,7 +17,7 @@
             <li class="dropdown notification-list">
                 <!-- {{ URL::asset('assets/images/cfl-logo.png') }} -->
 
-                <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="{{url('/')}}" role="button" aria-haspopup="false" aria-expanded="false">
                     <img src="{{ URL::asset('assets/images/avatar-11.jpg') }}" alt="user-image" class="rounded-circle">
                     <span class="pro-user-name ml-1">
                     {{ ucfirst(\Auth::user()->first_name) }} <i class="mdi mdi-chevron-down"></i> 
