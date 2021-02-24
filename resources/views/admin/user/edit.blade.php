@@ -17,7 +17,7 @@
                 </div>
                 @endif
 
-                {!! Form::open(array('route' => 'admin.edit-user', 'id' => 'edit_user_form','class' => 'custum-frm', 'method' => 'post' )) !!}
+                {!! Form::open(array('route' => 'admin.edit-user', 'id' => 'edit_user_form','class' => 'custum-frm', 'method' => 'post', 'enctype' => 'multipart/form-data' )) !!}
 
                 @csrf
                 <div class="user-frm mb-2">
@@ -52,6 +52,18 @@
                             <div class="error">{{ $errors->first('contact_name') }}</div>
                             @endif
                         </div>
+                    </div>
+                    <div class='row'>
+                         <div class="col-md-6 form-group cus-form-group">
+                                <label for="image">Image</label>
+                                @if(isset($user->image) && $user->image != '' )
+                                <img src="{{ url($user->image) }}" width="150" height="150">
+                                @endif
+                                <input type="file"  class="form-control" name="image" id="image" aria-describedby="emailHelp" placeholder="Choose Image">
+                                @if($errors->has('image'))
+                                <div class="error">{{ $errors->first('image') }}</div>
+                                @endif
+                            </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 form-group cus-form-group">

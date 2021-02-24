@@ -64,7 +64,20 @@ class UserController extends Controller {
                     $request->session()->flash('message.text', 'Email already exists');
                     return redirect()->back();
                 }
-
+                $img = '';
+                $user = Auth::user();
+                if ($request->hasFile('image')) {
+                    if ($request->file('image')->isValid()) {
+                        $validated = $request->validate([
+                            'image' => 'string|max:40',
+                            'image' => 'mimes:jpeg,png|max:1014',
+                        ]);
+                        $file = request()->file('image');
+                        $fileName = md5($file->getClientOriginalName() . time()) . "." . $file->getClientOriginalExtension();
+                        $file->move('./uploads/images/', $fileName);
+                        $img = '/uploads/images/' . $fileName;
+                    }
+                }
                 $user = new User;
                 $user->first_name = $data['first_name'];
                 $user->last_name = $data['last_name'];
@@ -81,6 +94,9 @@ class UserController extends Controller {
                 $user->city_id = $data['city'];
                 $user->state_id = $data['state'];
                 $user->postal = $data['postal'];
+                if ($img != '') {
+                    $user->image = $img;
+                }
                 $user->country_id = $data['country'];
                 $user->facebook = $data['facebook'];
                 $user->twitter = $data['twitter'];
@@ -184,6 +200,21 @@ class UserController extends Controller {
                     return redirect()->back();
                 }
 
+                $img = '';
+
+                if ($request->hasFile('image')) {
+                    if ($request->file('image')->isValid()) {
+
+                        $validated = $request->validate([
+                            'image' => 'string|max:40',
+                            'image' => 'mimes:jpeg,png|max:1014',
+                        ]);
+                        $file = request()->file('image');
+                        $fileName = md5($file->getClientOriginalName() . time()) . "." . $file->getClientOriginalExtension();
+                        $file->move('./uploads/images/', $fileName);
+                        $img = '/uploads/images/' . $fileName;
+                    }
+                }
                 $user = User::find($data['user_id']);
                 $user->first_name = $data['first_name'];
                 $user->last_name = $data['last_name'];
@@ -197,6 +228,9 @@ class UserController extends Controller {
                 $user->gender = $data['gender'];
                 $user->city_id = $data['city'];
                 $user->state_id = $data['state'];
+                if ($img != '') {
+                    $user->image = $img;
+                }
                 $user->postal = $data['postal'];
                 $user->country_id = $data['country'];
                 $user->facebook = $data['facebook'];

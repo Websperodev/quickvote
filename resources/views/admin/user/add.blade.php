@@ -17,7 +17,7 @@
                 </div>
                 @endif
 
-                {!! Form::open(array('route' => 'admin.add.user', 'id' => 'add_user_form','class' => 'custum-frm', 'method' => 'post' )) !!}
+                {!! Form::open(array('route' => 'admin.add.user', 'id' => 'add_user_form','class' => 'custum-frm', 'method' => 'post', 'enctype' => 'multipart/form-data'  )) !!}
 
                 @csrf
                 <div class="user-frm mb-2">
@@ -61,7 +61,7 @@
                             <div class="error">{{ $errors->first('email') }}</div>
                             @endif
                         </div>
-                         <div class="col-md-6 form-group cus-form-group">
+                        <div class="col-md-6 form-group cus-form-group">
                             <label for="gender">Gender</label>
 
                             <select class="form-control" name="gender" id="gender">                               
@@ -72,7 +72,13 @@
                             <div class="error">{{ $errors->first('gender') }}</div>
                             @endif
                         </div>
-
+                        <div class="col-md-12 form-group cus-form-group">
+                            <label for="image">Image</label>
+                            <input type="file"  class="form-control" name="image" id="image" aria-describedby="emailHelp" placeholder="Choose Image">
+                            @if($errors->has('image'))
+                            <div class="error">{{ $errors->first('image') }}</div>
+                            @endif
+                        </div>
                     </div>
 
                     <div class="row">
@@ -181,7 +187,7 @@
                         </div>
 
                     </div>
-                     <div class="row">
+                    <div class="row">
                         <div class="col-md-6 form-group cus-form-group">
                             <label for="facebook">Facebook</label>
                             <input type="text" class="form-control" value="" name="facebook" id="facebook" aria-describedby="emailHelp" placeholder="Enter facebook profile">

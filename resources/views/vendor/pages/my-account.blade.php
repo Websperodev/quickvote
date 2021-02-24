@@ -16,7 +16,7 @@
                     {!! session('message.text') !!}
                 </div>
                 @endif
-                <form id="my_account_form" method="post" action="{{ route('vendor.update.profile') }}">
+                <form id="my_account_form" method="post" action="{{ route('vendor.update.profile') }}" enctype = 'multipart/form-data'>
                     @csrf
 
                     <div class="row">
@@ -32,6 +32,18 @@
                             <input type="text" class="form-control" value="{{ isset($user->last_name) ? $user->last_name : ''}}" name="last_name" id="last_name" aria-describedby="emailHelp" placeholder="Enter Last Name">
                             @if($errors->has('last_name'))
                             <div class="error">{{ $errors->first('last_name') }}</div>
+                            @endif
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6 form-group cus-form-group">
+                            <label for="image">Image</label>
+                            @if(isset($user->image) && $user->image != '' )
+                            <img src="{{ url($user->image) }}" width="150" height="150">
+                            @endif
+                            <input type="file"  class="form-control" name="image" id="image" aria-describedby="emailHelp" placeholder="Choose Image">
+                            @if($errors->has('image'))
+                            <div class="error">{{ $errors->first('image') }}</div>
                             @endif
                         </div>
                     </div>

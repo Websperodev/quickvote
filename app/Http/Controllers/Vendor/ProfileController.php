@@ -80,7 +80,7 @@ class ProfileController extends Controller {
     public function updateProfile(Request $request) {
         $validator = Validator::make($request->all(), [
                     'first_name' => 'required',
-                    'last_name' => 'required',                    
+                    'last_name' => 'required',
                     'gender' => array(
                         'required',
                         'regex:/^male$|^female$/'),
@@ -95,8 +95,20 @@ class ProfileController extends Controller {
 
         try {
             $data = $request->all();
-
+            $img = '';
             $user = Auth::user();
+            if ($request->hasFile('image')) {
+                if ($request->file('image')->isValid()) {
+                    $validated = $request->validate([
+                        'image' => 'string|max:40',
+                        'image' => 'mimes:jpeg,png|max:1014',
+                    ]);
+                    $file = request()->file('image');
+                    $fileName = md5($file->getClientOriginalName() . time()) . "." . $file->getClientOriginalExtension();
+                    $file->move('./uploads/images/', $fileName);
+                    $img = '/uploads/images/' . $fileName;
+                }
+            }
             $user->first_name = $data['first_name'];
             $user->last_name = $data['last_name'];
             $user->business_name = $data['business_name'];
@@ -106,6 +118,9 @@ class ProfileController extends Controller {
             $user->address2 = $data['address2'];
             $user->city_id = $data['city'];
             $user->state_id = $data['state'];
+            if ($img != '') {
+                $user->image = $img;
+            }
             $user->postal = $data['postal'];
             $user->country_id = $data['county'];
             $user->facebook = $data['facebook'];

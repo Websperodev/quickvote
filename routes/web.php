@@ -64,7 +64,7 @@ Route::namespace('Vendor')->group(function () {
     Route::post('vendor/contestant-store', 'ContestantController@store')->name('vendor.contestant.store');
     Route::post('vendor/get-contestant', 'ContestantController@getContestant')->name('vendor.getContestant');
     Route::post('vendor/contestant-update/{id}', 'ContestantController@update')->name('vendor.contestant.update');
-     Route::delete('vendor/contestant-delete/{id}', 'ContestantController@destroy')->name('vendor.contestant.destroy');
+    Route::delete('vendor/contestant-delete/{id}', 'ContestantController@destroy')->name('vendor.contestant.destroy');
 });
 
 Route::namespace('Admin')->group(function () {
@@ -135,6 +135,13 @@ Route::namespace('Admin')->group(function () {
     Route::resource('services', 'ServicesController');
 
     Route::get('/deleteTicket/{id}', 'TicketController@deleteTicket')->name('deleteTicket');
+
+    //* voting constant *//
+    Route::get('start-voting', 'VotingContestsController@index')->name('admin.voting');
+    Route::any('add-voting', 'VotingContestsController@addVotingContest')->name('admin.add.voting');
+    Route::post('get-voting', 'VotingContestsController@allVotingContest')->name('admin.voting');
+    Route::any('edit-voting', 'VotingContestsController@editVotingContest')->name('admin.edit.voting');
+    Route::post('delete-voting', 'VotingContestsController@deleteVotingContest')->name('admin.delete.voting');
 });
 
 // Route::get('/redirect', 'SocialAuthFacebookController@redirect');
