@@ -8,12 +8,12 @@ use Illuminate\Support\Facades\Validator;
 
 use Auth;
 use App\Models\Page;
-use App\Models\Categories;
+use App\Models\subcategories;
 use Yajra\Datatables\Datatables;
 
 use Response;
 
-class CategoriesController extends Controller
+class subcategoriesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,37 +22,37 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        return view('vendor.categories.index');
+        return view('vendor.subcategories.index');
     }
-    public function allCategories(Request $request){
-        $allCategories = Categories::orderBy('created_at','desc')->get();
+    public function allsubcategories(Request $request){
+        $allsubcategories = subcategories::orderBy('created_at','desc')->get();
        
-        return DataTables::of($allCategories)
-            ->addColumn('name',function($allCategories) {
-                return $allCategories->name;
+        return DataTables::of($allsubcategories)
+            ->addColumn('name',function($allsubcategories) {
+                return $allsubcategories->name;
             })    
-            ->addColumn('image',function($allCategories) {
+            ->addColumn('image',function($allsubcategories) {
                 $img = '-';
-                if($allCategories->image != ''){
-                    $img = '<img src="'. url($allCategories->image) .'" width="100" height="100">';
+                if($allsubcategories->image != ''){
+                    $img = '<img src="'. url($allsubcategories->image) .'" width="100" height="100">';
                 }
                 
                 return $img;
             })    
-            ->editColumn('created_at',function($allCategories) {
-                if(!empty($allCategories->created_at)) {
-                    return getDateOnly($allCategories->created_at);
+            ->editColumn('created_at',function($allsubcategories) {
+                if(!empty($allsubcategories->created_at)) {
+                    return getDateOnly($allsubcategories->created_at);
                 }
                 return 'N/A';
             })
 
-           ->addColumn('action',function($allCategories) {
-            if(Auth::user()->id == $allCategories['created_by']){
+           ->addColumn('action',function($allsubcategories) {
+            if(Auth::user()->id == $allsubcategories['created_by']){
                 $str = '<div class="btn-group dropdown">
                 <a href="javascript: void(0);" class="table-action-btn dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-horizontal"></i></a>
-                <div class="dropdown-menu dropdown-menu-right"><a data-toggle="tooltip" data-placement="top" title="Edit" class="dropdown-item" href="'.route('event-categories.edit', $allCategories->id ).'"  ><i class="mdi mdi-pencil mr-1 text-muted font-18 vertical-middle"></i> Edit Category</a>';
+                <div class="dropdown-menu dropdown-menu-right"><a data-toggle="tooltip" data-placement="top" title="Edit" class="dropdown-item" href="'.route('event-subcategories.edit', $allsubcategories->id ).'"  ><i class="mdi mdi-pencil mr-1 text-muted font-18 vertical-middle"></i> Edit Category</a>';
                 
-                $str .= '<a data-toggle="tooltip" data-placement="top" title="Delete" class="dropdown-item"   onclick="deleteCategory(this,'.$allCategories['id'].')" href="javascript:void(0);" ><i class="mdi mdi-delete mr-1 text-muted font-18 vertical-middle"></i> Delete Category</a>';
+                $str .= '<a data-toggle="tooltip" data-placement="top" title="Delete" class="dropdown-item"   onclick="deleteCategory(this,'.$allsubcategories['id'].')" href="javascript:void(0);" ><i class="mdi mdi-delete mr-1 text-muted font-18 vertical-middle"></i> Delete Category</a>';
                 $str .= '</div></div>';
                 return $str;
             }else{
@@ -72,7 +72,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        return view('vendor.categories.add');
+        return view('vendor.subcategories.add');
     }
 
     /**
@@ -97,14 +97,14 @@ class CategoriesController extends Controller
             try{
                 $user = Auth::user();
                 $data = $request->all();
-                $existing = Categories::where('name', $data['category_name'])->count();
+                $existing = subcategories::where('name', $data['category_name'])->count();
                 if($existing > 0){
                     $request->session()->flash('message.level', 'danger');
                     $request->session()->flash('message.text', 'Category already exists');
                     return redirect()->back();
                 }
 
-                $category = new Categories;
+                $category = new subcategories;
                 $category->name = $data['category_name'];
                 $category->description = $data['description'];
                 $category->created_by = $user->id;
@@ -167,8 +167,8 @@ class CategoriesController extends Controller
      */
     public function edit($id)
     {
-        $category = Categories::find($id);
-        return view('vendor.categories.edit', compact('category'));
+        $category = subcategories::find($id);
+        return view('vendor.subcategories.edit', compact('category'));
     }
 
     /**
@@ -191,7 +191,7 @@ class CategoriesController extends Controller
         }
         try{
             $data = $request->all();
-            $existing = Categories::where('name' ,'=', $data['category_name'])->where('id' ,'!=', $data['category_id'])->count();
+            $existing = subcategories::where('name' ,'=', $data['category_name'])->where('id' ,'!=', $data['category_id'])->count();
             if($existing > 0){
                 $request->session()->flash('message.level', 'danger');
                 $request->session()->flash('message.text', 'Category already exists');
@@ -199,7 +199,7 @@ class CategoriesController extends Controller
             }
             $user = Auth::user();
 
-            $category = Categories::find($data['category_id']);
+            $category = subcategories::find($data['category_id']);
             $category->name = $data['category_name'];
             $category->description = $data['description'];
             $category->created_by = $user->id;            
@@ -247,7 +247,7 @@ class CategoriesController extends Controller
     public function destroy($id)
     { 
         try{
-            $category = Categories::findOrFail($id);
+            $category = subcategories::findOrFail($id);
             $category->delete();
            
             if($category){

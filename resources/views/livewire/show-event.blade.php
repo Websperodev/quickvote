@@ -2,7 +2,7 @@
     <div id="floating-search" class="container evnt">
         <h2>Event Browse</h2>
         <div class=" row">
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <div class="form-group">
                     <input type="text" class="form-control" wire:model.debounce.300ms="searchName" placeholder="Enter KeyWord"/>
 
@@ -10,7 +10,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
+<!--            <div class="col-md-4">
                 <div class="form-group">
                     <select class="form-control" wire:model="searchCat" id="event-cat" >
                         <option value="">Event Category</option>
@@ -19,8 +19,8 @@
                         @endforeach
                     </select>
                 </div>
-            </div>
-            <div class="col-md-2">
+            </div>-->
+            <div class="col-md-4">
                 <button type="button" wire:click="searchEvent" class="btn btn-primary advanceSearch seachButton">Search Event</button>
             </div>
         </div>
@@ -67,6 +67,7 @@
                         $startDate = date('d-M', $yrdata);
                         $startTime = date("g:i a", strtotime($event['start_date']));
                         }
+                        $description=substr(strip_tags($event['description']),0, 150);
                         @endphp
                         <div class="fe-abs">
                             <span class="date-abs">{{ $startDate }}</span>
@@ -80,6 +81,7 @@
                                     <p class="time-price"><span class="etime"><i class="far fa-clock"></i>  Start {{ $startTime}}</span> 
                                         @endif
                                         @foreach($ticketType as $tt) <span class="eprice">{{ ucfirst($tt) }}</span> @endforeach</p>
+                                    <div><p>{{($description)}}</p><a href="#" >Read more</a></div>
                                     <a class="btn btn-grad-bd ticket-details" href="#">Tickets & Details</a>
                                 </div>
                             </div>

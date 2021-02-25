@@ -1,6 +1,6 @@
-@extends('admin.layouts.master')
-@section("meta_page_title") Dashboard | Votings | Votings @endsection
-@section("page_title") Votings @endsection
+@extends('vendor.layouts.master')
+@section("meta_page_title") Dashboard | Subcategories | Subcategories @endsection
+@section("page_title") Subcategories @endsection
 @section("css")
 <style type="text/css">
     form#add_user_form .modal-body .form-group {position: relative;}
@@ -9,8 +9,8 @@
 @endsection
 @section("page_directory")
 <ol class="breadcrumb m-0">
-    <li class="breadcrumb-item"><a href="{!! route('admin.dashboard') !!}">Dashboard</a></li>
-    <li class="breadcrumb-item active">Votings</li>
+    <li class="breadcrumb-item"><a href="{!! route('vendor.dashboard') !!}">Dashboard</a></li>
+    <li class="breadcrumb-item active">Sub categories</li>
 </ol>
 @endsection
 @section("content")
@@ -20,24 +20,19 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-6">
-                        <h4 class="header-title">Manage Votings</h4>
+                        <h4 class="header-title">Manage subcategories</h4>
                     </div>
                     <div class="col-6">
-
-
-                        <a class="btn btn-bg" href="{{ route('admin.add.voting') }}" style="color: black">Add voting</a>
-
+                        <a class="btn btn-bg" href="{{ route('subcategories.create') }}" style="color: black">Add Category</a>
                     </div>
                 </div>
                 <p class="sub-header">View and manage account users on this page.</p>
-                <table id="voting-table" class="table table-hover m-0 table-centered dt-responsive nowrap w-100">
+                <table id="category-table" class="table table-hover m-0 table-centered dt-responsive nowrap w-100">
                     <thead>
                         <tr>
-                            <th>Title</th>
+                            <th>Name</th>
                             <th>Image</th>
-                            <th>Type</th>
-                            <th>Starting date</th>
-                            <th>Closing date</th>                            
+                            <th>Created</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -61,7 +56,7 @@ var update_url = '';
 var table_instance;
 var initialized = false;
 
-table_instance = $('#voting-table').DataTable({
+table_instance = $('#category-table').DataTable({
     "language": {
         "paginate": {
             "previous": "<i class='mdi mdi-chevron-left'>",
@@ -71,7 +66,7 @@ table_instance = $('#voting-table').DataTable({
     },
     'drawCallback': function (oSettings) {
         if (!initialized) {
-            $('#voting-table_filter.dataTables_filter').each(function () {
+            $('#category-table_filter.dataTables_filter').each(function () {
                 initialized = true;
             });
         }
@@ -83,7 +78,7 @@ table_instance = $('#voting-table').DataTable({
     serverSide: true,
     order: [], //Initial no order.
     ajax: {
-        url: "{{ route('admin.voting') }}",
+        url: "{{ route('vendor.all.subcategories') }}",
         method: 'POST'
     },
     columnDefs: [
@@ -98,23 +93,22 @@ table_instance = $('#voting-table').DataTable({
         }
     ],
     columns: [
-        {data: 'title', name: 'title'},
-         {data: 'image', name: 'image'},
-        {data: 'type', name: 'type'},
-        {data: 'starting_date', name: 'starting_date'},
-        {data: 'closing_date', name: 'closing_date'},
-       
+        {data: 'name', name: 'name'},
+        {data: 'image', name: 'image'},
+        {data: 'created_at', name: 'created_at'},
         {data: 'action', name: 'action', "searchable": false, "orderable": false, width: '50px', className: "text-center"}
     ],
 });
 
 
-function deletevoting(obj, id)
+function deleteSubCategory(obj, id)
 {
+    var url = '{{ route("subcategories.destroy", ":id") }}';
+    url = url.replace(':id', id);
 
     Swal.fire({
-        title: 'Delete voting?',
-        text: "Do you really want to delete this voting and all data related to this voting?",
+        title: 'Delete Subcategory?',
+        text: "Do you really want to delete this subcategory and all data related to this Subcategory?",
         type: 'warning',
         showCancelButton: true,
         showLoaderOnConfirm: true,
@@ -124,8 +118,8 @@ function deletevoting(obj, id)
     }).then((result) => {
         if (result.value) {
             $('#full_page_loader').removeClass('d-none');
-            $.post('{{ route("admin.delete.voting") }}', {
-                id: id,
+            $.post(url, {
+                _method: 'DELETE',
                 _token: "{!! csrf_token() !!}"
             }, function (data) {
                 $('#full_page_loader').addClass('d-none');

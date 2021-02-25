@@ -21,8 +21,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('event-categories.index') }}">
-                                <i class="fa fa-tasks" aria-hidden="true"></i> Categories
+                            <a href="{{ route('subcategories.index') }}">
+                                <i class="fa fa-tasks" aria-hidden="true"></i> Subcategories
                             </a>
                         </li>
                         <li>

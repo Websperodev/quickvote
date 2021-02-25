@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Voting_contest;
 
+use Yajra\Datatables\Datatables;
 class VotingContestsController extends Controller {
 
     /**
@@ -37,13 +39,13 @@ class VotingContestsController extends Controller {
             try {
                 $user = Auth::user();
                 $data = $request->all();
-                $existing = votingContests::where('name', $data['VotingContest_name'])->count();
+                $existing = Voting_contest::where('name', $data['VotingContest_name'])->count();
                 if ($existing > 0) {
                     $request->session()->flash('message.level', 'danger');
                     $request->session()->flash('message.text', 'VotingContest already exists');
                     return redirect()->back();
                 }
-                $VotingContest = new votingContests;
+                $VotingContest = new Voting_contest;
                 $VotingContest->name = $data['VotingContest_name'];
                 $VotingContest->description = $data['description'];
                 $VotingContest->created_by = $user->id;
@@ -84,11 +86,12 @@ class VotingContestsController extends Controller {
     }
 
     public function allvotingContests(Request $request) {
-        $allvotingContests = votingContests::orderBy('created_at', 'desc')->get();
-
+        $allvotingContests = Voting_contest::orderBy('created_at', 'desc')->get();
+// echo '<pre>';
+// print_r($allvotingContests); die;
         return DataTables::of($allvotingContests)
-                        ->addColumn('name', function($allvotingContests) {
-                            return $allvotingContests->name;
+                        ->addColumn('title', function($allvotingContests) {
+                            return $allvotingContests->title;
                         })
                         ->addColumn('image', function($allvotingContests) {
                             $img = '-';
@@ -107,12 +110,12 @@ class VotingContestsController extends Controller {
                         ->addColumn('action', function($allvotingContests) {
                             $str = '<div class="btn-group dropdown">
                 <a href="javascript: void(0);" class="table-action-btn dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-horizontal"></i></a>
-                <div class="dropdown-menu dropdown-menu-right"><a data-toggle="tooltip" data-placement="top" title="Edit" class="dropdown-item"  href="' . route('admin.edit-VotingContest', ['id' => $allvotingContests['id']]) . '"><i class="mdi mdi-pencil mr-1 text-muted font-18 vertical-middle"></i> Edit VotingContest</a>';
+                <div class="dropdown-menu dropdown-menu-right"><a data-toggle="tooltip" data-placement="top" title="Edit" class="dropdown-item"  href="' . route('admin.edit.voting', ['id' => $allvotingContests['id']]) . '"><i class="mdi mdi-pencil mr-1 text-muted font-18 vertical-middle"></i> Edit VotingContest</a>';
                             $str .= '<a data-toggle="tooltip" data-placement="top" title="Delete" class="dropdown-item"   onclick="deleteVotingContest(this,' . $allvotingContests['id'] . ')" href="javascript:void(0);" ><i class="mdi mdi-delete mr-1 text-muted font-18 vertical-middle"></i> Delete VotingContest</a>';
                             $str .= '</div></div>';
                             return $str;
                         })
-                        ->rawColumns(['name', 'image', 'created_at', 'action'])
+                        ->rawColumns(['title', 'image', 'created_at', 'action'])
                         ->make(true);
     }
 

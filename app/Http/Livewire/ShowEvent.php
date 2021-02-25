@@ -5,7 +5,6 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-
 use App\Models\Event;
 use App\Models\Ticket;
 use App\Models\Categories;
@@ -15,18 +14,17 @@ class ShowEvent extends Component {
     public $allCategories = [];
     public $allEvents = [];
     public $searchName = '';
-    public $searchCat = '';
     public $searchTerm;
     public $allEvt = [];
     public $eventDate = '';
 
-    public function mount(Request $req, $searchName = null, $searchCat = null) {
+    public function mount(Request $req, $searchName = null) {
 
         $mytime = Carbon::now();
         $date = $mytime->toDateString();
         $this->allCategories = Categories::all();
         $this->searchName = $searchName;
-        $this->searchCat = $searchCat;
+
 
         $this->eventDate = $req->input('eventDate');
         $this->searchName = $req->input('eventname');
@@ -47,27 +45,15 @@ class ShowEvent extends Component {
         }
 
         $this->allEvents = $allEvents;
-
     }
 
     public function searchEvent() {
-
         $mytime = Carbon::now();
         $date = $mytime->toDateString();
         $this->allCategories = Categories::all();
-        $this->searchTerm = $this->searchName;
-
-        if ($this->searchName != '' && $this->searchCat == '') {
-
+        if ($this->searchName != '') {
             $this->allEvents = Event::where('end_date', '>', $date)->where('name', 'like', '%' . $this->searchName . '%')->orderBy('id', 'desc')->get()->toArray();
-        } elseif ($this->searchName == '' && $this->searchCat != '') {
-
-            $this->allEvents = Event::where('end_date', '>', $date)->where('category_id', $this->searchCat)->orderBy('id', 'desc')->get()->toArray();
-        } elseif ($this->searchName != '' && $this->searchCat != '') {
-
-            $this->allEvents = Event::where('end_date', '>', $date)->where('category_id', $this->searchCat)->where('name', 'like', '%' . $this->searchName . '%')->orderBy('id', 'desc')->get()->toArray();
         } else {
-
             $this->allEvents = Event::where('end_date', '>', $date)->orderBy('id', 'desc')->get()->toArray();
         }
         if (!empty($this->allEvents)) {
@@ -100,7 +86,6 @@ class ShowEvent extends Component {
                             if (!empty($eventdat)) {
                                 $event[] = $eventdat;
                             }
-
                         }
                         $this->allEvents = $event;
                     }

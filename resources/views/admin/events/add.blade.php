@@ -264,7 +264,6 @@ $timezoneArray = config('constants.timezones');
 <div class="modal fade" id="paidModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 form-group cus-form-group">
@@ -277,9 +276,7 @@ $timezoneArray = config('constants.timezones');
                         <button type="button" class="btn btn-secondary add_ticket_button">OK</button>
                     </div>
                 </div>
-
             </div>
-
         </div>
     </div>
 </div>

@@ -53,8 +53,8 @@ Route::namespace('Vendor')->group(function () {
     Route::post('update-password', 'ProfileController@changePassword')->name('vendor.update.password');
     Route::get('/my-account', 'ProfileController@myAccount')->name('vendor.myaccount');
     Route::post('/my-account', 'ProfileController@updateProfile')->name('vendor.update.profile');
-    Route::resource('event-categories', 'CategoriesController');
-    Route::post('all-categories', 'CategoriesController@allCategories')->name('vendor.getAllCategories');
+    Route::resource('subcategories', 'SubCategoriesController');
+    Route::post('all-subcategories', 'SubCategoriesController@allsubcategories')->name('vendor.all.subcategories');
     Route::resource('event', 'EventsController');
     Route::post('getAllEvents', 'EventsController@allEvents')->name('event.getEvents');
 
@@ -137,9 +137,9 @@ Route::namespace('Admin')->group(function () {
     Route::get('/deleteTicket/{id}', 'TicketController@deleteTicket')->name('deleteTicket');
 
     //* voting constant *//
-    Route::get('start-voting', 'VotingContestsController@index')->name('admin.voting');
+    Route::get('start-voting', 'VotingContestsController@index')->name('admin.voting.index');
     Route::any('add-voting', 'VotingContestsController@addVotingContest')->name('admin.add.voting');
-    Route::post('get-voting', 'VotingContestsController@allVotingContest')->name('admin.voting');
+    Route::post('get-voting', 'VotingContestsController@allvotingContests')->name('admin.voting');
     Route::any('edit-voting', 'VotingContestsController@editVotingContest')->name('admin.edit.voting');
     Route::post('delete-voting', 'VotingContestsController@deleteVotingContest')->name('admin.delete.voting');
 });

@@ -35,7 +35,7 @@
                         <!-- <li>
                             <a href="{{ route('admin.page',['name' => 'contact']) }}">Contact</a>
                         </li> -->
-                        
+
                     </ul>
                 </li>
                 <li class="has-submenu">
@@ -82,7 +82,11 @@
                         <i class="fa fa-users" aria-hidden="true"></i>Users
                     </a>
                 </li>
-                
+                <li>
+                    <a href="{{ route('admin.voting.index') }}">
+                        <i class="fa fa-users" aria-hidden="true"></i>Voting
+                    </a>
+                </li>
                 <li class="has-submenu">
                     <a href="javascript:void(0)">
                         <i class="fa fa-picture-o" aria-hidden="true"></i>Voting &nbsp;<div class="arrow-down"></div></a>
@@ -104,8 +108,8 @@
                         </li>
                     </ul>
                 </li>
-              
-               
+
+
 
             </ul>
             <div class="clearfix"></div>
