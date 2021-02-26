@@ -68,7 +68,7 @@ class EventsController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        $categories = Categories::get();
+         $categories = Categories::where('parent_id',0)->get();
         $countries = Countries::get();
         return view('vendor.event.add', compact('categories', 'countries'));
     }
@@ -80,7 +80,8 @@ class EventsController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-
+//echo '<pre>';
+//print_r($request->all()); die;
         $validator = Validator::make($request->all(), [
                     'event_title' => 'required',
                     'start_date' => 'required',
@@ -90,6 +91,7 @@ class EventsController extends Controller {
                     'state' => 'required',
                     'country' => 'required',
                     'event_category' => 'required',
+                    'subcategory_id' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -115,6 +117,7 @@ class EventsController extends Controller {
             $event->city_id = $data['city'];
             $event->state_id = $data['state'];
             $event->country_id = $data['country'];
+            $event->subcategory_id = $data['subcategory_id'];
             $event->timezone = $data['timezone'];
             $event->description = $data['description'];
             $event->event_priority = $data['event_priority'];
@@ -230,7 +233,7 @@ class EventsController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
-        $categories = Categories::get();
+        $categories = Categories::where('parent_id',0)->get();
         $countries = Countries::get();
         $event = Event::find($id);
 
@@ -253,6 +256,8 @@ class EventsController extends Controller {
                     'city' => 'required',
                     'state' => 'required',
                     'country' => 'required',
+                    'event_category' => 'required',
+                    'subcategory_id' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -272,6 +277,7 @@ class EventsController extends Controller {
             $event->name = $data['event_title'];
             $event->organizer_name = $data['organiser_name'];
             $event->category_id = $data['event_category'];
+            $event->subcategory_id = $data['subcategory_id'];
             $event->start_date = date("Y-m-d H:i:s", strtotime($data['start_date']));
             $event->end_date = date("Y-m-d H:i:s", strtotime($data['end_date']));
             $event->city_id = $data['city'];

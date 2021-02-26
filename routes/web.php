@@ -56,6 +56,7 @@ Route::namespace('Vendor')->group(function () {
     Route::resource('subcategories', 'SubCategoriesController');
     Route::post('all-subcategories', 'SubCategoriesController@allsubcategories')->name('vendor.all.subcategories');
     Route::resource('event', 'EventsController');
+     Route::get('/getSubcategories/{id}', 'DashboardController@getSubcategories')->name('subcategories');
     Route::post('getAllEvents', 'EventsController@allEvents')->name('event.getEvents');
 
 
