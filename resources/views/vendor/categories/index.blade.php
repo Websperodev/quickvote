@@ -1,6 +1,6 @@
 @extends('vendor.layouts.master')
-@section("meta_page_title") Dashboard | Subcategories | Subcategories @endsection
-@section("page_title") Subcategories @endsection
+@section("meta_page_title") Dashboard | Categories | Categories @endsection
+@section("page_title") Categories @endsection
 @section("css")
 <style type="text/css">
     form#add_user_form .modal-body .form-group {position: relative;}
@@ -10,7 +10,7 @@
 @section("page_directory")
 <ol class="breadcrumb m-0">
     <li class="breadcrumb-item"><a href="{!! route('vendor.dashboard') !!}">Dashboard</a></li>
-    <li class="breadcrumb-item active">Sub categories</li>
+    <li class="breadcrumb-item active">Categories</li>
 </ol>
 @endsection
 @section("content")
@@ -20,10 +20,10 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-6">
-                        <h4 class="header-title">Manage Subcategories</h4>
+                        <h4 class="header-title">Manage Categories</h4>
                     </div>
                     <div class="col-6">
-                        <a class="btn btn-bg" href="{{ route('subcategories.create') }}" style="color: black">Add Subcategory</a>
+                        <a class="btn btn-bg" href="{{ route('vendor-categories.create') }}" style="color: black">Add Category</a>
                     </div>
                 </div>
                 <p class="sub-header">View and manage account users on this page.</p>
@@ -32,6 +32,7 @@
                         <tr>
                             <th>Name</th>
                             <th>Image</th>
+                            <th>Parent Cat.</th>
                             <th>Created</th>
                             <th>Action</th>
                         </tr>
@@ -78,7 +79,7 @@ table_instance = $('#category-table').DataTable({
     serverSide: true,
     order: [], //Initial no order.
     ajax: {
-        url: "{{ route('vendor.all.subcategories') }}",
+        url: "{{ route('vendor.all.categories') }}",
         method: 'POST'
     },
     columnDefs: [
@@ -94,6 +95,7 @@ table_instance = $('#category-table').DataTable({
     ],
     columns: [
         {data: 'name', name: 'name'},
+        {data: 'parent_id', name: 'parent_id'},
         {data: 'image', name: 'image'},
         {data: 'created_at', name: 'created_at'},
         {data: 'action', name: 'action', "searchable": false, "orderable": false, width: '50px', className: "text-center"}
@@ -103,7 +105,7 @@ table_instance = $('#category-table').DataTable({
 
 function deleteSubCategory(obj, id)
 {
-    var url = '{{ route("subcategories.destroy", ":id") }}';
+    var url = '{{ route("vendor-categories.destroy", ":id") }}';
     url = url.replace(':id', id);
 
     Swal.fire({

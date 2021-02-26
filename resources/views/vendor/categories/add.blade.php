@@ -1,6 +1,6 @@
 @extends('vendor.layouts.master')
 @section("meta_page_title") Vendor | Quickvote | Dashboard @endsection
-@section("page_title") <a href="{!! route('subcategories.index') !!}" class="head-a"> Categories </a> > Edit @endsection
+@section("page_title") <a href="{!! route('vendor-categories.index') !!}" class="head-a"> Categories </a> > Add @endsection
 
 
 @section("content")
@@ -10,22 +10,23 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="mb-3 header-title">Category</h4>
+                <h4 class="mb-3 header-title">Categories</h4>
                 @if(session()->has('message.level'))
                 <div class="alert alert-{{ session('message.level') }}"> 
                     {!! session('message.text') !!}
                 </div>
                 @endif
 
-                {!! Form::open(array('route' => ['subcategories.update', $subcategory->id ], 'id' => 'edit_category_form', 'method' => 'put','class' => 'custum-frm', 'enctype' => 'multipart/form-data' )) !!}
+                {!! Form::open(array('route' => 'vendor-categories.store', 'id' => 'add_category_form', 'method' => 'post','class' => 'custum-frm', 'enctype' => 'multipart/form-data' )) !!}
+
                 @csrf
                 <div class="categories-frm mb-2">
                     <div class="col-md-12 form-group cus-form-group">
                         <label for="category_id">Category</label>
-                        <select class="form-control" name="category_id" id="category_id" aria-describedby="emailHelp">
-                            <option value="">Select Category</option>
+                        <select class="form-control" name="category_id"autocomplete="off" id="event_category" aria-describedby="emailHelp">
+                            <option value="">Choose Category</option>
                             @foreach($categories as $category)
-                            <option {{ $subcategory->parent_id == $category->id ? 'selected' : ''}}  value="{{ $category->id }}">{{ $category->name }}</option>
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
                         </select>
 
@@ -34,8 +35,8 @@
                         @endif
                     </div>
                     <div class="col-md-12 form-group cus-form-group">
-                        <label for="name">Subcategory Name <span class="required_field required_red">*</span></label>
-                        <input type="text" class="form-control" value="{{ isset($subcategory->name) ? $subcategory->name : ''}}" name="name" id="name" aria-describedby="emailHelp" placeholder="Enter Category Name">
+                        <label for="name">Category Name <span class="required_field required_red">*</span></label>
+                        <input type="text" class="form-control"  name="name" id="category_name" aria-describedby="emailHelp" placeholder="Enter Subcategory Name">
                         @if($errors->has('category_name'))
                         <div class="error">{{ $errors->first('name') }}</div>
                         @endif
@@ -43,25 +44,19 @@
 
                     <div class="col-md-12 form-group cus-form-group">
                         <label for="image">Image</label>
-                        @if(isset($subcategory->image) && $subcategory->image != '')
-                        <img src="{{ isset($subcategory->image) ? $subcategory->image : ''}}" width="150" height="150">
-                        @endif
-                        <input type="hidden" name="old_file" value="{{ isset($subcategory->image ) ? $subcategory->image  : ''}}">
-                        <input type="file" class="form-control" value="{{ isset($subcategory->image) ? $subcategory->image : ''}}" name="image_name" id="image_name" aria-describedby="emailHelp" placeholder="Choose Image">
-                        @if($errors->has('image_name'))
-                        <div class="error">{{ $errors->first('image_name') }}</div>
+                        <input type="file" class="form-control" name="image_name" id="image_name" aria-describedby="emailHelp" placeholder="Choose Image">
+                        @if($errors->has('image'))
+                        <div class="error">{{ $errors->first('image') }}</div>
                         @endif
                     </div>
 
                     <div class="col-md-12 form-group cus-form-group">
                         <label for="description">Description</label>
-                        <textarea type="text" name="description" id="description" class="form-control" placeholder="Description here..">{{ isset($subcategory->description ) ? $subcategory->description  : ''}}</textarea>
+                        <textarea type="text" name="description" id="description" class="form-control" placeholder="Description here.."></textarea>
                         @if($errors->has('description'))
                         <div class="error">{{ $errors->first('description') }}</div>
                         @endif
                     </div>
-
-                    <input type="hidden" name="id" value="{{ isset($subcategory->id ) ? $subcategory->id  : ''}}"> 
 
                     <div class="btn-right">
                         <button type="submit" class="btn btn-bg ladda-button">Submit</button>
@@ -85,7 +80,5 @@ CKEDITOR.replace('description', {
 });
 
 </script>
-
-
 
 @endsection

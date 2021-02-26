@@ -53,8 +53,8 @@ Route::namespace('Vendor')->group(function () {
     Route::post('update-password', 'ProfileController@changePassword')->name('vendor.update.password');
     Route::get('/my-account', 'ProfileController@myAccount')->name('vendor.myaccount');
     Route::post('/my-account', 'ProfileController@updateProfile')->name('vendor.update.profile');
-    Route::resource('subcategories', 'SubCategoriesController');
-    Route::post('all-subcategories', 'SubCategoriesController@allsubcategories')->name('vendor.all.subcategories');
+    Route::resource('vendor-categories', 'CategoriesController');
+    Route::post('vendor/all-categories', 'CategoriesController@allcategories')->name('vendor.all.categories');
     Route::resource('event', 'EventsController');
      Route::get('/getSubcategories/{id}', 'DashboardController@getSubcategories')->name('subcategories');
     Route::post('getAllEvents', 'EventsController@allEvents')->name('event.getEvents');

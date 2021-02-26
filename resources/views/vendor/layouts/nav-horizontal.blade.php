@@ -21,8 +21,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('subcategories.index') }}">
-                                <i class="fa fa-tasks" aria-hidden="true"></i> Subcategories
+                            <a href="{{ route('vendor-categories.index') }}">
+                                <i class="fa fa-tasks" aria-hidden="true"></i> Categories
                             </a>
                         </li>
                         <li>

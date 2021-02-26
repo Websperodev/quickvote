@@ -10,16 +10,16 @@
                 </div>
             </div>
 
-<!--            <div class="col-md-4">
-                <div class="form-group">
-                    <select class="form-control" wire:model="searchCat" id="event-cat" >
-                        <option value="">Event Category</option>
-                        @foreach($allCategories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>-->
+            <!--            <div class="col-md-4">
+                            <div class="form-group">
+                                <select class="form-control" wire:model="searchCat" id="event-cat" >
+                                    <option value="">Event Category</option>
+                                    @foreach($allCategories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>-->
             <div class="col-md-4">
                 <button type="button" wire:click="searchEvent" class="btn btn-primary advanceSearch seachButton">Search Event</button>
             </div>
@@ -68,6 +68,11 @@
                         $startTime = date("g:i a", strtotime($event['start_date']));
                         }
                         $description=substr(strip_tags($event['description']),0, 150);
+                        $char=strlen($event['description']);
+                        if($char >150){
+                        $description=$description.'...';
+                        }
+
                         @endphp
                         <div class="fe-abs">
                             <span class="date-abs">{{ $startDate }}</span>
