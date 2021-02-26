@@ -29,22 +29,22 @@ class ShowEvent extends Component {
         $this->eventDate = $req->input('eventDate');
         $this->searchName = $req->input('eventname');
         if ($this->eventDate != '' && $this->searchName == '') {
-            $allEvents = Event::where('end_date', '>', $this->eventDate)->orderBy('id', 'desc')->get()->toArray();
+            $this->allEvents = Event::where('end_date', '>', $this->eventDate)->orderBy('id', 'desc')->get()->toArray();
         } elseif ($this->searchName != '' && $this->eventDate == '') {
-            $allEvents = Event::where('end_date', '>', $date)->where('name', 'like', '%' . $this->searchName . '%')->orderBy('id', 'desc')->get()->toArray();
+            $this->allEvents = Event::where('end_date', '>', $date)->where('name', 'like', '%' . $this->searchName . '%')->orderBy('id', 'desc')->get()->toArray();
         } elseif ($this->searchName != '' && $this->eventDate != '') {
-            $allEvents = Event::where('end_date', '>', $this->eventDate)->where('name', 'like', '%' . $this->searchName . '%')->orderBy('id', 'desc')->get()->toArray();
+            $this->allEvents = Event::where('end_date', '>', $this->eventDate)->where('name', 'like', '%' . $this->searchName . '%')->orderBy('id', 'desc')->get()->toArray();
         } else {
-            $allEvents = Event::where('end_date', '>', $date)->orderBy('id', 'desc')->get();
+            $this->allEvents = Event::where('end_date', '>', $date)->orderBy('id', 'desc')->get();
         }
 
-        if (!empty($allEvents)) {
-            foreach ($allEvents as $key => $event) {
-                $allEvents[$key]['tickets'] = Ticket::where(['event_id' => $event['id']])->get();
+        if (!empty($this->allEvents)) {
+            foreach ($this->allEvents as $key => $event) {
+                $this->allEvents[$key]['tickets'] = Ticket::where(['event_id' => $event['id']])->get();
             }
         }
 
-        $this->allEvents = $allEvents;
+        $this->allEvt =$this->allEvents;
     }
 
     public function searchEvent() {
