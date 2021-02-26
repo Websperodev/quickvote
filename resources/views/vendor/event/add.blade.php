@@ -39,7 +39,7 @@ $timezoneArray = config('constants.timezones');
                             <label for="event_category">Event Category</label>
 
                             <select class="form-control" name="event_category"autocomplete="off" id="event_category" aria-describedby="emailHelp">
-                                <option value="">Choose Category</option>
+
                                 @foreach($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                                 @endforeach
@@ -47,6 +47,18 @@ $timezoneArray = config('constants.timezones');
 
                             @if($errors->has('event_category'))
                             <div class="error">{{ $errors->first('event_category') }}</div>
+                            @endif
+                        </div>
+                        <div class="col-md-6 form-group cus-form-group">
+                            <label for="event_subcategory">Event Sub-Category</label>
+
+                            <select class="form-control" name="subcategory_id" autocomplete="off" id="event_subcategory" aria-describedby="emailHelp">
+                                <option value="">Choose Subcategory</option>
+
+                            </select>
+
+                            @if($errors->has('subcategory_id'))
+                            <div class="error">{{ $errors->first('subcategory_id') }}</div>
                             @endif
                         </div>
                         <div class="col-md-6 form-group cus-form-group">
@@ -170,7 +182,7 @@ $timezoneArray = config('constants.timezones');
                             <label for="timezone">Timezone</label>
 
                             <select class="form-control" name="timezone" id="timezone" aria-describedby="emailHelp">
-                               
+
                                 @foreach($timezoneArray as $key=>$time)
                                 @if($key=='Africa/Lagos')
                                 <option value="{{ $key }}" selected>{{ $key }}</option>                                
@@ -516,11 +528,58 @@ $timezoneArray = config('constants.timezones');
 
 </script>
 <script>
-    $(document).on(function () {
-        $(".datepicker_init").datetimepicker({
-            format: 'm/d/Y H:i'
+    $(document).ready(function () {
+        var cid = $('#event_category').val();
+
+        getsubcategories(cid);
+    });
+
+
+
+
+
+
+
+
+    $(".datepicker_init").datetimepicker({
+        format: 'm/d/Y H:i'
+    });
+</script>
+<script>
+
+    $('#event_category').change(function () {
+        var cid = $(this).val();
+
+        getsubcategories(cid);
+    })
+
+
+    function getsubcategories(cid) {
+        var url = '{{ route("subcategories", ":id") }}';
+        url = url.replace(':id', cid);
+        $.ajax({
+            type: 'GET',
+            url: url,
+            success: function (res) {
+                console.log('response', res);
+                if (res) {
+                    $("#event_subcategory").empty();
+                    $("#event_subcategory").append('<option value="">Select</option>');
+                    $.each(res, function (key, value) {
+                        $("#event_subcategory").append('<option value="' + value.id + '">' + value.name + '</option>');
+                    });
+
+                } else {
+                    $("#event_subcategory").empty();
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
         });
-    });</script>
+    }
+
+</script>
 
 @endsection
 @section('script-bottom')

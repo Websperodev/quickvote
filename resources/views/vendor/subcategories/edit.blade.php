@@ -25,7 +25,7 @@
                         <select class="form-control" name="category_id" id="category_id" aria-describedby="emailHelp">
                             <option value="">Select Category</option>
                             @foreach($categories as $category)
-                            <option {{ $subcategory->category_id == $category->id ? 'selected' : ''}}  value="{{ $category->id }}">{{ $category->name }}</option>
+                            <option {{ $subcategory->parent_id == $category->id ? 'selected' : ''}}  value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
                         </select>
 

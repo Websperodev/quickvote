@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Vendor;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Subcategory;
+//use App\Models\Subcategory;
 use App\Models\Categories;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\File;
@@ -12,8 +12,12 @@ use Illuminate\Support\Facades\Validator;
 use Auth;
 use App\Models\Page;
 
-
 class SubCategoriesController extends Controller {
+
+    public function __construct() {
+        $this->middleware('auth');
+        $this->middleware('role:vendor');
+    }
 
     /**
      * Display a listing of the resource.
@@ -25,7 +29,7 @@ class SubCategoriesController extends Controller {
     }
 
     public function allsubcategories(Request $request) {
-        $allsubcategories = Subcategory::orderBy('created_at', 'desc')->get();
+        $allsubcategories = Categories::where('parent_id', '!=', 0)->orderBy('created_at', 'desc')->get();
 
         return DataTables::of($allsubcategories)
                         ->addColumn('name', function($allsubcategories) {
@@ -36,7 +40,6 @@ class SubCategoriesController extends Controller {
                             if ($allsubcategories->image != '') {
                                 $img = '<img src="' . url($allsubcategories->image) . '" width="100" height="100">';
                             }
-
                             return $img;
                         })
                         ->editColumn('created_at', function($allsubcategories) {
@@ -68,7 +71,7 @@ class SubCategoriesController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        $categories = Categories::get();
+        $categories = Categories::where('parent_id', 0)->get();
         return view('vendor.subcategories.add', compact('categories'));
     }
 
@@ -93,7 +96,7 @@ class SubCategoriesController extends Controller {
             try {
                 $user = Auth::user();
                 $data = $request->all();
-                $existing = Subcategory::where('name', $data['name'])->count();
+                $existing = Categories::where('name', $data['name'])->where('parent_id', '!=', '0')->count();
 //                echo '<pre>';
 //                print_r($existing); die;
                 if ($existing > 0) {
@@ -102,8 +105,8 @@ class SubCategoriesController extends Controller {
                     return redirect()->back();
                 }
 
-                $subcategory = new Subcategory;
-                $subcategory->category_id = $data['category_id'];
+                $subcategory = new Categories;
+                $subcategory->parent_id = $data['category_id'];
                 $subcategory->name = $data['name'];
                 $subcategory->description = $data['description'];
                 $subcategory->created_by = $user->id;
@@ -163,8 +166,8 @@ class SubCategoriesController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
-        $subcategory = Subcategory::find($id);
-        $categories = Categories::get();
+        $subcategory = Categories::find($id);
+        $categories = Categories::where('parent_id', 0)->get();
         return view('vendor.subcategories.edit', compact('subcategory', 'categories'));
     }
 
@@ -186,7 +189,7 @@ class SubCategoriesController extends Controller {
         }
         try {
             $data = $request->all();
-            $existing = Subcategory::where('name', '=', $data['name'])->where('id', '!=', $data['id'])->count();
+            $existing = Categories::where('name', '=', $data['name'])->where('parent_id', '!=', 0)->where('id', '!=', $data['id'])->count();
             if ($existing > 0) {
                 $request->session()->flash('message.level', 'danger');
                 $request->session()->flash('message.text', 'Subcategory already exists');
@@ -194,8 +197,8 @@ class SubCategoriesController extends Controller {
             }
             $user = Auth::user();
 
-            $subcategory = Subcategory::find($data['id']);
-            $subcategory->category_id = $data['category_id'];
+            $subcategory = Categories::find($data['id']);
+            $subcategory->parent_id = $data['category_id'];
             $subcategory->name = $data['name'];
             $subcategory->description = $data['description'];
             $subcategory->created_by = $user->id;

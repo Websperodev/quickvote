@@ -46,6 +46,18 @@ $timezoneArray = config('constants.timezones');
                             <div class="error">{{ $errors->first('event_category') }}</div>
                             @endif
                         </div>
+                        <div class="col-md-6 form-group cus-form-group">
+                            <label for="event_subcategory">Event Sub-Category</label>
+
+                            <select class="form-control" name="subcategory_id"autocomplete="off" id="event_subcategory" aria-describedby="emailHelp">
+                                <option value="{{$event->subcategory_id}}">{{subcategory_name($event->subcategory_id)}}</option>
+
+                            </select>
+
+                            @if($errors->has('subcategory_id'))
+                            <div class="error">{{ $errors->first('subcategory_id') }}</div>
+                            @endif
+                        </div>
 
                         <div class="col-md-6 form-group cus-form-group">
                             <label for="event_priority">Event Priority</label>
@@ -144,11 +156,12 @@ $timezoneArray = config('constants.timezones');
                             <div class="error">{{ $errors->first('country') }}</div>
                             @endif
                         </div>
+
                         <div class="col-md-6 form-group cus-form-group">
                             <label for="state">State</label>
 
                             <select class="form-control" name="state" id="state" aria-describedby="emailHelp">
-                                <option value="{{$event->state_id}}">{{state_name($event->state_id)}}</option>
+                                <option value="{{$event->state_id}}">{{ ($event->state_id)}}</option>
                             </select>
 
                             @if($errors->has('state'))
@@ -525,8 +538,34 @@ $timezoneArray = config('constants.timezones');
                             });
                             }
 
-                            });
-
+                            });</script>
+<script>
+    $('#event_category').change(function () {
+    var cid = $(this).val();
+    var url = '{{ route("subcategories", ":id") }}';
+    url = url.replace(':id', cid);
+    if (cid) {
+    $.ajax({
+    type: 'GET',
+            url: url,
+            success: function (res) {
+            console.log('response', res);
+            if (res) {
+            $("#event_subcategory").empty();
+            $("#event_subcategory").append('<option value="">Select</option>');
+            $.each(res, function (key, value) {
+            $("#event_subcategory").append('<option value="' + value.id + '">' + value.name + '</option>');
+            });
+            } else {
+            $("#event_subcategory").empty();
+            }
+            },
+            error: function (err) {
+            console.log(err);
+            }
+    });
+    }
+    });
 </script>
 
 @endsection

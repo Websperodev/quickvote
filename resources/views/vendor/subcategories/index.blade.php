@@ -20,10 +20,10 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-6">
-                        <h4 class="header-title">Manage subcategories</h4>
+                        <h4 class="header-title">Manage Subcategories</h4>
                     </div>
                     <div class="col-6">
-                        <a class="btn btn-bg" href="{{ route('subcategories.create') }}" style="color: black">Add Category</a>
+                        <a class="btn btn-bg" href="{{ route('subcategories.create') }}" style="color: black">Add Subcategory</a>
                     </div>
                 </div>
                 <p class="sub-header">View and manage account users on this page.</p>
