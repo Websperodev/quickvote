@@ -55,7 +55,7 @@ class CountriesController extends Controller {
                     return redirect()->back();
                 }
                 $Country = new countries;
-                $Country->name = $data['name'];
+                $Country->name = ucfirst($data['name']);
                 $Country->phonecode = $data['phonecode'];
                 $Country->currency = strtoupper($data['currency']);
                 $Country->created_by = $user->id;
@@ -142,7 +142,7 @@ class CountriesController extends Controller {
 
                 $Country = new countries;
                 $Country = $Country::find($data['country_id']);
-                $Country->name = $data['name'];
+                $Country->name = ucfirst($data['name']);
                 $Country->phonecode = $data['phonecode'];
                 $Country->currency = strtoupper($data['currency']);
                 $Country->update();

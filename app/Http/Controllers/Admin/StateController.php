@@ -56,7 +56,7 @@ class stateController extends Controller {
                     return redirect()->back();
                 }
                 $state = new States;
-                $state->name = $data['name'];
+                $state->name = ucfirst($data['name']);
                 $state->country_id = $data['country_id'];
                 $state->country_code = strtoupper($data['country_code']);
 
@@ -149,7 +149,7 @@ class stateController extends Controller {
                 $user = Auth::user();
                 $state = new States;
                 $state = $state::find($data['state_id']);
-                $state->name = $data['name'];
+                $state->name = ucfirst($data['name']);
                 $state->country_id = $data['country_id'];
                 $state->country_code = strtoupper($data['country_code']);
                 $state->update();

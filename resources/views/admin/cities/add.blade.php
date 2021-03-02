@@ -28,7 +28,7 @@
                         @endif
                     </div> 
                     <div class="col-md-12 form-group cus-form-group">
-                        <label for="name">State Name</label>
+                        <label for="name">City Name</label>
                         <input type="text" class="form-control"  name="name" id="name" aria-describedby="emailHelp" placeholder="Enter State Name">
                         @if($errors->has('name'))
                         <div class="error">{{ $errors->first('name') }}</div>

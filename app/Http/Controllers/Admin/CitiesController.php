@@ -56,7 +56,7 @@ class CitiesController extends Controller {
                     return redirect()->back();
                 }
                 $City = new cities;
-                $City->name = $data['name'];
+                $City->name = ucfirst($data['name']);
                 $City->state_id = $data['state_id'];
 
 
@@ -141,7 +141,7 @@ class CitiesController extends Controller {
                 $user = Auth::user();
                 $City = new Cities;
                 $City = $City::find($data['city_id']);
-                $City->name = $data['name'];
+                $City->name = ucfirst($data['name']);
                 $City->state_id = $data['state_id'];
 
                 $City->update();
