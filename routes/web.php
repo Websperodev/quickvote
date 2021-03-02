@@ -56,7 +56,7 @@ Route::namespace('Vendor')->group(function () {
     Route::resource('vendor-categories', 'CategoriesController');
     Route::post('vendor/all-categories', 'CategoriesController@allcategories')->name('vendor.all.categories');
     Route::resource('event', 'EventsController');
-     Route::get('/getSubcategories/{id}', 'DashboardController@getSubcategories')->name('subcategories');
+    Route::get('/getSubcategories/{id}', 'DashboardController@getSubcategories')->name('subcategories');
     Route::post('getAllEvents', 'EventsController@allEvents')->name('event.getEvents');
 
 
@@ -143,6 +143,25 @@ Route::namespace('Admin')->group(function () {
     Route::post('get-voting', 'VotingContestsController@allvotingContests')->name('admin.voting');
     Route::any('edit-voting', 'VotingContestsController@editVotingContest')->name('admin.edit.voting');
     Route::post('delete-voting', 'VotingContestsController@deleteVotingContest')->name('admin.delete.voting');
+
+    //** Countries **//
+    Route::get('countries', 'CountriesController@index')->name('admin.countries.index');
+    Route::any('add-country', 'CountriesController@addCountry')->name('admin.add.country');
+    Route::post('get-country', 'CountriesController@allCountries')->name('admin.getcountries');
+    Route::any('edit-country', 'CountriesController@editCountry')->name('admin.edit.country');
+    Route::post('delete-country', 'CountriesController@deleteCountry')->name('admin.country.delete');
+    //** Countries  States**//
+    Route::get('states', 'StateController@index')->name('admin.states.index');
+    Route::any('add-state', 'StateController@addState')->name('admin.add.state');
+    Route::post('get-states', 'StateController@allStates')->name('admin.getstates');
+    Route::any('edit-state', 'StateController@editState')->name('admin.edit.state');
+    Route::post('delete-state', 'StateController@deleteState')->name('admin.delete.state');
+    //** Countries  Cities**//
+    Route::get('cities', 'CitiesController@index')->name('admin.cities.index');
+    Route::any('add-city', 'CitiesController@addCity')->name('admin.add.city');
+    Route::post('get-cities', 'CitiesController@allCities')->name('admin.getcities');
+    Route::any('edit-city', 'CitiesController@editCity')->name('admin.edit.city');
+    Route::post('delete-city', 'CitiesController@deleteCity')->name('admin.delete.city');
 });
 
 // Route::get('/redirect', 'SocialAuthFacebookController@redirect');
