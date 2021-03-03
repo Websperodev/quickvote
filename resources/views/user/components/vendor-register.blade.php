@@ -28,9 +28,11 @@
         <label>Country</label>
         <select class="form-control" autocomplete="off" name="company_country" id="c_country">
           <option value="">Select Country</option>
-          @foreach($countries as $key => $country)
-            <option value="{{$country->id}}"  {{ ($country->id == '161') ? 'selected':'' }}>{{$country->name}}</option>
+          @if(isset($countries) && !empty($countries))
+          @foreach($countries as $country)
+            <option value="{{$country->id}}">{{$country->name}}</option>
           @endforeach
+          @endif
         </select>
         </div>
         <div class="form-group col-6">
@@ -113,9 +115,11 @@
        <input type="text" class="form-control col-6 fl" name="postcode" autocomplete="off" placeholder="Postal / Zip Code">
         <select class="form-control col-6 fr" autocomplete="off" name="country" id="country">
           <option value="">Select Country</option>
-          @foreach($countries as $key => $country)
-            <option value="{{$country->id}}" {{ ($country->id == '161') ? 'selected':'' }}>{{$country->name}}</option>
+           @if(isset($countries) && !empty($countries))
+          @foreach($countries as $country)
+            <option value="{{$country->id}}">{{$country->name}}</option>
           @endforeach
+          @endif
         </select>
 
         <select class="form-control col-6 fl" name="state" autocomplete="off" id="state">

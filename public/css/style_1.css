@@ -61,7 +61,7 @@ nav.navbar.navbar-expand-lg {
 }
 
 #navbarNavAltMarkup a.nav-link {
-    padding: 41px 0px ;
+    padding: 46px 0px ;
     border-top: 4px solid #0000;
     margin-right: 30px;
     color: #1c2331;
@@ -107,20 +107,13 @@ a.btn.btn-bd:hover {
     border-color: #fff;
 }
 
-.btn.btn-grad-bd {
+a.btn.btn-grad-bd {
     color: #f58833 !important;
     z-index: 9;
     position: relative;
-    border-radius: 30px;
-    font-size: 16px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    top: -2px;
-    padding: 15px 35px;
-    background: linear-gradient(152deg, #f47f34, #fdb92e);
 }
 
-.btn.btn-grad-bd::before {
+a.btn.btn-grad-bd::before {
     content: "";
     width: calc(100% - 4px);
     height: calc(100% - 4px);
@@ -236,7 +229,7 @@ span.prev-icon:hover, span.next-icon:hover {
     padding-left: 30px;
 }
 
-#floating-search .form-control {
+#floating-search input.form-control {
     line-height: 44px;
     padding: 0;
     border: none;
@@ -572,12 +565,6 @@ div.card-body {
     transition-duration: 0.3s;
 }
 
-#tests .prev {
-    display: block !important;
-    position: relative;
-    transition-duration: 0.3s;
-}
-
 #tests .item.show {
     display: block;
     transition-duration: 0.4s
@@ -599,19 +586,13 @@ div.card-body {
     width: 100%;
 }
 
-/* #tests .owl-item.active + .owl-item.active + .owl-item.active .tcard {
+#tests .owl-item.active + .owl-item.active + .owl-item.active .tcard {
     background: #fff;
     color: #7b7b7b;
     border: 1px solid #ccc !important;
 }
 
 #tests .owl-item.active + .owl-item.active .tcard {
-    background: linear-gradient(152deg, #f47f34, #fdb92e);
-    color: #fff;
-    border: 1px solid transparent !important;
-} */
-
-#tests .owl-item:hover .tcard {
     background: linear-gradient(152deg, #f47f34, #fdb92e);
     color: #fff;
     border: 1px solid transparent !important;
@@ -647,10 +628,9 @@ div.card-body {
     margin-bottom: 0;
 }
 
-.cta h2.titleh2, .cta p {
-    color: #fff;
+.cta h2.titleh2, .cta p, .cta p span {
+    color: #fff !important;
 }
-
 .cta input.form-control::placeholder {
     color: #fff;
 }
@@ -1234,6 +1214,29 @@ h3.titleh3:after {
     font-size: 14px;
 }
 
+.mform label.error {
+    position: absolute;
+    bottom: -14px;
+    margin-bottom: 0;
+    font-size: 10px;
+    text-transform: none;
+}
+
+.mform i.fa {
+    position: absolute;
+    bottom: 18px;
+    color: #111;
+    right: 0;
+}
+
+.rating-stars .fa {
+    font-size: 10px;
+}
+
+.mform .form-group i.fa:active {
+    color: #faaa2f;
+}
+
 .mform select.form-control.col-6 {
     height: 41px;
 }
@@ -1245,6 +1248,7 @@ h3.titleh3:after {
 .mform .form-group {
     margin-bottom: 35px;
     display: block;
+    position: relative;
 }
 
 .mform .form-control.col-6.fr {
@@ -1263,6 +1267,7 @@ p.flx {
     color: #828282;
     font-weight: 500;
     letter-spacing: 0.5px;
+    width: 100%;
 }
 
 p.flx .rem input {
@@ -1353,9 +1358,8 @@ a.signup {
 .lmore.breadcrumb p {
     margin-bottom: 0;
     color: #fff;
-    text-transform: capitalize;
+    text-transform: uppercase;
     letter-spacing: 0.5px;
-    font-weight: 500;
 }
 
 .lmore.breadcrumb p span {
@@ -1365,6 +1369,7 @@ a.signup {
 div#about.about-page {
     padding-top: 60px;
 }
+
 
 .serv-body {
     border: none;
@@ -1436,11 +1441,16 @@ img.w-img {
     display: none;
 }
 
-.serv-body:hover img.o-img {
+/*.serv-body:hover img.o-img {
     display: none;
 }
 
 .serv-body:hover img.w-img {
+    display: inline-block;
+}*/
+
+serv-body:hover img {
+    filter: brightness(0) invert(1);
     display: inline-block;
 }
 
@@ -1457,6 +1467,83 @@ img.w-img {
     background-size: cover;
 }
 
+
+.error{ 
+    color:red !important;   
+}
+
+.dropdown-menu.dropdown-menu-right.profile-dropdown.show {  
+    padding-bottom: 0;     
+}
+.dropdown-header.noti-title h6  {
+    padding: 0;     
+    width: 100%;   
+    font-size: 14px;    
+    font-weight: 600;   
+    color: #000;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.dropdown-menu.dropdown-menu-right.profile-dropdown.show a {
+    color: #000;
+    font-size: 11px;
+    padding: 10px;
+    border-top: 1px solid #f7f7f7;
+    margin: 0;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+    text-align: center;
+    top: 0;
+    border-radius: 0px;
+    background: transparent;
+}
+.dropdown-menu.dropdown-menu-right.profile-dropdown.show a:last-child:hover {
+    background-color: #000;
+    color: #fff;
+}
+.dropdown-menu.dropdown-menu-right.profile-dropdown.show a:not(:last-child):hover {
+    background: #f7f7f7;  
+    color: #000;
+}
+.dropdown-menu.dropdown-menu-right.profile-dropdown.show .dropdown-divider {    
+    display: none;  
+}
+.reg-login.show {  
+    position: relative;    
+}
+a.sc-icon {
+    display: block;
+    padding: 12px;
+    text-align: center;
+    background: #4267B2;
+    color: #fff;
+    border-radius: 40px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    width: calc(33.33% - 10PX);
+    float: left;
+    margin: 0 5px;
+}
+a.sc-icon:hover {  
+    opacity: 0.9;       
+}
+a.sc-icon i {  
+    position: relative;    
+    top: 1px;      
+    left: 0;   
+    margin-right: 10px; 
+    margin-left: 0px;
+}
+a.sc-icon.twicon {  
+    background: #1DA1F2;       
+}
+a.sc-icon.gglicon { 
+    background: #db3236;
+}
+
 /********************************30-12-20********************************/
 
 div#contact-page {
@@ -1469,7 +1556,7 @@ div#contact-page {
 }
 
 .banner .slider-content {
-    padding: 6vw 0 3vw;
+    padding: 6vw 0;
 }
 
 .contact-form {
@@ -1684,8 +1771,6 @@ button#nextBtn, button#prevBtn {
     border-radius: 40px;
     min-width: 120px;
 }
-
-
 /**********************************05-01-2021*****************************************/
 
 .faqs .card {
@@ -1909,7 +1994,6 @@ span.eprice {
     padding-left: 0px;
 }
 
-
 /******************************07-01-2021**********************************/
 
 div#service-page {
@@ -1934,7 +2018,7 @@ div#invest {
 
 .serv-body:hover img.o-img {
     filter: brightness(0) invert(1);
-	display:inline-block;
+    display:inline-block;
 }
 
 .dark-bg * {
@@ -1968,7 +2052,7 @@ div#invest {
 .team-mem img {
     max-width: 200px;
     margin: 0 auto;
-    width: 100%;
+    border-radius: 50%;
 }
 
 .team-mem {
@@ -2022,28 +2106,8 @@ p.follow-mem.tc a {
     color: #ffa500;
 }
 
-button:focus {
-    outline: none;
+.hide-div{
+    visibility: hidden;
+    height: 0;
+    padding: 0;
 }
-
-.team-mem span {
-    display: inline-block;
-    width: 200px;
-    height: 200px;
-    justify-content: center;
-    overflow: hidden;
-    border-radius: 50%;
-    box-shadow: 0px 0px 11px 0px #0002;
-}
-
-.team2 .col-12 {
-    display: flex;
-    justify-content: space-around;
-}
-
-.team2 .col-6 {
-    max-width: 600px;
-    width: 50%;
-}
-.eve-img {    width: 200px;    float: left;    margin-right: 20px;}.eve-img img {    width: 100%;}.eve-title h2 {    font-size: 22px;    color: #000;    font-weight: 700;}.eve-title {    width: calc(100% - 220px);    float: left;    display: flex;    align-items: baseline;    flex-direction: column;    justify-content: center;}.event-titlee {	width: 100%;	margin-bottom: 20px;	display: flex;	justify-content: center;	align-content: center;}div#eve-detail {    padding: 60px 0;}p.eve-date-time {    margin-bottom: 0;    font-size: 16px;    color: #000;    font-weight: 500;    width: 100%;    display: flex;}.eve-description {    padding: 20px 40px;    margin: 20px 0;    box-shadow: 0 0 40px 3px #0002;    border-radius: 3px;}.eve-description h4 {    font-size: 22px;    color: #000;    text-transform: uppercase;    font-weight: 500;    letter-spacing: 1px;}.eve-description div {    padding-bottom: 15px;    border-bottom: 1px solid #000;    margin-bottom: 30px;}.eve-description span {    font-size: 14px;}.eve-description div:last-child {    border-bottom: none;    margin-bottom: 0;    padding-bottom: 0;}
-.single-event-ticket {    padding: 20px;    box-shadow: 0 0 10px 0 #0002;    max-width: 460px;    float: right;    width: 100%;}.single-event-ticket h5 {    margin-bottom: 20px;    color: #000;}span.tkt-quantity {    width: 40px;    display: inline-block;    float: right;}.tkt-quantity input.form-control {    width: 100%;    height: 40px;    border: none;    background: #e2ecef;    border-radius: 3px;    font-size: 16px;    padding-left: 14px;    text-align: center;    color: #000;    font-weight: 500;}p.tkt {    display: flex;    justify-content: space-between;    align-items: center;    padding: 3px 0 20px;    border-bottom: 1px solid #ccc;}span.tkt-name {    width: calc(100% - 60px);    display: inline-flex;    justify-content: space-between;    color: #000;    font-weight: 500;    font-size: 16px;    position: relative;}span.tkt-price {    font-weight: bold;}span.abs {    position: absolute;    bottom: -17px;    font-size: 12px;    color: #ff3131;}a.btn.vtn-success {    background: #63AA4E;    color: #fff;    width: 100%;    padding: 12px 0 10px;}p.tkt:nth-last-child(2) {    border-bottom: 0;}p.buy-tkt {    margin: 20px 0 5px;}div#eve .row > p {    width: 100%;}div#eve {    padding-bottom: 50px;}p.eve-date-time span {    width: 50%;}.event-details img {    width: 100%;}

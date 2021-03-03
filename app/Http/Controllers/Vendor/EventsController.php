@@ -68,7 +68,7 @@ class EventsController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-         $categories = Categories::where('parent_id',0)->get();
+        $categories = Categories::where('parent_id', 0)->get();
         $countries = Countries::get();
         return view('vendor.event.add', compact('categories', 'countries'));
     }
@@ -233,7 +233,7 @@ class EventsController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
-        $categories = Categories::where('parent_id',0)->get();
+        $categories = Categories::where('parent_id', 0)->get();
         $countries = Countries::get();
         $event = Event::find($id);
 
