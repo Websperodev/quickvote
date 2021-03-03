@@ -2,14 +2,21 @@
 
 @section('content')
 
-
+<style>
+    .brands .slick-slide{
+        height:30% !important;
+    }
+</style>
 
 <div id="eve-detail" class="single-event">
     <div class="container">
         <div class="row">
+            @if(!empty($event))
             <div class="col-md-8 col-sm-12 edetail">
                 <div class="event-titlee">
+
                     @php
+
                     if($event->image != '')
                     {
                     $img = $event->image;
@@ -59,17 +66,15 @@
                     $status='Closed';
                     }
                     @endphp
-
-
                     <p class="tkt">
-                        <span class="tkt-name">{{$tik->name}} <span class="tkt-price">${{($tik->price)}}</span><span class="abs">{{$status}}</span>  <span class="tkt-quantity"><input class="form-control" type="number"></span>
+                        <span class="tkt-name">{{$tik->name}} <span class="tkt-price">{{($tik->price)}}</span><span class="abs">{{$status}}</span>  <span class="tkt-quantity"><input class="form-control" type="number"></span>
                     </p>
-
                     @endforeach
                     @endif
                     <p class="buy-tkt"><a href="" class="btn vtn-success">Buy Ticket(s)</a></p>
                 </div>
             </div>
+            @endif
         </div>
     </div>
 </div>
@@ -80,15 +85,15 @@
             @if(!empty($sugstEvent))
             @foreach($sugstEvent as $sugg)
             @php 
-            if($sugg->image != '')
+            if($sugg['image'] != '')
             {
-            $simg = $sugg->image;
+            $simg = $sugg['image'];
             }
             else
             {
             $simg ="img/fe2.jpg";
             }
-            $date = $sugg->start_date;
+            $date = $sugg['start_date'];
 
             $start_day=date('D', strtotime($date));
             $start_month=date('F', strtotime($date));
@@ -96,11 +101,13 @@
             $start_date=date('d',strtotime($date));
             $start_year=date('Y',strtotime($date));
             $start_time=date('h:i:A',strtotime($date));
-            $end_time=date('h:i:A',strtotime($sugg->end_date));
-            if(!empty($sugg->tickets)){
-            $price=$sugg->tickets[0]->price;
-            $ticket_type=$sugg->tickets[0]->ticket_type;
-            }else{
+            $end_time=date('h:i:A',strtotime($sugg['end_date']));
+
+            if(isset($sugg['tickets']) && !empty($sugg['tickets'])){
+            $price=$sugg['tickets'][0]['price'];
+            $ticket_type=$sugg['tickets'][0]['ticket_type'];
+            }
+            else{
             $price='';
             $ticket_type='';
             }
@@ -114,7 +121,7 @@
                         <span class="date-abs">{{$start_date .' '. $start_month_shot}}</span>
                         <div class="txt-card">
                             <div class="event-name">
-                                <h2 class="titleh2 event-title">{{$sugg->name}}</h2>
+                                <h2 class="titleh2 event-title">{{$sugg['name']}}</h2>
                                 <span class="tickets">Tickets From {{$price}}</span>
                             </div>
                             <p class="time-price"><span class="etime"><i class="far fa-clock"></i> Start {{$start_time .'-'.$end_time}}</span> <span class="eprice">{{$ticket_type}}</span></p>
@@ -131,33 +138,7 @@
         </div>
     </div>
 
-    <script>
-        $(document).ready(function () {
 
-            $(".filter-button").click(function () {
-                var value = $(this).attr('data-filter');
-
-                if (value == "all")
-                {
-                    //$('.filter').removeClass('hidden');
-                    $('.filter').show('1000');
-                } else
-                {
-                    //            $('.filter[filter-item="'+value+'"]').removeClass('hidden');
-                    //            $(".filter").not('.filter[filter-item="'+value+'"]').addClass('hidden');
-                    $(".filter").not('.' + value).hide('3000');
-                    $('.filter').filter('.' + value).show('3000');
-
-                }
-            });
-
-            if ($(".filter-button").removeClass("active")) {
-                $(this).removeClass("active");
-            }
-            $(this).addClass("active");
-
-        });
-    </script>
 </div>
 
 <div class="cta py-5">
@@ -192,33 +173,61 @@
             <div class="slide"><img src="{{url('img/7.png')}}"></div>
         </div>		
     </div>
-
-    <script>
-        $(document).ready(function () {
-            $('.customer-logos').slick({
-                slidesToShow: 5,
-                slidesToScroll: 1,
-                autoplay: true,
-                autoplaySpeed: 1500,
-                arrows: false,
-                dots: false,
-                pauseOnHover: true,
-                responsive: [{
-                        breakpoint: 768,
-                        settings: {
-                            slidesToShow: 3
-                        }
-                    }, {
-                        breakpoint: 520,
-                        settings: {
-                            slidesToShow: 2
-                        }
-                    }]
-            });
-        });
-    </script>
-
 </div>
+
+<script>
+    $(document).ready(function () {
+
+        $(".filter-button").click(function () {
+            var value = $(this).attr('data-filter');
+
+            if (value == "all")
+            {
+                //$('.filter').removeClass('hidden');
+                $('.filter').show('1000');
+            } else
+            {
+                //            $('.filter[filter-item="'+value+'"]').removeClass('hidden');
+                //            $(".filter").not('.filter[filter-item="'+value+'"]').addClass('hidden');
+                $(".filter").not('.' + value).hide('3000');
+                $('.filter').filter('.' + value).show('3000');
+
+            }
+        });
+
+        if ($(".filter-button").removeClass("active")) {
+            $(this).removeClass("active");
+        }
+        $(this).addClass("active");
+
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('.customer-logos').slick({
+            slidesToShow: 5,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 1500,
+            arrows: false,
+            dots: false,
+            pauseOnHover: true,
+            responsive: [{
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 3
+                    }
+                }, {
+                    breakpoint: 520,
+                    settings: {
+                        slidesToShow: 2
+                    }
+                }]
+        });
+    });
+</script>
+
+
 
 
 
