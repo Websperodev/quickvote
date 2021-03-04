@@ -17,13 +17,6 @@ class CreateCitiesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name', 255)->nullable();
             $table->integer('state_id')->nullable();
-            $table->string('state_code', 255)->nullable();
-            $table->integer('country_id')->nullable();
-            $table->string('country_code', 255)->nullable();
-            $table->string('latitude', 255);
-            $table->string('longitude', 255)->nullable();
-            $table->string('flag', 255)->nullable();
-            $table->string('wikiDataId', 255)->nullable();
             $table->timestamps();
         });
     }

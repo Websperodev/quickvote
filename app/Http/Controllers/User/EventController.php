@@ -27,14 +27,10 @@ class EventController extends Controller {
         $mytime = Carbon::now();
         $date = $mytime->toDateString();
         $event = Event::with('country')->where('end_date', '>', $date)->find($id);
-        $crruntDate=$date;
-      
-
+        $crruntDate=$date;      
         if (!empty($event)) {
-            $sugstEvent = Event::with('tickets')->where('end_date', '>', $date)->where('country_id', $event->country_id)->where('id','!=', $event->id)->limit(3)->get()->toArray();
-            $ticket = Ticket::where('event_id', $event->id)->get();
-          
-          
+            $sugstEvent = Event::with('tickets')->where('end_date', '>', $date)->where('category_id', $event->category_id)->where('id','!=', $event->id)->limit(3)->get()->toArray();
+            $ticket = Ticket::where('event_id', $event->id)->get();                    
             return view('user.events.events', compact('event', 'sugstEvent','ticket','crruntDate'));
         } else {
             

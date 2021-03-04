@@ -41,6 +41,15 @@ Route::namespace('User')->group(function () {
     Route::get('/dashboard', 'DashboardController@index')->name('user.dashboard');
     Route::post('password-update', 'ProfileController@changePassword')->name('user.updatePass');
     Route::post('edit-profile', 'ProfileController@updateProfile')->name('user.editProfile');
+    
+    
+    
+     //** Contestants**//
+    Route::get('contestants/{id}', 'ContestantsController@index')->name('contestants.index');
+ 
+     Route::get('vote/contestants/{id}/{any}', 'ContestantsController@buyVotesByUser')->name('contestants.buyvotes');
+         Route::post('vote/contestants', 'ContestantsController@saveBuyVotesByUser')->name('contestants.buyvotes.save');
+    
 });
 
 Route::namespace('Vendor\Auth')->group(function () {

@@ -18,10 +18,6 @@ class CreateStatesTable extends Migration
             $table->string('name', 255);
             $table->integer('country_id');
             $table->string('country_code', 255)->nullable();
-            $table->string('fips_code', 255)->nullable();
-            $table->string('iso2', 255)->nullable();
-            $table->string('flag', 255)->nullable();
-            $table->string('wikiDataId', 255)->nullable();
             $table->timestamps();
         });
     }

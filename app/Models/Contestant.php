@@ -4,9 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Contestant extends Model
-{
-   
+class Contestant extends Model {
+
     protected $fillable = [
         'event_id', 'name', 'phone', 'image', 'state_id', 'about'
     ];
@@ -16,8 +15,8 @@ class Contestant extends Model
      *
      * @var array
      */
-    
+    public function votingContestants() {
+        return $this->hasMany(VotingContestants::class, 'contestant_id', 'id');
+    }
 
-   
 }
- 

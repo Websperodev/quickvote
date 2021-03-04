@@ -32,7 +32,11 @@
                     $start_date=date('d',strtotime($date));
                     $start_year=date('Y',strtotime($date));
                     $start_time=date('h:m',strtotime($date));
-
+                    $description=substr(strip_tags($event['description']),0, 150);
+                    $char=strlen($event['description']);
+                    if($char >150){
+                    $description=$description.'...';
+                    }
 
                     @endphp
                     <div class="eve-img"><img src="{{url($img)}}"></div>
@@ -47,9 +51,10 @@
                         <div><h4>Location</h4> <span>{{$event->country->name}}</span></div>
                         <div><h4>Date & Time</h4> <span>{{$start_day.' '.$start_month.' '.$start_date. ' '.$start_year}}, Time:{{$start_time}}</span></div>
                         <div><h4>Event Details</h4> 
-                            <span>{{strip_tags($event->description)}}</span></div>
+                            <span>{{$description}}</span></div>
                     </div>
                 </div>
+                  <p class="buy-tkt"><a href="{{url('contestants').'/'.$event->id}}" class="btn vtn-success">View Contestants</a></p>
             </div>
             <div class="col-md-4 col-sm-12 sidebar">
                 <div class="single-event-ticket">
@@ -125,7 +130,7 @@
                                 <span class="tickets">Tickets From {{$price}}</span>
                             </div>
                             <p class="time-price"><span class="etime"><i class="far fa-clock"></i> Start {{$start_time .'-'.$end_time}}</span> <span class="eprice">{{$ticket_type}}</span></p>
-                            <a class="btn btn-grad-bd ticket-details" href="#">Tickets & Details</a>
+                              <a class="btn btn-grad-bd ticket-details" href="{{url('event-detail').'/'.$sugg['id']}}">Tickets & Details</a>
                         </div>
                     </div>
                 </div>
