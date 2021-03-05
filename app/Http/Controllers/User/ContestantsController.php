@@ -22,7 +22,7 @@ class ContestantsController extends Controller {
         $date = $mytime->toDateString();
         $event = Event::with('country')->where('id', $eId)->first();
 //        print_r($req->input()); die;
-
+        $constnt_id = '';
         if (!empty($event)) {
             $allContestants = Contestant::where('event_id', $eId)->get();
             if ($req->input() && $req->input('cId') != '') {
@@ -78,7 +78,7 @@ class ContestantsController extends Controller {
                     'votes' => 'required',
                     'name' => 'required',
                     'email' => 'required|email',
-                    'phone' => 'required|regex:/(01)[0-9]{9}/',
+                    'phone' => 'required|regex:/^[0-9]+$/',
         ]);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator);
@@ -98,12 +98,12 @@ class ContestantsController extends Controller {
                 $votingCont->save();
             } else {
                 $votingCont = new VotingContestants;
-                $votingCont->event_id = (int) $data['event_id'];
-                $votingCont->contestant_id = (int) $data['contestant_id'];
+                $votingCont->event_id = $data['event_id'];
+                $votingCont->contestant_id = $data['contestant_id'];
                 $votingCont->votes = $data['votes'];
                 $votingCont->name = $data['name'];
                 $votingCont->email = $data['email'];
-                $votingCont->phone = (int) $data['phone'];
+                $votingCont->phone = $data['phone'];
                 $votingCont->created_at = $credt;
                 $votingCont->updated_at = $credt;
                 $votingCont->save();

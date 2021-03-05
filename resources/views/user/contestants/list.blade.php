@@ -122,7 +122,8 @@
                                 <h2 class="cand-name">{{$cont->name}}</h2>
                                 <span class="cand-no">Candidate Number: <span>{{ $cont->candidate_id}}<span></span>
                                         </div>
-                                        <div class="votez"><span class="vote-result">Vote Result: <span>{{$cont->percentage}}%</span></span> <span class="vote-btn"><a href="#" class="btn btn-bg">Vote</a></span></div>
+                                        <div class="votez"><span class="vote-result">Vote Result: <span>{{$cont->percentage}}%</span></span> 
+                                            <span class="vote-btn"><a href="{{url('vote/contestants/').'/'.$event->id.'/'.$cont->id}}" class="btn btn-bg">Vote</a></span></div>
                                         </div>
                                         </div>
                                         </div>
