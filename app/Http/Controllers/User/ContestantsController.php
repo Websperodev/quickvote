@@ -21,7 +21,6 @@ class ContestantsController extends Controller {
         $mytime = Carbon::now();
         $date = $mytime->toDateString();
         $event = Event::with('country')->where('id', $eId)->first();
-//        print_r($req->input()); die;
         $constnt_id = '';
         if (!empty($event)) {
             $allContestants = Contestant::where('event_id', $eId)->get();
@@ -33,7 +32,7 @@ class ContestantsController extends Controller {
                 $contestants = Contestant::where('event_id', $eId)->get();
             }
             $totalvotes = VotingContestants::select(DB::Raw('SUM(votes) as total_votes'))->where('event_id', $eId)->first();
-            $totalv = $totalvotes->total_votes;
+            $totalv = (int)$totalvotes->total_votes;
 //            echo '<pre>';
 //            print_r($contestants); die;
             if (!empty($contestants)) {
@@ -41,9 +40,12 @@ class ContestantsController extends Controller {
 
                     $contestvotes = VotingContestants::select(DB::Raw('SUM(votes) as contel_votes'))->where('contestant_id', $cont->id)->first();
 //                    print_r($totalvotes->total_votes); die;
-                    $totalC = $contestvotes->contel_votes;
-                    $percent = $totalC * 100 / $totalv;
-                    $contestants[$key]->percentage = (int) $percent;
+                    if (!empty($contestvotes) && $totalv!=0) {
+                        $totalC = $contestvotes->contel_votes;
+                        $percent = $totalC * 100 / $totalv;
+                        $contestants[$key]->percentage = (int) $percent;
+                    }
+                    $contestants[$key]->percentage = 0;
                 }
             }
             $sugstEvent = Event::with('tickets')->where('end_date', '>', $date)->where('category_id', $event->category_id)->limit(3)->get()->toArray();
