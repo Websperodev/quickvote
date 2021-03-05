@@ -24,7 +24,7 @@ class ContestantsController extends Controller {
         $constnt_id = '';
         if (!empty($event)) {
             $allContestants = Contestant::where('event_id', $eId)->get();
-            if ($req->input() && $req->input('cId') != '') {
+            if (!empty($req->input()) && $req->input('cId') != '') {
                 $cId = $req->input('cId');
                 $constnt_id = $cId;
                 $contestants = Contestant::where('id', $cId)->get();

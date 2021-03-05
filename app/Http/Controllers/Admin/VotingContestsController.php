@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Voting_contest;
-
 use Yajra\Datatables\Datatables;
+use Illuminate\Support\Facades\Validator;
+use Auth;
+
 class VotingContestsController extends Controller {
 
     /**
@@ -29,43 +31,64 @@ class VotingContestsController extends Controller {
 
     public function addVotingContest(Request $request) {
         if ($request->isMethod('post')) {
+//            echo '<pre>';
+//            print_r($request->input());
+//            die;
             $validator = Validator::make($request->all(), [
-                        'name' => 'required',
+                        'category' => 'required',
+                        'type' => 'required',
+                        'limit' => 'required',
+                        'payment_gateway' => 'required',
+                        'packages' => 'required',
+                        'title' => 'required',
+                        'fees' => 'required',
+                        'starting_date' => 'required',
+                        'closing_date' => 'required',
+                        'timezone' => 'required',
             ]);
-            
+
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator);
             }
             try {
                 $user = Auth::user();
                 $data = $request->all();
-                $existing = Voting_contest::where('name', $data['VotingContest_name'])->count();
+                $existing = Voting_contest::where('title', $data['title'])->count();
                 if ($existing > 0) {
                     $request->session()->flash('message.level', 'danger');
                     $request->session()->flash('message.text', 'VotingContest already exists');
                     return redirect()->back();
                 }
-                $VotingContest = new Voting_contest;
-                $VotingContest->name = $data['VotingContest_name'];
-                $VotingContest->description = $data['description'];
-                $VotingContest->created_by = $user->id;
+                $votingContest = new Voting_contest;
+                $votingContest->category = $data['category'];
+                $votingContest->type = $data['type'];
+                $votingContest->limit = $data['limit'];
+                $votingContest->payment_gateway = $data['payment_gateway'];
+                $votingContest->packages = $data['packages'];
+                $votingContest->title = $data['title'];
+                $votingContest->fees = $data['fees'];
+                $votingContest->timezone = $data['timezone'];
+                $votingContest->starting_date = date("Y-m-d H:i", strtotime($data['starting_date']));
+                $votingContest->closing_date = date("Y-m-d H:i", strtotime($data['closing_date']));
+                $votingContest->added_by = $user->id;
 
-                if ($request->hasFile('image_name')) {
-                    if ($request->file('image_name')->isValid()) {
-                        $validated = $request->validate([
-                            'image_name' => 'string|max:40',
-                            'image_name' => 'mimes:jpeg,png|max:1014',
-                        ]);
-                        $file = request()->file('image_name');
-                        $fileName = md5($file->getClientOriginalName() . time()) . "." . $file->getClientOriginalExtension();
-                        $file->move('./uploads/images/', $fileName);
-                        $img = '/uploads/images/' . $fileName;
-                        $VotingContest->image = $img;
-                    }
-                }
-                $VotingContest->save();
+//                if ($request->hasFile('image_name')) {
+//                    if ($request->file('image_name')->isValid()) {
+//                        $validated = $request->validate([
+//                            'image_name' => 'string|max:40',
+//                            'image_name' => 'mimes:jpeg,png|max:1014',
+//                        ]);
+//                        $file = request()->file('image_name');
+//                        $fileName = md5($file->getClientOriginalName() . time()) . "." . $file->getClientOriginalExtension();
+//                        $file->move('./uploads/images/', $fileName);
+//                        $img = '/uploads/images/' . $fileName;
+//                        $votingContest->image = $img;
+//                    }
+//                }
+//                print_r('jhfgsadj'); die;
+                $votingContest->save();
 
-                if ($VotingContest->id != '') {
+                if ($votingContest->id != '') {
                     $request->session()->flash('message.level', 'success');
                     $request->session()->flash('message.text', 'VotingContest Added successfully.');
                     return redirect()->back();

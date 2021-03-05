@@ -1,15 +1,11 @@
 @extends('admin.layouts.master')
 @section("meta_page_title") Voting | Quickvote | Dashboard @endsection
 @section("page_title") <a href="{!! route('admin.voting.index') !!}" class="head-a"> Voting </a> > Add @endsection
-
-
 @section("content")
 @php 
 $timezoneArray = config('constants.timezones');
 @endphp
-
 <div class="row justify-content-center">
-
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
@@ -19,30 +15,25 @@ $timezoneArray = config('constants.timezones');
                     {!! session('message.text') !!}
                 </div>
                 @endif
-
                 {!! Form::open(array('route' => 'admin.add.voting', 'id' => 'add_voting_form', 'method' => 'post','class' => 'custum-frm', 'enctype' => 'multipart/form-data' )) !!}
-
                 @csrf
-
                 <div class="col-md-12 form-group cus-form-group">
-
                     <div class="col-md-12 form-group cus-form-group row">
                         <div class="col-md-12 form-group cus-form-group">
                             <label for="Category">Category selection</label>
                         </div>
                         <div class="col-md-3">
                             <label for="Category">Pageants (Not Categorized)</label>
-                            <input type="radio" checked name="category">
+                            <input type="radio" class="category" checked name="category" value="1">
                         </div>
                         <div class="col-md-3">
                             <label for="Category">Awards (Categorized)</label>
-                            <input type="radio"  name="category">
+                            <input type="radio" class="category" name="category" value="2">
                         </div>
                         @if($errors->has('category'))
-                        <div class="error">{{ $errors->first('category') }}</div>
+                        <div class="error">{{$errors->first('category')}}</div>
                         @endif
                     </div>
-
                     <div class="col-md-12 form-group cus-form-group row">
                         <div class="col-md-12 form-group cus-form-group">
                             <label for="type">Voting type</label>
@@ -56,23 +47,7 @@ $timezoneArray = config('constants.timezones');
                             <input type="radio" checked name="type" value="free">
                         </div>
                         @if($errors->has('type'))
-                        <div class="error">{{ $errors->first('type') }}</div>
-                        @endif
-                    </div>
-                    <div class="col-md-12 form-group cus-form-group row">
-                        <div class="col-md-12 form-group cus-form-group">
-                            <label for="packages">Vote packages</label>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="packages">Disabled</label>
-                            <input type="radio" checked name="packages" value="0">
-                        </div>
-                        <div class="col-md-3">
-                            <label for="packages">Enabled</label>
-                            <input type="radio"  name="packages" value="1">
-                        </div>
-                        @if($errors->has('packages'))
-                        <div class="error">{{ $errors->first('packages') }}</div>
+                        <div class="error">{{$errors->first('type')}}</div>
                         @endif
                     </div>
                     <div class="col-md-12 form-group cus-form-group row">
@@ -81,24 +56,23 @@ $timezoneArray = config('constants.timezones');
                         </div>
                         <div class="col-md-3">
                             <label for="limit">Unlimited</label>
-                            <input type="radio" checked class="limit" name="limit" value="0">
+                            <input type="radio" checked class="votelimit" name="limit" value="0">
                         </div>
                         <div class="col-md-3">
                             <label for="limit">Limited</label>
-                            <input type="radio"  name="limit" class="limit" value="1">
+                            <input type="radio"  name="limit" class="votelimit" value="1">
                         </div>
                         @if($errors->has('limit'))
                         <div class="error">{{ $errors->first('limit') }}</div>
                         @endif
-
-                        <div class="col-md-7 form-group cus-form-group">
+                        <div class="col-md-7 form-group cus-form-group votelimitcount">
                             <label for="limit_count">Vote Limit</label>
                             <input type="number" autocomplete="off" class="form-control" name="limit_count" id="organiser_name" value="" aria-describedby="emailHelp" placeholder="Enter limit count">
                             @if($errors->has('limit_count'))
                             <div class="error">{{ $errors->first('limit_count') }}</div>
                             @endif
                         </div>
-                        <div class="col-md-7 form-group cus-form-group">
+                        <div class="col-md-7 form-group cus-form-group awardsCat" >
                             <label for="awards">Number of Award Categories (if categorised)</label>
                             <input type="number" autocomplete="off" class="form-control" name="awards" id="awards" value="" aria-describedby="emailHelp" placeholder="Enter awards">
                             @if($errors->has('awards'))
@@ -106,16 +80,15 @@ $timezoneArray = config('constants.timezones');
                             @endif
                         </div>
                         <div class="col-md-7 form-group cus-form-group">
-                            <label for="payment">Select preferred payment gateway</label>
-                            <select class="form-control" name="event_priority"autocomplete="off" id="event_priority" aria-describedby="emailHelp">
-
+                            <label for="payment_gateway">Select preferred payment gateway</label>
+                            <select class="form-control" name="payment_gateway"autocomplete="off" id="payment_gateway" aria-describedby="emailHelp">
                                 <option value="paystack">Paystack</option>
                                 <option value="flutterwavwe">Flutterwavwe</option>
                                 <option value="payu">Payu</option>
                                 <option value="interswitch">Interswitch</option>
                             </select>
-                            @if($errors->has('event_priority'))
-                            <div class="error">{{ $errors->first('event_priority') }}</div>
+                            @if($errors->has('payment'))
+                            <div class="error">{{ $errors->first('payment') }}</div>
                             @endif
                         </div>
                         <div class="col-md-12 form-group cus-form-group row">
@@ -124,18 +97,16 @@ $timezoneArray = config('constants.timezones');
                             </div>
                             <div class="col-md-3">
                                 <label for="Profile">OFF</label>
-                                <input type="radio"  name="packages" value="0">
+                                <input type="radio" checked name="packages" value="0">
                             </div>
                             <div class="col-md-3">
                                 <label for="Profile">ON</label>
-                                <input type="radio"  name="packages" value="1">
+                                <input type="radio" name="packages" value="1">
                             </div>
                             @if($errors->has('profile'))
                             <div class="error">{{ $errors->first('profile') }}</div>
                             @endif
                         </div>
-
-
                         <div class="row">
                             <div class="col-md-6 form-group cus-form-group">
                                 <label for="title">Vote Contest title</label>
@@ -144,7 +115,6 @@ $timezoneArray = config('constants.timezones');
                                 <div class="error">{{ $errors->first('title') }}</div>
                                 @endif
                             </div>
-
                             <div class="col-md-6 form-group cus-form-group">
                                 <label for="image">Image</label>
                                 <input type="file"  class="form-control" name="image" id="image" aria-describedby="emailHelp" placeholder="Choose Image">
@@ -162,10 +132,7 @@ $timezoneArray = config('constants.timezones');
                             <div class="col-md-6 form-group cus-form-group">
                                 <label for="starting_date">Starting date</label>
                                 <input type="text" autocomplete="off" class="form-control datetimepicker" name="starting_date" id="start-date" aria-describedby="emailHelp" placeholder="Enter Starting Date" >
-
                                 <i class="fa fa-calendar" aria-hidden="true"></i>
-
-
                                 @if($errors->has('starting_date'))
                                 <div class="error">{{ $errors->first('starting_date') }}</div>
                                 @endif
@@ -180,9 +147,7 @@ $timezoneArray = config('constants.timezones');
                             </div>
                             <div class="col-md-6 form-group cus-form-group">
                                 <label for="timezone">Timezone</label>
-
-                                <select class="form-control" name="timezone" id="timezone" aria-describedby="emailHelp">
-
+                                <select class="form-control" name="timezone" id="timezone"  aria-describedby="emailHelp">
                                     @foreach($timezoneArray as $key=>$time)
                                     @if($key=='Africa/Lagos')
                                     <option value="{{ $key }}" selected>{{ $key }}</option>                                
@@ -191,7 +156,6 @@ $timezoneArray = config('constants.timezones');
                                     @endif
                                     @endforeach
                                 </select>
-
                                 @if($errors->has('timezone'))
                                 <div class="error">{{ $errors->first('timezone') }}</div>
                                 @endif
@@ -207,26 +171,31 @@ $timezoneArray = config('constants.timezones');
     </div> 
 </div>
 </div> 
-
 <script type="text/javascript">
- 
-        
-   
     $(".datetimepicker").datetimepicker({
         format: 'm/d/Y H:i'
     });
-       $(document).ready(function(){
-          $('.').()
-     });
-    
-    
+    $(document).ready(function () {
+        $('.votelimitcount').hide();
+        $('.awardsCat').hide();
+        $('.category').on('click', function () {
+            var cat = $(this).val();
+            if (cat == 1) {
+                $('.awardsCat').hide();
+            } else {
+                $('.awardsCat').show();
+            }
+        })
+        $('.votelimit').on('click', function () {
+            var limit = $(this).val();
+            if (limit == 0) {
+                $('.votelimitcount').hide();
+            } else {
+                $('.votelimitcount').show();
+            }
+        })
+    });
 </script>
 @endsection
-
-
-
 @section('script-bottom')
-
-
-
 @endsection
