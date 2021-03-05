@@ -17,13 +17,21 @@ use DB;
 
 class ContestantsController extends Controller {
 
-    function index($eId) {
+    function index(Request $req, $eId) {
         $mytime = Carbon::now();
         $date = $mytime->toDateString();
         $event = Event::with('country')->where('id', $eId)->first();
-//        print_r($event); die;
+//        print_r($req->input()); die;
+
         if (!empty($event)) {
-            $contestants = Contestant::where('event_id', $eId)->get();
+            $allContestants = Contestant::where('event_id', $eId)->get();
+            if ($req->input() && $req->input('cId') != '') {
+                $cId = $req->input('cId');
+                $constnt_id = $cId;
+                $contestants = Contestant::where('id', $cId)->get();
+            } else {
+                $contestants = Contestant::where('event_id', $eId)->get();
+            }
             $totalvotes = VotingContestants::select(DB::Raw('SUM(votes) as total_votes'))->where('event_id', $eId)->first();
             $totalv = $totalvotes->total_votes;
 //            echo '<pre>';
@@ -34,14 +42,13 @@ class ContestantsController extends Controller {
                     $contestvotes = VotingContestants::select(DB::Raw('SUM(votes) as contel_votes'))->where('contestant_id', $cont->id)->first();
 //                    print_r($totalvotes->total_votes); die;
                     $totalC = $contestvotes->contel_votes;
-
                     $percent = $totalC * 100 / $totalv;
                     $contestants[$key]->percentage = (int) $percent;
                 }
             }
             $sugstEvent = Event::with('tickets')->where('end_date', '>', $date)->where('category_id', $event->category_id)->limit(3)->get()->toArray();
 
-            return view('user.contestants.list', compact('event', 'contestants', 'sugstEvent'));
+            return view('user.contestants.list', compact('event', 'contestants', 'sugstEvent', 'constnt_id', 'allContestants'));
         }
 
 //        echo '<pre>';
@@ -85,23 +92,23 @@ class ContestantsController extends Controller {
             $data = $request->all();
             $existing = VotingContestants::where('email', $data['email'])->first();
             if (!empty($existing)) {
-                
+
                 $votingCont = VotingContestants::find($existing->id);
                 $votingCont->votes = $data['votes'] + $existing->votes;
                 $votingCont->save();
             } else {
                 $votingCont = new VotingContestants;
-                $votingCont->event_id = (int)$data['event_id'];
-                $votingCont->contestant_id = (int)$data['contestant_id'];
+                $votingCont->event_id = (int) $data['event_id'];
+                $votingCont->contestant_id = (int) $data['contestant_id'];
                 $votingCont->votes = $data['votes'];
                 $votingCont->name = $data['name'];
                 $votingCont->email = $data['email'];
-                $votingCont->phone = (int)$data['phone'];
+                $votingCont->phone = (int) $data['phone'];
                 $votingCont->created_at = $credt;
-                $votingCont->updated_at = $credt;                
+                $votingCont->updated_at = $credt;
                 $votingCont->save();
             }
-            
+
             if ($votingCont->id != '') {
                 $request->session()->flash('message.level', 'success');
                 $request->session()->flash('message.text', 'Vote has been bought successfully.');

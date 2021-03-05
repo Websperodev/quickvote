@@ -6,7 +6,11 @@
     .brands .slick-slide{
         height:30% !important;
     }
+
 </style>
+<script>
+    var url = "{{url('contestants').'/'.$event->id}}";
+</script>
 
 <div id="eve-detail" class="event-contestant">
     <div class="container">
@@ -59,11 +63,13 @@
                         <div id="candidate" class="tab-pane active">
                             <div class="col-md-9">
                                 <div class="form-group">
-                                    <select class="form-control">
+                                    <select class="form-control cont_id" name="cont_id" >
+                                        <option value=""> Select Contestant</option>
                                         @if(!empty($contestants))
-                                        @foreach($contestants as $cont)
+                                        @foreach($allContestants as $cont)
 
                                         <option value="{{$cont->id}}"> {{$cont->name}}</option>
+                                        <option {{ $constnt_id == $cont->id ? 'selected' : ''}}  value="{{ $cont->id }}">{{ $cont->name }}</option>
 
                                         @endforeach
                                         @endif
@@ -163,7 +169,7 @@
                                                     }
 
                                                     @endphp
-                                                    
+
                                                     <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter Most Recent">
                                                         <div class="tcard border-0 py-3 px-4">
                                                             <div class="justify-content-center"> <img src="{{url($simg)}}" class="img-fluid profile-pic mb-4 mt-3"> </div>
@@ -175,14 +181,14 @@
                                                                         <span class="tickets">Tickets From {{$price}}</span>
                                                                     </div>
                                                                     <p class="time-price"><span class="etime"><i class="far fa-clock"></i> Start {{$start_time .'-'.$end_time}}</span> <span class="eprice">{{$ticket_type}}</span></p>
-                                                                     <a class="btn btn-grad-bd ticket-details" href="{{url('event-detail').'/'.$sugg['id']}}">Tickets & Details</a>
+                                                                    <a class="btn btn-grad-bd ticket-details" href="{{url('event-detail').'/'.$sugg['id']}}">Tickets & Details</a>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     @endforeach
                                                     @endif
-                                                   <p align="center"> <a href="{{url('search-event')}}" class="btn btn-bg mt-4">View All Events</a></p>
+                                                    <p align="center"> <a href="{{url('search-event')}}" class="btn btn-bg mt-4">View All Events</a></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -219,31 +225,45 @@
                                                     <div class="slide"><img src="{{url('img/7.png')}}"></div>
                                                 </div>		
                                             </div>
+                                            <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+                                            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+                                            <script src="{{ URL::asset('assets/libs/bootstrap-select/bootstrap-select.min.js')}}"></script>
                                             <script>
-                                                $(document).ready(function () {
+    $('.cont_id').on('change', function () {
+        var cont_id = $('.cont_id').val();
+        var curl = url + '?cId=' + cont_id;
 
-                                                    $('.customer-logos').slick({
-                                                        slidesToShow: 5,
-                                                        slidesToScroll: 1,
-                                                        autoplay: true,
-                                                        autoplaySpeed: 1500,
-                                                        arrows: false,
-                                                        dots: false,
-                                                        pauseOnHover: true,
-                                                        responsive: [{
-                                                                breakpoint: 768,
-                                                                settings: {
-                                                                    slidesToShow: 3
-                                                                }
-                                                            }, {
-                                                                breakpoint: 520,
-                                                                settings: {
-                                                                    slidesToShow: 2
-                                                                }
-                                                            }]
-                                                    });
-                                                }
-                                                );
+        window.location.replace(curl);
+//            alert(cont_id);
+//    window.redirect();
+    });
+    $(document).ready(function () {
+
+
+
+
+        $('.customer-logos').slick({
+            slidesToShow: 5,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 1500,
+            arrows: false,
+            dots: false,
+            pauseOnHover: true,
+            responsive: [{
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 3
+                    }
+                }, {
+                    breakpoint: 520,
+                    settings: {
+                        slidesToShow: 2
+                    }
+                }]
+        });
+    }
+    );
                                             </script>
                                         </div>
