@@ -8,6 +8,7 @@ use App\Models\Voting_contest;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Validator;
 use Auth;
+use Response;
 
 class VotingContestsController extends Controller {
 
@@ -36,8 +37,10 @@ class VotingContestsController extends Controller {
 //            die;
             $validator = Validator::make($request->all(), [
                         'category' => 'required',
+                        'awards' => 'required_if:category,==,2|nullable',
                         'type' => 'required',
                         'limit' => 'required',
+                        'limit_count' => 'required_if:limit,==,1|nullable',
                         'payment_gateway' => 'required',
                         'packages' => 'required',
                         'title' => 'required',
@@ -56,13 +59,24 @@ class VotingContestsController extends Controller {
                 $existing = Voting_contest::where('title', $data['title'])->count();
                 if ($existing > 0) {
                     $request->session()->flash('message.level', 'danger');
-                    $request->session()->flash('message.text', 'VotingContest already exists');
+                    $request->session()->flash('message.text', 'Voting Contest already exists');
                     return redirect()->back();
                 }
                 $votingContest = new Voting_contest;
+
                 $votingContest->category = $data['category'];
                 $votingContest->type = $data['type'];
                 $votingContest->limit = $data['limit'];
+                if ($data['limit'] == '1') {
+                    $votingContest->limit_count = $data['limit_count'];
+                } else {
+                    $votingContest->limit_count = 0;
+                }
+                if ($data['category'] == '2') {
+                    $votingContest->awards = $data['awards'];
+                } else {
+                    $votingContest->awards = 0;
+                }
                 $votingContest->payment_gateway = $data['payment_gateway'];
                 $votingContest->packages = $data['packages'];
                 $votingContest->title = $data['title'];
@@ -72,29 +86,29 @@ class VotingContestsController extends Controller {
                 $votingContest->closing_date = date("Y-m-d H:i", strtotime($data['closing_date']));
                 $votingContest->added_by = $user->id;
 
-//                if ($request->hasFile('image_name')) {
-//                    if ($request->file('image_name')->isValid()) {
-//                        $validated = $request->validate([
-//                            'image_name' => 'string|max:40',
-//                            'image_name' => 'mimes:jpeg,png|max:1014',
-//                        ]);
-//                        $file = request()->file('image_name');
-//                        $fileName = md5($file->getClientOriginalName() . time()) . "." . $file->getClientOriginalExtension();
-//                        $file->move('./uploads/images/', $fileName);
-//                        $img = '/uploads/images/' . $fileName;
-//                        $votingContest->image = $img;
-//                    }
-//                }
+                if ($request->hasFile('image')) {
+                    if ($request->file('image')->isValid()) {
+                        $validated = $request->validate([
+                            'image' => 'string|max:40',
+                            'image' => 'mimes:jpeg,png|max:1014',
+                        ]);
+                        $file = request()->file('image');
+                        $fileName = md5($file->getClientOriginalName() . time()) . "." . $file->getClientOriginalExtension();
+                        $file->move('./uploads/images/', $fileName);
+                        $img = '/uploads/images/' . $fileName;
+                        $votingContest->image = $img;
+                    }
+                }
 //                print_r('jhfgsadj'); die;
                 $votingContest->save();
 
                 if ($votingContest->id != '') {
                     $request->session()->flash('message.level', 'success');
-                    $request->session()->flash('message.text', 'VotingContest Added successfully.');
+                    $request->session()->flash('message.text', 'Voting Contest Added successfully.');
                     return redirect()->back();
                 } else {
                     $request->session()->flash('message.level', 'danger');
-                    $request->session()->flash('message.text', 'VotingContest fail.');
+                    $request->session()->flash('message.text', 'Voting Contest fail.');
                     return redirect()->back();
                 }
             } catch (\Exception $e) {
@@ -146,7 +160,18 @@ class VotingContestsController extends Controller {
 
         if ($request->isMethod('post')) {
             $validator = Validator::make($request->all(), [
-                        'VotingContest_name' => 'required',
+                        'category' => 'required',
+                        'awards' => 'required_if:category,==,2|nullable',
+                        'type' => 'required',
+                        'limit' => 'required',
+                        'limit_count' => 'required_if:limit,==,1|nullable',
+                        'payment_gateway' => 'required',
+                        'packages' => 'required',
+                        'title' => 'required',
+                        'fees' => 'required',
+                        'starting_date' => 'required',
+                        'closing_date' => 'required',
+                        'timezone' => 'required',
             ]);
 
             if ($validator->fails()) {
@@ -154,48 +179,68 @@ class VotingContestsController extends Controller {
             }
             try {
                 $data = $request->all();
-                $existing = votingContests::where('name', '=', $data['VotingContest_name'])->where('id', '!=', $data['VotingContest_id'])->count();
+                $existing = Voting_contest::where('title', '=', $data['title'])->where('id', '!=', $data['VotingContest_id'])->count();
+
                 if ($existing > 0) {
                     $request->session()->flash('message.level', 'danger');
-                    $request->session()->flash('message.text', 'VotingContest already exists');
+                    $request->session()->flash('message.text', 'Voting Contest already exists');
                     return redirect()->back();
                 }
                 $user = Auth::user();
+//                echo '<pre>';
+//                print_r($request->input());
+//                die;
+                $votingContest = Voting_contest::find($data['VotingContest_id']);
+                $votingContest->category = $data['category'];
+                $votingContest->type = $data['type'];
+                $votingContest->limit = $data['limit'];
+                if ($data['limit'] == '1') {
+                    $votingContest->limit_count = $data['limit_count'];
+                } else {
+                    $votingContest->limit_count = 0;
+                }
+                if ($data['category'] == '2') {
+                    $votingContest->awards = $data['awards'];
+                } else {
+                    $votingContest->awards = 0;
+                }
+                $votingContest->payment_gateway = $data['payment_gateway'];
+                $votingContest->packages = $data['packages'];
+                $votingContest->title = $data['title'];
+                $votingContest->fees = $data['fees'];
+                $votingContest->timezone = $data['timezone'];
+                $votingContest->starting_date = date("Y-m-d H:i", strtotime($data['starting_date']));
+                $votingContest->closing_date = date("Y-m-d H:i", strtotime($data['closing_date']));
 
-                $VotingContest = votingContests::find($data['VotingContest_id']);
-                $VotingContest->name = $data['VotingContest_name'];
-                $VotingContest->description = $data['description'];
-                $VotingContest->created_by = $user->id;
-
-                if ($request->hasFile('image_name')) {
-                    if ($request->file('image_name')->isValid()) {
-                        if (file_exists(public_path($data['old_file']))) {
-                            unlink(public_path($data['old_file']));
-                            File::delete(public_path($data['old_file']));
-                        }
+                if ($request->hasFile('image')) {
+                    if ($request->file('image')->isValid()) {
                         $validated = $request->validate([
-                            'image_name' => 'string|max:40',
-                            'image_name' => 'mimes:jpeg,png|max:1014',
+                            'image' => 'string|max:40',
+                            'image' => 'mimes:jpeg,png|max:1014',
                         ]);
-                        $file = request()->file('image_name');
+                        $file = request()->file('image');
                         $fileName = md5($file->getClientOriginalName() . time()) . "." . $file->getClientOriginalExtension();
                         $file->move('./uploads/images/', $fileName);
                         $img = '/uploads/images/' . $fileName;
-                        $VotingContest->image = $img;
+                        $votingContest->image = $img;
                     }
                 }
-                $VotingContest->update();
 
-                if ($VotingContest->id != '') {
+                $votingContest->update();
+
+                if ($votingContest->id != '') {
+
                     $request->session()->flash('message.level', 'success');
-                    $request->session()->flash('message.text', 'VotingContest Updated successfully.');
+                    $request->session()->flash('message.text', 'Voting contest Updated successfully.');
                     return redirect()->back();
                 } else {
+
                     $request->session()->flash('message.level', 'danger');
                     $request->session()->flash('message.text', 'fail.');
                     return redirect()->back();
                 }
             } catch (\Exception $e) {
+
                 $request->session()->flash('message.level', 'danger');
                 $request->session()->flash('message.text', $e->getMessage());
                 return redirect()->back();
@@ -203,7 +248,9 @@ class VotingContestsController extends Controller {
         }
         if ($request->isMethod('get')) {
             $id = $request->get('id');
-            $VotingContest = votingContests::find($id);
+            $VotingContest = Voting_contest::find($id);
+            $VotingContest->viewstart_date = date("d/m/Y H:i", strtotime($VotingContest->starting_date));
+            $VotingContest->viewclosing_date = date("d/m/Y H:i", strtotime($VotingContest->closing_date));
             return view('admin.votingContests.edit')->with('VotingContest', $VotingContest);
         }
     }
@@ -212,24 +259,33 @@ class VotingContestsController extends Controller {
         $validator = Validator::make($request->all(), [
                     'id' => 'required|numeric',
         ]);
+
         if ($validator->fails()) {
             return Response::json(['success' => false, 'status' => 2, "error" => $validator->errors()->first()]);
         }
-        try {
-            $VotingContest = votingContests::find($request->input('id'));
-            if (file_exists(public_path($VotingContest->image))) {
-                unlink(public_path($VotingContest->image));
-                File::delete(public_path($VotingContest->image));
-            }
-            $VotingContest->delete();
 
-            if ($VotingContest) {
-                return Response::json(['success' => true, 'status' => 1, 'message' => "VotingContest has been deleted successfully."]);
+        try {
+
+            $votingContest = Voting_contest::find($request->input('id'));
+//            echo '<pre>';
+//            print_r($VotingContest ); die;
+            if ($votingContest->image != '' && file_exists(public_path($votingContest->image))) {
+                unlink(public_path($votingContest->image));
+                File::delete(public_path($votingContest->image));
+            }
+           
+            $votingContest->delete();
+
+            if ($votingContest) {
+             
+                return Response::json(['success' => true, 'status' => 1, 'message' => "Voting Contest has been deleted successfully."]);
             } else {
-                return Response::json(['success' => false, 'status' => 2, "error" => 'Something went wrong.']);
+               
+                return Response::json(['success' => false, 'status' => 2, "error" => 'Something went wrong.']);die;
             }
         } catch (\Exception $e) {
-            return Response::json(['success' => false, 'status' => 2, "error" => $e->getMessage()]);
+          
+            return Response::json(['success' => false, 'status' => 2, "error" => $e->getMessage()]); die;
         }
     }
 

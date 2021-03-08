@@ -107,6 +107,13 @@ $timezoneArray = config('constants.timezones');
                             <div class="error">{{ $errors->first('profile') }}</div>
                             @endif
                         </div>
+                        <div class="col-md-6 form-group cus-form-group">
+                            <label for="image">Image</label>
+                            <input type="file"  class="form-control" name="image" id="image" aria-describedby="emailHelp" placeholder="Choose Image">
+                            @if($errors->has('image'))
+                            <div class="error">{{ $errors->first('image') }}</div>
+                            @endif
+                        </div>
                         <div class="row">
                             <div class="col-md-6 form-group cus-form-group">
                                 <label for="title">Vote Contest title</label>
@@ -115,13 +122,7 @@ $timezoneArray = config('constants.timezones');
                                 <div class="error">{{ $errors->first('title') }}</div>
                                 @endif
                             </div>
-                            <div class="col-md-6 form-group cus-form-group">
-                                <label for="image">Image</label>
-                                <input type="file"  class="form-control" name="image" id="image" aria-describedby="emailHelp" placeholder="Choose Image">
-                                @if($errors->has('image'))
-                                <div class="error">{{ $errors->first('image') }}</div>
-                                @endif
-                            </div>
+
                             <div class="col-md-6 form-group cus-form-group">
                                 <label for="fees">Voting Fee</label>
                                 <input type="number" autocomplete="off" class="form-control" name="fees" id="organiser_name" value=""  placeholder="Enter Voting fee">

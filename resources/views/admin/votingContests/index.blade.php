@@ -109,7 +109,7 @@ table_instance = $('#voting-table').DataTable({
 });
 
 
-function deletevoting(obj, id)
+function deleteVotingContest(obj, id)
 {
 
     Swal.fire({
@@ -129,6 +129,7 @@ function deletevoting(obj, id)
                 _token: "{!! csrf_token() !!}"
             }, function (data) {
                 $('#full_page_loader').addClass('d-none');
+               
                 if (data.status == 1) {
                     Swal.fire({
                         type: 'success',
