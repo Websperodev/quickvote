@@ -12,6 +12,7 @@ use Yajra\Datatables\Datatables;
 use App\Models\Event;
 use App\Models\Contestant;
 use Auth;
+use App\Models\Voting_contest;
 
 class ContestantController extends Controller {
 
@@ -32,8 +33,8 @@ class ContestantController extends Controller {
     public function create() {
         $mytime = Carbon::now();
         $date = $mytime->toDateString();
-        $events = Event::where('start_date', '>', $date)->get();
-        return view('admin.contestant.add', compact('events'));
+        $votingcontest = Voting_contest::where('closing_date', '>', $date)->get();
+        return view('admin.contestant.add', compact('votingcontest'));
     }
 
     /**
@@ -44,11 +45,13 @@ class ContestantController extends Controller {
      */
     public function store(Request $request) {
 
-        $event_id = $request->get('event_id');
+        $voting_id = $request->get('voting_id');
         $name = $request->get('name');
         $number = $request->get('number');
         $about = $request->get('about');
         $user = Auth::user();
+//        echo '<pre>';
+//        print_r($request->input()); die;
         if ($request->hasFile('image')) {
             $images = $request->file('image');
             foreach ($images as $key => $image) {
@@ -57,7 +60,7 @@ class ContestantController extends Controller {
                 $img = 'uploads/images/' . $fileName;
 
                 $contestant = new Contestant;
-                $contestant->event_id = $event_id;
+                $contestant->voting_id = $voting_id;
                 $contestant->name = $name[$key];
                 $contestant->phone = $number[$key];
                 $contestant->image = $img;
