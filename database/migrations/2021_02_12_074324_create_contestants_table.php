@@ -15,7 +15,7 @@ class CreateContestantsTable extends Migration
     {
         Schema::create('contestants', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('event_id')->nullable();
+            $table->integer('voting_id')->nullable();
             $table->string('name', 255);
             $table->string('phone', 255);
             $table->string('image', 255);

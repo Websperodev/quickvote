@@ -24,8 +24,8 @@ class CreateVotingContestantsTable extends Migration {
             $table->integer('votes')->nullable();
             $table->string('coupon')->nullable();
             $table->integer('discount')->nullable();
-            $table->decimal('eachamount', $precision = 8, $scale = 2)->nullable();
-            $table->decimal('totalamount', $precision = 8, $scale = 2)->nullable();
+            $table->decimal('eachamount', $precision = 8, $scale = 2);
+            $table->decimal('totalamount', $precision = 8, $scale = 2);
             $table->timestamps();
         });
     }

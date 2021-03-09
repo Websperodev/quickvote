@@ -13,6 +13,7 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-link active" aria-current="page" href="{{ url('/') }}">Home</a>
+         <a class="nav-link active" aria-current="page" href="{{ url('votes') }}">Votes</a>
         <a class="nav-link" href="{{ route('about-us') }}">About Us</a>
         <a class="nav-link" href="{{ route('our-services') }}">Services</a>
         <a class="nav-link" href="{{ route('pricing') }}">Pricing</a>
@@ -22,7 +23,12 @@
       <div class="reg-login">
         <a href="{{ route('search-event') }}" class="btn btn-bg">Create Event</a>
 
-    
+        <style>
+             .img-fluid {
+    max-width: 100% !important;
+    height: 22% !important;
+             }
+        </style>
         @if(Auth::user())
           <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
             <span class="pro-user-name ml-1">

@@ -9,6 +9,7 @@ use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Validator;
 use Auth;
 use Response;
+use App\Models\Categories;
 
 class VotingContestsController extends Controller {
 
@@ -37,7 +38,7 @@ class VotingContestsController extends Controller {
 //            die;
             $validator = Validator::make($request->all(), [
                         'category' => 'required',
-                        'awards' => 'required_if:category,==,2|nullable',
+                        'category_id' => 'required_if:category,==,2|nullable',
                         'type' => 'required',
                         'limit' => 'required',
                         'limit_count' => 'required_if:limit,==,1|nullable',
@@ -70,12 +71,12 @@ class VotingContestsController extends Controller {
                 if ($data['limit'] == '1') {
                     $votingContest->limit_count = $data['limit_count'];
                 } else {
-                    $votingContest->limit_count = 0;
+                    $votingContest->limit_count = NULL;
                 }
                 if ($data['category'] == '2') {
-                    $votingContest->awards = $data['awards'];
+                    $votingContest->category_id = $data['category_id'];
                 } else {
-                    $votingContest->awards = 0;
+                    $votingContest->category_id = NULL;
                 }
                 $votingContest->payment_gateway = $data['payment_gateway'];
                 $votingContest->packages = $data['packages'];
@@ -118,7 +119,8 @@ class VotingContestsController extends Controller {
             }
         }
         if ($request->isMethod('get')) {
-            return view('admin.votingContests.add');
+            $categories = Categories::get();
+            return view('admin.votingContests.add', compact('categories'));
         }
     }
 
@@ -161,7 +163,7 @@ class VotingContestsController extends Controller {
         if ($request->isMethod('post')) {
             $validator = Validator::make($request->all(), [
                         'category' => 'required',
-                        'awards' => 'required_if:category,==,2|nullable',
+                        'category_id' => 'required_if:category,==,2|nullable',
                         'type' => 'required',
                         'limit' => 'required',
                         'limit_count' => 'required_if:limit,==,1|nullable',
@@ -197,12 +199,12 @@ class VotingContestsController extends Controller {
                 if ($data['limit'] == '1') {
                     $votingContest->limit_count = $data['limit_count'];
                 } else {
-                    $votingContest->limit_count = 0;
+                    $votingContest->limit_count = NULL;
                 }
                 if ($data['category'] == '2') {
-                    $votingContest->awards = $data['awards'];
+                    $votingContest->category_id = $data['category_id'];
                 } else {
-                    $votingContest->awards = 0;
+                    $votingContest->category_id = NULL;
                 }
                 $votingContest->payment_gateway = $data['payment_gateway'];
                 $votingContest->packages = $data['packages'];
@@ -249,9 +251,10 @@ class VotingContestsController extends Controller {
         if ($request->isMethod('get')) {
             $id = $request->get('id');
             $VotingContest = Voting_contest::find($id);
+            $categories = Categories::get();
             $VotingContest->viewstart_date = date("d/m/Y H:i", strtotime($VotingContest->starting_date));
             $VotingContest->viewclosing_date = date("d/m/Y H:i", strtotime($VotingContest->closing_date));
-            return view('admin.votingContests.edit')->with('VotingContest', $VotingContest);
+            return view('admin.votingContests.edit', compact('VotingContest', 'categories'));
         }
     }
 
@@ -273,19 +276,21 @@ class VotingContestsController extends Controller {
                 unlink(public_path($votingContest->image));
                 File::delete(public_path($votingContest->image));
             }
-           
+
             $votingContest->delete();
 
             if ($votingContest) {
-             
+
                 return Response::json(['success' => true, 'status' => 1, 'message' => "Voting Contest has been deleted successfully."]);
             } else {
-               
-                return Response::json(['success' => false, 'status' => 2, "error" => 'Something went wrong.']);die;
+
+                return Response::json(['success' => false, 'status' => 2, "error" => 'Something went wrong.']);
+                die;
             }
         } catch (\Exception $e) {
-          
-            return Response::json(['success' => false, 'status' => 2, "error" => $e->getMessage()]); die;
+
+            return Response::json(['success' => false, 'status' => 2, "error" => $e->getMessage()]);
+            die;
         }
     }
 

@@ -12,27 +12,30 @@ use App\Models\Event;
 use App\Models\Ticket;
 use App\Models\Contestant;
 use App\Models\VotingContestants;
+use App\Models\Voting_contest;
 use Illuminate\Support\Facades\Validator;
 use DB;
 
 class ContestantsController extends Controller {
 
-    function index(Request $req, $eId) {
+    function index(Request $req, $vId) {
         $mytime = Carbon::now();
         $date = $mytime->toDateString();
-        $event = Event::with('country')->where('id', $eId)->first();
+        $voting = Voting_contest::where('id', $vId)->first();
+
         $constnt_id = '';
-        if (!empty($event)) {
-            $allContestants = Contestant::where('event_id', $eId)->get();
+        if (!empty($voting)) {
+            $allContestants = Contestant::where('voting_id', $vId)->get();
             if (!empty($req->input()) && $req->input('cId') != '') {
                 $cId = $req->input('cId');
                 $constnt_id = $cId;
                 $contestants = Contestant::where('id', $cId)->get();
             } else {
-                $contestants = Contestant::where('event_id', $eId)->get();
+                $contestants = Contestant::where('voting_id', $vId)->get();
             }
-            $totalvotes = VotingContestants::select(DB::Raw('SUM(votes) as total_votes'))->where('event_id', $eId)->first();
-            $totalv = (int)$totalvotes->total_votes;
+
+            $totalvotes = VotingContestants::select(DB::Raw('SUM(votes) as total_votes'))->where('voting_id', $vId)->first();
+            $totalv = (int) $totalvotes->total_votes;
 //            echo '<pre>';
 //            print_r($contestants); die;
             if (!empty($contestants)) {
@@ -40,34 +43,35 @@ class ContestantsController extends Controller {
 
                     $contestvotes = VotingContestants::select(DB::Raw('SUM(votes) as contel_votes'))->where('contestant_id', $cont->id)->first();
 //                    print_r($totalvotes->total_votes); die;
-                    if (!empty($contestvotes) && $totalv!=0) {
+                    if (!empty($contestvotes) && $totalv != 0) {
                         $totalC = $contestvotes->contel_votes;
                         $percent = $totalC * 100 / $totalv;
                         $contestants[$key]->percentage = (int) $percent;
+                    } else {
+                        $contestants[$key]->percentage = 0;
                     }
-                    $contestants[$key]->percentage = 0;
                 }
             }
-            $sugstEvent = Event::with('tickets')->where('end_date', '>', $date)->where('category_id', $event->category_id)->limit(3)->get()->toArray();
+            $voting_contest = Voting_contest::where('closing_date', '>', $date)->where('category_id', $voting->category_id)->limit(3)->get();
 
-            return view('user.contestants.list', compact('event', 'contestants', 'sugstEvent', 'constnt_id', 'allContestants'));
+            return view('user.contestants.list', compact('voting', 'contestants', 'voting_contest', 'constnt_id', 'allContestants'));
         }
 
 //        echo '<pre>';
 //        print_r($contestant); die;
     }
 
-    function buyVotesByUser($eId, $cId) {
+    function buyVotesByUser($vId, $cId) {
         $mytime = Carbon::now();
         $date = $mytime->toDateString();
-        $event = Event::where('id', $eId)->first();
+        $vote = Voting_contest::where('id', $vId)->first();
         $contestants = Contestant::where('id', $cId)->first();
 //        echo '<pre>';
 //        print_r($event);
 //          print_r($contestants); die;
-        if (!empty($event) && !empty($contestants) && $contestants->event_id == $eId) {
-            $sugstEvent = Event::with('tickets')->where('end_date', '>', $date)->where('category_id', $event->category_id)->limit(3)->get()->toArray();
-            return view('user.contestants.votesBuyForm', compact('event', 'contestants', 'sugstEvent'));
+        if (!empty($vote) && !empty($contestants) && $contestants->voting_id == $vId) {
+            $voting_contest = Voting_contest::where('closing_date', '>', $date)->where('category_id', $vote->category_id)->limit(3)->get();
+            return view('user.contestants.votesBuyForm', compact('vote', 'contestants', 'voting_contest'));
         } else {
             echo 'ksjdhfsd';
         }
@@ -75,7 +79,7 @@ class ContestantsController extends Controller {
 
     function saveBuyVotesByUser(Request $request) {
         $validator = Validator::make($request->all(), [
-                    'event_id' => 'required',
+                    'voting_id' => 'required',
                     'contestant_id' => 'required',
                     'votes' => 'required',
                     'name' => 'required',
@@ -92,15 +96,16 @@ class ContestantsController extends Controller {
         $credt = $date . ' ' . $time;
         try {
             $data = $request->all();
-            $existing = VotingContestants::where('email', $data['email'])->first();
+            $existing = VotingContestants::where(['email' => $data['email'], 'voting_id' => $data['voting_id'], 'contestant_id' => $data['contestant_id']])->first();
+//            print_r($existing); die;
             if (!empty($existing)) {
 
                 $votingCont = VotingContestants::find($existing->id);
                 $votingCont->votes = $data['votes'] + $existing->votes;
-                $votingCont->save();
+                $votingCont->update();
             } else {
                 $votingCont = new VotingContestants;
-                $votingCont->event_id = $data['event_id'];
+                $votingCont->voting_id = $data['voting_id'];
                 $votingCont->contestant_id = $data['contestant_id'];
                 $votingCont->votes = $data['votes'];
                 $votingCont->name = $data['name'];

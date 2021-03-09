@@ -24,14 +24,15 @@
         <div class="row">
             @php
 
-            if($event->image != '')
+            if($vote->image != '')
             {
-            $img = $event->image;
+            $img = $vote->image;
             }
             else{
             $img ="img/fe2.jpg";
             }
-            $date = $event->start_date;
+            $date = $vote->starting_date;
+            $close_date = $vote->closing_date;
 
             $start_day=date('D', strtotime($date));
             $start_month=date('F', strtotime($date));
@@ -39,27 +40,29 @@
             $start_date=date('d',strtotime($date));
             $start_year=date('Y',strtotime($date));
             $start_time=date('h:m',strtotime($date));
-            $description=substr(strip_tags($event['description']),0, 150);
-            $char=strlen($event['description']);
-            if($char >500){
-            $description=$description.'...';
-            }
+
+            $close_day=date('D', strtotime($close_date));
+            $close_month=date('F', strtotime($close_date));
+            $close_month_shot=date('m', strtotime($close_date));
+            $clos_date=date('d',strtotime($close_date));
+            $close_year=date('Y',strtotime($close_date));
+            $close_time=date('h:m',strtotime($close_date));
 
             @endphp
             <div class="col-md-8 col-sm-12 edetail">
                 <div class="event-titlee">
-                    <div class="eve-img"><img src="{{url($img)}}"></div>
+                    <div class="eve-img"><img src="{{url($img)}}" ></div>
                     <div class="eve-title">
-                        <h2>{{$event->name }}</h2>
+                        <h2>{{$vote->title }}</h2>
                         <p class="eve-date-time"><span class="eve-date">Date: {{$start_day .' '.$start_month .' '.$start_date.' '.$start_year}}</span> <span class="eve-time">Time: {{$start_time}}</span></p>
                     </div>
                 </div>
                 <div class="event-details"> <br> <br>
                     <div class="eve-description">
-                        <div><h4>Location</h4> <span>{{$event->country->name}}</span></div>
+
                         <div><h4>Date & Time</h4> <span>{{$start_day.' '.$start_month.' '.$start_date. ' '.$start_year}}, Time:{{$start_time}}</span></div>
-                        <div><h4>Event Details</h4> 
-                            <span>{{$description}}</span></div>
+                        <div><h4>Vote Details</h4> 
+                        </div>
                     </div>
                 </div>
             </div>
@@ -72,7 +75,7 @@
 
                     @csrf
                     <div class="col-md-12">
-                        <input type="hidden" name="event_id" value="{{$event->id}}">
+                        <input type="hidden" name="voting_id" value="{{$vote->id}}">
                         <input type="hidden" name="contestant_id" value="{{$contestants->id}}" >
                         <div class="form-group">
                             <input type="Number" name="votes" value="" class="form-control" placeholder="Enter the total number of votes you">
@@ -112,58 +115,56 @@
 <div id="eve" class="events single-eve">
     <div class="container">
         <div class="row">
-            <h2 class="titleh2 tc">Similar Events</h2>
-            @if(!empty($sugstEvent))
-            @foreach($sugstEvent as $sugg)
-            @php 
-            if($sugg['image'] != '')
+            <h2 class="titleh2 tc">Similar Votes</h2>
+            @if(!empty($voting_contest))
+            @foreach($voting_contest as $voting)
+            @php
+
+            if($voting->image != '')
             {
-            $simg = $sugg['image'];
+            $img = $voting->image;
             }
-            else
-            {
-            $simg ="img/fe2.jpg";
+            else{
+            $img ="img/fe2.jpg";
             }
-            $date = $sugg['start_date'];
+            $date = $voting->starting_date;
+            $close_date = $voting->closing_date;
 
             $start_day=date('D', strtotime($date));
             $start_month=date('F', strtotime($date));
-            $start_month_shot=date('M', strtotime($date));
+            $start_month_shot=date('m', strtotime($date));
             $start_date=date('d',strtotime($date));
             $start_year=date('Y',strtotime($date));
-            $start_time=date('h:i:A',strtotime($date));
-            $end_time=date('h:i:A',strtotime($sugg['end_date']));
+            $start_time=date('h:m',strtotime($date));
 
-            if(isset($sugg['tickets']) && !empty($sugg['tickets'])){
-            $price=$sugg['tickets'][0]['price'];
-            $ticket_type=$sugg['tickets'][0]['ticket_type'];
-            }
-            else{
-            $price='';
-            $ticket_type='';
-            }
+            $close_day=date('D', strtotime($close_date));
+            $close_month=date('F', strtotime($close_date));
+            $close_month_shot=date('m', strtotime($close_date));
+            $clos_date=date('d',strtotime($close_date));
+            $close_year=date('Y',strtotime($close_date));
+            $close_time=date('h:m',strtotime($close_date));
+
 
             @endphp
-
             <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter Most Recent">
                 <div class="tcard border-0 py-3 px-4">
-                    <div class="justify-content-center"> <img src="{{url($simg)}}" class="img-fluid profile-pic mb-4 mt-3"> </div>
+                    <div class="justify-content-center"> <img src="{{url($img)}}" class="img-fluid profile-pic mb-4 mt-3"> </div>
                     <div class="fe-abs">
-                        <span class="date-abs">{{$start_date .' '. $start_month_shot}}</span>
+                        <span class="date-abs">Vote</span>
                         <div class="txt-card">
                             <div class="event-name">
-                                <h2 class="titleh2 event-title">{{$sugg['name']}}</h2>
-                                <span class="tickets">Tickets From {{$price}}</span>
+                                <h2 class="titleh2 event-title">{{$voting->title}}</h2>
+
                             </div>
-                            <p class="time-price"><span class="etime"><i class="far fa-clock"></i> Start {{$start_time .'-'.$end_time}}</span> <span class="eprice">{{$ticket_type}}</span></p>
-                            <a class="btn btn-grad-bd ticket-details" href="{{url('event-detail').'/'.$sugg['id']}}">Tickets & Details</a>
+                            <p class="time-price"><span class="etime"><i class="far fa-clock"></i> Start {{$start_day .' '.$start_month. ' '.$start_date.' '.$start_year .' - '.$close_day.' '.$close_month.' '.$clos_date}}</span> </p>
+                            <a class="btn btn-grad-bd ticket-details" href="{{url('contestants').'/'.$voting->id}}">Contestants</a>
                         </div>
                     </div>
                 </div>
             </div>
             @endforeach
             @endif
-            <p align="center"> <a href="{{url('search-event')}}" class="btn btn-bg mt-4">View All Events</a></p>
+            <p align="center"> <a href="{{url('votes')}}" class="btn btn-bg mt-4">View All Votes</a></p>
         </div>
     </div>
 </div>

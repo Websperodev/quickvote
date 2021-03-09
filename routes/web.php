@@ -37,19 +37,18 @@ Route::namespace('User')->group(function () {
     Route::get('our-team', 'UserController@openTeam')->name('our-team');
     Route::get('search-event', 'UserController@openSearch')->name('search-event');
     Route::post('search-event', 'UserController@openSearch')->name('search-event-post');
-     Route::get('event-detail/{id}', 'EventController@view')->name('event.detail');
+    Route::get('event-detail/{id}', 'EventController@view')->name('event.detail');
     Route::get('/dashboard', 'DashboardController@index')->name('user.dashboard');
     Route::post('password-update', 'ProfileController@changePassword')->name('user.updatePass');
     Route::post('edit-profile', 'ProfileController@updateProfile')->name('user.editProfile');
-    
-    
-    
-     //** Contestants**//
+
+
+
+    //**  //** Votes Management And Contestants**//
+    Route::get('votes', 'VotesController@index')->name('contestants.index');
     Route::get('contestants/{id}', 'ContestantsController@index')->name('contestants.index');
- 
-     Route::get('vote/contestants/{id}/{any}', 'ContestantsController@buyVotesByUser')->name('contestants.buyvotes');
-         Route::post('vote/contestants', 'ContestantsController@saveBuyVotesByUser')->name('contestants.buyvotes.save');
-    
+    Route::get('vote/contestants/{id}/{any}', 'ContestantsController@buyVotesByUser')->name('contestants.buyvotes');
+    Route::post('vote/contestants', 'ContestantsController@saveBuyVotesByUser')->name('contestants.buyvotes.save');
 });
 
 Route::namespace('Vendor\Auth')->group(function () {

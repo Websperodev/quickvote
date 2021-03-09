@@ -148,7 +148,8 @@ class EventsController extends Controller {
     public function allEvents(Request $request) {
 
         $allEvents = Event::orderBy('created_at', 'desc')->get();
-
+//        echo '<pre>';
+//print_r($allEvents); die;
         return DataTables::of($allEvents)
                         ->addColumn('name', function($allEvents) {
                             return $allEvents->name;

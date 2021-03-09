@@ -73,10 +73,16 @@ $timezoneArray = config('constants.timezones');
                             @endif
                         </div>
                         <div class="col-md-7 form-group cus-form-group awardsCat" >
-                            <label for="awards">Number of Award Categories (if categorised)</label>
-                            <input type="number" autocomplete="off" class="form-control" name="awards" id="awards" value="" aria-describedby="emailHelp" placeholder="Enter awards">
-                            @if($errors->has('awards'))
-                            <div class="error">{{ $errors->first('awards') }}</div>
+                            <label for="awards">Select Category</label>
+                           <select class="form-control" name="category_id"autocomplete="off" id="event_category" aria-describedby="emailHelp">
+                                <option value="">Choose Category</option>
+                                @foreach($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+
+                            @if($errors->has('category_id'))
+                            <div class="error">{{ $errors->first('category_id') }}</div>
                             @endif
                         </div>
                         <div class="col-md-7 form-group cus-form-group">

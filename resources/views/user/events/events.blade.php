@@ -54,7 +54,7 @@
                             <span>{{$description}}</span></div>
                     </div>
                 </div>
-                  <p class="buy-tkt"><a href="{{url('contestants').'/'.$event->id}}" class="btn vtn-success">View Contestants</a></p>
+                  <!--<p class="buy-tkt"><a href="{{url('contestants').'/'.$event->id}}" class="btn vtn-success">View Contestants</a></p>-->
             </div>
             <div class="col-md-4 col-sm-12 sidebar">
                 <div class="single-event-ticket">
