@@ -99,17 +99,19 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('admin.voting.index') }}">
-                    <i class="fa fa-users" aria-hidden="true"></i>Voting
+                <a href="{{ route('admin.events') }}">
+                    <i class="fa fa-calendar" aria-hidden="true"></i> Events
                 </a>
             </li>
+
             <li class="has-submenu">
                 <a href="javascript:void(0)">
                     <i class="fa fa-picture-o" aria-hidden="true"></i>Voting &nbsp;<div class="arrow-down"></div></a>
                 <ul class="submenu">
                     <li>
-                        <a href="{{ route('admin.events') }}">
-                            <i class="fa fa-calendar" aria-hidden="true"></i> Events
+
+                        <a href="{{ route('admin.voting.index') }}">
+                            <i class="fa fa-users" aria-hidden="true"></i>Voting contests
                         </a>
                     </li>
                     <li>
