@@ -33,10 +33,10 @@ class ContestantController extends Controller {
     public function create() {
         $mytime = Carbon::now();
         $date = $mytime->toDateString();
-        $events = Event::where('start_date', '>', $date)->get();
+         $votingcontest = Voting_contest::where('closing_date', '>', $date)->get();
 //        echo '<pre>';
 //        print_r($events); die;
-        return view('vendor.contestant.add', compact('events'));
+        return view('vendor.contestant.add', compact('votingcontest'));
     }
 
     /**
@@ -48,7 +48,7 @@ class ContestantController extends Controller {
     public function store(Request $request) {
 //        echo '<pre>';
 //print_r($request->input()); die;
-        $event_id = $request->get('event_id');
+        $voting_id = $request->get('voting_id');
         $name = $request->get('name');
         $number = $request->get('number');
         $about = $request->get('about');
@@ -60,7 +60,7 @@ class ContestantController extends Controller {
                 $image->move('./uploads/images/', $fileName);
                 $img = 'uploads/images/' . $fileName;
                 $contestant = new Contestant;
-                $contestant->event_id = $event_id;
+                $contestant->voting_id = $voting_id;
                 $contestant->name = $name[$key];
                 $contestant->phone = $number[$key];
                 $contestant->image = $img;

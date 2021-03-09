@@ -28,12 +28,11 @@
                     </div>
 
                     <div class="col-md-12 form-group cus-form-group">
-                        <label for="event" class="col-12">Choose Event</label>
                         <select name="event" id="event" onchange="eventcheck()" class="form-control">
-                            <option value="">Choose Event</option>
-                            @if(!empty($events))
-                            @foreach($events as $event)
-                            <option value="{{ $event->id }}">{{ $event->name }}</option>
+                            <option value="">Choose Voting</option>
+                            @if(!empty($votingcontest))
+                            @foreach($votingcontest as $voting)
+                            <option value="{{ $voting->id }}">{{ $voting->title }}</option>
                             @endforeach
                             @endif
                         </select>
@@ -155,7 +154,7 @@
 </textarea></div>';
                                 }
 
-                                html += '<input type="hidden" name="event_id" value=' + eventId + ' /><div class="col-12 btn-right"><button type="submit" class="btn btn-bg ladda-button submitBtn">Add</button></div>';
+                                html += '<input type="hidden" name="voting_id" value=' + eventId + ' /><div class="col-12 btn-right"><button type="submit" class="btn btn-bg ladda-button submitBtn">Add</button></div>';
 
                                 $('#add_contestant_form').append(html);
                                 $('#contestantModal').modal('show');

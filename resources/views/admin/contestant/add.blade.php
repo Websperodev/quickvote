@@ -28,9 +28,9 @@
                     </div>
 
                     <div class="col-md-12 form-group cus-form-group">
-                        <label for="event" class="col-12">Choose Event</label>
+                        <label for="event" class="col-12">Choose Voting</label>
                         <select name="event" id="event" onchange="eventcheck()" class="form-control">
-                            <option value="">Choose Event</option>
+                            <option value="">Choose Voting</option>
                             @if(!empty($votingcontest))
                             @foreach($votingcontest as $voting)
                             <option value="{{ $voting->id }}">{{ $voting->title }}</option>
