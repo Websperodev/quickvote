@@ -89,7 +89,8 @@ class RegisterController extends Controller
             'bank_name'             => 'required',
             'password'              => 'required|min:8'
         ]);
-
+//echo '<pre>';
+//print_r($request->input()); die;
         if ($validator->fails())
         {
             return Response::json(['success' => false, 'status' => 2, 'errors'=> $validator->errors()->all()]);

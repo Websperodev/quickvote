@@ -134,7 +134,7 @@ $timezoneArray = config('constants.timezones');
                             <select class="form-control" autocomplete="off" name="country" id="country" aria-describedby="emailHelp">
                                 <option value="">Select Country</option>
                                 @foreach($countries as $country)
-                                <option {{ ($country->id == '161') ? 'selected':'' }} value="{{ $country->id }}">{{ $country->name }}</option>
+                                <option {{ ($country->id == '1') ? 'selected':'' }} value="{{ $country->id }}">{{ $country->name }}</option>
                                 @endforeach
                             </select>
 
@@ -293,11 +293,11 @@ $timezoneArray = config('constants.timezones');
 //                            });</script> 
 <script type="text/javascript">
     $(document).ready(function () {
-        var cid = "{{ isset($userCountry) ? $userCountry:'161' }}";
+        var cid = "{{ isset($userCountry) ? $userCountry:'1' }}";
         var url = '{{ route("states", ":id") }}';
         url = url.replace(':id', cid);
         console.log('cid', cid);
-        var stateId = "{{ isset($userState) ? $userState : '' }}";
+        var stateId = "{{ isset($userState) ? $userState : 1 }}";
         var cityUrl = '{{ route("cities", ":id") }}';
         cityUrl = cityUrl.replace(':id', stateId);
         console.log('sid', stateId);

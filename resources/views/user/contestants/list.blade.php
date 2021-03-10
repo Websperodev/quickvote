@@ -6,7 +6,7 @@
     .brands .slick-slide{
         height:30% !important;
     }
-   
+
 
 
 </style>
@@ -73,9 +73,8 @@
                                         @if(!empty($contestants))
                                         @foreach($allContestants as $cont)
 
-                                        <option value="{{$cont->id}}"> {{$cont->name}}</option>
                                         <option {{ $constnt_id == $cont->id ? 'selected' : ''}}  value="{{ $cont->id }}">{{ $cont->name }}</option>
-
+                                      
                                         @endforeach
                                         @endif
                                     </select>
@@ -120,7 +119,7 @@
             @endphp
             <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 candidates">
                 <div class="tcard border-0 py-3 px-4">
-                    <div class="justify-content-center"> <img src="{{url($cImg)}}" class="img-fluid cand-pic mt-3"> </div>
+                    <div class="justify-content-center"> <img src="{{url($cImg)}}" class="cand-pic mt-3"> </div>
                     <div class="can-detail">
                         <div class="txt-card">
                             <div class="event-name">
@@ -243,10 +242,6 @@
 //    window.redirect();
     });
     $(document).ready(function () {
-
-
-
-
         $('.customer-logos').slick({
             slidesToShow: 5,
             slidesToScroll: 1,
@@ -267,7 +262,6 @@
                     }
                 }]
         });
-    }
-    );
+    });
                                             </script>
                                         </div>

@@ -2022,7 +2022,11 @@ p.follow-mem.tc a {
 .team-mem .follow-mem i:hover {
     color: #ffa500;
 }
-
+.hide-div{
+    visibility: hidden;
+    height: 0;
+    padding: 0;
+}
 button:focus {
     outline: none;
 }

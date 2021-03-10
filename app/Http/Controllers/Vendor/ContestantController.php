@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Yajra\Datatables\Datatables;
 use App\Models\Event;
 use App\Models\Contestant;
+use App\Models\Voting_contest;
 use Session;
 use Auth;
 
@@ -33,7 +34,7 @@ class ContestantController extends Controller {
     public function create() {
         $mytime = Carbon::now();
         $date = $mytime->toDateString();
-         $votingcontest = Voting_contest::where('closing_date', '>', $date)->get();
+        $votingcontest = Voting_contest::where('closing_date', '>', $date)->get();
 //        echo '<pre>';
 //        print_r($events); die;
         return view('vendor.contestant.add', compact('votingcontest'));
@@ -56,6 +57,8 @@ class ContestantController extends Controller {
         if ($request->hasFile('image')) {
             $images = $request->file('image');
             foreach ($images as $key => $image) {
+                $row = Contestant::select('candidate_id')->order_by('id', 'desc')->first();
+                $candidate_id = $row->candidate_id + 1;
                 $fileName = md5($image->getClientOriginalName() . time()) . "." . $image->getClientOriginalExtension();
                 $image->move('./uploads/images/', $fileName);
                 $img = 'uploads/images/' . $fileName;
@@ -63,6 +66,7 @@ class ContestantController extends Controller {
                 $contestant->voting_id = $voting_id;
                 $contestant->name = $name[$key];
                 $contestant->phone = $number[$key];
+                $contestant->candidate_id = $candidate_id;
                 $contestant->image = $img;
                 $contestant->about = $about[$key];
                 $contestant->added_by = $user['id'];
@@ -138,7 +142,7 @@ class ContestantController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id) {
-       
+
         $name = $request->get('name');
         $phone = $request->get('number');
         $about = $request->get('about');

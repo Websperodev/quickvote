@@ -28,4 +28,12 @@ if (!function_exists('state_name)')) {
     }
 
 }
+if (!function_exists('getcountries)')) {
+
+    function getcountries() {
+        $countries = DB::table('countries')->get();
+        return $countries;
+    }
+
+}
 ?>

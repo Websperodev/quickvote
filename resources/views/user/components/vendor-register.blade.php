@@ -1,4 +1,5 @@
 <!--Modal Vendor-->
+<!--{{ $countries=getcountries()}}-->
 <div class="modal fade" id="vendorModal" tabindex="-2" role="dialog" aria-labelledby="VendorModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
   <div class="modal-content">
@@ -27,12 +28,12 @@
         <div class="form-group col-6">
         <label>Country</label>
         <select class="form-control" autocomplete="off" name="company_country" id="c_country">
-          <option value="">Select Country</option>
-          @if(isset($countries) && !empty($countries))
+         
+          
           @foreach($countries as $country)
-            <option value="{{$country->id}}">{{$country->name}}</option>
+            <option {{($country->id == 1) ? 'selected':'' }} value="{{ $country->id }}">{{ $country->name }}</option>
           @endforeach
-          @endif
+          
         </select>
         </div>
         <div class="form-group col-6">
@@ -45,7 +46,7 @@
         <div class="form-group col-6">
         <label>City</label>
           <select class="form-control" autocomplete="off" name="company_city" id="c_city">
-            <option value="">Select City</option>
+         
           </select>
         </div>
 
@@ -116,8 +117,8 @@
         <select class="form-control col-6 fr" autocomplete="off" name="country" id="country">
           <option value="">Select Country</option>
            @if(isset($countries) && !empty($countries))
-          @foreach($countries as $country)
-            <option value="{{$country->id}}">{{$country->name}}</option>
+         @foreach($countries as $country)
+            <option {{($country->id == 1) ? 'selected':'' }} value="{{ $country->id }}">{{ $country->name }}</option>
           @endforeach
           @endif
         </select>
@@ -127,7 +128,7 @@
         </select>
 
         <select class="form-control col-6 fr" name="city" autocomplete="off" id="city">
-          <option value="">Select City</option>
+         
         </select>
 
 
@@ -206,7 +207,7 @@
 </script>
 <script type="text/javascript">
   $(document).ready(function() {    
-    var cid = '161';
+    var cid = '1';
     var url = '{{ route("states", ":id") }}';
     url = url.replace(':id', cid);   
       if(cid){
@@ -216,13 +217,13 @@
           success: function (res) {
             if(res){
               $("#c_state").empty();
-              $("#c_state").append('<option>Select</option>');
+             
               $.each(res,function(key,value){
                 $("#c_state").append('<option value="'+value.id+'">'+value.name+'</option>');
               });
 
               $("#state").empty();
-              $("#state").append('<option>Select</option>');
+            
               $.each(res,function(key,value){
                 $("#state").append('<option value="'+value.id+'">'+value.name+'</option>');
               });
@@ -237,6 +238,37 @@
         });
       }
   });
+ 
+    var sid = 1;
+    var url = '{{ route("cities", ":id") }}';
+    url = url.replace(':id', sid);
+      if(sid){
+          $.ajax({
+                  type: 'GET',
+                  url: url,
+                  success: function (res) {
+                      if(res)
+                      {
+                          $("#c_city").empty();
+                        
+                          $.each(res,function(key,value){
+                              $("#c_city").append('<option value="'+value.id+'">'+value.name+'</option>');
+                          });
+                             $.each(res,function(key,value){
+                              $("#city").append('<option value="'+value.id+'">'+value.name+'</option>');
+                          });
+                      }else{
+                          $("#c_city").empty();
+                      }
+                    
+                  },
+                  error: function(err) {
+                    console.log(err);
+                  }
+          });
+      }   
+      
+ 
 
   $('#c_country').change(function(){
     var cid = $(this).val();
@@ -249,7 +281,7 @@
                   success: function (res) {
                     if(res){
                       $("#c_state").empty();
-                      $("#c_state").append('<option>Select</option>');
+                   
                       $.each(res,function(key,value){
                         $("#c_state").append('<option value="'+value.id+'">'+value.name+'</option>');
                       });
@@ -278,7 +310,7 @@
                       if(res)
                       {
                           $("#c_city").empty();
-                          $("#c_city").append('<option>Select City</option>');
+                     
                           $.each(res,function(key,value){
                               $("#c_city").append('<option value="'+value.id+'">'+value.name+'</option>');
                           });
@@ -307,7 +339,7 @@
                   success: function (res) {
                     if(res){
                       $("#state").empty();
-                      $("#state").append('<option>Select</option>');
+                   
                       $.each(res,function(key,value){
                         $("#state").append('<option value="'+value.id+'">'+value.name+'</option>');
                       });
@@ -338,7 +370,7 @@
                       if(res)
                       {
                           $("#city").empty();
-                          $("#city").append('<option>Select City</option>');
+                         
                           $.each(res,function(key,value){
                               $("#city").append('<option value="'+value.id+'">'+value.name+'</option>');
                           });

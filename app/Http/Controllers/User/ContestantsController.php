@@ -26,6 +26,7 @@ class ContestantsController extends Controller {
         $constnt_id = '';
         if (!empty($voting)) {
             $allContestants = Contestant::where('voting_id', $vId)->get();
+          
             if (!empty($req->input()) && $req->input('cId') != '') {
                 $cId = $req->input('cId');
                 $constnt_id = $cId;
@@ -33,7 +34,7 @@ class ContestantsController extends Controller {
             } else {
                 $contestants = Contestant::where('voting_id', $vId)->get();
             }
-
+ 
             $totalvotes = VotingContestants::select(DB::Raw('SUM(votes) as total_votes'))->where('voting_id', $vId)->first();
             $totalv = (int) $totalvotes->total_votes;
 //            echo '<pre>';
@@ -52,6 +53,7 @@ class ContestantsController extends Controller {
                     }
                 }
             }
+       
             $voting_contest = Voting_contest::where('closing_date', '>', $date)->where('category_id', $voting->category_id)->limit(3)->get();
 
             return view('user.contestants.list', compact('voting', 'contestants', 'voting_contest', 'constnt_id', 'allContestants'));

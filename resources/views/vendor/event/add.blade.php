@@ -141,14 +141,11 @@ $timezoneArray = config('constants.timezones');
                     <div class="row">
                         <div class="col-md-6 form-group cus-form-group">
                             <label for="country">Country</label>
-
-                            <select class="form-control" autocomplete="off" name="country" id="country" aria-describedby="emailHelp">
-                                <option value="">Select Country</option>
+                            <select class="form-control" autocomplete="off" name="country" id="country" aria-describedby="emailHelp">                               
                                 @foreach($countries as $country)
-                                <option {{ ($country->id == '161') ? 'selected':'' }} value="{{ $country->id }}">{{ $country->name }}</option>
+                                <option {{ ($country->id == 1) ? 'selected':'' }} value="{{ $country->id }}">{{ $country->name }}</option>
                                 @endforeach
                             </select>
-
                             @if($errors->has('country'))
                             <div class="error">{{ $errors->first('country') }}</div>
                             @endif
@@ -156,7 +153,7 @@ $timezoneArray = config('constants.timezones');
                         <div class="col-md-6 form-group cus-form-group">
                             <label for="state">State</label>
                             <select class="form-control" autocomplete="off" name="state" id="state" aria-describedby="emailHelp">
-                                <option value="">Select State</option>
+
                             </select>
 
                             @if($errors->has('state'))
@@ -315,11 +312,11 @@ $timezoneArray = config('constants.timezones');
 </script> 
 <script type="text/javascript">
     $(document).ready(function () {
-        var cid = "{{ isset($userCountry) ? $userCountry:'161' }}";
+        var cid = "{{ isset($userCountry) ? $userCountry:'1' }}";
         var url = '{{ route("states", ":id") }}';
         url = url.replace(':id', cid);
         console.log('cid', cid);
-        var stateId = "{{ isset($userState) ? $userState : '' }}";
+        var stateId = "{{ isset($userState) ? $userState : 1 }}";
         var cityUrl = '{{ route("cities", ":id") }}';
         cityUrl = cityUrl.replace(':id', stateId);
         console.log('sid', stateId);

@@ -31,8 +31,7 @@ body p {
 body header * {
 	font-family: 'Montserrat', sans-serif;
 }
-#
-img.logo {
+#img.logo {
     max-height: 80px;
     transition: all ease 0.5s;
 }

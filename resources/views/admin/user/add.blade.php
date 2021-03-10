@@ -144,7 +144,7 @@
                             <select class="form-control" name="country" id="country" aria-describedby="emailHelp">
                                 <option value="">Select Country</option>
                                 @foreach($countries as $country)
-                                <option {{ $country->id == '161' ? 'selected' : '' }} value="{{ $country->id }}">{{ $country->name }}</option>
+                                <option {{ $country->id == '1' ? 'selected' : '' }} value="{{ $country->id }}">{{ $country->name }}</option>
                                 @endforeach
                             </select>
 
@@ -237,7 +237,7 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-        var cid = '161';
+        var cid = '1';
         var url = '{{ route("states", ":id") }}';
         url = url.replace(':id', cid);
         if (cid) {
@@ -261,6 +261,41 @@
                 }
             });
         }
+
+
+
+        var sid = 1;
+
+        var url = '{{ route("cities", ":id") }}';
+        url = url.replace(':id', sid);
+        console.log(url);
+
+        if (sid) {
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function (res) {
+                    console.log('response', res);
+                    if (res)
+                    {
+                        $("#city").empty();
+                      
+                        $.each(res, function (key, value) {
+                            $("#city").append('<option value="' + value.id + '">' + value.name + '</option>');
+                        });
+                    } else {
+                        $("#city").empty();
+                    }
+
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+
+
     });
 
     $('#country').change(function () {
