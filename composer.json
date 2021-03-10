@@ -18,6 +18,7 @@
         "laravelcollective/html": "^6.2",
         "livewire/livewire": "^2.3",
         "spatie/laravel-permission": "^3.18",
+        "unicodeveloper/laravel-paystack": "^1.0",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {

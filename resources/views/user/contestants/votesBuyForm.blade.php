@@ -102,7 +102,7 @@
                             @endif
                         </div>
                     </div>
-                    <p class="vote-price">Each Vote costs <span>0.282 USD</span></p>
+                    <p class="vote-price">Each Vote costs <span>{{$vote->fees}} USD</span></p>
                     <p class="vote-payment"><button type="submit" class="btn btn-bg">Proceed To Payment</button></p>
                     {!! Form::close() !!}
                 </div>
@@ -157,7 +157,7 @@
 
                             </div>
                             <p class="time-price"><span class="etime"><i class="far fa-clock"></i> Start {{$start_day .' '.$start_month. ' '.$start_date.' '.$start_year .' - '.$close_day.' '.$close_month.' '.$clos_date}}</span> </p>
-                            <a class="btn btn-grad-bd ticket-details" href="{{url('contestants').'/'.$voting->id}}">Contestants</a>
+                            <a class="btn btn-grad-bd ticket-details" href="{{url('contestants').'/'.$voting->id}}">View Contestants</a>
                         </div>
                     </div>
                 </div>
