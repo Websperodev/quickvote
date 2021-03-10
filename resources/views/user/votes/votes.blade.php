@@ -77,7 +77,7 @@
 
                             </div>
                             <p class="time-price"><span class="etime"><i class="far fa-clock"></i> Start {{$start_day .' '.$start_month. ' '.$start_date.' '.$start_year .' - '.$close_day.' '.$close_month.' '.$clos_date}}</span> </p>
-                            <a class="btn btn-grad-bd ticket-details" href="{{url('contestants').'/'.$voting->id}}">Contestants</a>
+                            <a class="btn btn-grad-bd ticket-details" href="{{url('contestants').'/'.$voting->id}}">View Contestants</a>
                         </div>
                     </div>
                 </div>
