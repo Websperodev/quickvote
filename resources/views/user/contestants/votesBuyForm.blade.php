@@ -12,6 +12,10 @@
     .vote-price{
         color:red; 
     }
+   .img-fluid {
+    max-width: 100% !important;
+    height: 53% !important;
+             }
 </style>
 
 <div id="cand-detail" class="candid">

@@ -7,8 +7,10 @@
     .votesBtn{
         margin-top: 10px !important;
     }
-
-
+    .img-fluid12 {
+        max-width: 502px !important;
+        height: 400px !important;
+    }
 </style>
 <script>
     var url = "{{url('contestants').'/'.$voting->id}}";
@@ -115,7 +117,7 @@
             @endphp
             <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 candidates">
                 <div class="tcard border-0 py-3 px-4">
-                    <div class="justify-content-center"> <img src="{{url($cImg)}}" class="cand-pic mt-3"> </div>
+                    <div class="justify-content-center"> <img src="{{url($cImg)}}" class="img-fluid12 cand-pic mt-3"> </div>
                     <div class="can-detail">
                         <div class="txt-card">
                             <div class="event-name">
@@ -192,7 +194,7 @@
 
                                             </div>
                                         </div>  
-                                                                             
+
                                         @include('user.components.newsletter')
                                         @include('user.components.trusted-brands')
 

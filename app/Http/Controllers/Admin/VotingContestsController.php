@@ -49,6 +49,7 @@ class VotingContestsController extends Controller {
                         'starting_date' => 'required',
                         'closing_date' => 'required',
                         'timezone' => 'required',
+                        'description' => 'required'
             ]);
 
             if ($validator->fails()) {
@@ -83,6 +84,7 @@ class VotingContestsController extends Controller {
                 $votingContest->title = $data['title'];
                 $votingContest->fees = $data['fees'];
                 $votingContest->timezone = $data['timezone'];
+                $votingContest->description = $data['description'];
                 $votingContest->starting_date = date("Y-m-d H:i", strtotime($data['starting_date']));
                 $votingContest->closing_date = date("Y-m-d H:i", strtotime($data['closing_date']));
                 $votingContest->added_by = $user->id;
@@ -174,6 +176,7 @@ class VotingContestsController extends Controller {
                         'starting_date' => 'required',
                         'closing_date' => 'required',
                         'timezone' => 'required',
+                        'description' => 'required'
             ]);
 
             if ($validator->fails()) {
@@ -211,6 +214,7 @@ class VotingContestsController extends Controller {
                 $votingContest->title = $data['title'];
                 $votingContest->fees = $data['fees'];
                 $votingContest->timezone = $data['timezone'];
+                $votingContest->description = $data['description'];
                 $votingContest->starting_date = date("Y-m-d H:i", strtotime($data['starting_date']));
                 $votingContest->closing_date = date("Y-m-d H:i", strtotime($data['closing_date']));
 

@@ -18,12 +18,7 @@
       <div class="reg-login">
         <a href="{{ route('search-event') }}" class="btn btn-bg">Create Event</a>
 
-        <style>
-             .img-fluid {
-    max-width: 100% !important;
-    height: 22% !important;
-             }
-        </style>
+       
         @if(Auth::user())
           <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
             <span class="pro-user-name ml-1">
