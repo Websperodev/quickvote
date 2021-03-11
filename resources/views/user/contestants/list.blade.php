@@ -1,12 +1,12 @@
 @extends('user.layouts.main')
-
 @section('content')
-
 <style>
     .brands .slick-slide{
         height:30% !important;
     }
-
+    .votesBtn{
+        margin-top: 10px !important;
+    }
 
 
 </style>
@@ -62,7 +62,6 @@
                             <a class="nav-link" data-toggle="tab" href="#organizer">Organizer</a>
                         </li>
                     </ul>
-
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div id="candidate" class="tab-pane active">
@@ -72,9 +71,7 @@
                                         <option value=""> Select Contestant</option>
                                         @if(!empty($contestants))
                                         @foreach($allContestants as $cont)
-
-                                        <option {{ $constnt_id == $cont->id ? 'selected' : ''}}  value="{{ $cont->id }}">{{ $cont->name }}</option>
-                                      
+                                        <option {{ $constnt_id == $cont->id ? 'selected' : ''}}  value="{{ $cont->id }}">{{ $cont->name }}</option>                                      
                                         @endforeach
                                         @endif
                                     </select>
@@ -86,7 +83,6 @@
                         </div>
                         <div id="organizer" class="tab-pane fade">
                             <div class="eve-description">
-
                                 <div><h4>Date & Time</h4> <span>{{$start_day.' '.$start_month.' '.$start_date. ' '.$start_year}}, Time:{{$start_time}}</span></div>
                                 <div><h4>Vote Details</h4> 
                                 </div>
@@ -184,84 +180,19 @@
 
                                                                     </div>
                                                                     <p class="time-price"><span class="etime"><i class="far fa-clock"></i> Start {{$start_day .' '.$start_month. ' '.$start_date.' '.$start_year .' - '.$close_day.' '.$close_month.' '.$clos_date}}</span> </p>
-                                                                    <a class="btn btn-grad-bd ticket-details" href="{{url('contestants').'/'.$voting->id}}">Contestants</a>
+                                                                    <a class="btn btn-grad-bd ticket-details" href="{{url('contestants').'/'.$voting->id}}">View contest</a>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     @endforeach
                                                     @endif
-                                                    <p align="center"> <a href="{{url('votes')}}" class="btn btn-bg mt-4">View All Votes</a></p>
+                                                    <p align="center"> <a href="{{url('votes')}}" class="btn btn-bg mt-4 votesBtn">View All Votes</a></p>
                                                 </div>
+
                                             </div>
-                                        </div>
+                                        </div>  
+                                                                             
+                                        @include('user.components.newsletter')
+                                        @include('user.components.trusted-brands')
 
-                                        <div class="cta py-5">
-                                            <div class="container">
-                                                <div class="row vcenter">
-                                                    <div class="col-md-7">
-                                                        <h2 class="titleh2">News and  Updates</h2>
-                                                        <p>Subscribe to our newsletter and receive the latest news from QuickVote.</p>
-                                                    </div>
-                                                    <div class="col-md-5">
-                                                        <form class="subs">
-                                                            <div class="form-group">
-                                                                <input type="text" class="form-control" name="newsletter" placeholder="Enter Your Email">
-                                                                <button type="submit" class="btn btn-primary nletter">Subscribe</button>
-                                                            </div>			
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="brands py-5 my-3">
-                                            <div class="container">
-                                                <h2 class="titleh2 tc">Trusted By Great Brands In Nigeria</h2>
-                                                <div class="customer-logos">
-                                                    <div class="slide"><img src="{{url('img/1.png')}}"></div>
-                                                    <div class="slide"><img src="{{url('img/2.png')}}"></div>
-                                                    <div class="slide"><img src="{{url('img/3.png')}}"></div>
-                                                    <div class="slide"><img src="{{url('img/4.png')}}"></div>
-                                                    <div class="slide"><img src="{{url('img/5.png')}}"></div>
-                                                    <div class="slide"><img src="{{url('img/6.png')}}"></div>
-                                                    <div class="slide"><img src="{{url('img/7.png')}}"></div>
-                                                </div>		
-                                            </div>
-                                            <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-                                            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-                                            <script src="{{ URL::asset('assets/libs/bootstrap-select/bootstrap-select.min.js')}}"></script>
-                                            <script>
-    $('.cont_id').on('change', function () {
-        var cont_id = $('.cont_id').val();
-        var curl = url + '?cId=' + cont_id;
-
-        window.location.replace(curl);
-//            alert(cont_id);
-//    window.redirect();
-    });
-    $(document).ready(function () {
-        $('.customer-logos').slick({
-            slidesToShow: 5,
-            slidesToScroll: 1,
-            autoplay: true,
-            autoplaySpeed: 1500,
-            arrows: false,
-            dots: false,
-            pauseOnHover: true,
-            responsive: [{
-                    breakpoint: 768,
-                    settings: {
-                        slidesToShow: 3
-                    }
-                }, {
-                    breakpoint: 520,
-                    settings: {
-                        slidesToShow: 2
-                    }
-                }]
-        });
-    });
-                                            </script>
-                                        </div>

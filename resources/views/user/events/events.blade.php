@@ -1,13 +1,10 @@
 @extends('user.layouts.main')
-
 @section('content')
-
 <style>
     .brands .slick-slide{
         height:30% !important;
     }
 </style>
-
 <div id="eve-detail" class="single-event">
     <div class="container">
         <div class="row">
@@ -54,7 +51,6 @@
                             <span>{{$description}}</span></div>
                     </div>
                 </div>
-                  <!--<p class="buy-tkt"><a href="{{url('contestants').'/'.$event->id}}" class="btn vtn-success">View Contestants</a></p>-->
             </div>
             <div class="col-md-4 col-sm-12 sidebar">
                 <div class="single-event-ticket">
@@ -83,7 +79,6 @@
         </div>
     </div>
 </div>
-
 <div id="eve" class="events single-eve">
     <div class="container">
         <div class="row">
@@ -99,7 +94,6 @@
             $simg ="img/fe2.jpg";
             }
             $date = $sugg['start_date'];
-
             $start_day=date('D', strtotime($date));
             $start_month=date('F', strtotime($date));
             $start_month_shot=date('M', strtotime($date));
@@ -116,9 +110,7 @@
             $price='';
             $ticket_type='';
             }
-
             @endphp
-
             <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter Most Recent">
                 <div class="tcard border-0 py-3 px-4">
                     <div class="justify-content-center"> <img src="{{url($simg)}}" class="img-fluid profile-pic mb-4 mt-3"> </div>
@@ -137,102 +129,11 @@
             </div>
             @endforeach
             @endif
-
-
             <p align="center"> <a href="{{url('search-event')}}" class="btn btn-bg mt-4">View All Events</a></p>
         </div>
     </div>
-
-
 </div>
-
-<div class="cta py-5">
-    <div class="container">
-        <div class="row vcenter">
-            <div class="col-md-7">
-                <h2 class="titleh2">News and  Updates</h2>
-                <p>Subscribe to our newsletter and receive the latest news from QuickVote.</p>
-            </div>
-            <div class="col-md-5">
-                <form class="subs">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="newsletter" placeholder="Enter Your Email">
-                        <button type="submit" class="btn btn-primary nletter">Subscribe</button>
-                    </div>			
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="brands py-5 my-3">
-    <div class="container">
-        <h2 class="titleh2 tc">Trusted By Great Brands In Nigeria</h2>
-        <div class="customer-logos">
-            <div class="slide"><img src="{{url('img/1.png')}}"></div>
-            <div class="slide"><img src="{{url('img/2.png')}}"></div>
-            <div class="slide"><img src="{{url('img/3.png')}}"></div>
-            <div class="slide"><img src="{{url('img/4.png')}}"></div>
-            <div class="slide"><img src="{{url('img/5.png')}}"></div>
-            <div class="slide"><img src="{{url('img/6.png')}}"></div>
-            <div class="slide"><img src="{{url('img/7.png')}}"></div>
-        </div>		
-    </div>
-</div>
-
-<script>
-    $(document).ready(function () {
-
-        $(".filter-button").click(function () {
-            var value = $(this).attr('data-filter');
-
-            if (value == "all")
-            {
-                //$('.filter').removeClass('hidden');
-                $('.filter').show('1000');
-            } else
-            {
-                //            $('.filter[filter-item="'+value+'"]').removeClass('hidden');
-                //            $(".filter").not('.filter[filter-item="'+value+'"]').addClass('hidden');
-                $(".filter").not('.' + value).hide('3000');
-                $('.filter').filter('.' + value).show('3000');
-
-            }
-        });
-
-        if ($(".filter-button").removeClass("active")) {
-            $(this).removeClass("active");
-        }
-        $(this).addClass("active");
-
-    });
-</script>
-<script>
-    $(document).ready(function () {
-        $('.customer-logos').slick({
-            slidesToShow: 5,
-            slidesToScroll: 1,
-            autoplay: true,
-            autoplaySpeed: 1500,
-            arrows: false,
-            dots: false,
-            pauseOnHover: true,
-            responsive: [{
-                    breakpoint: 768,
-                    settings: {
-                        slidesToShow: 3
-                    }
-                }, {
-                    breakpoint: 520,
-                    settings: {
-                        slidesToShow: 2
-                    }
-                }]
-        });
-    });
-</script>
-
-
-
-
+@include('user.components.testimonial')
+@include('user.components.newsletter')
+@include('user.components.trusted-brands')
 
