@@ -9,11 +9,8 @@
     }
     .img-fluid12 {
         max-width: 502px !important;
-        height: 493px !important;
+        height: 400px !important;
     }
-
-
-
 </style>
 <script>
     var url = "{{url('contestants').'/'.$voting->id}}";
