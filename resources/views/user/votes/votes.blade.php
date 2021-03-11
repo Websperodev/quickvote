@@ -7,7 +7,10 @@
 
     </div>
 </div>
-
+<style>.img-fluid {
+   max-width: 502px !important;
+    height: 400px !important;
+             }</style>
 <div id="floating-search" class="container evnt">
     <h2>Browse Voting Contests</h2>
     <div class=" row">
