@@ -100,6 +100,17 @@ ul.fa-ul li {
 }
 
 
+@media (min-width:1100px) {
+
+#eve .tcard .justify-content-center {
+    width: 100%;
+    height: 20vw;
+    min-height: 20vw;
+    max-height: 20vw;
+}
+
+}
+
 @media (max-width:1100px) {
 	
 #navbarNavAltMarkup a.nav-link {
@@ -195,6 +206,19 @@ a.btn.btn-bg {
 
 #feat .col-md-12 > p {
     font-size: 16px;
+}
+
+#eve .gallery_product, #cand .gallery_product {
+    margin-bottom: 20px;
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
+#eve .tcard .justify-content-center {
+    width: 100%;
+    height: 25vw;
+    min-height: 25vw;
+    max-height: 25vw;
 }
 	
 }
@@ -687,8 +711,19 @@ footer h2.titleh2 {
     min-width: 100%;
 }
 
+}
 
+@media (max-width: 580px) {
+#eve .gallery_product, #cand .gallery_product {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
 
-
+#eve .tcard .justify-content-center {
+    width: 100%;
+    height: 60vw;
+    min-height: 60vw;
+    max-height: 60vw;
+}
 
 }
