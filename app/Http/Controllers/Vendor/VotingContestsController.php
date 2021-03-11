@@ -58,6 +58,12 @@ class VotingContestsController extends Controller {
             try {
                 $user = Auth::user();
                 $data = $request->all();
+                $row = Contestant::select('candidate_id')->order_by('id', 'desc')->first();
+                if (empty($row)) {
+                    $vote_number = 10000001;
+                } else {
+                    $vote_number = $row->vote_number + 1;
+                }
                 $existing = Votingcontest::where('title', $data['title'])->count();
                 if ($existing > 0) {
                     $request->session()->flash('message.level', 'danger');
@@ -67,6 +73,7 @@ class VotingContestsController extends Controller {
                 $votingContest = new Votingcontest;
 
                 $votingContest->category = $data['category'];
+                $votingContest->vote_number = $vote_number;
                 $votingContest->type = $data['type'];
                 $votingContest->limit = $data['limit'];
                 if ($data['limit'] == '1') {

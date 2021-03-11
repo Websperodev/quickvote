@@ -80,7 +80,7 @@ class ContestantsController extends Controller {
             $voting_contest = Votingcontest::where('closing_date', '>', $date)->where('category_id', $vote->category_id)->limit(3)->get();
             return view('user.contestants.votesBuyForm', compact('vote', 'contestants', 'voting_contest', 'slider', 'testimonials'));
         } else {
-            echo 'ksjdhfsd';
+           
         }
     }
 

@@ -51,8 +51,8 @@ class ContestantController extends Controller {
         $number = $request->get('number');
         $about = $request->get('about');
         $user = Auth::user();
-//        echo '<pre>';
-//        print_r($request->input()); die;
+        $row = Contestant::select('candidate_id')->order_by('id', 'desc')->first();
+        $candidate_id = $row->candidate_id + 1;
         if ($request->hasFile('image')) {
             $images = $request->file('image');
             foreach ($images as $key => $image) {
@@ -66,6 +66,7 @@ class ContestantController extends Controller {
                 $contestant->phone = $number[$key];
                 $contestant->image = $img;
                 $contestant->about = $about[$key];
+                $contestant->candidate_id = $candidate_id;
                 $contestant->added_by = $user['id'];
                 $contestant->save();
             }
