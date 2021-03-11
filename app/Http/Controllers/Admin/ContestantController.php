@@ -21,8 +21,9 @@ class ContestantController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
-        return view('admin.contestant.index');
+    public function __construct() {
+        $this->middleware('auth');
+        $this->middleware('role:admin');
     }
 
     /**
