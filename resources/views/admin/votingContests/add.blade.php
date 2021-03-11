@@ -169,6 +169,16 @@ $timezoneArray = config('constants.timezones');
                             </div>
                         </div>
                     </div>
+                     <div class="row">    
+                        <div class="col-md-12 form-group cus-form-group">
+                            <label for="description">Description</label>
+                            <textarea type="text"  cols="50" class="form-control" name="description" id="area1" placeholder="Description here..">
+                            </textarea>
+                            @if($errors->has('description'))
+                            <div class="error">{{ $errors->first('description') }}</div>
+                            @endif
+                        </div>
+                    </div>
                     <div class="btn-right">
                         <button type="submit" class="btn btn-bg ladda-button">Submit</button>
                     </div>

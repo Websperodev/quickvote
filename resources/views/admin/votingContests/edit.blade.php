@@ -207,12 +207,22 @@ $timezoneArray = config('constants.timezones');
                                     @foreach($timezoneArray as $key=>$time)
                                     <option value="{{ $key }}" {{ $key == $VotingContest->timezone ? 'selected' : ''}}>{{ $key }}</option>
                                     @endforeach
-                                   
+
                                 </select>
                                 @if($errors->has('timezone'))
                                 <div class="error">{{ $errors->first('timezone') }}</div>
                                 @endif
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">    
+                        <div class="col-md-12 form-group cus-form-group">
+                            <label for="description">Description</label>
+                            <textarea type="text" cols="50" class="form-control" name="description" id="area1" placeholder="Description here..">{{ isset($VotingContest->description)? ucfirst($VotingContest->description) : ''}} 
+                            </textarea>
+                            @if($errors->has('description'))
+                            <div class="error">{{ $errors->first('description') }}</div>
+                            @endif
                         </div>
                     </div>
                     <input type="hidden" name="VotingContest_id" value="{{ isset($VotingContest->id ) ? $VotingContest->id  : ''}}"> 
