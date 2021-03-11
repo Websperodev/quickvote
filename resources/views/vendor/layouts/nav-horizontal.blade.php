@@ -16,6 +16,11 @@
                         <i class="fa fa-picture-o" aria-hidden="true"></i>Voting &nbsp;<div class="arrow-down"></div></a>
                     <ul class="submenu">
                         <li>
+                            <a href="{{ route('vendor.voting.index') }}">
+                                <i class="fa fa-calendar" aria-hidden="true"></i> Votes
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ route('event.index') }}">
                                 <i class="fa fa-calendar" aria-hidden="true"></i> Events
                             </a>

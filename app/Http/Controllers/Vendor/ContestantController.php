@@ -11,7 +11,7 @@ use Carbon\Carbon;
 use Yajra\Datatables\Datatables;
 use App\Models\Event;
 use App\Models\Contestant;
-use App\Models\Voting_contest;
+use App\Models\Votingcontest;
 use Session;
 use Auth;
 
@@ -34,7 +34,9 @@ class ContestantController extends Controller {
     public function create() {
         $mytime = Carbon::now();
         $date = $mytime->toDateString();
-        $votingcontest = Voting_contest::where('closing_date', '>', $date)->get();
+         $user = Auth::user();
+       
+        $votingcontest = Votingcontest::where('closing_date', '>', $date)->where('added_by',$user['id'])->get();
 //        echo '<pre>';
 //        print_r($events); die;
         return view('vendor.contestant.add', compact('votingcontest'));

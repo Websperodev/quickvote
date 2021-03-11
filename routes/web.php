@@ -74,6 +74,12 @@ Route::namespace('Vendor')->group(function () {
     Route::post('vendor/get-contestant', 'ContestantController@getContestant')->name('vendor.getContestant');
     Route::post('vendor/contestant-update/{id}', 'ContestantController@update')->name('vendor.contestant.update');
     Route::delete('vendor/contestant-delete/{id}', 'ContestantController@destroy')->name('vendor.contestant.destroy');
+    //* voting constant *//
+    Route::get('vendor/start-voting', 'VotingContestsController@index')->name('vendor.voting.index');
+    Route::any('vendor/add-voting', 'VotingContestsController@addVotingContest')->name('vendor.add.voting');
+    Route::post('vendor/get-voting', 'VotingContestsController@allvotingContests')->name('vendor.voting');
+    Route::any('vendor/edit-voting', 'VotingContestsController@editVotingContest')->name('vendor.edit.voting');
+    Route::post('vendor/delete-voting', 'VotingContestsController@deleteVotingContest')->name('vendor.delete.voting');
 });
 
 Route::namespace('Admin')->group(function () {

@@ -12,7 +12,7 @@ use App\Models\Event;
 use App\Models\Ticket;
 use App\Models\Contestant;
 use App\Models\VotingContestants;
-use App\Models\Voting_contest;
+use App\Models\Votingcontest;
 use Illuminate\Support\Facades\Validator;
 use DB;
 use App\Models\Slider;
@@ -24,7 +24,7 @@ class ContestantsController extends Controller {
     function index(Request $req, $vId) {
         $mytime = Carbon::now();
         $date = $mytime->toDateString();
-        $voting = Voting_contest::where('id', $vId)->first();
+        $voting = Votingcontest::where('id', $vId)->first();
         $inArray = ['home', 'trusted brands'];
         $slider = Slider::whereIn('name', $inArray)->get();
         $testimonials = Testimonial::all();
@@ -59,7 +59,7 @@ class ContestantsController extends Controller {
                 }
             }
 
-            $voting_contest = Voting_contest::where('closing_date', '>', $date)->where('category_id', $voting->category_id)->limit(3)->get();
+            $voting_contest = Votingcontest::where('closing_date', '>', $date)->where('category_id', $voting->category_id)->limit(3)->get();
 
             return view('user.contestants.list', compact('voting', 'contestants', 'voting_contest', 'constnt_id', 'allContestants', 'slider', 'testimonials'));
         }
@@ -71,13 +71,13 @@ class ContestantsController extends Controller {
     function buyVotesByUser($vId, $cId) {
         $mytime = Carbon::now();
         $date = $mytime->toDateString();
-        $vote = Voting_contest::where('id', $vId)->first();
+        $vote = Votingcontest::where('id', $vId)->first();
         $contestants = Contestant::where('id', $cId)->first();
         $inArray = ['home', 'trusted brands'];
         $slider = Slider::whereIn('name', $inArray)->get();
         $testimonials = Testimonial::all();
         if (!empty($vote) && !empty($contestants) && $contestants->voting_id == $vId) {
-            $voting_contest = Voting_contest::where('closing_date', '>', $date)->where('category_id', $vote->category_id)->limit(3)->get();
+            $voting_contest = Votingcontest::where('closing_date', '>', $date)->where('category_id', $vote->category_id)->limit(3)->get();
             return view('user.contestants.votesBuyForm', compact('vote', 'contestants', 'voting_contest', 'slider', 'testimonials'));
         } else {
             echo 'ksjdhfsd';

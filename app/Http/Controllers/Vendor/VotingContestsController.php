@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Vendor;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -28,7 +28,7 @@ class VotingContestsController extends Controller {
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index() {
-        return view('admin.votingContests.index');
+        return view('vendor.votingContests.index');
     }
 
     public function addVotingContest(Request $request) {
@@ -122,14 +122,15 @@ class VotingContestsController extends Controller {
         }
         if ($request->isMethod('get')) {
             $categories = Categories::get();
-            return view('admin.votingContests.add', compact('categories'));
+            return view('vendor.votingContests.add', compact('categories'));
         }
     }
 
     public function allvotingContests(Request $request) {
-        $allvotingContests = Votingcontest::orderBy('created_at', 'desc')->get();
-// echo '<pre>';
-// print_r($allvotingContests); die;
+
+        $user = Auth::user();
+        $allvotingContests = Votingcontest::where('added_by', $user->id)->orderBy('created_at', 'desc')->get();
+
         return DataTables::of($allvotingContests)
                         ->addColumn('title', function($allvotingContests) {
                             return $allvotingContests->title;
@@ -157,7 +158,7 @@ class VotingContestsController extends Controller {
                         ->addColumn('action', function($allvotingContests) {
                             $str = '<div class="btn-group dropdown">
                 <a href="javascript: void(0);" class="table-action-btn dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-horizontal"></i></a>
-                <div class="dropdown-menu dropdown-menu-right"><a data-toggle="tooltip" data-placement="top" title="Edit" class="dropdown-item"  href="' . route('admin.edit.voting', ['id' => $allvotingContests['id']]) . '"><i class="mdi mdi-pencil mr-1 text-muted font-18 vertical-middle"></i> Edit VotingContest</a>';
+                <div class="dropdown-menu dropdown-menu-right"><a data-toggle="tooltip" data-placement="top" title="Edit" class="dropdown-item"  href="' . route('vendor.edit.voting', ['id' => $allvotingContests['id']]) . '"><i class="mdi mdi-pencil mr-1 text-muted font-18 vertical-middle"></i> Edit VotingContest</a>';
                             $str .= '<a data-toggle="tooltip" data-placement="top" title="Delete" class="dropdown-item"   onclick="deleteVotingContest(this,' . $allvotingContests['id'] . ')" href="javascript:void(0);" ><i class="mdi mdi-delete mr-1 text-muted font-18 vertical-middle"></i> Delete VotingContest</a>';
                             $str .= '</div></div>';
                             return $str;
@@ -264,7 +265,7 @@ class VotingContestsController extends Controller {
             $categories = Categories::get();
             $VotingContest->viewstart_date = date("d/m/Y H:i", strtotime($VotingContest->starting_date));
             $VotingContest->viewclosing_date = date("d/m/Y H:i", strtotime($VotingContest->closing_date));
-            return view('admin.votingContests.edit', compact('VotingContest', 'categories'));
+            return view('vendor.votingContests.edit', compact('VotingContest', 'categories'));
         }
     }
 

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Categories;
-use App\Models\Voting_contest;
+use App\Models\Votingcontest;
 use Carbon\Carbon;
 use App\Models\Slider;
 use App\Models\Testimonial;
@@ -19,7 +19,7 @@ class VotesController extends Controller {
           $inArray = ['home', 'trusted brands'];
         $slider = Slider::whereIn('name', $inArray)->get();
         $testimonials = Testimonial::all();
-        $voting_contest = Voting_contest::where('closing_date', '>', $date)->get();
+        $voting_contest = Votingcontest::where('closing_date', '>', $date)->get();
         return view('user/votes/votes', compact('voting_contest','slider','testimonials'));
     }
 
