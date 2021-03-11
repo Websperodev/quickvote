@@ -17,6 +17,10 @@ use Auth;
 
 class ContestantController extends Controller {
 
+    public function __construct() {
+        $this->middleware('auth');
+        $this->middleware('role:vendor');
+    }
     /**
      * Display a listing of the resource.
      *
