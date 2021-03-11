@@ -79,9 +79,7 @@ class ContestantsController extends Controller {
         if (!empty($vote) && !empty($contestants) && $contestants->voting_id == $vId) {
             $voting_contest = Votingcontest::where('closing_date', '>', $date)->where('category_id', $vote->category_id)->limit(3)->get();
             return view('user.contestants.votesBuyForm', compact('vote', 'contestants', 'voting_contest', 'slider', 'testimonials'));
-        } else {
-           
-        }
+        } 
     }
 
     function saveBuyVotesByUser(Request $request) {

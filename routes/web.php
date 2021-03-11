@@ -67,6 +67,9 @@ Route::namespace('Vendor')->group(function () {
     Route::get('/getSubcategories/{id}', 'DashboardController@getSubcategories')->name('subcategories');
     Route::post('getAllEvents', 'EventsController@allEvents')->name('event.getEvents');
 
+        Route::get('vendor/getCountries', 'DashboardController@getCountries');
+    Route::get('vendor/getStates/{id}', 'DashboardController@getStates')->name('vendor.states');
+    Route::get('vendor/getCities/{id}', 'DashboardController@getCities')->name('vendor.cities');
 
     Route::get('vendor/contestant', 'ContestantController@index')->name('vendor.contestant.index');
     Route::get('vendor/contestant-create', 'ContestantController@create')->name('vendor.contestant.create');

@@ -141,9 +141,10 @@ $timezoneArray = config('constants.timezones');
                     <div class="row">
                         <div class="col-md-6 form-group cus-form-group">
                             <label for="country">Country</label>
-                            <select class="form-control" autocomplete="off" name="country" id="country" aria-describedby="emailHelp">                               
+                            <select class="form-control" autocomplete="off" name="country" id="country" aria-describedby="emailHelp">
+
                                 @foreach($countries as $country)
-                                <option {{ ($country->id == 1) ? 'selected':'' }} value="{{ $country->id }}">{{ $country->name }}</option>
+                                <option {{ ($country->id == '1') ? 'selected':'' }} value="{{ $country->id }}">{{ $country->name }}</option>
                                 @endforeach
                             </select>
                             @if($errors->has('country'))
@@ -166,7 +167,7 @@ $timezoneArray = config('constants.timezones');
                         <div class="col-md-6 form-group cus-form-group">
                             <label for="city">City</label>
                             <select class="form-control" name="city" id="city" aria-describedby="emailHelp">
-                                <option value="">Select City</option>  
+
                             </select>
 
                             @if($errors->has('city'))
@@ -201,7 +202,11 @@ $timezoneArray = config('constants.timezones');
 
                     </div>
 
+                    <input type="hidden"  name="addticketcheck" class="addticketcheck"  value="">
 
+                    @if($errors->has('addticketcheck'))
+                    <div class="error">@php echo 'Ticket must be added with event'; @endphp</div>
+                    @endif
                     <div class="btn-right">
                         <button type="submit" class="btn btn-bg ladda-button">Create Event</button>
                     </div>
@@ -312,24 +317,28 @@ $timezoneArray = config('constants.timezones');
 </script> 
 <script type="text/javascript">
     $(document).ready(function () {
+
         var cid = "{{ isset($userCountry) ? $userCountry:'1' }}";
-        var url = '{{ route("states", ":id") }}';
+        var url = '{{ route("vendor.states", ":id") }}';
+
         url = url.replace(':id', cid);
         console.log('cid', cid);
         var stateId = "{{ isset($userState) ? $userState : 1 }}";
-        var cityUrl = '{{ route("cities", ":id") }}';
+        var cityUrl = '{{ route("vendor.cities", ":id") }}';
         cityUrl = cityUrl.replace(':id', stateId);
         console.log('sid', stateId);
         var cityId = "{{ isset($userCity) ? $userCity : '' }}";
         var selected = '';
 
         if (cid) {
+
             $.ajax({
                 type: 'GET',
                 url: url,
                 success: function (res) {
                     if (res) {
                         $("#state").empty();
+
                         $.each(res, function (key, value) {
                             if (stateId == value.id) {
                                 selected = "selected";
@@ -338,7 +347,6 @@ $timezoneArray = config('constants.timezones');
                             }
                             $("#state").append('<option ' + selected + ' value="' + value.id + '">' + value.name + '</option>');
                         });
-
                     } else {
                         $("#state").empty();
                     }
@@ -358,7 +366,6 @@ $timezoneArray = config('constants.timezones');
                     if (res)
                     {
                         $("#city").empty();
-
                         $.each(res, function (key, value) {
                             if (cityId == value.id) {
                                 selected = "selected";
@@ -423,6 +430,7 @@ $timezoneArray = config('constants.timezones');
          <input type="text" class="form-control ticket_end_date datepicker_init" name="ticketend_date[]" aria-describedby="emailHelp" placeholder="End Date"></div>\n\
          <input type="hidden"  class="form-control" value="' + ttype + '" name="ticket_type[]" aria-describedby="emailHelp" placeholder="Price"></div>');
             }
+            $('.addticketcheck').val('yes');
             $('#FreeModal').modal('hide');
             $('#paidModal').modal('hide');
         });
@@ -431,6 +439,9 @@ $timezoneArray = config('constants.timezones');
             e.preventDefault();
             $(this).parent('div').parent('div').remove();
             x--;
+            if (x == 0) {
+                $('.addticketcheck').val('');
+            }
         });
 
     });

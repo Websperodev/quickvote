@@ -171,7 +171,7 @@ $timezoneArray = config('constants.timezones');
                             <label for="timezone">Timezone</label>
 
                             <select class="form-control" name="timezone" id="timezone" aria-describedby="emailHelp">
-                               
+
                                 @foreach($timezoneArray as $key=>$time)
                                 @if($key=='Africa/Lagos')
                                 <option value="{{ $key }}" selected>{{ $key }}</option>                                
@@ -192,8 +192,11 @@ $timezoneArray = config('constants.timezones');
                     <div id="ticket-div" class="input_fields_wrap">
 
                     </div>
+                    <input type="hidden"  name="addticketcheck" class="addticketcheck"  value="">
 
-
+                    @if($errors->has('addticketcheck'))
+                    <div class="error">@php echo 'Ticket must be added with event'; @endphp</div>
+                    @endif
                     <div class="btn-right">
                         <button type="submit" class="btn btn-bg ladda-button">Create Event</button>
                     </div>
@@ -208,6 +211,7 @@ $timezoneArray = config('constants.timezones');
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
+
                 <h5 class="modal-title" id="exampleModalLabel">Add Ticket</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -387,26 +391,24 @@ $timezoneArray = config('constants.timezones');
             for (x = 0; x < ticketNo; x++) { //max input box allowed
                 //text box increment
                 console.log('x', x);
-                var tmp = $(wrapper).append('<div class="row">\n\
-    <div class="col-md-4 form-group cus-form-group">\n\
-<label for="image">Ticket Name</label>\n\
-<input type="text"  class="form-control" name="ticket_name[]" aria-describedby="emailHelp" placeholder="Ticket Name"></div>\n\
-<div class="col-md-4 form-group cus-form-group">\n\
-<label for="image">Quantity available</label>\n\
-<input type="text"  class="form-control" name="quantity[]" aria-describedby="emailHelp" placeholder="Quantity available"></div>\n\
- <div class="col-md-2 form-group cus-form-group">\n\
-<label for="image">Price</label>\n\
-<input type="text"  class="form-control" ' + readonly + ' value="' + price + '" name="price[]" aria-describedby="emailHelp" placeholder="Price"></div>\n\
-<div class="col-md-2 form-group cus-form-group">\n\
-<label for="image">Remove Ticket</label><a href="#" class="remove_field">Remove</a></div></div>\n\
-<div class="row"><div class="col-md-6 form-group cus-form-group">\n\
-<label for="image">Start Date</label>\n\
-<input type="text"  class="form-control datepicker_init" id="startDate11" name="ticket_start_date[]" aria-describedby="emailHelp" placeholder="Start date"></div>\n\
-<div class="col-md-6 form-group cus-form-group">\n\
-<label for="image">End Date</label>\n\
-<input type="text" class="form-control datepicker_init" name="ticketend_date[]" aria-describedby="emailHelp" placeholder="End Date"></div>\n\
-<input type="hidden"  class="form-control" value="' + ttype + '" name="ticket_type[]" aria-describedby="emailHelp" placeholder="Price"></div>');
+                var tmp = $(wrapper).append('<div class="row"><div class="col-md-4 form-group cus-form-group">\n\
+    <label for="image">Ticket Name</label>\n\
+        <input type="text"  class="form-control" name="ticket_name[]" aria-describedby="emailHelp" placeholder="Ticket Name"></div>\n\
+    <div class="col-md-4 form-group cus-form-group"><label for="image">Quantity available</label>\n\
+        <input type="text"  class="form-control" name="quantity[]" aria-describedby="emailHelp" placeholder="Quantity available"></div>\n\
+    <div class="col-md-2 form-group cus-form-group">\n\
+    <label for="image">Price</label>\n\
+        <input type="text"  class="form-control" ' + readonly + ' value="' + price + '" name="price[]" aria-describedby="emailHelp" placeholder="Price"></div>\n\
+    <div class="col-md-2 form-group cus-form-group">\n\
+    <label for="image">Remove Ticket</label><a href="#" class="remove_field">Remove</a></div>\n\
+    <div class="col-md-6 form-group cus-form-group">\n\
+    <label for="image">Start Date</label>\n\
+       <input type="text"  class="form-control datepicker_init" name="ticket_start_date[]" aria-describedby="emailHelp" placeholder="Start date"></div>\n\
+    <div class="col-md-6 form-group cus-form-group"><label for="image">End Date</label>\n\
+         <input type="text" class="form-control ticket_end_date datepicker_init" name="ticketend_date[]" aria-describedby="emailHelp" placeholder="End Date"></div>\n\
+         <input type="hidden"  class="form-control" value="' + ttype + '" name="ticket_type[]" aria-describedby="emailHelp" placeholder="Price"></div>');
             }
+            $('.addticketcheck').val('yes');
             $('#FreeModal').modal('hide');
             $('#paidModal').modal('hide');
 //           reAddedpikkerDate();
@@ -415,6 +417,11 @@ $timezoneArray = config('constants.timezones');
             e.preventDefault();
             $(this).parent('div').parent('div').remove();
             x--;
+            if (x == 0) {
+                $('.addticketcheck').val('');
+            }
+
+
 
         });
     });

@@ -5,13 +5,19 @@ namespace App\Http\Controllers\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use Auth;
+use Session;
+use Response;
 use App\Models\Event;
+use App\Models\States;
 use App\Models\Ticket;
+use App\Models\Cities;
 use App\Models\Countries;
 use App\Models\Categories;
 use Yajra\Datatables\Datatables;
-use Response;
 
 class EventsController extends Controller {
 
@@ -24,7 +30,7 @@ class EventsController extends Controller {
         $this->middleware('auth');
         $this->middleware('role:vendor');
     }
-    
+
     public function index() {
         return view('vendor.event.index');
     }
@@ -74,8 +80,11 @@ class EventsController extends Controller {
      */
     public function create() {
         $categories = Categories::where('parent_id', 0)->get();
+
         $countries = Countries::get();
-        return view('vendor.event.add', compact('categories', 'countries'));
+        $states = States::get();
+        $cities = Cities::get();
+        return view('vendor.event.add', compact('categories', 'countries', 'states', 'cities'));
     }
 
     /**
@@ -97,6 +106,7 @@ class EventsController extends Controller {
                     'country' => 'required',
                     'event_category' => 'required',
                     'subcategory_id' => 'required',
+                    'addticketcheck' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -151,14 +161,21 @@ class EventsController extends Controller {
             $ticketEndDate = $request->get('ticketend_date');
             if (!empty($ticketName)) {
                 foreach ($ticketName as $key => $ticket) {
+                   $row = Ticket::select('ticket_number')->orderBy('id', 'desc')->first();
+                        if ($row->ticket_number != '') {
+                            $ticket_number = $row->ticket_number + 1;
+                        } else {
+                            $ticket_number = 10000000;
+                        }
                     $ticket = new Ticket;
                     $ticket->event_id = $event->id;
                     $ticket->ticket_type = $ticketType[$key];
                     $ticket->name = $ticketName[$key];
                     $ticket->quantity = $ticketQuantity[$key];
                     $ticket->price = $ticketPrice[$key];
-                    $ticket->start_date = $ticketStartDate[$key];
-                    $ticket->end_date = $ticketEndDate[$key];
+                    $ticket->ticket_number = $ticket_number;
+                    $ticket->start_date = date("Y-m-d", strtotime($ticketStartDate[$key]));
+                    $ticket->end_date = date("Y-m-d", strtotime($ticketEndDate[$key]));
                     $ticket->created_by = $user->id;
                     $ticket->save();
                 }

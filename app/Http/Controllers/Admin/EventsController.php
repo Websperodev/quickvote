@@ -56,8 +56,10 @@ class EventsController extends Controller {
                         'event_category' => 'required',
                         'event_priority' => 'required',
                         'timezone' => 'required',
+                        'addticketcheck' => 'required'
             ]);
-
+//echo '<pre>';
+//print_r($request->input()); die;
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator);
             }
@@ -109,14 +111,21 @@ class EventsController extends Controller {
                 $ticketEndDate = $request->get('ticketend_date');
                 if (!empty($ticketName)) {
                     foreach ($ticketName as $key => $ticket) {
+                        $row = Ticket::select('ticket_number')->orderBy('id', 'desc')->first();
+                        if ($row->ticket_number != '') {
+                            $ticket_number = $row->ticket_number + 1;
+                        } else {
+                            $ticket_number = 10000000;
+                        }
                         $ticket = new Ticket;
                         $ticket->event_id = $event->id;
                         $ticket->ticket_type = $ticketType[$key];
                         $ticket->name = $ticketName[$key];
                         $ticket->quantity = $ticketQuantity[$key];
                         $ticket->price = $ticketPrice[$key];
-                        $ticket->start_date = $ticketStartDate[$key];
-                        $ticket->end_date = $ticketEndDate[$key];
+                        $ticket->ticket_number = $ticket_number;
+                        $ticket->start_date = date("Y-m-d", strtotime($ticketStartDate[$key]));
+                        $ticket->end_date = date("Y-m-d", strtotime($ticketEndDate[$key]));
                         $ticket->created_by = $user->id;
                         $ticket->save();
                     }
@@ -253,15 +262,23 @@ class EventsController extends Controller {
                     $ticketEndDate = $request->get('ticketend_date');
                     $deleteTicket = Ticket::where('event_id', $event->id)->delete();
                     foreach ($ticketName as $key => $ticket) {
+                        $rownum = Ticket::select('ticket_number')->order_by('id', 'desc')->first();
+                        if (!empty($rownum)) {
+                            $ticket_number = $rownum->ticket_number;
+                        } else {
+                            $ticket_number = 1000000;
+                        }
                         $ticket = new Ticket;
                         $ticket->event_id = $event->id;
+                        $ticket->ticket_number = $ticket_number;
                         $ticket->ticket_type = $ticketType[$key];
                         $ticket->name = $ticketName[$key];
                         $ticket->quantity = $ticketQuantity[$key];
                         $ticket->price = $ticketPrice[$key];
-                        $ticket->start_date = $ticketStartDate[$key];
-                        $ticket->end_date = $ticketEndDate[$key];
+                        $ticket->start_date = date("Y-m-d", strtotime($ticketStartDate[$key]));
+                        $ticket->end_date = date("Y-m-d", strtotime($ticketEndDate[$key]));
                         $ticket->created_by = $user->id;
+
                         $ticket->save();
                     }
                 }
