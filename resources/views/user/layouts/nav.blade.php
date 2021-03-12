@@ -16,7 +16,7 @@
         <a class="nav-link" href="{{ route('contact') }}">Contact</a>
       </div>
       <div class="reg-login">
-        <a href="{{ route('search-event') }}" class="btn btn-bg">Create Event</a>
+        <a href="{{ route('user.categories.index') }}" class="btn btn-bg">Create Event</a>
 
        
         @if(Auth::user())

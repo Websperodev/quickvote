@@ -37,8 +37,7 @@ class ContestantController extends Controller {
     public function create() {
         $mytime = Carbon::now();
         $date = $mytime->toDateString();
-        $votingcontest = Votingcontest::where('closing_date', '>', $date)->get();
-       
+        $votingcontest = Votingcontest::where('closing_date', '>', $date)->get();      
         return view('admin.contestant.add', compact('votingcontest'));
     }
 
