@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\User;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Categories;
@@ -24,7 +23,6 @@ class VotesController extends Controller {
         if (!empty($req->input())) {
             if ($req->input('vote_name') && !$req->input('date')) {
                 $vote_name = $req->input('vote_name');
-
                 $voting_contest = Votingcontest::where('closing_date', '>', $date)->where('title', 'like', '%' . $vote_name . '%')->get();
             }
             if ($req->input('date') && $req->input('date') != '' && !$req->input('vote_name')) {
