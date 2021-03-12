@@ -12,7 +12,7 @@ use Yajra\Datatables\Datatables;
 use App\Models\Event;
 use App\Models\Contestant;
 use Auth;
-use App\Models\Voting_contest;
+use App\Models\Votingcontest;
 
 class ContestantController extends Controller {
 
@@ -25,7 +25,10 @@ class ContestantController extends Controller {
         $this->middleware('auth');
         $this->middleware('role:admin');
     }
-
+    
+ public function index() {
+        return view('admin.contestant.index');
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -34,7 +37,8 @@ class ContestantController extends Controller {
     public function create() {
         $mytime = Carbon::now();
         $date = $mytime->toDateString();
-        $votingcontest = Voting_contest::where('closing_date', '>', $date)->get();
+        $votingcontest = Votingcontest::where('closing_date', '>', $date)->get();
+       
         return view('admin.contestant.add', compact('votingcontest'));
     }
 
