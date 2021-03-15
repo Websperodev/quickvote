@@ -7,8 +7,8 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link active" aria-current="page" href="{{ url('/') }}">Home</a>
-         <a class="nav-link active" aria-current="page" href="{{ url('vote/categories-list') }}">Votes </a>
+        <a class="nav-link active"  aria-current="page" href="{{ url('/') }}">Home</a>
+         <a class="nav-link" aria-current="page" href="{{ url('vote/categories-list') }}">Votes </a>
         <a class="nav-link" href="{{ route('about-us') }}">About Us</a>
         <a class="nav-link" href="{{ route('our-services') }}">Services</a>
         <a class="nav-link" href="{{ route('pricing') }}">Pricing</a>
@@ -98,6 +98,7 @@ function showPassword(id) {
 } 
 
 $(document).ready(function () {
+    
   $('.modal').on('hidden.bs.modal', function () {
     $('.alert-danger').hide();
     $(this).find('form').trigger('reset');

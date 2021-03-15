@@ -122,7 +122,7 @@ class VotingContestsController extends Controller {
             }
         }
         if ($request->isMethod('get')) {
-            $categories = Categories::where('parent_id','!=','0')->get();
+            $categories = Categories::where('parent_id', '!=', '0')->where('created_by', $user->id)->get();
             return view('admin.votingContests.add', compact('categories'));
         }
     }
@@ -132,10 +132,10 @@ class VotingContestsController extends Controller {
 // echo '<pre>';
 // print_r($allvotingContests); die;
         return DataTables::of($allvotingContests)
-                        ->addColumn('title', function($allvotingContests) {
+                        ->addColumn('title', function ($allvotingContests) {
                             return $allvotingContests->title;
                         })
-                        ->addColumn('image', function($allvotingContests) {
+                        ->addColumn('image', function ($allvotingContests) {
                             $img = '-';
                             if ($allvotingContests->image != '') {
                                 $img = '<img src="' . url($allvotingContests->image) . '" width="100" height="100">';
@@ -143,19 +143,19 @@ class VotingContestsController extends Controller {
 
                             return $img;
                         })
-                        ->editColumn('starting_date', function($allvotingContests) {
+                        ->editColumn('starting_date', function ($allvotingContests) {
                             if (!empty($allvotingContests->starting_date)) {
                                 return getDateOnly($allvotingContests->starting_date);
                             }
                             return 'N/A';
                         })
-                        ->editColumn('closing_date', function($allvotingContests) {
+                        ->editColumn('closing_date', function ($allvotingContests) {
                             if (!empty($allvotingContests->closing_date)) {
                                 return getDateOnly($allvotingContests->closing_date);
                             }
                             return 'N/A';
                         })
-                        ->addColumn('action', function($allvotingContests) {
+                        ->addColumn('action', function ($allvotingContests) {
                             $str = '<div class="btn-group dropdown">
                 <a href="javascript: void(0);" class="table-action-btn dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-horizontal"></i></a>
                 <div class="dropdown-menu dropdown-menu-right"><a data-toggle="tooltip" data-placement="top" title="Edit" class="dropdown-item"  href="' . route('admin.edit.voting', ['id' => $allvotingContests['id']]) . '"><i class="mdi mdi-pencil mr-1 text-muted font-18 vertical-middle"></i> Edit VotingContest</a>';
