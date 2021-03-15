@@ -161,33 +161,32 @@ class EventsController extends Controller {
 //        echo '<pre>';
 //print_r($allEvents); die;
         return DataTables::of($allEvents)
-                        ->addColumn('name', function($allEvents) {
+                        ->addColumn('name', function ($allEvents) {
                             return $allEvents->name;
                         })
-                        ->addColumn('image', function($allEvents) {
+                        ->addColumn('image', function ($allEvents) {
                             $img = '-';
                             if ($allEvents->image != '') {
                                 $img = '<img src="' . url($allEvents->image) . '" width="100" height="100">';
                             }
                             return $img;
                         })
-                        ->addColumn('organizer_name', function($allEvents) {
+                        ->addColumn('organizer_name', function ($allEvents) {
                             return $allEvents->organizer_name;
                         })
-                        ->addColumn('country', function($allEvents) {
+                        ->addColumn('country', function ($allEvents) {
                             return $allEvents->country->name;
                         })
-                        ->editColumn('created_at', function($allEvents) {
+                        ->editColumn('created_at', function ($allEvents) {
                             if (!empty($allEvents->created_at)) {
                                 return getDateOnly($allEvents->created_at);
                             }
                             return 'N/A';
                         })
-                        ->addColumn('action', function($allEvents) {
+                        ->addColumn('action', function ($allEvents) {
                             $str = '<div class="btn-group dropdown">
                 <a href="javascript: void(0);" class="table-action-btn dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-horizontal"></i></a>
                 <div class="dropdown-menu dropdown-menu-right"><a data-toggle="tooltip" data-placement="top" title="Edit" class="dropdown-item"  href="' . route('admin.edit.event', ['id' => $allEvents['id']]) . '"><i class="mdi mdi-pencil mr-1 text-muted font-18 vertical-middle"></i> Edit Event</a>';
-
 
                             $str .= '<a data-toggle="tooltip" data-placement="top" title="Delete" class="dropdown-item"   onclick="deleteEvent(this,' . $allEvents['id'] . ')" href="javascript:void(0);" ><i class="mdi mdi-delete mr-1 text-muted font-18 vertical-middle"></i> Delete Event</a>';
                             $str .= '</div></div>';
@@ -201,6 +200,8 @@ class EventsController extends Controller {
 
         if ($request->isMethod('post')) {
             $validator = Validator::make($request->all(), [
+                        'status' => 'required',
+                        'reason' => 'required_if:status,==,Rejected|nullable',
                         'event_title' => 'required',
                         'start_date' => 'required',
                         'end_date' => 'required',
@@ -236,6 +237,13 @@ class EventsController extends Controller {
                 $event->state_id = $data['state'];
                 $event->country_id = $data['country'];
                 $event->timezone = $data['timezone'];
+                $event->status = $data['status'];
+                
+                if ($data['status'] == '2' && $data['reason'] != '') {
+                    $event->reason = $data['reason'];
+                } else {
+                    $event->reason = NULL;
+                }
                 $event->description = $data['description'];
                 if ($request->hasFile('image')) {
                     if ($request->file('image')->isValid()) {

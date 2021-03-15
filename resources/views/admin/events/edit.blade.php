@@ -6,12 +6,61 @@
 @php 
 $timezoneArray = config('constants.timezones');
 @endphp
+<style> 
+
+    .container{
+        float: left;
+        margin: 10px;
+    }
+    .right{
+        float: left;
+        margin: 10px;
+        color: blue;
+        font-size: 20px;
+        font-weight:bold;
+    }
+    .radio {
+        width: 20px;
+        position: relative;
+    }
+    .radio label {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: white;
+        border-radius: 50px;
+        box-shadow: inset 0px 1px 1px white, 3px 3px 9px rgba(0,0,0,0.5);
+        border: 1px solid black;
+    }
+    .radio label:after {
+        content: '';
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        border: 6px solid blue;
+        border-radius: 50px;
+        opacity: 0;
+    }
+    .radio label:hover::after {
+        opacity: 0.3;
+    }
+    .radio input[type=radio] {
+        visibility: hidden;
+    }
+    .radio input[type=radio]:checked + label:after {
+        opacity: 1;
+    }  
+</style> 
 <div class="row justify-content-center">
 
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
                 <h4 class="mb-3 header-title">Events</h4>
+
                 @if(session()->has('message.level'))
                 <div class="alert alert-{{ session('message.level') }}"> 
                     {!! session('message.text') !!}
@@ -117,15 +166,8 @@ $timezoneArray = config('constants.timezones');
                             @endif
                         </div>
                     </div>
-                    <!--  <div class="row">
-                         <div class="col-md-12 form-group cus-form-group">
-                             <label for="venue">Venue</label>
-                             <input type="text" class="form-control" value="{{ isset($event->venue)? ucfirst($event->venue) : ''}}" name="venue" id="venue" aria-describedby="emailHelp" placeholder="Enter Venue">
-                             @if($errors->has('venue'))
-                                 <div class="error">{{ $errors->first('venue') }}</div>
-                             @endif
-                         </div>
-                     </div> -->
+
+
                     <?php
                     $eventCountry = isset($event->country_id) ? $event->country_id : '';
                     $eventState = isset($event->state_id) ? $event->state_id : '';
@@ -224,6 +266,51 @@ $timezoneArray = config('constants.timezones');
                         <input type="hidden" value="{{ $ticket->ticket_type }}" class="form-control" value="" name="ticket_type[]" aria-describedby="emailHelp" placeholder="Price"></div>
                     @endforeach
                     @endif
+                    <div class="row"> 
+                        <div class="col-md-12 form-group cus-form-group">
+                            @if($event->status=='Pending')
+                            <label for="status">Pending</label>
+                            <input type="radio" value="Pending" checked name='status' class='eventstatus' />
+                            <label for="status">Accepted</label>
+                            <input type="radio" value="Accepted" name='status' class='eventstatus' />
+                            <label for="status">Rejected</label>
+                            <input type="radio" value="Rejected" id='Rejected' name='status' class='eventstatus' />
+                            @elseif($event->status=='Accepted')
+                            <label for="status">Pending</label>
+                            <input type="radio" value="Pending"  name='status' class='eventstatus' />
+                            <label for="status">Accepted</label>
+                            <input type="radio" value="Accepted" checked name='status' class='eventstatus' />
+                            <label for="status">Rejected</label>
+                            <input type="radio" value="Rejected" id='Rejected' name='status' class='eventstatus' />
+                            @elseif($event->status=='Rejected')
+                            <label for="status">Pending</label>
+                            <input type="radio" value="Pending"  name='status' class='eventstatus' />
+                            <label for="status">Accepted</label>
+                            <input type="radio" value="Accepted" name='status' class='eventstatus' />
+                            <label for="status">Rejected</label>
+                            <input type="radio" value="Rejected" id='Rejected' checked name='status' class='eventstatus' />
+                            @endif
+                            @if($errors->has('status'))
+                            <div class="error">{{ $errors->first('status') }}</div>
+                            @endif
+                        </div>
+                        @if($errors->has('reason'))
+                        <script>
+                            $('#Rejected').prop('checked', true);
+                            $('.eventreason').show();
+                        </script>
+
+                        @endif
+                        <div class="col-md-12 form-group cus-form-group eventreason">
+                            <label for="description">Reject Reason</label>
+                            <textarea type="text" cols="50" class="form-control" name="reason" id="reason" placeholder="Description here..">{{ isset($event->reason)? ucfirst($event->reason) : ''}} 
+                            </textarea>
+                            @if($errors->has('reason'))
+
+                            <div class="error">{{ $errors->first('reason') }}</div>
+                            @endif
+                        </div>
+                    </div>
 
                     <button type="button" class="btn btn-bg ladda-button" data-toggle="modal" data-target="#ticketModal">Add Ticket</button>
 
@@ -325,8 +412,25 @@ $timezoneArray = config('constants.timezones');
 <!--<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>-->
 <script src="{{url('assets/ckeditor/ckeditor.js')}}"></script>
 <script type="text/javascript">
+                            var evtstatus = $("input[name='status']:checked").val();
+                            if (evtstatus == 'Rejected'){
+                            $('.eventreason').show();
+                            } else{
+                            $('.eventreason').hide();
+                            }
 
-                            $(document).ready(function() {
+                            $('.eventstatus').on('click', function(){
+
+                            var evtstatus = $(this).val();
+                            if (evtstatus == 'Rejected'){
+                            $('.eventreason').show();
+                            } else{
+                            $('.eventreason').hide();
+                            }
+                            })
+                                    $(document).ready(function() {
+
+
                             var ticketNo = $('#free-no').val(); //maximum input boxes allowed
                             var wrapper = $(".input_fields_wrap"); //Fields wrapper
                             var add_button = $(".add_ticket_button"); //Add button ID
@@ -473,13 +577,13 @@ $timezoneArray = config('constants.timezones');
                             height: '20%',
                                     width: '100%'
                             });
-//bkLib.onDomLoaded(function() {
-//        new nicEditor({ maxHeight : 100 }).panelInstance('area1');
-//        
-//        // new nicEditor({iconsPath : '../nicEditorIcons.gif'}).panelInstance('area3');
-//        // new nicEditor({buttonList : ['fontSize','bold','italic','underline','strikeThrough','subscript','superscript','html','image']}).panelInstance('area4');
-//        // new nicEditor({maxHeight : 100}).panelInstance('area5');
-//});
+                            //bkLib.onDomLoaded(function() {
+                            //        new nicEditor({ maxHeight : 100 }).panelInstance('area1');
+                            //        
+                            //        // new nicEditor({iconsPath : '../nicEditorIcons.gif'}).panelInstance('area3');
+                            //        // new nicEditor({buttonList : ['fontSize','bold','italic','underline','strikeThrough','subscript','superscript','html','image']}).panelInstance('area4');
+                            //        // new nicEditor({maxHeight : 100}).panelInstance('area5');
+                            //});
 
                             $('#country').change(function(){
                             var cid = $(this).val();

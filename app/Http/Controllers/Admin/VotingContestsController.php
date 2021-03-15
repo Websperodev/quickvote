@@ -33,12 +33,8 @@ class VotingContestsController extends Controller {
     }
 
     public function addVotingContest(Request $request) {
-           $user = Auth::user();
+        $user = Auth::user();
         if ($request->isMethod('post')) {
-//            echo '<pre>';
-//            print_r($request->input());
-//            die;
-          
             $validator = Validator::make($request->all(), [
                         'category' => 'required',
                         'category_id' => 'required_if:category,==,2|nullable',
@@ -59,7 +55,7 @@ class VotingContestsController extends Controller {
                 return redirect()->back()->withErrors($validator);
             }
             try {
-               
+
                 $data = $request->all();
                 $existing = Votingcontest::where('title', $data['title'])->count();
                 if ($existing > 0) {
@@ -170,7 +166,7 @@ class VotingContestsController extends Controller {
     }
 
     public function editVotingContest(Request $request) {
-
+        $user = Auth::user();
         if ($request->isMethod('post')) {
             $validator = Validator::make($request->all(), [
                         'category' => 'required',
@@ -200,10 +196,7 @@ class VotingContestsController extends Controller {
                     $request->session()->flash('message.text', 'Voting Contest already exists');
                     return redirect()->back();
                 }
-                $user = Auth::user();
-//                echo '<pre>';
-//                print_r($request->input());
-//                die;
+
                 $votingContest = Votingcontest::find($data['VotingContest_id']);
                 $votingContest->category = $data['category'];
                 $votingContest->type = $data['type'];
@@ -264,7 +257,7 @@ class VotingContestsController extends Controller {
         if ($request->isMethod('get')) {
             $id = $request->get('id');
             $VotingContest = Votingcontest::find($id);
-            $categories = Categories::get();
+            $categories = Categories::where('parent_id', '!=', '0')->where('created_by', $user->id)->get();
             $VotingContest->viewstart_date = date("d/m/Y H:i", strtotime($VotingContest->starting_date));
             $VotingContest->viewclosing_date = date("d/m/Y H:i", strtotime($VotingContest->closing_date));
             return view('admin.votingContests.edit', compact('VotingContest', 'categories'));
