@@ -24,9 +24,18 @@ class CategoriesController extends Controller {
         if (!empty($req->input()) && $req->input('cat_name') != '') {
             $name = $req->input('cat_name');
             $search = $name;
-            $categories = Categories::where('parent_id', '0')->where('name', 'like', '%' . $name . '%')->get();
+            $categories = Categories::select('categories.*')
+                    ->rightjoin('events', 'events.category_id', '=', 'categories.id')
+                    ->where('parent_id', '0')
+                    ->where('name', 'like', '%' . $name . '%')
+                    ->groupBy('categories.id')
+                    ->get();
         } else {
-            $categories = Categories::where('parent_id', '0')->get();
+            $categories = Categories::select('categories.*')
+                    ->rightjoin('events', 'events.category_id', '=', 'categories.id')
+                    ->where('parent_id', '0')
+                    ->groupBy('categories.id')
+                    ->get();
         }
         $inArray = ['home', 'trusted brands'];
         $slider = Slider::whereIn('name', $inArray)->get();
