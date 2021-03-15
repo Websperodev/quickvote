@@ -33,10 +33,12 @@ class VotingContestsController extends Controller {
     }
 
     public function addVotingContest(Request $request) {
+           $user = Auth::user();
         if ($request->isMethod('post')) {
 //            echo '<pre>';
 //            print_r($request->input());
 //            die;
+          
             $validator = Validator::make($request->all(), [
                         'category' => 'required',
                         'category_id' => 'required_if:category,==,2|nullable',
@@ -57,7 +59,7 @@ class VotingContestsController extends Controller {
                 return redirect()->back()->withErrors($validator);
             }
             try {
-                $user = Auth::user();
+               
                 $data = $request->all();
                 $existing = Votingcontest::where('title', $data['title'])->count();
                 if ($existing > 0) {
