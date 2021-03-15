@@ -6,22 +6,18 @@
         <h2>Search Event</h2>
     </div>
 </div>
-<form action="{{url('votes')}}" method="POST">
+<form action="{{url('votes').'/'.$id}}" method="POST">
     @csrf
     <div id="floating-search" class="container evnt">
         <h2>Browse Voting Contests</h2>
         <div class=" row">
-            <div class="col-md-6">
+            <div class="col-md-10">
                 <div class="form-group">
                     <div class="input-group-append"><span class="input-group-text px-4"><i class="fa fa-search"></i></span></div>
                     <input type="text" class="form-control" name="vote_name" value="{{$vote_name}}" id="floatingInputGrid" >
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <input type="date" class="form-control" name="date" value="{{$searchdate}}" id="inputDate" placeholder="Date">
-                </div>
-            </div>
+         
             <div class="col-md-2">
                 <button type="submit" class="btn btn-primary">Search Vote</button>
             </div>
@@ -66,7 +62,7 @@
                         <div class="txt-card">
                             <div class="event-name">
                                 <h2 class="titleh2 event-title">{{$voting->title}}</h2>
-                                <span class="tickets">Tickets From $45</span>
+                                
                             </div>
                             <p class="time-price"><span class="etime"><i class="far fa-clock"></i> Start {{$start_day .' '.$start_month. ' '.$start_date.' '.$start_year .' - '.$close_day.' '.$close_month.' '.$clos_date}}</span> </p>
                             <a class="btn btn-grad-bd ticket-details" href="{{url('contestants').'/'.$voting->id}}">View contest</a>

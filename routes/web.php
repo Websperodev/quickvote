@@ -43,14 +43,17 @@ Route::namespace('User')->group(function () {
     Route::post('edit-profile', 'ProfileController@updateProfile')->name('user.editProfile');
 
     //**  //** Votes Management And Contestants**//
-    Route::any('votes', 'VotesController@index')->name('votes.index');
+    Route::any('votes/{id}', 'VotesController@index')->name('votes.index');
     Route::get('contestants/{id}', 'ContestantsController@index')->name('contestants.index');
     Route::get('vote/contestants/{id}/{any}', 'ContestantsController@buyVotesByUser')->name('contestants.buyvotes');
     Route::post('vote/contestants', 'ContestantsController@saveBuyVotesByUser')->name('contestants.buyvotes.save');
-    
-     //**  //** Categories**//
+
+    //**  //** Categories**//
     Route::get('categories-list', 'CategoriesController@index')->name('user.categories.index');
-     Route::post('categories-list', 'CategoriesController@index')->name('user.categories.index');
+    Route::post('categories-list', 'CategoriesController@index')->name('user.categories.index');
+    //**  //** Sub-Categories**//
+    Route::get('vote/categories-list', 'SubCategoriesController@index')->name('user.subcategories.index');
+    Route::post('vote/categories-list', 'SubCategoriesController@index')->name('user.subcategories.index');
 });
 
 Route::namespace('Vendor\Auth')->group(function () {
@@ -69,7 +72,7 @@ Route::namespace('Vendor')->group(function () {
     Route::get('/getSubcategories/{id}', 'DashboardController@getSubcategories')->name('subcategories');
     Route::post('getAllEvents', 'EventsController@allEvents')->name('event.getEvents');
 
-        Route::get('vendor/getCountries', 'DashboardController@getCountries');
+    Route::get('vendor/getCountries', 'DashboardController@getCountries');
     Route::get('vendor/getStates/{id}', 'DashboardController@getStates')->name('vendor.states');
     Route::get('vendor/getCities/{id}', 'DashboardController@getCities')->name('vendor.cities');
 
@@ -127,7 +130,6 @@ Route::namespace('Admin')->group(function () {
     Route::resource('contestant', 'ContestantController');
     Route::post('get-contestant', 'ContestantController@getContestant')->name('admin.getContestant');
     Route::post('contestant-update/{id}', 'ContestantController@update')->name('contestant.update');
-
 
     Route::resource('testimonials', 'TestimonialController');
     Route::post('get-testimonials', 'TestimonialController@getTestimonial')->name('admin.getTestimonial');
@@ -193,7 +195,6 @@ Route::get('auth/google/callback', 'SocialController@handleGoogleCallback');
 Route::get('/auth/twitter/callback', 'SocialController@twitterCallback');
 
 Route::get('privacy-policy', 'HomeController@openPage')->name('privacy-policy');
-
 
 //Route::get('/home', 'HomeController@index');
 

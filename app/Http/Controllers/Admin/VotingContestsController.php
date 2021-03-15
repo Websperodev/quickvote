@@ -122,7 +122,7 @@ class VotingContestsController extends Controller {
             }
         }
         if ($request->isMethod('get')) {
-            $categories = Categories::get();
+            $categories = Categories::where('parent_id','!=','0')->get();
             return view('admin.votingContests.add', compact('categories'));
         }
     }
