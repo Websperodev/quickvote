@@ -27,7 +27,7 @@ class SubCategoriesController extends Controller {
             $search = $name;
             $subcategories = Categories::select('categories.*')
                     ->rightjoin('voting_contests', 'voting_contests.category_id', '=', 'categories.id')
-//                    ->where( 'categories.id','voting_contests.category_id')
+                    ->where('voting_contests.status', 'Accepted')
                     ->where('categories.parent_id', '!=', '0')
                     ->where('categories.name', 'like', '%' . $name . '%')
                     ->groupBy('categories.id')
@@ -35,6 +35,7 @@ class SubCategoriesController extends Controller {
         } else {
             $subcategories = Categories::select('categories.*')
                             ->rightjoin('voting_contests', 'voting_contests.category_id', '=', 'categories.id')
+                            ->where('voting_contests.status', 'Accepted')
                             ->where('categories.parent_id', '!=', '0')
                             ->groupBy('categories.id')->get();
         }

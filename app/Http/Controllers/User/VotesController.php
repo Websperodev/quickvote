@@ -28,6 +28,7 @@ class VotesController extends Controller {
             if ($req->input('vote_name') && $req->input('vote_name') != '') {
                 $vote_name = $req->input('vote_name');
                 $voting_contest = Votingcontest::where('category_id', $id)
+                        ->where('status', 'Accepted')
                         ->where('closing_date', '>', $date)
                         ->where('title', 'like', '%' . $vote_name . '%')
                         ->get();
@@ -44,7 +45,10 @@ class VotesController extends Controller {
 //                $voting_contest = Votingcontest::where('closing_date', '>', $Searchdate)->where('title', 'like', '%' . $vote_name . '%')->get();
 //            }
         } else {
-            $voting_contest = Votingcontest::where('category_id', $id)->where('closing_date', '>', $date)->get();
+            $voting_contest = Votingcontest::where('category_id', $id)
+                    ->where('closing_date', '>', $date)
+                    ->where('status', 'Accepted')
+                    ->get();
         }
         return view('user/votes/votes', compact('voting_contest', 'id', 'slider', 'testimonials', 'vote_name', 'searchdate'));
     }

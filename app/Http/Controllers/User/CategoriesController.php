@@ -26,6 +26,7 @@ class CategoriesController extends Controller {
             $search = $name;
             $categories = Categories::select('categories.*')
                     ->rightjoin('events', 'events.category_id', '=', 'categories.id')
+                    ->where('events.status', 'Accepted')
                     ->where('parent_id', '0')
                     ->where('name', 'like', '%' . $name . '%')
                     ->groupBy('categories.id')
@@ -33,6 +34,7 @@ class CategoriesController extends Controller {
         } else {
             $categories = Categories::select('categories.*')
                     ->rightjoin('events', 'events.category_id', '=', 'categories.id')
+                    ->where('events.status', 'Accepted')
                     ->where('parent_id', '0')
                     ->groupBy('categories.id')
                     ->get();

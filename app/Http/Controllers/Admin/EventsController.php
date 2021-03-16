@@ -270,7 +270,7 @@ class EventsController extends Controller {
                     $ticketEndDate = $request->get('ticketend_date');
                     $deleteTicket = Ticket::where('event_id', $event->id)->delete();
                     foreach ($ticketName as $key => $ticket) {
-                        $rownum = Ticket::select('ticket_number')->order_by('id', 'desc')->first();
+                        $rownum = Ticket::select('ticket_number')->orderBy('id', 'desc')->first();
                         if (!empty($rownum)) {
                             $ticket_number = $rownum->ticket_number;
                         } else {

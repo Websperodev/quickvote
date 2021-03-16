@@ -289,6 +289,13 @@ $timezoneArray = config('constants.timezones');
                             <input type="radio" value="Accepted" name='status' class='eventstatus' />
                             <label for="status">Rejected</label>
                             <input type="radio" value="Rejected" id='Rejected' checked name='status' class='eventstatus' />
+                            @else
+                               <label for="status">Pending</label>
+                            <input type="radio" value="Pending" checked name='status' class='eventstatus' />
+                            <label for="status">Accepted</label>
+                            <input type="radio" value="Accepted" name='status' class='eventstatus' />
+                            <label for="status">Rejected</label>
+                            <input type="radio" value="Rejected" id='Rejected' name='status' class='eventstatus' />
                             @endif
                             @if($errors->has('status'))
                             <div class="error">{{ $errors->first('status') }}</div>

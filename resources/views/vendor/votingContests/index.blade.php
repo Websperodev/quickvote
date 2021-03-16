@@ -37,7 +37,8 @@
                             <th>Image</th>
                             <th>Type</th>
                             <th>Starting date</th>
-                            <th>Closing date</th>                            
+                            <th>Closing date</th>    
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -99,11 +100,11 @@ table_instance = $('#voting-table').DataTable({
     ],
     columns: [
         {data: 'title', name: 'title'},
-         {data: 'image', name: 'image'},
+        {data: 'image', name: 'image'},
         {data: 'type', name: 'type'},
         {data: 'starting_date', name: 'starting_date'},
         {data: 'closing_date', name: 'closing_date'},
-       
+        {data: 'status', name: 'status'},
         {data: 'action', name: 'action', "searchable": false, "orderable": false, width: '50px', className: "text-center"}
     ],
 });
@@ -129,7 +130,7 @@ function deleteVotingContest(obj, id)
                 _token: "{!! csrf_token() !!}"
             }, function (data) {
                 $('#full_page_loader').addClass('d-none');
-               
+
                 if (data.status == 1) {
                     Swal.fire({
                         type: 'success',

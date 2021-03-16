@@ -34,6 +34,7 @@
                             <th>Image</th>
                             <th>Organizer Name</th>
                             <th>Country</th>
+                            <th>Status</th>
                             <th>Created</th>
                             <th>Action</th>
                         </tr>
@@ -99,6 +100,7 @@
                 {data: 'image', name: 'image'},
                 {data: 'organizer_name', name: 'organizer_name'},
                 {data: 'country', name: 'country'},
+                 {data: 'status', name: 'status'},
                 {data: 'created_at', name: 'created_at'},
                 {data: 'action', name: 'action', "searchable": false, "orderable": false, width: '50px', className : "text-center"}
             ],
