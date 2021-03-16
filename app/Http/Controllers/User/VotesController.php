@@ -33,6 +33,7 @@ class VotesController extends Controller {
                         ->where('title', 'like', '%' . $vote_name . '%')
                         ->get();
             }
+
 //            if ($req->input('date') && $req->input('date') != '' && !$req->input('vote_name')) {
 //                $searchdate = $req->input('date');
 //                $Searchdate = date("Y-m-d", strtotime($req->input('date')));
@@ -51,6 +52,41 @@ class VotesController extends Controller {
                     ->get();
         }
         return view('user/votes/votes', compact('voting_contest', 'id', 'slider', 'testimonials', 'vote_name', 'searchdate'));
+    }
+
+    function nonCateVotes(Request $req) {
+        $vote_name = '';
+        $voting_contest = [];
+
+//        $scatid=$req->input('id');
+//   echo $scatid; die;
+
+        $mytime = Carbon::now();
+        $date = $mytime->toDateString();
+        $inArray = ['home', 'trusted brands'];
+        $slider = Slider::whereIn('name', $inArray)->get();
+        $testimonials = Testimonial::all();
+        if (!empty($req->input())) {
+
+            if ($req->input('vote_name') && $req->input('vote_name') != '') {
+
+                $vote_name = $req->input('vote_name');
+
+                $voting_contest = Votingcontest::where('category_id', NULL)
+                        ->where('status', 'Accepted')
+                        ->where('closing_date', '>', $date)
+                        ->where('title', 'like', '%' . $vote_name . '%')
+                        ->get();
+            }
+        } else {
+
+            $voting_contest = Votingcontest::where('category_id', NULL)
+                    ->orWhere('category_id', '')
+                    ->where('closing_date', '>', $date)
+                    ->where('status', 'Accepted')
+                    ->get();
+        }
+        return view('user/votes/nonCatvotes', compact('voting_contest', 'slider', 'testimonials', 'vote_name'));
     }
 
 }

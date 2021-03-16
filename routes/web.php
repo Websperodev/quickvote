@@ -44,6 +44,8 @@ Route::namespace('User')->group(function () {
 
     //**  //** Votes Management And Contestants**//
     Route::any('votes/{id}', 'VotesController@index')->name('votes.index');
+    Route::any('noncatvotes', 'VotesController@nonCateVotes')->name('votes.noncatvote');
+  
     Route::get('contestants/{id}', 'ContestantsController@index')->name('contestants.index');
     Route::get('vote/contestants/{id}/{any}', 'ContestantsController@buyVotesByUser')->name('contestants.buyvotes');
     Route::post('vote/contestants', 'ContestantsController@saveBuyVotesByUser')->name('contestants.buyvotes.save');

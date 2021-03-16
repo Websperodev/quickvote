@@ -35,9 +35,7 @@ class VotingContestsController extends Controller {
     public function addVotingContest(Request $request) {
         $user = Auth::user();
         if ($request->isMethod('post')) {
-//            echo '<pre>';
-//            print_r($request->input());
-//            die;
+           
             $validator = Validator::make($request->all(), [
                         'category' => 'required',
                         'category_id' => 'required_if:category,==,2|nullable',
@@ -58,7 +56,7 @@ class VotingContestsController extends Controller {
                 return redirect()->back()->withErrors($validator);
             }
             try {
-                
+
                 $data = $request->all();
 
                 $existing = Votingcontest::where('title', $data['title'])->count();
@@ -111,7 +109,7 @@ class VotingContestsController extends Controller {
 
                 if ($votingContest->id != '') {
                     $request->session()->flash('message.level', 'success');
-                    $request->session()->flash('message.text', 'Voting Contest Added successfully.');
+                    $request->session()->flash('message.text', 'Voting Contest Added successfully.Please wait administration response');
                     return redirect()->back();
                 } else {
                     $request->session()->flash('message.level', 'danger');
@@ -172,7 +170,7 @@ class VotingContestsController extends Controller {
     }
 
     public function editVotingContest(Request $request) {
-$user = Auth::user();
+        $user = Auth::user();
         if ($request->isMethod('post')) {
             $validator = Validator::make($request->all(), [
                         'category' => 'required',
@@ -202,7 +200,7 @@ $user = Auth::user();
                     $request->session()->flash('message.text', 'Voting Contest already exists');
                     return redirect()->back();
                 }
-                
+
 //                echo '<pre>';
 //                print_r($request->input());
 //                die;

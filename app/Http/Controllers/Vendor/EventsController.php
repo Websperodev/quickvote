@@ -39,10 +39,10 @@ class EventsController extends Controller {
         $allCategories = Categories::orderBy('created_at', 'desc')->get();
 
         return DataTables::of($allCategories)
-                        ->addColumn('name', function($allCategories) {
+                        ->addColumn('name', function ($allCategories) {
                             return $allCategories->name;
                         })
-                        ->addColumn('image', function($allCategories) {
+                        ->addColumn('image', function ($allCategories) {
                             $img = '-';
                             if ($allCategories->image != '') {
                                 $img = '<img src="' . url($allCategories->image) . '" width="100" height="100">';
@@ -50,13 +50,13 @@ class EventsController extends Controller {
 
                             return $img;
                         })
-                        ->editColumn('created_at', function($allCategories) {
+                        ->editColumn('created_at', function ($allCategories) {
                             if (!empty($allCategories->created_at)) {
                                 return getDateOnly($allCategories->created_at);
                             }
                             return 'N/A';
                         })
-                        ->addColumn('action', function($allCategories) {
+                        ->addColumn('action', function ($allCategories) {
                             if (Auth::user()->id == $allCategories['created_by']) {
                                 $str = '<div class="btn-group dropdown">
                 <a href="javascript: void(0);" class="table-action-btn dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-horizontal"></i></a>
@@ -161,12 +161,12 @@ class EventsController extends Controller {
             $ticketEndDate = $request->get('ticketend_date');
             if (!empty($ticketName)) {
                 foreach ($ticketName as $key => $ticket) {
-                   $row = Ticket::select('ticket_number')->orderBy('id', 'desc')->first();
-                        if ($row->ticket_number != '') {
-                            $ticket_number = $row->ticket_number + 1;
-                        } else {
-                            $ticket_number = 10000000;
-                        }
+                    $row = Ticket::select('ticket_number')->orderBy('id', 'desc')->first();
+                    if ($row->ticket_number != '') {
+                        $ticket_number = $row->ticket_number + 1;
+                    } else {
+                        $ticket_number = 10000000;
+                    }
                     $ticket = new Ticket;
                     $ticket->event_id = $event->id;
                     $ticket->ticket_type = $ticketType[$key];
@@ -183,7 +183,7 @@ class EventsController extends Controller {
 
             if ($event->id != '') {
                 $request->session()->flash('message.level', 'success');
-                $request->session()->flash('message.text', 'Event Added successfully.');
+                $request->session()->flash('message.text', 'Event Added successfully.Please wait administration response ');
                 return redirect()->back();
             } else {
                 $request->session()->flash('message.level', 'danger');
@@ -202,33 +202,32 @@ class EventsController extends Controller {
         $allEvents = Event::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
 
         return DataTables::of($allEvents)
-                        ->addColumn('name', function($allEvents) {
+                        ->addColumn('name', function ($allEvents) {
                             return $allEvents->name;
                         })
-                        ->addColumn('image', function($allEvents) {
+                        ->addColumn('image', function ($allEvents) {
                             $img = '-';
                             if ($allEvents->image != '') {
                                 $img = '<img src="' . url($allEvents->image) . '" width="100" height="100">';
                             }
                             return $img;
                         })
-                        ->addColumn('organizer_name', function($allEvents) {
+                        ->addColumn('organizer_name', function ($allEvents) {
                             return $allEvents->organizer_name;
                         })
-                        ->addColumn('country', function($allEvents) {
+                        ->addColumn('country', function ($allEvents) {
                             return $allEvents->country->name;
                         })
-                        ->editColumn('created_at', function($allEvents) {
+                        ->editColumn('created_at', function ($allEvents) {
                             if (!empty($allEvents->created_at)) {
                                 return getDateOnly($allEvents->created_at);
                             }
                             return 'N/A';
                         })
-                        ->addColumn('action', function($allEvents) {
+                        ->addColumn('action', function ($allEvents) {
                             $str = '<div class="btn-group dropdown">
                 <a href="javascript: void(0);" class="table-action-btn dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-horizontal"></i></a>
                 <div class="dropdown-menu dropdown-menu-right"><a data-toggle="tooltip" data-placement="top" title="Edit" class="dropdown-item"  href="' . route('event.edit', $allEvents->id) . '"><i class="mdi mdi-pencil mr-1 text-muted font-18 vertical-middle"></i> Edit Event</a>';
-
 
                             $str .= '<a data-toggle="tooltip" data-placement="top" title="Delete" class="dropdown-item"   onclick="deleteEvent(this,' . $allEvents['id'] . ')" href="javascript:void(0);" ><i class="mdi mdi-delete mr-1 text-muted font-18 vertical-middle"></i> Delete Event</a>';
                             $str .= '</div></div>';

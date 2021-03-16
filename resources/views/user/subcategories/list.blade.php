@@ -1,6 +1,14 @@
 
 @extends('user.layouts.main')
 @section('content')
+<style>
+    .noncategory{
+        height:10px;
+        width: 150px;
+        margin: -30px 64px 65px 115px;
+
+    }
+</style>
 <div id="event-page" class="banner breadcrumb">
     <div class="slider-content">
         <h4>Quick Category</h4>
@@ -23,7 +31,12 @@
         </div>
     </div>
 </form>
+<div class="noncategory container evnt">                       
+    <div class="col-md-4">
+        <a href="{{url('noncatvotes')}}"><button type="submit"  class="btn btn-primary advanceSearch seachButton">Not Categorized</button></a>
+    </div>       
 
+</div> 
 <div id="eve" class="events">
     <div class="container">
         <div class="row">          
