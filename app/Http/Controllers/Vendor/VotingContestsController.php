@@ -58,7 +58,7 @@ class VotingContestsController extends Controller {
                 return redirect()->back()->withErrors($validator);
             }
             try {
-                $user = Auth::user();
+                
                 $data = $request->all();
 
                 $existing = Votingcontest::where('title', $data['title'])->count();
@@ -172,7 +172,7 @@ class VotingContestsController extends Controller {
     }
 
     public function editVotingContest(Request $request) {
-
+$user = Auth::user();
         if ($request->isMethod('post')) {
             $validator = Validator::make($request->all(), [
                         'category' => 'required',
@@ -202,7 +202,7 @@ class VotingContestsController extends Controller {
                     $request->session()->flash('message.text', 'Voting Contest already exists');
                     return redirect()->back();
                 }
-                $user = Auth::user();
+                
 //                echo '<pre>';
 //                print_r($request->input());
 //                die;

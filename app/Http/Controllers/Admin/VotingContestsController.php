@@ -220,6 +220,7 @@ class VotingContestsController extends Controller {
                 $votingContest->timezone = $data['timezone'];
                 $votingContest->description = $data['description'];
                 $votingContest->status = $data['status'];
+
                 if ($data['status'] == 'Rejected' && $data['reason'] != '') {
                     $votingContest->reason = $data['reason'];
                 } else {
