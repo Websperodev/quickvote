@@ -189,7 +189,7 @@
                                                     </div>
                                                     @endforeach
                                                     @endif
-                                                    <p align="center"> <a href="{{url('votes')}}" class="btn btn-bg mt-4 votesBtn">View All Votes</a></p>
+                                                    <p align="center"> <a href="{{url('vote/categories-list')}}" class="btn btn-bg mt-4 votesBtn">View All Votes</a></p>
                                                 </div>
 
                                             </div>

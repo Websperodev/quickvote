@@ -129,7 +129,7 @@
             </div>
             @endforeach
             @endif
-            <p align="center"> <a href="{{url('search-event')}}" class="btn btn-bg mt-4">View All Events</a></p>
+            <p align="center"> <a href="{{url('categories-list')}}" class="btn btn-bg mt-4">View All Categories</a></p>
         </div>
     </div>
 </div>
