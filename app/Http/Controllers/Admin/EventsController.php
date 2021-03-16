@@ -239,7 +239,7 @@ class EventsController extends Controller {
                 $event->timezone = $data['timezone'];
                 $event->status = $data['status'];
                 
-                if ($data['status'] == '2' && $data['reason'] != '') {
+                if ($data['status'] == 'Rejected' && $data['reason'] != '') {
                     $event->reason = $data['reason'];
                 } else {
                     $event->reason = NULL;

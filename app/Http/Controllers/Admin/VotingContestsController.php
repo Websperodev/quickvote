@@ -120,7 +120,7 @@ class VotingContestsController extends Controller {
             }
         }
         if ($request->isMethod('get')) {
-            $categories = Categories::where('parent_id', '!=', '0')->where('created_by', $user->id)->get();
+            $categories = Categories::where('parent_id', '!=', '0')->get();
             return view('admin.votingContests.add', compact('categories'));
         }
     }
@@ -171,6 +171,8 @@ class VotingContestsController extends Controller {
             $validator = Validator::make($request->all(), [
                         'category' => 'required',
                         'category_id' => 'required_if:category,==,2|nullable',
+                        'status' => 'required',
+                        'reason' => 'required_if:status,==,Rejected|nullable',
                         'type' => 'required',
                         'limit' => 'required',
                         'limit_count' => 'required_if:limit,==,1|nullable',
@@ -217,6 +219,12 @@ class VotingContestsController extends Controller {
                 $votingContest->fees = $data['fees'];
                 $votingContest->timezone = $data['timezone'];
                 $votingContest->description = $data['description'];
+                $votingContest->status = $data['status'];
+                if ($data['status'] == 'Rejected' && $data['reason'] != '') {
+                    $votingContest->reason = $data['reason'];
+                } else {
+                    $votingContest->reason = NULL;
+                }
                 $votingContest->starting_date = date("Y-m-d H:i", strtotime($data['starting_date']));
                 $votingContest->closing_date = date("Y-m-d H:i", strtotime($data['closing_date']));
 
@@ -257,7 +265,7 @@ class VotingContestsController extends Controller {
         if ($request->isMethod('get')) {
             $id = $request->get('id');
             $VotingContest = Votingcontest::find($id);
-            $categories = Categories::where('parent_id', '!=', '0')->where('created_by', $user->id)->get();
+            $categories = Categories::where('parent_id', '!=', '0')->get();
             $VotingContest->viewstart_date = date("d/m/Y H:i", strtotime($VotingContest->starting_date));
             $VotingContest->viewclosing_date = date("d/m/Y H:i", strtotime($VotingContest->closing_date));
             return view('admin.votingContests.edit', compact('VotingContest', 'categories'));

@@ -225,6 +225,51 @@ $timezoneArray = config('constants.timezones');
                             @endif
                         </div>
                     </div>
+                      <div class="row"> 
+                        <div class="col-md-12 form-group cus-form-group">
+                            @if($VotingContest->status=='Pending')
+                            <label for="status">Pending</label>
+                            <input type="radio" value="Pending" checked name='status' class='eventstatus' />
+                            <label for="status">Accepted</label>
+                            <input type="radio" value="Accepted" name='status' class='eventstatus' />
+                            <label for="status">Rejected</label>
+                            <input type="radio" value="Rejected" id='Rejected' name='status' class='eventstatus' />
+                            @elseif($VotingContest->status=='Accepted')
+                            <label for="status">Pending</label>
+                            <input type="radio" value="Pending"  name='status' class='eventstatus' />
+                            <label for="status">Accepted</label>
+                            <input type="radio" value="Accepted" checked name='status' class='eventstatus' />
+                            <label for="status">Rejected</label>
+                            <input type="radio" value="Rejected" id='Rejected' name='status' class='eventstatus' />
+                            @elseif($VotingContest->status=='Rejected')
+                            <label for="status">Pending</label>
+                            <input type="radio" value="Pending"  name='status' class='eventstatus' />
+                            <label for="status">Accepted</label>
+                            <input type="radio" value="Accepted" name='status' class='eventstatus' />
+                            <label for="status">Rejected</label>
+                            <input type="radio" value="Rejected" id='Rejected' checked name='status' class='eventstatus' />
+                            @endif
+                            @if($errors->has('status'))
+                            <div class="error">{{ $errors->first('status') }}</div>
+                            @endif
+                        </div>
+                        @if($errors->has('reason'))
+                        <script>
+                            $('#Rejected').prop('checked', true);
+                            $('.eventreason').show();
+                        </script>
+
+                        @endif
+                        <div class="col-md-12 form-group cus-form-group eventreason">
+                            <label for="description">Reject Reason</label>
+                            <textarea type="text" cols="50" class="form-control" name="reason" id="reason" placeholder="Description here..">{{ isset($VotingContest->reason)? ucfirst($VotingContest->reason) : ''}} 
+                            </textarea>
+                            @if($errors->has('reason'))
+
+                            <div class="error">{{ $errors->first('reason') }}</div>
+                            @endif
+                        </div>
+                    </div>
                     <input type="hidden" name="VotingContest_id" value="{{ isset($VotingContest->id ) ? $VotingContest->id  : ''}}"> 
                     <div class="btn-right">
                         <button type="submit" class="btn btn-bg ladda-button">Submit</button>
@@ -243,6 +288,22 @@ $timezoneArray = config('constants.timezones');
 </script>
 
 <script>
+      var evtstatus = $("input[name='status']:checked").val();
+                            if (evtstatus == 'Rejected'){
+                            $('.eventreason').show();
+                            } else{
+                            $('.eventreason').hide();
+                            }
+
+                            $('.eventstatus').on('click', function(){
+
+                            var evtstatus = $(this).val();
+                            if (evtstatus == 'Rejected'){
+                            $('.eventreason').show();
+                            } else{
+                            $('.eventreason').hide();
+                            }
+                            })
     $(document).ready(function () {
 
         var cat = $('input[name="category"]:checked').val();
