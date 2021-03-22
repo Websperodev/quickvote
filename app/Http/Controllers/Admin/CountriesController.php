@@ -59,10 +59,7 @@ class CountriesController extends Controller {
                 $Country->phonecode = $data['phonecode'];
                 $Country->currency = strtoupper($data['currency']);
                 $Country->created_by = $user->id;
-
-
                 $Country->save();
-
                 if ($Country->id != '') {
                     $request->session()->flash('message.level', 'success');
                     $request->session()->flash('message.text', 'Country Added successfully.');

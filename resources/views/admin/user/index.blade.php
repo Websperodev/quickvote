@@ -147,13 +147,6 @@
             }
         })
     }
-
-       
-      
-       
-
-      
-
-    
+ 
     </script>
 @endsection

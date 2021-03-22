@@ -12,10 +12,10 @@
     .vote-price{
         color:red; 
     }
-   .img-fluid {
-    max-width: 100% !important;
-    height: 53% !important;
-             }
+    .img-fluid {
+        max-width: 100% !important;
+        height: 53% !important;
+    }
 </style>
 
 <div id="cand-detail" class="candid">
@@ -75,40 +75,42 @@
                     <img src="{{url($img)}}" class="cand-pic">
                     <h5>Vote Form</h5>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    {!! Form::open(array('route' => 'contestants.buyvotes.save', 'id' => 'buy_votes_form', 'method' => 'post','class' => 'custum-frm', 'enctype' => 'multipart/form-data' )) !!}
-
+                    <!--{!! Form::open(array('route' => 'pay', 'id' => 'buy_votes_form', 'method' => 'post','class' => 'custum-frm', 'enctype' => 'multipart/form-data' )) !!}-->
+                    {!! Form::open(array('class' => 'custum-frm', 'enctype' => 'multipart/form-data' )) !!}
+                    <script src="https://js.paystack.co/v1/inline.js"></script>
                     @csrf
                     <div class="col-md-12">
-                        <input type="hidden" name="voting_id" value="{{$vote->id}}">
-                        <input type="hidden" name="contestant_id" value="{{$contestants->id}}" >
+                        <input type="hidden" id="voting_id" name="voting_id" value="{{$vote->id}}">
+                        <input type="hidden" id="contestant_id" name="contestant_id" value="{{$contestants->id}}" >
                         <div class="form-group">
-                            <input type="Number" name="votes" value="" class="form-control" placeholder="Enter the total number of votes you">
-                            @if($errors->has('votes'))
-                            <div class="error">{{ $errors->first('votes') }}</div>
+                            <input type="Number" name="quantity" id="quantity" value="" class="form-control" placeholder="Enter the total number of votes you">
+                            @if($errors->has('quantity'))
+                            <div class="error">{{ $errors->first('quantity') }}</div>
                             @endif
                         </div>
                         <div class="form-group">
-                            <input type="text" name="name" value="" class="form-control" placeholder="Enter your full name">
+                            <input type="text" name="name" id="name" value="" class="form-control" placeholder="Enter your full name">
                             @if($errors->has('name'))
                             <div class="error">{{ $errors->first('name') }}</div>
                             @endif
                         </div>
                         <div class="form-group">
-                            <input type="email" name="email" value="" class="form-control" placeholder="Enter valid email for your receipt">
+                            <input type="email" name="email" id="email" value="" class="form-control" placeholder="Enter valid email for your receipt">
                             @if($errors->has('email'))
                             <div class="error">{{ $errors->first('email') }}</div>
                             @endif
                         </div>
                         <div class="form-group">
-                            <input type="tel" name="phone" value="" class="form-control" placeholder="Enter your phone number">
+                            <input type="tel" name="phone" id="phone" value="" class="form-control" placeholder="Enter your phone number">
                             @if($errors->has('phone'))
                             <div class="error">{{ $errors->first('phone') }}</div>
                             @endif
                         </div>
+
                     </div>
                     <p class="vote-price">Each Vote costs <span>{{$vote->fees}} USD</span></p>
-                    <p class="vote-payment"><button type="submit" class="btn btn-bg">Proceed To Payment</button></p>
-                    {!! Form::close() !!}
+                    <p class="vote-payment"><button type="button" onclick="payWithPaystack()" class="btn btn-bg">Proceed To Payment</button></p>
+                    </form>
                 </div>
 
             </div>
@@ -170,7 +172,69 @@
         </div>
     </div>
 </div>
+<!-- place below the html form -->
+<script>
+    function payWithPaystack() {
+        var fees = "{{$vote->fees}}";
+        var phone = $('#phone').val();
+        var name= $('#name').val();
+        var quantity = $('#quantity').val();
+        var amount = fees * quantity;
+        var email = $('#email').val();
+        var voting_id = "{{$vote->id}}";
+        var contestant_id = "{{$contestants->id}}";
+        var handler = PaystackPop.setup({
+            key: 'pk_test_402e4abb808a62fc2ba080d79887f256cb5c574a',
+            email: 'dilpreet@webspero.com',
+            amount: amount,
+            ref: '' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+            metadata: {
+                custom_fields: [
+                    {
+                        display_name: "Mobile Number",
+                        variable_name: "mobile_number",
+                        value: "+2348012345678"
+                    }
+                ]
+            },
+            callback: function (response) {
+                var payurl = "{{url('vote/contestants')}}";
+                var data = {'reference': response.reference, _token: "{!! csrf_token() !!}",'name':name, 'fees': fees, 'phone': phone, 'quantity': quantity, 'amount': amount, 'email': email, 'voting_id': voting_id, 'contestant_id': contestant_id}
+                $.ajax({
+                    url: payurl,
+                    type: "post",
+                    data: data,
+                    success: function (res) {
 
+                        if (res.status == 1) {
+                            Swal.fire({
+                                type: 'Success',
+                                title: 'Success!',
+                                text: data.message,
+                                confirmButtonClass: 'btn btn-confirm mt-2',
+                            });
+                        } else {
+                            Swal.fire({
+                                type: 'error',
+                                title: 'Error!',
+                                text: 'Cannot buy votes',
+                                confirmButtonClass: 'btn btn-confirm mt-2',
+                            });
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus, errorThrown);
+                    }
+                });
+
+            },
+            onClose: function () {
+                alert('window closed');
+            }
+        });
+        handler.openIframe();
+    }
+</script>
 @include('user.components.newsletter')
 @include('user.components.trusted-brands')
-  @endsection
+@endsection

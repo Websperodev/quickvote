@@ -48,7 +48,8 @@ Route::namespace('User')->group(function () {
   
     Route::get('contestants/{id}', 'ContestantsController@index')->name('contestants.index');
     Route::get('vote/contestants/{id}/{any}', 'ContestantsController@buyVotesByUser')->name('contestants.buyvotes');
-    Route::post('vote/contestants', 'ContestantsController@saveBuyVotesByUser')->name('contestants.buyvotes.save');
+    Route::post('vote/contestants', 'ContestantsController@saveBuyVotesByUser')->name('pay');
+    Route::get('/payment/callback', 'ContestantsController@handleGatewayCallback');
 
     //**  //** Categories**//
     Route::get('categories-list', 'CategoriesController@index')->name('user.categories.index');
