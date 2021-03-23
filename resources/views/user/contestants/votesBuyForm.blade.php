@@ -18,6 +18,12 @@
     }
 </style>
 
+<script>
+    var userStats = "{{$userStatus}}";
+    var votetype = "{{$vote->type}}";
+//    alert(votetype);
+</script>
+
 <div id="cand-detail" class="candid">
     <div class="container">
         @if(session()->has('message.level'))
@@ -174,69 +180,91 @@
 </div>
 <!-- place below the html form -->
 <script>
+    function checkuserAndPayType() {
+        if (userStats == 'yes') {
+            return true;
+        } else if (userStats == 'no' && votetype == 'paid') {
+            return true;
+        } else if (userStats == 'no' && votetype == 'free') {
+            return false;
+        }
+    }
     function payWithPaystack() {
-        var fees = "{{$vote->fees}}";
-        var phone = $('#phone').val();
-        var name = $('#name').val();
-        var quantity = $('#quantity').val();
-        var amount = fees * quantity;
-        var email = $('#email').val();
-        var voting_id = "{{$vote->id}}";
-        var contestant_id = "{{$contestants->id}}";
-        var handler = PaystackPop.setup({
-            key: 'pk_test_402e4abb808a62fc2ba080d79887f256cb5c574a',
-            email: email,
-            amount: amount,
-            ref: '' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-            metadata: {
-                custom_fields: [
-                    {
-                        display_name: "Mobile Number",
-                        variable_name: "mobile_number",
-                        value: "+2348012345678"
-                    }
-                ]
-            },
-            callback: function (response) {
-                var payurl = "{{url('vote/contestants')}}";
-                var data = {'reference': response.reference, _token: "{!! csrf_token() !!}", 'name': name, 'fees': fees, 'phone': phone, 'quantity': quantity, 'amount': amount, 'email': email, 'voting_id': voting_id, 'contestant_id': contestant_id}
-                $.ajax({
-                    url: payurl,
-                    type: "post",
-                    data: data,
-                    success: function (res) {
-                        if (res.status == 1) {
-                            $('#phone').val('');
-                            $('#name').val('');
-                            $('#quantity').val('');
-                            $('#email').val('');
-                            Swal.fire({
-                                type: 'Success',
-                                title: 'Success!',
-                                text: data.message,
-                                confirmButtonClass: 'btn btn-confirm mt-2',
-                            });
 
-                        } else {
-                            Swal.fire({
-                                type: 'error',
-                                title: 'Error!',
-                                text: 'Cannot buy votes',
-                                confirmButtonClass: 'btn btn-confirm mt-2',
-                            });
+        if (checkuserAndPayType()) {
+
+            var fees = "{{$vote->fees}}";
+            var phone = $('#phone').val();
+            var name = $('#name').val();
+            var quantity = $('#quantity').val();
+            var amount = fees * quantity;
+            var email = $('#email').val();
+            var voting_id = "{{$vote->id}}";
+            var contestant_id = "{{$contestants->id}}";
+            var handler = PaystackPop.setup({
+                key: 'pk_test_402e4abb808a62fc2ba080d79887f256cb5c574a',
+                email: email,
+                amount: amount,
+                ref: '' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+                metadata: {
+                    custom_fields: [
+                        {
+                            display_name: "Mobile Number",
+                            variable_name: "mobile_number",
+                            value: "+2348012345678"
                         }
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.log(textStatus, errorThrown);
-                    }
-                });
+                    ]
+                },
+                callback: function (response) {
+                    var payurl = "{{url('vote/contestants')}}";
+                    var data = {'reference': response.reference, _token: "{!! csrf_token() !!}", 'name': name, 'fees': fees, 'phone': phone, 'quantity': quantity, 'amount': amount, 'email': email, 'voting_id': voting_id, 'contestant_id': contestant_id}
+                    $.ajax({
+                        url: payurl,
+                        type: "post",
+                        data: data,
+                        success: function (res) {
+                            if (res.status == 1) {
+                                $('#phone').val('');
+                                $('#name').val('');
+                                $('#quantity').val('');
+                                $('#email').val('');
+                                Swal.fire({
+                                    type: 'Success',
+                                    title: 'Success!',
+                                    text: data.message,
+                                    confirmButtonClass: 'btn btn-confirm mt-2',
+                                });
+                            } else {
+                                Swal.fire({
+                                    type: 'error',
+                                    title: 'Error!',
+                                    text: 'Cannot buy votes',
+                                    confirmButtonClass: 'btn btn-confirm mt-2',
+                                });
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log(textStatus, errorThrown);
+                        }
+                    });
+                },
+                onClose: function () {
+                    alert('window closed');
+                }
+            });
+            handler.openIframe();
+        } else {
+            Swal.fire({
+                title: 'Warning',
+                text: 'Please log in then you can buy the votes!',
+                type: 'warning',
+                confirmButtonText: 'Back on login page',
+                showConfirmButton: true
+            }).then(function () {
+                window.location.href = '{{url("/")}}';
+            })
+        }
 
-            },
-            onClose: function () {
-                alert('window closed');
-            }
-        });
-        handler.openIframe();
     }
 </script>
 @include('user.components.newsletter')

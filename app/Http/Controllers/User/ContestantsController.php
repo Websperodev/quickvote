@@ -15,6 +15,7 @@ use App\Models\VotingContestants;
 use App\Models\Votingcontest;
 use Illuminate\Support\Facades\Validator;
 use DB;
+use Auth;
 use App\Models\Slider;
 use App\Models\Buy_vote;
 use App\Models\Testimonial;
@@ -32,6 +33,7 @@ class ContestantsController extends Controller {
         $slider = Slider::whereIn('name', $inArray)->get();
         $testimonials = Testimonial::all();
         $constnt_id = '';
+        $contestants=[];
         if (!empty($voting)) {
             $allContestants = Contestant::where('voting_id', $vId)->get();
             if (!empty($req->input()) && $req->input('cId') != '') {
@@ -70,15 +72,22 @@ class ContestantsController extends Controller {
 
     function buyVotesByUser($vId, $cId) {
         $mytime = Carbon::now();
+        $user = Auth::user();
         $date = $mytime->toDateString();
         $vote = Votingcontest::where('id', $vId)->first();
         $contestants = Contestant::where('id', $cId)->first();
         $inArray = ['home', 'trusted brands'];
         $slider = Slider::whereIn('name', $inArray)->get();
         $testimonials = Testimonial::all();
+        if (!empty($user) && $user->id != '') {
+            $userStatus = "yes";
+        } else {
+            $userStatus = "no";
+        }
+//       echo $userStatus; die;
         if (!empty($vote) && !empty($contestants) && $contestants->voting_id == $vId) {
             $voting_contest = Votingcontest::where('closing_date', '>', $date)->where('category_id', $vote->category_id)->limit(3)->get();
-            return view('user.contestants.votesBuyForm', compact('vote', 'contestants', 'voting_contest', 'slider', 'testimonials'));
+            return view('user.contestants.votesBuyForm', compact('vote', 'userStatus', 'contestants', 'voting_contest', 'slider', 'testimonials'));
         }
     }
 
@@ -145,7 +154,7 @@ class ContestantsController extends Controller {
 //        print_r($request->input()); die;
 
         $mytime = Carbon::now();
-
+        $user = Auth::user();
         $date = $mytime->toDateString();
         $time = $mytime->toTimeString();
         $credt = $date . ' ' . $time;
@@ -168,8 +177,12 @@ class ContestantsController extends Controller {
                 $votingCont->name = $data['name'];
                 $votingCont->email = $data['email'];
                 $votingCont->phone = $data['phone'];
+                if ($user->id != '') {
+                    $votingCont->user_id = $user->id;
+                }
                 $votingCont->created_at = $credt;
                 $votingCont->updated_at = $credt;
+
                 $votingCont->save();
                 $id = $votingCont->id;
                 $buy_vote->voting_contestant_id = $id;
@@ -184,6 +197,9 @@ class ContestantsController extends Controller {
             $buy_vote->reference = $data['reference'];
             $buy_vote->single_vote_fees = $data['fees'];
             $buy_vote->total_votes_fees = $data['amount'];
+            if ($user->id != '') {
+                $votingCont->user_id = $user->id;
+            }
             $buy_vote->created_at = $credt;
             $buy_vote->updated_at = $credt;
             $buy_vote->save();
