@@ -43,8 +43,7 @@ class ContestantsController extends Controller {
             }
             $totalvotes = VotingContestants::select(DB::Raw('SUM(votes) as total_votes'))->where('voting_id', $vId)->first();
             $totalv = (int) $totalvotes->total_votes;
-//            echo '<pre>';
-//            print_r($contestants); die;
+
             if (!empty($contestants)) {
                 foreach ($contestants as $key => $cont) {
 
@@ -152,23 +151,42 @@ class ContestantsController extends Controller {
         $credt = $date . ' ' . $time;
         try {
             $data = $request->all();
-         
-//            print_r($existing); die;
-
             $buy_vote = new Buy_vote;
+//            print_r($existing); die;
+            $existing = VotingContestants::where(['email' => $data['email'], 'voting_id' => $data['voting_id'], 'contestant_id' => $data['contestant_id']])->first();
+//            print_r($existing); die;
+            if (!empty($existing)) {
+                $votingCont = VotingContestants::find($existing->id);
+                $votingCont->votes = $data['quantity'] + $existing->votes;
+                $votingCont->update();
+                $buy_vote->voting_contestant_id = $votingCont->id;
+            } else {
+                $votingCont = new VotingContestants;
+                $votingCont->voting_id = $data['voting_id'];
+                $votingCont->contestant_id = $data['contestant_id'];
+                $votingCont->votes = $data['quantity'];
+                $votingCont->name = $data['name'];
+                $votingCont->email = $data['email'];
+                $votingCont->phone = $data['phone'];
+                $votingCont->created_at = $credt;
+                $votingCont->updated_at = $credt;
+                $votingCont->save();
+                $id = $votingCont->id;
+                $buy_vote->voting_contestant_id = $id;
+            }
+
+
+
+
             $buy_vote->voting_id = $data['voting_id'];
             $buy_vote->contestant_id = $data['contestant_id'];
             $buy_vote->total_votes = $data['quantity'];
             $buy_vote->reference = $data['reference'];
-            $buy_vote->name = $data['name'];
-            $buy_vote->email = $data['email'];
-            $buy_vote->phone = $data['phone'];
             $buy_vote->single_vote_fees = $data['fees'];
             $buy_vote->total_votes_fees = $data['amount'];
             $buy_vote->created_at = $credt;
             $buy_vote->updated_at = $credt;
             $buy_vote->save();
-
             return Response::json(['success' => true, 'status' => 1, 'message' => "Votes has been bought successfully."]);
         } catch (\Exception $e) {
             return Response::json(['success' => false, 'status' => 2, "error" => $e->getMessage()]);

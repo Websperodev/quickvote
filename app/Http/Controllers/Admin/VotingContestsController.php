@@ -86,6 +86,7 @@ class VotingContestsController extends Controller {
                 $votingContest->description = $data['description'];
                 $votingContest->starting_date = date("Y-m-d H:i", strtotime($data['starting_date']));
                 $votingContest->closing_date = date("Y-m-d H:i", strtotime($data['closing_date']));
+                 $votingContest->status ='Accepted';
                 $votingContest->added_by = $user->id;
 
                 if ($request->hasFile('image')) {

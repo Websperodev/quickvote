@@ -177,7 +177,7 @@
     function payWithPaystack() {
         var fees = "{{$vote->fees}}";
         var phone = $('#phone').val();
-        var name= $('#name').val();
+        var name = $('#name').val();
         var quantity = $('#quantity').val();
         var amount = fees * quantity;
         var email = $('#email').val();
@@ -185,7 +185,7 @@
         var contestant_id = "{{$contestants->id}}";
         var handler = PaystackPop.setup({
             key: 'pk_test_402e4abb808a62fc2ba080d79887f256cb5c574a',
-            email: 'dilpreet@webspero.com',
+            email: email,
             amount: amount,
             ref: '' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
             metadata: {
@@ -199,20 +199,24 @@
             },
             callback: function (response) {
                 var payurl = "{{url('vote/contestants')}}";
-                var data = {'reference': response.reference, _token: "{!! csrf_token() !!}",'name':name, 'fees': fees, 'phone': phone, 'quantity': quantity, 'amount': amount, 'email': email, 'voting_id': voting_id, 'contestant_id': contestant_id}
+                var data = {'reference': response.reference, _token: "{!! csrf_token() !!}", 'name': name, 'fees': fees, 'phone': phone, 'quantity': quantity, 'amount': amount, 'email': email, 'voting_id': voting_id, 'contestant_id': contestant_id}
                 $.ajax({
                     url: payurl,
                     type: "post",
                     data: data,
                     success: function (res) {
-
                         if (res.status == 1) {
+                            $('#phone').val('');
+                            $('#name').val('');
+                            $('#quantity').val('');
+                            $('#email').val('');
                             Swal.fire({
                                 type: 'Success',
                                 title: 'Success!',
                                 text: data.message,
                                 confirmButtonClass: 'btn btn-confirm mt-2',
                             });
+
                         } else {
                             Swal.fire({
                                 type: 'error',

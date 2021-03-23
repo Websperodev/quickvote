@@ -86,6 +86,7 @@ class EventsController extends Controller {
                 $event->timezone = $data['timezone'];
                 $event->description = $data['description'];
                 $event->event_priority = $data['event_priority'];
+                  $event->status ='Accepted';
                 $event->user_id = $user->id;
 
                 if ($request->hasFile('image')) {
