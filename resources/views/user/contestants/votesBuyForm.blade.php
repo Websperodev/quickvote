@@ -89,25 +89,25 @@
                         <input type="hidden" id="voting_id" name="voting_id" value="{{$vote->id}}">
                         <input type="hidden" id="contestant_id" name="contestant_id" value="{{$contestants->id}}" >
                         <div class="form-group">
-                            <input type="Number" name="quantity" id="quantity" value="" class="form-control" placeholder="Enter the total number of votes you">
+                            <input type="Number" name="quantity" id="quantity" required value="" class="form-control" placeholder="Enter the total number of votes you">
                             @if($errors->has('quantity'))
                             <div class="error">{{ $errors->first('quantity') }}</div>
                             @endif
                         </div>
                         <div class="form-group">
-                            <input type="text" name="name" id="name" value="" class="form-control" placeholder="Enter your full name">
+                            <input type="text" name="name" id="name" value=""  required class="form-control" placeholder="Enter your full name">
                             @if($errors->has('name'))
                             <div class="error">{{ $errors->first('name') }}</div>
                             @endif
                         </div>
                         <div class="form-group">
-                            <input type="email" name="email" id="email" value="" class="form-control" placeholder="Enter valid email for your receipt">
+                            <input type="email" name="email" id="email" value="" required class="form-control" placeholder="Enter valid email for your receipt">
                             @if($errors->has('email'))
                             <div class="error">{{ $errors->first('email') }}</div>
                             @endif
                         </div>
                         <div class="form-group">
-                            <input type="tel" name="phone" id="phone" value="" class="form-control" placeholder="Enter your phone number">
+                            <input type="tel" name="phone" id="phone" value="" required class="form-control" placeholder="Enter your phone number">
                             @if($errors->has('phone'))
                             <div class="error">{{ $errors->first('phone') }}</div>
                             @endif
@@ -249,7 +249,7 @@
                     });
                 },
                 onClose: function () {
-                    alert('window closed');
+                   
                 }
             });
             handler.openIframe();
