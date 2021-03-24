@@ -18,6 +18,8 @@ use App\Models\Cities;
 use App\Models\Countries;
 use App\Models\Categories;
 use Yajra\Datatables\Datatables;
+use App\Models\ModulesList;
+use App\Models\VendorPermissions;
 
 class EventsController extends Controller {
 
@@ -32,7 +34,10 @@ class EventsController extends Controller {
     }
 
     public function index() {
-        return view('vendor.event.index');
+        $user = Auth::user();
+        $permissions = VendorPermissions::where(['vendor_id' => $user->id, 'modul_id' => 1])->first();
+
+        return view('vendor.event.index', compact('permissions'));
     }
 
     public function allCategories(Request $request) {
@@ -78,13 +83,21 @@ class EventsController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() {
-        $categories = Categories::where('parent_id', 0)->get();
+    public function create(Request $request) {
 
-        $countries = Countries::get();
-        $states = States::get();
-        $cities = Cities::get();
-        return view('vendor.event.add', compact('categories', 'countries', 'states', 'cities'));
+        $user = Auth::user();
+        $permissions = VendorPermissions::where(['vendor_id' => $user->id, 'modul_id' => 1])->first();
+        if ($permissions->add == '1') {
+            $categories = Categories::where('parent_id', 0)->get();
+            $countries = Countries::get();
+            $states = States::get();
+            $cities = Cities::get();
+            return view('vendor.event.add', compact('categories', 'countries', 'states', 'cities'));
+        } else {
+            $request->session()->flash('message.level', 'danger');
+            $request->session()->flash('message.text', 'You have no added permission.');
+            return redirect()->back();
+        }
     }
 
     /**

@@ -92,7 +92,11 @@
                 </li>
             </ul>
             </li>
-
+            <li>
+                <a href="{{ route('admin.vendors') }}">
+                    <i class="fa fa-users" aria-hidden="true"></i>Vendors
+                </a>
+            </li>
             <li>
                 <a href="{{ route('admin.users') }}">
                     <i class="fa fa-users" aria-hidden="true"></i>Users

@@ -21,12 +21,16 @@
                 <div class="row">
                     <div class="col-6">
                         <h4 class="header-title">Manage Votings</h4>
+                        @if(session()->has('message.level'))
+                        <div class="alert alert-{{ session('message.level') }}"> 
+                            {!! session('message.text') !!}
+                        </div>
+                        @endif
                     </div>
                     <div class="col-6">
-
-
+                           @if(!empty($permissions) && $permissions->add=='1')
                         <a class="btn btn-bg" href="{{ route('vendor.add.voting') }}" style="color: black">Add voting</a>
-
+                        @endif
                     </div>
                 </div>
                 <p class="sub-header">View and manage account users on this page.</p>

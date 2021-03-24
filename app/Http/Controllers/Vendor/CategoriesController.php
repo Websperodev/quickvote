@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Auth;
 use App\Models\Page;
+use App\Models\ModulesList;
+use App\Models\VendorPermissions;
 
 class CategoriesController extends Controller {
 
@@ -24,7 +26,11 @@ class CategoriesController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        return view('vendor.categories.index');
+        $user = Auth::user();
+        $permissions = VendorPermissions::where(['vendor_id' => $user->id, 'modul_id' => 2])->first();
+//        echo '<pre>';
+//        print_r($permissions); die;
+        return view('vendor.categories.index', compact('permissions'));
     }
 
     public function allcategories(Request $request) {
@@ -34,33 +40,32 @@ class CategoriesController extends Controller {
 //        $allcategories = Categories::select(DB::raw('(CASE WHEN users.id = ' . $user . ' THEN 1 ELSE 0 END) AS is_user')
 //                )->where('created_by', $uId)->orWhere('parent_id', 0)->orderBy('created_at', 'desc')->get();
 //echo '<pre>';
-
 //        print_r($allcategories[0]->parent->name); die;
         return DataTables::of($allcategories)
-                        ->addColumn('name', function($allcategories) {
+                        ->addColumn('name', function ($allcategories) {
                             return $allcategories->name;
                         })
-                        ->addColumn('parent_id', function($allcategories) {
+                        ->addColumn('parent_id', function ($allcategories) {
                             if ($allcategories->parent_id != 0) {
                                 return $allcategories->parent->name;
                             } else {
                                 return '-';
                             }
                         })
-                        ->addColumn('image', function($allcategories) {
+                        ->addColumn('image', function ($allcategories) {
                             $img = '-';
                             if ($allcategories->image != '') {
                                 $img = '<img src="' . url($allcategories->image) . '" width="100" height="100">';
                             }
                             return $img;
                         })
-                        ->editColumn('created_at', function($allcategories) {
+                        ->editColumn('created_at', function ($allcategories) {
                             if (!empty($allcategories->created_at)) {
                                 return getDateOnly($allcategories->created_at);
                             }
                             return 'N/A';
                         })
-                        ->addColumn('action', function($allcategories) {
+                        ->addColumn('action', function ($allcategories) {
                             if ($allcategories->parent_id != '0' && Auth::user()->id == $allcategories['created_by']) {
                                 $str = '<div class="btn-group dropdown">
                 <a href="javascript: void(0);" class="table-action-btn dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-horizontal"></i></a>
@@ -73,7 +78,7 @@ class CategoriesController extends Controller {
                                 return '-';
                             }
                         })
-                        ->rawColumns(['name','image', 'created_at', 'action'])
+                        ->rawColumns(['name', 'image', 'created_at', 'action'])
                         ->make(true);
     }
 
@@ -82,9 +87,17 @@ class CategoriesController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() {
-        $categories = Categories::where('parent_id', 0)->get();
-        return view('vendor.categories.add', compact('categories'));
+    public function create(Request $request) {
+        $user = Auth::user();
+        $permissions = VendorPermissions::where(['vendor_id' => $user->id, 'modul_id' => 2])->first();
+        if ($permissions->add == '1') {
+            $categories = Categories::where('parent_id', 0)->get();
+            return view('vendor.categories.add', compact('categories'));
+        } else {
+            $request->session()->flash('message.level', 'danger');
+            $request->session()->flash('message.text', 'You have no added permission.');
+            return redirect()->back();
+        }
     }
 
     /**

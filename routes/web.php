@@ -45,7 +45,7 @@ Route::namespace('User')->group(function () {
     //**  //** Votes Management And Contestants**//
     Route::any('votes/{id}', 'VotesController@index')->name('votes.index');
     Route::any('noncatvotes', 'VotesController@nonCateVotes')->name('votes.noncatvote');
-  
+
     Route::get('contestants/{id}', 'ContestantsController@index')->name('contestants.index');
     Route::get('vote/contestants/{id}/{any}', 'ContestantsController@buyVotesByUser')->name('contestants.buyvotes');
     Route::post('vote/contestants', 'ContestantsController@saveBuyVotesByUser')->name('pay');
@@ -105,6 +105,11 @@ Route::namespace('Admin')->group(function () {
     Route::get('users', 'UserController@index')->name('admin.users');
     Route::any('add-user', 'UserController@addUser')->name('admin.add.user');
     Route::post('get-users', 'UserController@allUsers')->name('admin.getUsers');
+    Route::get('vendors', 'UserController@vendorList')->name('admin.vendors');
+
+    Route::get('vendors-permissions/{id}', 'VendorPermissionsController@index')->name('admin.vendor.permissions');
+    Route::post('vendors-permissions', 'VendorPermissionsController@addvendorPermissions')->name('admin.vendor.addpermissions');
+    Route::post('get-vendors', 'UserController@allVendors')->name('admin.getVendor');
     Route::any('edit-user', 'UserController@editUser')->name('admin.edit-user');
     Route::post('delete-user', 'UserController@deleteUser')->name('admin.users.delete');
 

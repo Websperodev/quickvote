@@ -39,6 +39,40 @@ class UserController extends Controller {
         return view('admin.user.index');
     }
 
+    public function allUsers(Request $request) {
+        $allUsers = User::where('id', '!=', Auth::user()->id)->where('type', 'user')->orderBy('created_at', 'desc')->get();
+        return DataTables::of($allUsers)
+                        ->addColumn('name', function ($allUsers) {
+                            $userName = '';
+                            $firstName = isset($allUsers->first_name) ? $allUsers->first_name : '';
+                            $lastName = isset($allUsers->last_name) ? $allUsers->last_name : '';
+                            $userName = $firstName . ' ' . $lastName;
+                            return $userName;
+                        })
+                        ->addColumn('email', function ($allUsers) {
+                            return $allUsers->email;
+                        })
+                        ->editColumn('type', function ($allUsers) {
+                            return $allUsers->type;
+                        })
+                        ->editColumn('created_at', function ($allUsers) {
+                            if (!empty($allUsers->created_at)) {
+                                return getDateOnly($allUsers->created_at);
+                            }
+                            return 'N/A';
+                        })
+                        ->addColumn('action', function ($allUsers) {
+                            $str = '<div class="btn-group dropdown">
+                <a href="javascript: void(0);" class="table-action-btn dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-horizontal"></i></a>
+                <div class="dropdown-menu dropdown-menu-right"><a data-toggle="tooltip" data-placement="top" title="Edit" class="dropdown-item"  href="' . route('admin.edit-user', ['id' => $allUsers['id']]) . '"><i class="mdi mdi-pencil mr-1 text-muted font-18 vertical-middle"></i> Edit User</a>';
+                            $str .= '<a data-toggle="tooltip" data-placement="top" title="Delete" class="dropdown-item"   onclick="deleteUser(this,' . $allUsers['id'] . ')" href="javascript:void(0);" ><i class="mdi mdi-delete mr-1 text-muted font-18 vertical-middle"></i> Delete User</a>';
+                            $str .= '</div></div>';
+                            return $str;
+                        })
+                        ->rawColumns(['name', 'email', 'gender', 'created_at', 'action'])
+                        ->make(true);
+    }
+
     public function addUser(Request $request) {
         if ($request->isMethod('post')) {
             $validator = Validator::make($request->all(), [
@@ -137,36 +171,39 @@ class UserController extends Controller {
         }
     }
 
-    public function allUsers(Request $request) {
-        $allUsers = User::where('id', '!=', Auth::user()->id)->orderBy('created_at', 'desc')->get();
+    public function vendorList() {
+        return view('admin.user.vendorList');
+    }
+
+    public function allVendors(Request $request) {
+
+        $allUsers = User::where('id', '!=', Auth::user()->id)->where('type', 'vendor')->orderBy('created_at', 'desc')->get();
 
         return DataTables::of($allUsers)
-                        ->addColumn('name', function($allUsers) {
+                        ->addColumn('name', function ($allUsers) {
                             $userName = '';
                             $firstName = isset($allUsers->first_name) ? $allUsers->first_name : '';
                             $lastName = isset($allUsers->last_name) ? $allUsers->last_name : '';
-                            ;
                             $userName = $firstName . ' ' . $lastName;
                             return $userName;
                         })
-                        ->addColumn('email', function($allUsers) {
+                        ->addColumn('email', function ($allUsers) {
                             return $allUsers->email;
                         })
-                        ->editColumn('type', function($allUsers) {
+                        ->editColumn('type', function ($allUsers) {
                             return $allUsers->type;
                         })
-                        ->editColumn('created_at', function($allUsers) {
+                        ->editColumn('created_at', function ($allUsers) {
                             if (!empty($allUsers->created_at)) {
                                 return getDateOnly($allUsers->created_at);
                             }
                             return 'N/A';
                         })
-                        ->addColumn('action', function($allUsers) {
+                        ->addColumn('action', function ($allUsers) {
                             $str = '<div class="btn-group dropdown">
                 <a href="javascript: void(0);" class="table-action-btn dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-horizontal"></i></a>
-                <div class="dropdown-menu dropdown-menu-right"><a data-toggle="tooltip" data-placement="top" title="Edit" class="dropdown-item"  href="' . route('admin.edit-user', ['id' => $allUsers['id']]) . '"><i class="mdi mdi-pencil mr-1 text-muted font-18 vertical-middle"></i> Edit User</a>';
-
-
+                <div class="dropdown-menu dropdown-menu-right"><a data-toggle="tooltip" data-placement="top" title="Edit" class="dropdown-item"  href="' . route('admin.edit-user', ['id' => $allUsers['id']]) . '"><i class="mdi mdi-pencil mr-1 text-muted font-18 vertical-middle"></i> Edit User</a>
+              <a data-toggle="tooltip" data-placement="top" title="Permission" class="dropdown-item"  href="' . route('admin.vendor.permissions', ['id' => $allUsers['id']]) . '"><i class="mdi mdi-pencil mr-1 text-muted font-18 vertical-middle"></i> Edit Permission</a>';
                             $str .= '<a data-toggle="tooltip" data-placement="top" title="Delete" class="dropdown-item"   onclick="deleteUser(this,' . $allUsers['id'] . ')" href="javascript:void(0);" ><i class="mdi mdi-delete mr-1 text-muted font-18 vertical-middle"></i> Delete User</a>';
                             $str .= '</div></div>';
                             return $str;
