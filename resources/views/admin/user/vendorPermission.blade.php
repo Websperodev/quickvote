@@ -1,12 +1,12 @@
 @extends('admin.layouts.master')
 @section("meta_page_title") Admin | Quickvote | Countries @endsection
-@section("page_title") <a href="{!! route('admin.categories') !!}" class="head-a"> Categories </a> > Add @endsection
+@section("page_title") <a href="{!! route('admin.vendors') !!}" class="head-a"> Vendors </a> > Permissions @endsection
 @section("content")
 <div class="row justify-content-center">
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="mb-3 header-title">Countries</h4>
+                <h4 class="mb-3 header-title">Permissions</h4>
                 @if(session()->has('message.level'))
                 <div class="alert alert-{{ session('message.level') }}"> 
                     {!! session('message.text') !!}
