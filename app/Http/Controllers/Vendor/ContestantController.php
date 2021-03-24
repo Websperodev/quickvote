@@ -64,7 +64,12 @@ class ContestantController extends Controller {
             $images = $request->file('image');
             foreach ($images as $key => $image) {
                 $row = Contestant::select('candidate_id')->order_by('id', 'desc')->first();
-                $candidate_id = $row->candidate_id + 1;
+                if(!empty($row)){
+                   $candidate_id = 1; 
+                }else{
+                    $candidate_id = $row->candidate_id + 1;
+                }
+              
                 $fileName = md5($image->getClientOriginalName() . time()) . "." . $image->getClientOriginalExtension();
                 $image->move('./uploads/images/', $fileName);
                 $img = 'uploads/images/' . $fileName;
