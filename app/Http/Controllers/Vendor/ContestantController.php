@@ -63,7 +63,7 @@ class ContestantController extends Controller {
         if ($request->hasFile('image')) {
             $images = $request->file('image');
             foreach ($images as $key => $image) {
-                $row = Contestant::select('candidate_id')->order_by('id', 'desc')->first();
+                  $row = Contestant::select('candidate_id')->latest('id')->first();
                 if(!empty($row)){
                    $candidate_id = 1; 
                 }else{
