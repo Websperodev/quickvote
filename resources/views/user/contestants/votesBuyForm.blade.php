@@ -114,7 +114,12 @@
                         </div>
 
                     </div>
-                    <p class="vote-price">Each Vote costs <span>{{$vote->fees}} USD</span></p>
+                    <p class="vote-price">Each Vote costs <span>
+                            @if($vote->fees=='')
+                            {{'Free'}}
+                            @else
+                            {{$vote->fees}} USD
+                            @endif</span></p>
                     <p class="vote-payment"><button type="button" onclick="payWithPaystack()" class="btn btn-bg">Proceed To Payment</button></p>
                     </form>
                 </div>
@@ -181,17 +186,24 @@
 <!-- place below the html form -->
 <script>
     function checkuserAndPayType() {
-        if (userStats == 'yes') {
+
+        if (userStats == 'yes' && votetype == 'paid') {
+
             return true;
         } else if (userStats == 'no' && votetype == 'paid') {
+
             return true;
         } else if (userStats == 'no' && votetype == 'free') {
+
             return false;
+        } else if (userStats == 'yes' && votetype == 'free') {
+
+            return '3';
         }
     }
     function payWithPaystack() {
-
-        if (checkuserAndPayType()) {
+        var res = checkuserAndPayType();
+        if (checkuserAndPayType() && res != '3') {
 
             var fees = "{{$vote->fees}}";
             var phone = $('#phone').val();
@@ -204,7 +216,7 @@
             var handler = PaystackPop.setup({
                 key: 'pk_test_402e4abb808a62fc2ba080d79887f256cb5c574a',
                 email: email,
-                amount: amount*100,
+                amount: amount * 100,
                 ref: '' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
                 metadata: {
                     custom_fields: [
@@ -217,7 +229,7 @@
                 },
                 callback: function (response) {
                     var payurl = "{{url('vote/contestants')}}";
-                    var data = {'reference': response.reference, _token: "{!! csrf_token() !!}", 'name': name, 'fees': fees, 'phone': phone, 'quantity': quantity, 'amount': amount, 'email': email, 'voting_id': voting_id, 'contestant_id': contestant_id}
+                    var data = {'reference': response.reference, 'votetype': votetype, _token: "{!! csrf_token() !!}", 'name': name, 'fees': fees, 'phone': phone, 'quantity': quantity, 'amount': amount, 'email': email, 'voting_id': voting_id, 'contestant_id': contestant_id}
                     $.ajax({
                         url: payurl,
                         type: "post",
@@ -249,10 +261,52 @@
                     });
                 },
                 onClose: function () {
-                   
+
                 }
             });
             handler.openIframe();
+        } else if (res == '3') {
+            var fees = "";
+            var phone = $('#phone').val();
+            var name = $('#name').val();
+            var quantity = $('#quantity').val();
+            var amount = '';
+            var email = $('#email').val();
+            var voting_id = "{{$vote->id}}";
+
+            var contestant_id = "{{$contestants->id}}";
+            var payurl = "{{url('vote/contestants')}}";
+            var data = {'reference': '', _token: "{!! csrf_token() !!}", 'votetype': votetype, 'name': name, 'fees': fees, 'phone': phone, 'quantity': quantity, 'amount': amount, 'email': email, 'voting_id': voting_id, 'contestant_id': contestant_id}
+            $.ajax({
+                url: payurl,
+                type: "post",
+                data: data,
+                success: function (res) {
+                    if (res.status == 1) {
+                        $('#phone').val('');
+                        $('#name').val('');
+                        $('#quantity').val('');
+                        $('#email').val('');
+                        Swal.fire({
+                            type: 'Success',
+                            title: 'Success!',
+                            text: data.message,
+                            confirmButtonClass: 'btn btn-confirm mt-2',
+                        });
+                    } else {
+                        Swal.fire({
+                            type: 'error',
+                            title: 'Error!',
+                            text: 'Cannot buy votes',
+                            confirmButtonClass: 'btn btn-confirm mt-2',
+                        });
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                }
+            });
+
         } else {
             Swal.fire({
                 title: 'Warning',

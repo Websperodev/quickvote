@@ -40,11 +40,11 @@ $timezoneArray = config('constants.timezones');
                         </div>
                         <div class="col-md-3">
                             <label for="type">Paid</label>
-                            <input type="radio"  name="type" value="paid">
+                            <input type="radio"  name="type" class="vote_type" id="vote_type" value="paid">
                         </div>
                         <div class="col-md-3">
                             <label for="type">Free</label>
-                            <input type="radio" checked name="type" value="free">
+                            <input type="radio" checked name="type" class="vote_type" value="free">
                         </div>
                         @if($errors->has('type'))
                         <div class="error">{{$errors->first('type')}}</div>
@@ -74,7 +74,7 @@ $timezoneArray = config('constants.timezones');
                         </div>
                         <div class="col-md-7 form-group cus-form-group awardsCat" >
                             <label for="awards">Select Category</label>
-                           <select class="form-control" name="category_id"autocomplete="off" id="event_category" aria-describedby="emailHelp">
+                            <select class="form-control" name="category_id"autocomplete="off" id="event_category" aria-describedby="emailHelp">
                                 <option value="">Choose Category</option>
                                 @foreach($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -85,13 +85,11 @@ $timezoneArray = config('constants.timezones');
                             <div class="error">{{ $errors->first('category_id') }}</div>
                             @endif
                         </div>
-                        <div class="col-md-7 form-group cus-form-group">
+                        <div class="col-md-7 form-group cus-form-group" payment_gateway>
                             <label for="payment_gateway">Select preferred payment gateway</label>
                             <select class="form-control" name="payment_gateway"autocomplete="off" id="payment_gateway" aria-describedby="emailHelp">
                                 <option value="paystack">Paystack</option>
-                                <option value="flutterwavwe">Flutterwavwe</option>
-                                <option value="payu">Payu</option>
-                                <option value="interswitch">Interswitch</option>
+
                             </select>
                             @if($errors->has('payment'))
                             <div class="error">{{ $errors->first('payment') }}</div>
@@ -129,7 +127,7 @@ $timezoneArray = config('constants.timezones');
                                 @endif
                             </div>
 
-                            <div class="col-md-6 form-group cus-form-group">
+                            <div class="col-md-6 form-group cus-form-group votesfees">
                                 <label for="fees">Voting Fee</label>
                                 <input type="number" autocomplete="off" class="form-control" name="fees" id="organiser_name" value=""  placeholder="Enter Voting fee">
                                 @if($errors->has('fees'))
@@ -169,7 +167,7 @@ $timezoneArray = config('constants.timezones');
                             </div>
                         </div>
                     </div>
-                     <div class="row">    
+                    <div class="row">    
                         <div class="col-md-12 form-group cus-form-group">
                             <label for="description">Description</label>
                             <textarea type="text"  cols="50" class="form-control" name="description" id="area1" placeholder="Description here..">
@@ -188,13 +186,40 @@ $timezoneArray = config('constants.timezones');
     </div> 
 </div>
 </div> 
+<script>
+    $(document).ready(function () {
+        $('.votelimitcount').hide();
+        $('.awardsCat').hide();
+        $('.votesfees').hide();
+        $('.payment_gateway').hide();
+    });
+</script>
+@if($errors->has('fees'))
+<script>
+    $(document).ready(function () {
+        $('.votesfees').show();
+        $('.payment_gateway').show();
+        $('#vote_type').prop('checked', true);
+    });
+</script>
+@endif
 <script type="text/javascript">
     $(".datetimepicker").datetimepicker({
         format: 'm/d/Y H:i'
     });
     $(document).ready(function () {
-        $('.votelimitcount').hide();
-        $('.awardsCat').hide();
+
+
+        $('.vote_type').on('click', function () {
+            var type = $(this).val();
+            if (type == 'free') {
+                $('.votesfees').hide();
+                $('.payment_gateway').hide();
+            } else {
+                $('.votesfees').show();
+                $('.payment_gateway').show();
+            }
+        })
         $('.category').on('click', function () {
             var cat = $(this).val();
             if (cat == 1) {

@@ -35,16 +35,17 @@ class VotingContestsController extends Controller {
     public function addVotingContest(Request $request) {
         $user = Auth::user();
         if ($request->isMethod('post')) {
+
             $validator = Validator::make($request->all(), [
                         'category' => 'required',
                         'category_id' => 'required_if:category,==,2|nullable',
                         'type' => 'required',
+                        'fees' => 'required_if:type,==,paid|nullable',
                         'limit' => 'required',
                         'limit_count' => 'required_if:limit,==,1|nullable',
-                        'payment_gateway' => 'required',
+                        'payment_gateway' => 'required_if:type,==,paid|nullable',
                         'packages' => 'required',
                         'title' => 'required',
-                        'fees' => 'required',
                         'starting_date' => 'required',
                         'closing_date' => 'required',
                         'timezone' => 'required',
@@ -78,15 +79,22 @@ class VotingContestsController extends Controller {
                 } else {
                     $votingContest->category_id = NULL;
                 }
-                $votingContest->payment_gateway = $data['payment_gateway'];
+
                 $votingContest->packages = $data['packages'];
                 $votingContest->title = $data['title'];
-                $votingContest->fees = $data['fees'];
+                if (isset($data['fees']) && $data['fees'] != '') {
+                    $votingContest->fees = $data['fees'];
+                    $votingContest->payment_gateway = $data['payment_gateway'];
+                } else {
+                    $votingContest->fees = NULL;
+                    $votingContest->payment_gateway = NULL;
+                }
+
                 $votingContest->timezone = $data['timezone'];
                 $votingContest->description = $data['description'];
                 $votingContest->starting_date = date("Y-m-d H:i", strtotime($data['starting_date']));
                 $votingContest->closing_date = date("Y-m-d H:i", strtotime($data['closing_date']));
-                 $votingContest->status ='Accepted';
+                $votingContest->status = 'Accepted';
                 $votingContest->added_by = $user->id;
 
                 if ($request->hasFile('image')) {
@@ -168,6 +176,7 @@ class VotingContestsController extends Controller {
 
     public function editVotingContest(Request $request) {
         $user = Auth::user();
+
         if ($request->isMethod('post')) {
             $validator = Validator::make($request->all(), [
                         'category' => 'required',
@@ -177,10 +186,10 @@ class VotingContestsController extends Controller {
                         'type' => 'required',
                         'limit' => 'required',
                         'limit_count' => 'required_if:limit,==,1|nullable',
-                        'payment_gateway' => 'required',
+                        'payment_gateway' => 'required_if:type,==,paid|nullable',
                         'packages' => 'required',
                         'title' => 'required',
-                        'fees' => 'required',
+                        'fees' => 'required_if:type,==,paid|nullable',
                         'starting_date' => 'required',
                         'closing_date' => 'required',
                         'timezone' => 'required',
@@ -214,10 +223,15 @@ class VotingContestsController extends Controller {
                 } else {
                     $votingContest->category_id = NULL;
                 }
-                $votingContest->payment_gateway = $data['payment_gateway'];
+                if (isset($data['fees']) && $data['fees'] != '') {
+                    $votingContest->fees = $data['fees'];
+                    $votingContest->payment_gateway = $data['payment_gateway'];
+                } else {
+                    $votingContest->fees = NULL;
+                    $votingContest->payment_gateway = NULL;
+                }
                 $votingContest->packages = $data['packages'];
                 $votingContest->title = $data['title'];
-                $votingContest->fees = $data['fees'];
                 $votingContest->timezone = $data['timezone'];
                 $votingContest->description = $data['description'];
                 $votingContest->status = $data['status'];
