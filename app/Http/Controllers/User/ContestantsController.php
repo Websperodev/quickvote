@@ -237,6 +237,7 @@ class ContestantsController extends Controller {
                 $votingCont->reference = $data['reference'];
                 $votingCont->single_vote_fees = $data['fees'];
                 $votingCont->total_votes_fees = $data['amount'];
+                $votingCont->payment_gateway = 'paystack';
                 $votingCont->created_at = $credt;
                 $votingCont->updated_at = $credt;
             }

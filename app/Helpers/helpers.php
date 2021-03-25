@@ -36,4 +36,20 @@ if (!function_exists('getcountries)')) {
     }
 
 }
+if (!function_exists('contestant_name)')) {
+
+    function contestant_name($id) {
+        $contestants = DB::table('contestants')->first();
+        return $contestants->name;
+    }
+
+}
+if (!function_exists('votingTitle)')) {
+
+    function votingTitle($id) {
+        $voting = DB::table('voting_contests')->first();
+        return $voting->title;
+    }
+
+}
 ?>

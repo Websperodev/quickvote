@@ -191,6 +191,10 @@ Route::namespace('Admin')->group(function () {
     Route::post('get-cities', 'CitiesController@allCities')->name('admin.getcities');
     Route::any('edit-city', 'CitiesController@editCity')->name('admin.edit.city');
     Route::post('delete-city', 'CitiesController@deleteCity')->name('admin.delete.city');
+
+    //** Payment Mangement**//
+    Route::get('votespayments-list', 'PaymentsManagement@votesIndex')->name('admin.votes.payments');
+    Route::post('votes-payments', 'PaymentsManagement@allVotes')->name('admin.votes.list.payments');
 });
 
 // Route::get('/redirect', 'SocialAuthFacebookController@redirect');

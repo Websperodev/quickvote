@@ -130,7 +130,18 @@
                     </li>
                 </ul>
             </li>
+            <li class="has-submenu">
+                <a href="javascript:void(0)">
+                    <i class="fa fa-picture-o" aria-hidden="true"></i>Payments Management &nbsp;<div class="arrow-down"></div></a>
+                <ul class="submenu">
+                    <li>
+                        <a href="{{ route('admin.votes.payments') }}">Votes Payments</a>
+                    </li>
 
+
+            </li>
+            </ul>
+            </li>
 
 
             </ul>
