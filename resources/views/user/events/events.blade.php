@@ -5,6 +5,9 @@
         height:30% !important;
     }
 </style>
+<script>
+    var totalticketPrice = 0;
+</script>
 <div id="eve-detail" class="single-event">
     <div class="container">
         <div class="row">
@@ -56,23 +59,33 @@
                 <div class="single-event-ticket">
                     <h5>Tickets</h5>
                     @if(!empty($ticket))
-                    @foreach($ticket as $tik)
-                    @php 
-                    $endDt=strtotime($tik->end_date);
-                    $currtDt=strtotime($crruntDate);
+                    <!--<form id="ticket_form" action="{{route('tickets.buy')}}" method="post">-->
+                    <form id="ticket_form"  method="post">
+                        @foreach($ticket as $key=>$tik)
+                        @php 
+                        $endDt=strtotime($tik->end_date);
+                        $currtDt=strtotime($crruntDate);
 
-                    if($endDt >= $currtDt){
-                    $status='';
-                    }else{
-                    $status='Closed';
-                    }
-                    @endphp
-                    <p class="tkt">
-                        <span class="tkt-name">{{$tik->name}} <span class="tkt-price">{{($tik->price)}}</span><span class="abs">{{$status}}</span>  <span class="tkt-quantity"><input class="form-control" type="number"></span>
-                    </p>
-                    @endforeach
+                        if($endDt >= $currtDt){
+                        $status='';
+                        }else{
+                        $status='Closed';
+                        }
+                        @endphp
+
+                        <p class="tkt">
+                            <span class="tkt-name">{{$tik->name}} <span class="tkt-price">{{($tik->price)}}</span><span class="abs">{{$status}}</span> 
+                                <span class="tkt-quantity"><input class="form-control numberOfTicket" name="number{{$key}}" data-value="{{($tik->price)}}" data-amount="" value="" type="number"></span>
+                                <input type="hidden" name="tktId{{$key}}" value="{{($tik->id)}}" >
+                                <input type="hidden" name="evntId{{$key}}" value="{{($tik->event_id)}}" >
+                                <input type="hidden"  name="single_amount{{$key}}" value="{{($tik->price)}}" >
+                                </p>
+                                @endforeach
+                                <input type="hidden" class="totalAmount" name="total_amount{{$key}}" value="" >
+                                <p id="totalAmount" style="color:red;"></p>
+                                <p class="buy-tkt"><button type="button" class="btn vtn-success">Buy Ticket(s)</button></p>
+                    </form>
                     @endif
-                    <p class="buy-tkt"><a href="" class="btn vtn-success">Buy Ticket(s)</a></p>
                 </div>
             </div>
             @endif
@@ -122,7 +135,7 @@
                                 <span class="tickets">Tickets From {{$price}}</span>
                             </div>
                             <p class="time-price"><span class="etime"><i class="far fa-clock"></i> Start {{$start_time .'-'.$end_time}}</span> <span class="eprice">{{$ticket_type}}</span></p>
-                              <a class="btn btn-grad-bd ticket-details" href="{{url('event-detail').'/'.$sugg['id']}}">Tickets & Details</a>
+                            <a class="btn btn-grad-bd ticket-details" href="{{url('event-detail').'/'.$sugg['id']}}">Tickets & Details</a>
                         </div>
                     </div>
                 </div>
@@ -133,7 +146,34 @@
         </div>
     </div>
 </div>
+<script>  
 
+    $('.numberOfTicket').keyup(function (e) {
+        var quantity = 0;
+        var qty = $(this).val();
+        var amt = $(this).data('value');
+        var total = qty * amt;
+        $(this).attr('data-amount', total);
+        $('.numberOfTicket').each(function () {
+            var quant = $(this).data('amount');
+//            alert(quant);
+            if (!isNaN(quant)) {
+                quantity += quantity + quant;               
+            }
+        });
+//         console.log(quantity);
+
+        $("#totalAmount").text(quantity);
+    });
+
+//    $('.vtn-success').on('click', function () {
+//        var myData = $("#ticket_form").serializeArray();
+//        console.log(myData);
+//
+//    })
+
+
+</script>
 @include('user.components.newsletter')
 @include('user.components.trusted-brands')
 

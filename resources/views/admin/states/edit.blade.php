@@ -40,13 +40,13 @@
                         @endif
                     </div>
 
-                    <div class="col-md-12 form-group cus-form-group">
+<!--                    <div class="col-md-12 form-group cus-form-group">
                         <label for="country_code">Country code</label>
                         <input type="text" class="form-control" value="{{ isset($state->country_code) ? $state->country_code : ''}}" name="country_code" id="country_code" aria-describedby="emailHelp" placeholder="NA">
                         @if($errors->has('country_code'))
                         <div class="error">{{ $errors->first('country_code') }}</div>
                         @endif
-                    </div>
+                    </div>-->
                   
 
 

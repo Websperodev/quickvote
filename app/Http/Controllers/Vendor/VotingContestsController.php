@@ -98,8 +98,14 @@ class VotingContestsController extends Controller {
 
                     $votingContest->timezone = $data['timezone'];
                     $votingContest->description = $data['description'];
-                    $votingContest->starting_date = date("Y-m-d H:i", strtotime($data['starting_date']));
-                    $votingContest->closing_date = date("Y-m-d H:i", strtotime($data['closing_date']));
+
+                    $sDate = str_replace('/', '-', $data['starting_date']);
+                    $starting_date = date("Y-m-d H:i", strtotime($sDate));
+                    $CDate = str_replace('/', '-', $data['closing_date']);
+                    $closing_date = date("Y-m-d H:i", strtotime($CDate));
+
+                    $votingContest->starting_date = $starting_date;
+                    $votingContest->closing_date = $closing_date;
                     $votingContest->status = 'Pending';
                     $votingContest->added_by = $user->id;
 
@@ -189,6 +195,7 @@ class VotingContestsController extends Controller {
     public function editVotingContest(Request $request) {
         $user = Auth::user();
         if ($request->isMethod('post')) {
+
             $validator = Validator::make($request->all(), [
                         'category' => 'required',
                         'category_id' => 'required_if:category,==,2|nullable',
@@ -210,6 +217,7 @@ class VotingContestsController extends Controller {
             }
             try {
                 $data = $request->all();
+
                 $existing = Votingcontest::where('title', '=', $data['title'])->where('id', '!=', $data['VotingContest_id'])->count();
 
                 if ($existing > 0) {
@@ -243,9 +251,13 @@ class VotingContestsController extends Controller {
                 $votingContest->title = $data['title'];
                 $votingContest->timezone = $data['timezone'];
                 $votingContest->description = $data['description'];
+                $sDate = str_replace('/', '-', $data['starting_date']);
+                $starting_date = date("Y-m-d H:i", strtotime($sDate));
+                $CDate = str_replace('/', '-', $data['closing_date']);
+                $closing_date = date("Y-m-d H:i", strtotime($CDate));
 
-                $votingContest->starting_date = date("Y-m-d H:i", strtotime($data['starting_date']));
-                $votingContest->closing_date = date("Y-m-d H:i", strtotime($data['closing_date']));
+                $votingContest->starting_date = $starting_date;
+                $votingContest->closing_date = $closing_date;
 
                 if ($request->hasFile('image')) {
                     if ($request->file('image')->isValid()) {

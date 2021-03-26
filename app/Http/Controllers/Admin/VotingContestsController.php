@@ -92,8 +92,13 @@ class VotingContestsController extends Controller {
 
                 $votingContest->timezone = $data['timezone'];
                 $votingContest->description = $data['description'];
-                $votingContest->starting_date = date("Y-m-d H:i", strtotime($data['starting_date']));
-                $votingContest->closing_date = date("Y-m-d H:i", strtotime($data['closing_date']));
+                 $sDate = str_replace('/', '-', $data['starting_date']);
+                    $starting_date = date("Y-m-d H:i", strtotime($sDate));
+                    $CDate = str_replace('/', '-', $data['closing_date']);
+                    $closing_date = date("Y-m-d H:i", strtotime($CDate));
+
+                    $votingContest->starting_date = $starting_date;
+                    $votingContest->closing_date = $closing_date;
                 $votingContest->status = 'Accepted';
                 $votingContest->added_by = $user->id;
 
@@ -241,8 +246,15 @@ class VotingContestsController extends Controller {
                 } else {
                     $votingContest->reason = NULL;
                 }
-                $votingContest->starting_date = date("Y-m-d H:i", strtotime($data['starting_date']));
-                $votingContest->closing_date = date("Y-m-d H:i", strtotime($data['closing_date']));
+                 $sDate = str_replace('/', '-', $data['starting_date']);
+                    $starting_date = date("Y-m-d H:i", strtotime($sDate));
+                    $CDate = str_replace('/', '-', $data['closing_date']);
+                    $closing_date = date("Y-m-d H:i", strtotime($CDate));
+
+                    $votingContest->starting_date = $starting_date;
+                    $votingContest->closing_date = $closing_date;
+//                $votingContest->starting_date = date("Y-m-d H:i", strtotime($data['starting_date']));
+//                $votingContest->closing_date = date("Y-m-d H:i", strtotime($data['closing_date']));
 
                 if ($request->hasFile('image')) {
                     if ($request->file('image')->isValid()) {
