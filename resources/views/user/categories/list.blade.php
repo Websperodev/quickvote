@@ -42,7 +42,7 @@
             $description=substr(strip_tags($cat->description),0, 150);
             $char=strlen($cat->description);
             if($char >150){
-            $description=$description.'...';
+            $description=ucfirst($description.'...');
             }
             @endphp
             <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter Most Recent">
@@ -52,7 +52,7 @@
 
                         <div class="txt-card">
                             <div class="event-name">
-                                <h2 class="titleh2 event-title">{{$cat->name}}</h2>                               
+                                <h2 class="titleh2 event-title">{{ucfirst($cat->name)}}</h2>                               
                             </div>
                             <p class="time-price">{{$description}}</p>
                             <a class="btn btn-grad-bd ticket-details" href="{{url('search-event').'/'.$cat->id}}">Events</a>

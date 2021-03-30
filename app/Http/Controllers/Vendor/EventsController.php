@@ -174,12 +174,12 @@ class EventsController extends Controller {
             $ticketEndDate = $request->get('ticketend_date');
             if (!empty($ticketName)) {
                 foreach ($ticketName as $key => $ticket) {
-//                    $row = Ticket::select('ticket_number')->latest('id')->first();
-//                    if ($row->ticket_number != '') {
-//                        $ticket_number = $row->ticket_number + 1;
-//                    } else {
-//                        $ticket_number = 10000000;
-//                    }
+                    $row = Ticket::select('ticket_number')->latest('id')->first();
+                    if ($row->ticket_number != '') {
+                        $ticket_number = $row->ticket_number + 1;
+                    } else {
+                        $ticket_number = 10000000;
+                    }
                     $ticket = new Ticket;
                     $ticket->event_id = $event->id;
                     $ticket->ticket_type = $ticketType[$key];

@@ -50,7 +50,7 @@
                 <div class="event-titlee">
                     <div class="eve-img"><img src="{{url($img)}}" ></div>
                     <div class="eve-title">
-                        <h2>{{$voting->title }}</h2>
+                        <h2>{{ucfirst($voting->title) }}</h2>
                         <p class="eve-date-time"><span class="eve-date">Date: {{$start_day .' '.$start_month .' '.$start_date.' '.$start_year}}</span> <span class="eve-time">Time: {{$start_time}}</span></p>
                     </div>
                 </div>
@@ -121,7 +121,7 @@
                     <div class="can-detail">
                         <div class="txt-card">
                             <div class="event-name">
-                                <h2 class="cand-name">{{$cont->name}}</h2>
+                                <h2 class="cand-name">{{ucfirst($cont->name)}}</h2>
                                 <span class="cand-no">Candidate Number: <span>{{ $cont->candidate_id}}<span></span>
                                         </div>
                                         <div class="votez"><span class="vote-result">Vote Result: <span>{{$cont->percentage}}%</span></span> 
@@ -180,7 +180,7 @@
                                                                 <span class="date-abs">Vote</span>
                                                                 <div class="txt-card">
                                                                     <div class="event-name">
-                                                                        <h2 class="titleh2 event-title">{{$voting->title}}</h2>
+                                                                        <h2 class="titleh2 event-title">{{ucfirst($voting->title)}}</h2>
 
                                                                     </div>
                                                                     <p class="time-price"><span class="etime"><i class="far fa-clock"></i> Start {{$start_day .' '.$start_month. ' '.$start_date.' '.$start_year .' - '.$close_day.' '.$close_month.' '.$clos_date}}</span> </p>

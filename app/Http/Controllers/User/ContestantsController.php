@@ -71,11 +71,14 @@ class ContestantsController extends Controller {
     }
 
     function buyVotesByUser($vId, $cId) {
+        
         $mytime = Carbon::now();
         $user = Auth::user();
         $date = $mytime->toDateString();
         $vote = Votingcontest::where('id', $vId)->first();
         $contestants = Contestant::where('id', $cId)->first();
+//        echo '<pre>';
+//        print_r($contestants); die;
         $inArray = ['home', 'trusted brands'];
         $slider = Slider::whereIn('name', $inArray)->get();
         $testimonials = Testimonial::all();

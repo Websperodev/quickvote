@@ -14,7 +14,7 @@
             <div class="col-md-10">
                 <div class="form-group">
                     <div class="input-group-append"><span class="input-group-text px-4"><i class="fa fa-search"></i></span></div>
-                    <input type="text" class="form-control" name="vote_name" value="{{$vote_name}}" id="floatingInputGrid" >
+                    <input type="text" class="form-control" name="vote_name" value="{{ucfirst($vote_name)}}" id="floatingInputGrid" >
                 </div>
             </div>
          
@@ -58,10 +58,10 @@
                 <div class="tcard border-0 py-3 px-4">
                     <div class="justify-content-center"> <img src="{{url($img)}}" class="img-fluid profile-pic mb-4 mt-3"> </div>
                     <div class="fe-abs">
-                        <span class="date-abs">30 June</span>
+                        <span class="date-abs">{{$start_date .' '.$start_month}}</span>
                         <div class="txt-card">
                             <div class="event-name">
-                                <h2 class="titleh2 event-title">{{$voting->title}}</h2>
+                                <h2 class="titleh2 event-title">{{ucfirst($voting->title)}}</h2>
                                 
                             </div>
                             <p class="time-price"><span class="etime"><i class="far fa-clock"></i> Start {{$start_day .' '.$start_month. ' '.$start_date.' '.$start_year .' - '.$close_day.' '.$close_month.' '.$clos_date}}</span> </p>

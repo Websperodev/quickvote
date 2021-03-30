@@ -97,12 +97,17 @@ class VotingContestsController extends Controller {
                     }
 
                     $votingContest->timezone = $data['timezone'];
-                    $votingContest->description = $data['description']; 
-                    $sDate = str_replace('/', '-', $data['starting_date']);
-                    $starting_date = date("Y-m-d H:i", strtotime($sDate));
-                    $CDate = str_replace('/', '-', $data['closing_date']);
-                    $closing_date = date("Y-m-d H:i", strtotime($CDate));
+                    $votingContest->description = $data['description'];
+//                    $sDate = str_replace('/', '-', $data['starting_date']);
+//                    $starting_date = date("Y-m-d H:i", strtotime($sDate));
+//                    $CDate = str_replace('/', '-', $data['closing_date']);
+//                    $closing_date = date("Y-m-d H:i", strtotime($CDate));
+                    $sDate = date_create($data['starting_date']);
+//                print_r($data['starting_date']); die;
+                    $starting_date = date_format($sDate, "Y-m-d H:i");
 
+                    $CDate = date_create($data['closing_date']);
+                    $closing_date = date_format($CDate, "Y-m-d H:i");
                     $votingContest->starting_date = $starting_date;
                     $votingContest->closing_date = $closing_date;
                     $votingContest->status = 'Pending';
@@ -250,11 +255,16 @@ class VotingContestsController extends Controller {
                 $votingContest->title = $data['title'];
                 $votingContest->timezone = $data['timezone'];
                 $votingContest->description = $data['description'];
-                $sDate = str_replace('/', '-', $data['starting_date']);
-                $starting_date = date("Y-m-d H:i", strtotime($sDate));
-                $CDate = str_replace('/', '-', $data['closing_date']);
-                $closing_date = date("Y-m-d H:i", strtotime($CDate));
+//                $sDate = str_replace('/', '-', $data['starting_date']);
+//                $starting_date = date("Y-m-d H:i", strtotime($sDate));
+//                $CDate = str_replace('/', '-', $data['closing_date']);
+//                $closing_date = date("Y-m-d H:i", strtotime($CDate));
+                $sDate = date_create($data['starting_date']);
+//                print_r($data['starting_date']); die;
+                $starting_date = date_format($sDate, "Y-m-d H:i");
 
+                $CDate = date_create($data['closing_date']);
+                $closing_date = date_format($CDate, "Y-m-d H:i");
                 $votingContest->starting_date = $starting_date;
                 $votingContest->closing_date = $closing_date;
 
@@ -296,8 +306,8 @@ class VotingContestsController extends Controller {
             $id = $request->get('id');
             $VotingContest = Votingcontest::find($id);
             $categories = Categories::where('parent_id', '!=', '0')->where('created_by', $user->id)->get();
-            $VotingContest->viewstart_date = date("d/m/Y H:i", strtotime($VotingContest->starting_date));
-            $VotingContest->viewclosing_date = date("d/m/Y H:i", strtotime($VotingContest->closing_date));
+            $VotingContest->viewstart_date = date("m/d/Y H:i", strtotime($VotingContest->starting_date));
+            $VotingContest->viewclosing_date = date("m/d/Y H:i", strtotime($VotingContest->closing_date));
             return view('vendor.votingContests.edit', compact('VotingContest', 'categories'));
         }
     }

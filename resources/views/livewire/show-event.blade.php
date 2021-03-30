@@ -70,7 +70,7 @@
                         $description=substr(strip_tags($event['description']),0, 150);
                         $char=strlen($event['description']);
                         if($char >150){
-                        $description=$description.'...';
+                        $description=ucfirst($description.'...');
                         }
 
                         @endphp
@@ -78,7 +78,7 @@
                             <span class="date-abs">{{ $startDate }}</span>
                             <div class="txt-card">
                                 <div class="event-name">
-                                    <h2 class="titleh2 event-title">{{ $event['name'] }}</h2>
+                                    <h2 class="titleh2 event-title">{{ ucfirst($event['name']) }}</h2>
                                     @if($minPrice != '')
                                     <span class="tickets">Tickets From ${{ $minPrice }}</span>
                                     @endif

@@ -116,7 +116,7 @@ class RegisterController extends Controller
             Mail::send(['html' => 'user.emails.email_register'], $email_content, function($message) use ($email_information)
             {
                 $message->to($email_information['to_email'])->subject('Registration successfull');
-                $message->from('quickvote@gmail.com','Quickvote');
+                $message->from('dilpreet@webspero.com','Quickvote');
             });
 
             if($user->id){

@@ -17,6 +17,7 @@ use App\Models\Countries;
 use App\Models\ModelHasRoles;
 use Carbon\Carbon;
 use Yajra\Datatables\Datatables;
+use Mail;
 
 class UserController extends Controller {
 
@@ -74,6 +75,8 @@ class UserController extends Controller {
     }
 
     public function addUser(Request $request) {
+//        echo "d;jhgjklsd";
+//        die;
         if ($request->isMethod('post')) {
             $validator = Validator::make($request->all(), [
                         'first_name' => 'required',
@@ -146,8 +149,16 @@ class UserController extends Controller {
                     $role = Role::find('3');
                     $user->roles()->attach($role);
                 }
+                $email_content['data'] = 'User Registered successfully';
 
-
+                $encrypted = $this->my_simple_crypt($user->id, 'e');
+                $link = config('constants.email-verify-link') . $encrypted;
+                $email_content['link'] = $link;
+                $email_information = array('to_email' => $data['email'], 'from_name' => 'QuickVote', 'from_email' => config('app.email'), 'subject' => 'Registration Email');
+                Mail::send(['html' => 'user.emails.email_register'], $email_content, function ($message) use ($email_information) {
+                    $message->to($email_information['to_email'])->subject('Registration successfull');
+                    $message->from('dilpreet@webspero.com', 'Quickvote');
+                });
                 if ($user->id != '') {
                     $request->session()->flash('message.level', 'success');
                     $request->session()->flash('message.text', 'User Added successfully.');
@@ -169,6 +180,24 @@ class UserController extends Controller {
             $cities = Cities::get();
             return view('admin.user.add')->with(['states' => $states, 'cities' => $cities, 'countries' => $countries]);
         }
+    }
+
+    function my_simple_crypt($string, $action = 'e') {
+        $secret_key = 'quickvote_key';
+        $secret_iv = 'quickvote_iv';
+
+        $output = false;
+        $encrypt_method = "AES-256-CBC";
+        $key = hash('sha256', $secret_key);
+        $iv = substr(hash('sha256', $secret_iv), 0, 16);
+
+        if ($action == 'e') {
+            $output = base64_encode(openssl_encrypt($string, $encrypt_method, $key, 0, $iv));
+        } else if ($action == 'd') {
+            $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
+        }
+
+        return $output;
     }
 
     public function vendorList() {

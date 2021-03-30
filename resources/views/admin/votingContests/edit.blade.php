@@ -187,7 +187,7 @@ $timezoneArray = config('constants.timezones');
                             </div>
                             <div class="col-md-6 form-group cus-form-group">
                                 <label for="starting_date">Starting date</label>
-                                <input type="text" autocomplete="off" class="form-control datetimepicker" value="{{ isset($VotingContest->viewstart_date) ? $VotingContest->viewstart_date : ''}}" name="starting_date" id="start-date" aria-describedby="emailHelp" placeholder="Enter Starting Date" >
+                                <input type="text" autocomplete="off" class="form-control datetimepicker" value="{{ isset($VotingContest->viewstart_date) ? $VotingContest->viewstart_date : ''}}" name="starting_date"  aria-describedby="emailHelp" placeholder="Enter Starting Date" >
                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                                 @if($errors->has('starting_date'))
                                 <div class="error">{{ $errors->first('starting_date') }}</div>
@@ -195,7 +195,7 @@ $timezoneArray = config('constants.timezones');
                             </div>
                             <div class="col-md-6 form-group cus-form-group">
                                 <label for="closing_date">Closing date</label>
-                                <input type="text" autocomplete="off" class="form-control datetimepicker" value="{{ isset($VotingContest->viewclosing_date) ? $VotingContest->viewclosing_date : ''}}" name="closing_date" id="end_date" aria-describedby="emailHelp" placeholder="Enter Closing Date">
+                                <input type="text" autocomplete="off" class="form-control datetimepicker" value="{{ isset($VotingContest->viewclosing_date) ? $VotingContest->viewclosing_date : ''}}" name="closing_date" aria-describedby="emailHelp" placeholder="Enter Closing Date">
                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                                 @if($errors->has('closing_date'))
                                 <div class="error">{{ $errors->first('closing_date') }}</div>
@@ -282,8 +282,8 @@ $timezoneArray = config('constants.timezones');
 </div> 
 
 <script type="text/javascript">
-    $(".datetimepicker").datetimepicker({
-        format: 'd/m/Y H:i'
+   $(".datetimepicker").datetimepicker({
+        format: 'm/d/Y H:i'
     });
 </script>
 

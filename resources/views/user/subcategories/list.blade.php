@@ -55,7 +55,7 @@
             $description=substr(strip_tags($scat->description),0, 150);
             $char=strlen($scat->description);
             if($char >150){
-            $description=$description.'...';
+            $description=ucfirst($description.'...');
             }
             @endphp
             <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter Most Recent">
@@ -65,9 +65,9 @@
 
                         <div class="txt-card">
                             <div class="event-name">
-                                <h2 class="titleh2 event-title">{{$scat->name}}</h2>                               
+                                <h2 class="titleh2 event-title">{{ucfirst($scat->name)}}</h2>                               
                             </div>
-                            <p class="time-price">{{$description}}</p>
+                            <p class="time-price">{{ucfirst($description)}}</p>
                             <a class="btn btn-grad-bd ticket-details" href="{{url('votes').'/'.$scat->id}}">Votes</a>
                         </div>
                     </div>

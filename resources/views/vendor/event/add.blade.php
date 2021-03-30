@@ -463,7 +463,7 @@ $timezoneArray = config('constants.timezones');
     });
 
 
-    $(".datepicker").datetimepicker();
+//    $(".datepicker").datetimepicker();
 
 
 //CKEDITOR.replace('area1', {
