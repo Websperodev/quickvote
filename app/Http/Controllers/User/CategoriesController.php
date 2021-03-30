@@ -20,6 +20,8 @@ use App\Models\PricingPlans;
 class CategoriesController extends Controller {
 
     function index(Request $req) {
+        $mytime = Carbon::now();
+        $date = $mytime->toDateString();
         $search = '';
         if (!empty($req->input()) && $req->input('cat_name') != '') {
             $name = $req->input('cat_name');
@@ -27,15 +29,17 @@ class CategoriesController extends Controller {
             $categories = Categories::select('categories.*')
                     ->rightjoin('events', 'events.category_id', '=', 'categories.id')
                     ->where('events.status', 'Accepted')
-                    ->where('parent_id', '0')
-                    ->where('name', 'like', '%' . $name . '%')
+                    ->where('categories.parent_id', '0')
+                    ->where('categories.name', 'like', '%' . $name . '%')
+                    ->where('events.end_date', '>', $date)
                     ->groupBy('categories.id')
                     ->get();
         } else {
             $categories = Categories::select('categories.*')
                     ->rightjoin('events', 'events.category_id', '=', 'categories.id')
                     ->where('events.status', 'Accepted')
-                    ->where('parent_id', '0')
+                    ->where('categories.parent_id', '0')
+                    ->where('events.end_date', '>', $date)
                     ->groupBy('categories.id')
                     ->get();
         }
