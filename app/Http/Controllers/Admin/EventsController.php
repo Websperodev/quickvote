@@ -113,7 +113,7 @@ class EventsController extends Controller {
                 if (!empty($ticketName)) {
                     foreach ($ticketName as $key => $ticket) {
                         $row = Ticket::select('ticket_number')->latest('id')->first();
-                        if ($row->ticket_number != '') {
+                       if (!empty($row) && $row->ticket_number != '') {
                             $ticket_number = $row->ticket_number + 1;
                         } else {
                             $ticket_number = 10000000;
