@@ -11,6 +11,7 @@ use Auth;
 use Session;
 use Response;
 use App\User;
+use Carbon\Carbon;
 use App\Models\Categories;
 use Yajra\Datatables\Datatables;
 use App\Models\Slider;
@@ -20,7 +21,8 @@ use App\Models\PricingPlans;
 class SubCategoriesController extends Controller {
 
     function index(Request $req) {
-
+        $mytime = Carbon::now();
+        $date = $mytime->toDateString();
         $search = '';
         if (!empty($req->input()) && $req->input('scat_name') != '') {
             $name = $req->input('scat_name');
@@ -30,6 +32,7 @@ class SubCategoriesController extends Controller {
                     ->where('voting_contests.status', 'Accepted')
                     ->where('categories.parent_id', '!=', '0')
                     ->where('categories.name', 'like', '%' . $name . '%')
+                    ->where('voting_contests.closing_date', '>', $date)
                     ->groupBy('categories.id')
                     ->get();
         } else {
@@ -37,6 +40,7 @@ class SubCategoriesController extends Controller {
                             ->rightjoin('voting_contests', 'voting_contests.category_id', '=', 'categories.id')
                             ->where('voting_contests.status', 'Accepted')
                             ->where('categories.parent_id', '!=', '0')
+                            ->where('voting_contests.closing_date', '>', $date)
                             ->groupBy('categories.id')->get();
         }
 //        echo '<pre>';
