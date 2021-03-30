@@ -97,8 +97,7 @@ class VotingContestsController extends Controller {
                     }
 
                     $votingContest->timezone = $data['timezone'];
-                    $votingContest->description = $data['description'];
-                    
+                    $votingContest->description = $data['description']; 
                     $sDate = str_replace('/', '-', $data['starting_date']);
                     $starting_date = date("Y-m-d H:i", strtotime($sDate));
                     $CDate = str_replace('/', '-', $data['closing_date']);

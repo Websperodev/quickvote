@@ -14,6 +14,9 @@ use DB;
 use App\Models\Slider;
 use App\Models\Testimonial;
 use App\Models\PricingPlans;
+use Paystack;
+use Response;
+use Illuminate\Support\Facades\Redirect;
 
 class EventController extends Controller {
 
@@ -30,17 +33,23 @@ class EventController extends Controller {
         $mytime = Carbon::now();
         $date = $mytime->toDateString();
         $event = Event::with('country')->where('end_date', '>', $date)->find($id);
-          $inArray = ['home', 'trusted brands'];
+        $inArray = ['home', 'trusted brands'];
         $slider = Slider::whereIn('name', $inArray)->get();
         $testimonials = Testimonial::all();
-        $crruntDate=$date;      
+        $crruntDate = $date;
         if (!empty($event)) {
-            $sugstEvent = Event::with('tickets')->where('end_date', '>', $date)->where('category_id', $event->category_id)->where('id','!=', $event->id)->limit(3)->get()->toArray();
-            $ticket = Ticket::where('event_id', $event->id)->get();                    
-            return view('user.events.events', compact('event', 'sugstEvent','ticket','crruntDate','slider','testimonials'));
+            $sugstEvent = Event::with('tickets')->where('end_date', '>', $date)->where('category_id', $event->category_id)->where('id', '!=', $event->id)->limit(3)->get()->toArray();
+            $ticket = Ticket::where('event_id', $event->id)->get();
+            return view('user.events.events', compact('event', 'sugstEvent', 'ticket', 'crruntDate', 'slider', 'testimonials'));
         } else {
             
         }
+    }
+
+    function buyEventTickets(Request $request) {
+        echo '<pre>';
+        print_r($request->input());
+        die;
     }
 
 }

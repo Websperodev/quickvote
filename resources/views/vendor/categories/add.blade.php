@@ -35,7 +35,9 @@
                         @endif
                     </div>
                     <div class="col-md-12 form-group cus-form-group">
+
                         <label for="name">Subcategory Name <span class="required_field required_red">*</span></label>
+
                         <input type="text" class="form-control"  name="name" id="category_name" aria-describedby="emailHelp" placeholder="Enter Subcategory Name">
                         @if($errors->has('category_name'))
                         <div class="error">{{ $errors->first('name') }}</div>
