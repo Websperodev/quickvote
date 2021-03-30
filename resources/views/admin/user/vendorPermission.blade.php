@@ -42,32 +42,32 @@
                         </div>
                         <div class="col-md-2">  
                             @if($prom['add']=='1')
-                            <input type="checkbox" checked name="{{$key}}[add]" id="edit" aria-describedby="emailHelp">
+                            <input type="checkbox"  checked name="{{$key}}[add]" id="edit" aria-describedby="emailHelp">
                             @else
                             <input type="checkbox" name="{{$key}}[add]" id="edit" aria-describedby="emailHelp">
                             @endif
                         </div>
                         <div class="col-md-2"> 
                             @if($prom['edit']=='1')
-                            <input type="checkbox" checked name="{{$key}}[edit]" id="edit" aria-describedby="emailHelp">
+                            <input type="checkbox" disabled checked name="{{$key}}[edit]" id="edit" aria-describedby="emailHelp">
                             @else
-                            <input type="checkbox" name="{{$key}}[edit]" id="edit" aria-describedby="emailHelp">
+                            <input type="checkbox" disabled name="{{$key}}[edit]" id="edit" aria-describedby="emailHelp">
                             @endif
 
                         </div>  
                         <div class="col-md-2"> 
                             @if($prom['delete']=='1')
-                            <input type="checkbox" checked name="{{$key}}[delete]" id="edit" aria-describedby="emailHelp">
+                            <input type="checkbox" disabled checked name="{{$key}}[delete]" id="edit" aria-describedby="emailHelp">
                             @else
-                            <input type="checkbox" name="{{$key}}[delete]" id="edit" aria-describedby="emailHelp">
+                            <input type="checkbox" disabled name="{{$key}}[delete]" id="edit" aria-describedby="emailHelp">
                             @endif
 
                         </div> 
                         <div class="col-md-2">  
                             @if($prom['view']=='1')
-                            <input type="checkbox" checked name="{{$key}}[view]" id="delete" aria-describedby="emailHelp">
+                            <input type="checkbox" disabled checked name="{{$key}}[view]" id="delete" aria-describedby="emailHelp">
                             @else
-                            <input type="checkbox" name="{{$key}}[view]" id="delete" aria-describedby="emailHelp">
+                            <input type="checkbox" disabled name="{{$key}}[view]" id="delete" aria-describedby="emailHelp">
                             @endif
 
                         </div>

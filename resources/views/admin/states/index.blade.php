@@ -35,7 +35,7 @@
                         <tr>
                             <th>Name</th>
                             <th>Country</th>
-                            <th>Code</th>
+                            <!--<th>Code</th>-->
                             <th>Created</th>
                             <th>Action</th>
                         </tr>
@@ -98,8 +98,7 @@ table_instance = $('#state-table').DataTable({
     ],
     columns: [
         {data: 'name', name: 'name'},
-        {data: 'counties', name: 'counties'},
-        {data: 'country_code', name: 'country_code'},
+        {data: 'counties', name: 'counties'},        
         {data: 'created_at', name: 'created_at'},
         {data: 'action', name: 'action', "searchable": false, "orderable": false, width: '50px', className: "text-center"}
     ],

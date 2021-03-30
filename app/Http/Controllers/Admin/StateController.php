@@ -39,7 +39,7 @@ class stateController extends Controller {
             $validator = Validator::make($request->all(), [
                         'name' => 'required',
                         'country_id' => 'required',
-                        'country_code' => 'required|alpha||min:2|max:2',
+//                        'country_code' => 'required|alpha||min:2|max:2',
             ]);
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator);
@@ -58,7 +58,7 @@ class stateController extends Controller {
                 $state = new States;
                 $state->name = ucfirst($data['name']);
                 $state->country_id = $data['country_id'];
-                $state->country_code = strtoupper($data['country_code']);
+//                $state->country_code = strtoupper($data['country_code']);
 
 //                $state->created_by = $user->id;
 
@@ -99,12 +99,7 @@ class stateController extends Controller {
                             if ($allstates->counties != '') {
                                 return $allstates->counties->name;
                             }
-                        })
-                        ->addColumn('country_code', function($allstates) {
-                            if ($allstates->country_code != '') {
-                                return $allstates->country_code;
-                            }
-                        })
+                        })                     
                         ->editColumn('created_at', function($allstates) {
                             if (!empty($allstates->created_at)) {
                                 return getDateOnly($allstates->created_at);
@@ -131,7 +126,7 @@ class stateController extends Controller {
             $validator = Validator::make($request->all(), [
                         'name' => 'required',
                         'country_id' => 'required',
-                        'country_code' => 'required|alpha||min:2|max:2',
+//                        'country_code' => 'required|alpha||min:2|max:2',
             ]);
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
@@ -151,7 +146,7 @@ class stateController extends Controller {
                 $state = $state::find($data['state_id']);
                 $state->name = ucfirst($data['name']);
                 $state->country_id = $data['country_id'];
-                $state->country_code = strtoupper($data['country_code']);
+//                $state->country_code = strtoupper($data['country_code']);
                 $state->update();
                 if ($state->id != '') {
                     $request->session()->flash('message.level', 'success');

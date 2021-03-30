@@ -1,8 +1,8 @@
 <?php
 
 return [
-'email-verify-link' => 'http://staging.webspero.com/quickvote/public/email-verify?id=',
- 'reset-password-link' => 'http://staging.webspero.com/quickvote/public/reset-password?id=',
+'email-verify-link' => 'http://209.124.64.222/quickvote/public/email-verify?id=',
+ 'reset-password-link' => 'http://209.124.64.222/quickvote/public/reset-password?id=',
  'countries' => array("AF" => "Afghanistan",
  "AX" => "Åland Islands",
  "AL" => "Albania",

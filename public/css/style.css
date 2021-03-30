@@ -673,10 +673,12 @@ button.btn.btn-primary.nletter {
     border-radius: 40px;
     width: 180px;
     font-size: 16px;
-    line-height: 48px;
+    line-height: 52px;
     color: #feb02a;
     background: #fff;
     border-color: #fff;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 .subs .form-group {
@@ -2316,4 +2318,107 @@ p.vote-payment {
     width: 100% !important;
     height: 100% !important;
     object-fit: cover;
+}
+
+#feat .tcard .row.justify-content-center {
+    margin: 0;
+}
+
+.reg-login.show {  
+    position: relative;    
+}
+
+.dropdown-menu.dropdown-menu-right.profile-dropdown.show {  
+    padding-bottom: 0;     
+}
+.dropdown-header.noti-title h6  {
+    padding: 0;     
+    width: 100%;   
+    font-size: 14px;    
+    font-weight: 600;   
+    color: #000;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.dropdown-menu.dropdown-menu-right.profile-dropdown.show a {
+    color: #000;
+    font-size: 11px;
+    padding: 10px;
+    border-top: 1px solid #f7f7f7;
+    margin: 0;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+    text-align: center;
+    top: 0;
+    border-radius: 0px;
+    background: transparent;
+}
+.dropdown-menu.dropdown-menu-right.profile-dropdown.show a:last-child:hover {
+    background-color: #000;
+    color: #fff;
+}
+.dropdown-menu.dropdown-menu-right.profile-dropdown.show a:not(:last-child):hover {
+    background: #f7f7f7;  
+    color: #000;
+}
+.dropdown-menu.dropdown-menu-right.profile-dropdown.show .dropdown-divider {    
+    display: none;  
+}
+
+#about p a.btn.btn-bg {
+    display: block;
+    width: 100%;
+    max-width: 190px;
+}
+
+.feat-event div.owl-item {
+    margin-bottom: 35px;
+}
+
+div#feat.py-5 {
+    padding-bottom: 2rem !important;
+}
+
+div#floating-search .row {
+    background: #edecec;
+    border-radius: 50px;
+    margin: 0;
+    padding: 10px;
+}
+
+#floating-search button.btn.btn-primary {
+    opacity: 1;
+}
+
+#eve .cta{
+    margin-top: 50px;
+}
+
+.candidate-vote .col-md-12 {
+    padding: 0;
+}
+
+p.vote-price {
+    color: #777;
+}
+
+p.vote-payment {
+    text-align: center;
+}
+
+.noncategory .btn.btn-primary.advanceSearch {
+    margin-right: 15px;
+    padding: 15px 35px;
+    background: linear-gradient( 152deg , #f47f34, #fdb92e);
+    color: #fff;
+    border-radius: 30px;
+    line-height: initial;
+    width: auto;
+    border: none;
+    white-space: nowrap;
+}
+
+.event-name p.time-price + div a {
+    color: #000;
 }

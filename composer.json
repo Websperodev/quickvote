@@ -16,7 +16,7 @@
         "laravel/socialite": "^5.1",
         "laravel/tinker": "^2.0",
         "laravelcollective/html": "^6.2",
-        "livewire/livewire": "^2.3",
+        "livewire/livewire": "^2.4",
         "spatie/laravel-permission": "^3.18",
         "unicodeveloper/laravel-paystack": "^1.0",
         "yajra/laravel-datatables-oracle": "~9.0"

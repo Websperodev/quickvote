@@ -1,12 +1,12 @@
 @extends('admin.layouts.master')
-@section("meta_page_title") Admin | Quickvote | Countries @endsection
+@section("meta_page_title") Admin | Quickvote | States @endsection
 @section("page_title") <a href="{!! route('admin.categories') !!}" class="head-a"> Categories </a> > Add @endsection
 @section("content")
 <div class="row justify-content-center">
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="mb-3 header-title">Countries</h4>
+                <h4 class="mb-3 header-title">States</h4>
                 @if(session()->has('message.level'))
                 <div class="alert alert-{{ session('message.level') }}"> 
                     {!! session('message.text') !!}
@@ -34,13 +34,13 @@
                         <div class="error">{{ $errors->first('name') }}</div>
                         @endif
                     </div>
-                     <div class="col-md-12 form-group cus-form-group">
+<!--                     <div class="col-md-12 form-group cus-form-group">
                         <label for="name">Country code</label>
                         <input type="text" class="form-control"  name="country_code" id="country_code" aria-describedby="emailHelp" placeholder="NA">
                         @if($errors->has('country_code'))
                         <div class="error">{{ $errors->first('country_code') }}</div>
                         @endif
-                    </div>
+                    </div>-->
                     
                                   
                     <div class="btn-right">

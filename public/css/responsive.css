@@ -1,7 +1,7 @@
 @media (max-width:1650px) {
 
 #feat .tcard {
-    padding-bottom: 85px !important;
+    padding-bottom: 60px !important;
 }
 
 }
@@ -162,6 +162,10 @@ h2.titleh2 {
     font-size: 36px;
 }
 
+div#floating-search h2 {
+    font-size: 36px;
+}
+
 footer h2.titleh2 {
     font-size: 22px;
     margin-bottom: 20px;
@@ -225,6 +229,31 @@ a.btn.btn-bg {
 
 @media (max-width:999px) {
 	
+	.col-md-4.col-sm-12.sidebar {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+.col-md-8.col-sm-12.edetail {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+.candidate-vote {
+    max-width: 540px;
+    float: none;
+    margin: 0 auto;
+}
+
+.event-details {
+    margin-bottom: 55px;
+}
+
+p.eve-date-time {
+    font-size: 14px;
+    justify-content: space-between;
+}
+	
 .feat-event div.owl-item {
     transform: scale(1);
 }
@@ -250,6 +279,10 @@ span.date-abs {
 
 .cta h2.titleh2 {
     margin-bottom: 15px;
+}
+
+div#floating-search h2 {
+    font-size: 32px;
 }
 
 h2.titleh2 {
@@ -383,10 +416,51 @@ nav#navbar_top {
 .col-4.serv, .col-3.serv {
     min-width: 50%;
 }
+
+div#feat.py-5 {
+    padding-bottom: 0rem !important;
+}
+
+.col-md-4.col-sm-12.sidebar {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+.event-contestant .single-event-ticket {
+    margin: 30px auto 0;
+    float: none;
+}
+
+.col-md-8.col-sm-12.edetail {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+.event-contestant .col-md-8.col-sm-12.edetail {
+    display: flex;
+    flex-direction: column;
+}
+
+h2.cand-name {
+    font-size: 18px;
+}
+span.cand-no {
+    font-size: 14px;
+}
 	
 }
 
 @media (max-width: 700px) {
+	
+	#cand .img-fluid12 {
+    max-width: 502px !important;
+    width: 100%;
+    height: auto !important;
+}
+	
+	.event-contestant .col-md-4.col-sm-12.sidebar {
+    display: none;
+}
 	
 div.txt-card {
     position: relative;
@@ -668,9 +742,9 @@ form.vform.mform.row > .btn {
 .slider-content h4 {
     font-size: 14px;
     font-weight: 400;
-    width: 100%;
-    padding: 0 20px;
-	letter-spacing: 2px;
+    width: auto;
+    padding: 0 40px;
+    letter-spacing: 2px;
 }
 
 .slider-content h4:before, .slider-content h4:after {
@@ -711,9 +785,77 @@ footer h2.titleh2 {
     min-width: 100%;
 }
 
+span.prev-icon, span.next-icon {
+    filter: grayscale(0);
+}
+
+#carouselExampleControls .carousel-control-prev, #carouselExampleControls .carousel-control-next {
+    position: relative;
+    width: auto;
+    margin: 15px 5px 0 5px;
+    display: inline-block;
+}
+
+div#carouselExampleControls {
+    text-align: center;
+}
+
+div#floating-search .row {
+    background: none;
+    border-radius: 0px;
+    margin: 0;
+    padding: 10px 0;
+}
+
+div#floating-search .row .form-group input {
+    background: #edecec;
+    margin-bottom: 10px;
+    border-radius: 30px;
+    padding: 0 15px;
+    font-size: 14px;
+}
+
+#floating-search.evnt button.btn.btn-primary {
+    width: auto;
+padding: 10px 25px;}
+
+div#eve {
+    padding-top: 30px;
+}
+
+#eve .txt-card {
+    max-width: 100%;
+}
+
+div#event-page {
+    border-radius: 0;
+}
+
+div#floating-search .row {
+    margin: 0 -15px;
+}
+
+.event-contestant .eve-img {
+    height: auto;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px 0 #0004;
+}
+
+.eve-title {
+    width: 100%;
+}
+
+p.eve-date-time span {
+    width: auto;
+}
+
+
 }
 
 @media (max-width: 580px) {
+	
+	
 #eve .gallery_product, #cand .gallery_product {
     flex: 0 0 100%;
     max-width: 100%;
@@ -724,6 +866,63 @@ footer h2.titleh2 {
     height: 60vw;
     min-height: 60vw;
     max-height: 60vw;
+}
+
+.event-titlee {
+    flex-direction: column;
+}
+
+.event-contestant .eve-img {
+    display: block;
+    width: 100% !important;
+    height: auto;
+}
+
+.eve-title h2 {
+    font-size: 20px;
+}
+
+p.eve-date-time {
+    font-size: 14px;
+    justify-content: space-between;
+}
+
+#candidate .col-md-3 {
+    max-width: 100%;
+    position: relative;
+    margin-top: 20px;
+}
+
+#candidate .col-md-3 button.btn.btn-bg {
+    font-size: 12px;
+}
+
+#candidate {
+    position: relative;
+    background: none;
+}
+
+#candidate .col-md-9 {
+    max-width: 100%;
+    padding-right: 15px;
+    background: #ebebeb;
+    border-radius: 30px;
+}
+
+div#eve-detail {
+    padding-bottom: 20px;
+}
+
+.eve-img {
+    display: none;
+}
+
+.eve-description h4 {
+    font-size: 16px;
+}
+
+.eve-description {
+    padding: 20px 30px;
 }
 
 }

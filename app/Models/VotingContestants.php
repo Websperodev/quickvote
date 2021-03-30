@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class VotingContestants extends Model
 {
-    protected $table='voting_contestants';
+    protected $table='voting_contestants_payment';
     
     
 }

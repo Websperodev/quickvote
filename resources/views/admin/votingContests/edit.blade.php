@@ -5,7 +5,9 @@
 @php 
 $timezoneArray = config('constants.timezones');
 @endphp
-
+<script>
+    var typevote = "{{$VotingContest->type}}";
+</script>
 
 <div class="row justify-content-center">
     <div class="col-md-12">
@@ -54,20 +56,20 @@ $timezoneArray = config('constants.timezones');
                         @if($VotingContest->type=='paid')
                         <div class="col-md-3">
                             <label for="type">Paid</label>
-                            <input type="radio" checked name="type" value="paid">
+                            <input type="radio" checked name="type" class="vote_type" id="vote_type" value="paid">
                         </div>
                         <div class="col-md-3">
                             <label for="type">Free</label>
-                            <input type="radio"  name="type" value="free">
+                            <input type="radio"  name="type" class="vote_type" value="free">
                         </div>
                         @else
                         <div class="col-md-3">
                             <label for="type">Paid</label>
-                            <input type="radio"  name="type" value="paid">
+                            <input type="radio"  name="type" class="vote_type" id="vote_type" value="paid">
                         </div>
                         <div class="col-md-3">
                             <label for="type">Free</label>
-                            <input type="radio" checked name="type" value="free">
+                            <input type="radio" checked name="type" class="vote_type" value="free">
                         </div>
                         @endif
                         @if($errors->has('type'))
@@ -120,13 +122,11 @@ $timezoneArray = config('constants.timezones');
                             <div class="error">{{ $errors->first('category_id') }}</div>
                             @endif
                         </div>
-                        <div class="col-md-7 form-group cus-form-group">
+                        <div class="col-md-7 form-group cus-form-group payment_gateway">
                             <label for="payment_gateway">Select preferred payment gateway</label>
                             <select class="form-control" name="payment_gateway"autocomplete="off" id="payment_gateway" aria-describedby="emailHelp">
                                 <option {{ $VotingContest->payment_gateway == 'paystack' ? 'selected' : ''}} value="paystack">Paystack</option>
-                                <option {{ $VotingContest->payment_gateway == 'flutterwavwe' ? 'selected' : ''}} value="flutterwavwe">Flutterwavwe</option>
-                                <option {{ $VotingContest->payment_gateway == 'payu' ? 'selected' : ''}} value="payu">Payu</option>
-                                <option {{ $VotingContest->payment_gateway == 'interswitch' ? 'selected' : ''}} value="interswitch">Interswitch</option>
+
                             </select>
                             @if($errors->has('payment'))
                             <div class="error">{{ $errors->first('payment') }}</div>
@@ -178,7 +178,7 @@ $timezoneArray = config('constants.timezones');
                                 @endif
                             </div>
 
-                            <div class="col-md-6 form-group cus-form-group">
+                            <div class="col-md-6 form-group cus-form-group votesfees">
                                 <label for="fees">Voting Fee</label>
                                 <input type="number" autocomplete="off" class="form-control" name="fees" id="organiser_name" value="{{ isset($VotingContest->fees) ? $VotingContest->fees : ''}}"  placeholder="Enter Voting fee">
                                 @if($errors->has('fees'))
@@ -225,7 +225,7 @@ $timezoneArray = config('constants.timezones');
                             @endif
                         </div>
                     </div>
-                      <div class="row"> 
+                    <div class="row"> 
                         <div class="col-md-12 form-group cus-form-group">
                             @if($VotingContest->status=='Pending')
                             <label for="status">Pending</label>
@@ -288,22 +288,36 @@ $timezoneArray = config('constants.timezones');
 </script>
 
 <script>
-      var evtstatus = $("input[name='status']:checked").val();
-                            if (evtstatus == 'Rejected'){
-                            $('.eventreason').show();
-                            } else{
-                            $('.eventreason').hide();
-                            }
+    if (typevote == 'free') {
+        $('.votesfees').hide();
+        $('.payment_gateway').hide();
+    }
+    $('.vote_type').on('click', function () {
+        var type = $(this).val();
+        if (type == 'free') {
+            $('.votesfees').hide();
+            $('.payment_gateway').hide();
+        } else {
+            $('.votesfees').show();
+            $('.payment_gateway').show();
+        }
+    })
+    var evtstatus = $("input[name='status']:checked").val();
+    if (evtstatus == 'Rejected') {
+        $('.eventreason').show();
+    } else {
+        $('.eventreason').hide();
+    }
 
-                            $('.eventstatus').on('click', function(){
+    $('.eventstatus').on('click', function () {
 
-                            var evtstatus = $(this).val();
-                            if (evtstatus == 'Rejected'){
-                            $('.eventreason').show();
-                            } else{
-                            $('.eventreason').hide();
-                            }
-                            })
+        var evtstatus = $(this).val();
+        if (evtstatus == 'Rejected') {
+            $('.eventreason').show();
+        } else {
+            $('.eventreason').hide();
+        }
+    })
     $(document).ready(function () {
 
         var cat = $('input[name="category"]:checked').val();
@@ -339,7 +353,16 @@ $timezoneArray = config('constants.timezones');
         })
     });
 
-
+    $('.vote_type').on('click', function () {
+        var type = $(this).val();
+        if (type == 'free') {
+            $('.votesfees').hide();
+            $('.payment_gateway').hide();
+        } else {
+            $('.votesfees').show();
+            $('.payment_gateway').show();
+        }
+    })
 
 
 
