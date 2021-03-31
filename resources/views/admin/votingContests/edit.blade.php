@@ -122,7 +122,7 @@ $timezoneArray = config('constants.timezones');
                             <div class="error">{{ $errors->first('category_id') }}</div>
                             @endif
                         </div>
-                        <div class="col-md-7 form-group cus-form-group payment_gateway">
+<!--                        <div class="col-md-7 form-group cus-form-group payment_gateway">
                             <label for="payment_gateway">Select preferred payment gateway</label>
                             <select class="form-control" name="payment_gateway"autocomplete="off" id="payment_gateway" aria-describedby="emailHelp">
                                 <option {{ $VotingContest->payment_gateway == 'paystack' ? 'selected' : ''}} value="paystack">Paystack</option>
@@ -131,7 +131,7 @@ $timezoneArray = config('constants.timezones');
                             @if($errors->has('payment'))
                             <div class="error">{{ $errors->first('payment') }}</div>
                             @endif
-                        </div>
+                        </div>-->
                         <div class="col-md-12 form-group cus-form-group row">
                             <div class="col-md-12 form-group cus-form-group">
                                 <label for="Profile">Contestant Profile view</label>
@@ -290,7 +290,7 @@ $timezoneArray = config('constants.timezones');
 <script>
     if (typevote == 'free') {
         $('.votesfees').hide();
-        $('.payment_gateway').hide();
+//        $('.payment_gateway').hide();
     }
     $('.vote_type').on('click', function () {
         var type = $(this).val();
@@ -299,7 +299,7 @@ $timezoneArray = config('constants.timezones');
             $('.payment_gateway').hide();
         } else {
             $('.votesfees').show();
-            $('.payment_gateway').show();
+//            $('.payment_gateway').show();
         }
     })
     var evtstatus = $("input[name='status']:checked").val();
@@ -357,10 +357,10 @@ $timezoneArray = config('constants.timezones');
         var type = $(this).val();
         if (type == 'free') {
             $('.votesfees').hide();
-            $('.payment_gateway').hide();
+//            $('.payment_gateway').hide();
         } else {
             $('.votesfees').show();
-            $('.payment_gateway').show();
+//            $('.payment_gateway').show();
         }
     })
 

@@ -85,15 +85,15 @@ $timezoneArray = config('constants.timezones');
                             <div class="error">{{ $errors->first('category_id') }}</div>
                             @endif
                         </div>
-                        <div class="col-md-7 form-group cus-form-group payment_gateway">
-                            <label for="payment_gateway">Select preferred payment gateway</label>
-                            <select class="form-control" name="payment_gateway"autocomplete="off" id="payment_gateway" aria-describedby="emailHelp">
-                                <option value="paystack">Paystack</option>                             
-                            </select>
-                            @if($errors->has('payment_gateway'))
-                            <div class="error">{{ $errors->first('payment_gateway') }}</div>
-                            @endif
-                        </div>
+                        <!--                        <div class="col-md-7 form-group cus-form-group payment_gateway">
+                                                    <label for="payment_gateway">Select preferred payment gateway</label>
+                                                    <select class="form-control" name="payment_gateway"autocomplete="off" id="payment_gateway" aria-describedby="emailHelp">
+                                                        <option value="paystack">Paystack</option>                             
+                                                    </select>
+                                                    @if($errors->has('payment_gateway'))
+                                                    <div class="error">{{ $errors->first('payment_gateway') }}</div>
+                                                    @endif
+                                                </div>-->
                         <div class="col-md-12 form-group cus-form-group row">
                             <div class="col-md-12 form-group cus-form-group">
                                 <label for="Profile">Contestant Profile view</label>
@@ -192,14 +192,14 @@ $timezoneArray = config('constants.timezones');
         $('.votelimitcount').hide();
         $('.awardsCat').hide();
         $('.votesfees').hide();
-        $('.payment_gateway').hide();
+//        $('.payment_gateway').hide();
     });
 </script>
 @if($errors->has('fees'))
 <script>
     $(document).ready(function () {
         $('.votesfees').show();
-        $('.payment_gateway').show();
+//        $('.payment_gateway').show();
         $('#vote_type').prop('checked', true);
     });
 </script>
@@ -215,10 +215,10 @@ $timezoneArray = config('constants.timezones');
             var type = $(this).val();
             if (type == 'free') {
                 $('.votesfees').hide();
-                $('.payment_gateway').hide();
+//                $('.payment_gateway').hide();
             } else {
                 $('.votesfees').show();
-                $('.payment_gateway').show();
+//                $('.payment_gateway').show();
             }
         })
         $('.category').on('click', function () {

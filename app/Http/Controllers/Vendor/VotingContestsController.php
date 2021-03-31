@@ -49,7 +49,7 @@ class VotingContestsController extends Controller {
                             'fees' => 'required_if:type,==,paid|nullable',
                             'limit' => 'required',
                             'limit_count' => 'required_if:limit,==,1|nullable',
-                            'payment_gateway' => 'required_if:type,==,paid|nullable',
+//                            'payment_gateway' => 'required_if:type,==,paid|nullable',
                             'packages' => 'required',
                             'title' => 'required',
                             'starting_date' => 'required',
@@ -90,7 +90,7 @@ class VotingContestsController extends Controller {
                     $votingContest->title = $data['title'];
                     if (isset($data['fees']) && $data['fees'] != '') {
                         $votingContest->fees = $data['fees'];
-                        $votingContest->payment_gateway = $data['payment_gateway'];
+                        $votingContest->payment_gateway = 'paystack';
                     } else {
                         $votingContest->fees = NULL;
                         $votingContest->payment_gateway = NULL;
@@ -206,7 +206,7 @@ class VotingContestsController extends Controller {
                         'type' => 'required',
                         'limit' => 'required',
                         'limit_count' => 'required_if:limit,==,1|nullable',
-                        'payment_gateway' => 'required_if:type,==,paid|nullable',
+//                        'payment_gateway' => 'required_if:type,==,paid|nullable',
                         'packages' => 'required',
                         'title' => 'required',
                         'fees' => 'required_if:type,==,paid|nullable',
@@ -246,7 +246,7 @@ class VotingContestsController extends Controller {
                 }
                 if (isset($data['fees']) && $data['fees'] != '') {
                     $votingContest->fees = $data['fees'];
-                    $votingContest->payment_gateway = $data['payment_gateway'];
+                    $votingContest->payment_gateway =  'paystack';
                 } else {
                     $votingContest->fees = NULL;
                     $votingContest->payment_gateway = NULL;
