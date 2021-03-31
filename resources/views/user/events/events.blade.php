@@ -6,8 +6,7 @@
     }
 </style>
 <script>
-    var totalticketPrice = 0;
-</script>
+    var totalticketPrice = 0;</script>
 <div id="eve-detail" class="single-event">
     <div class="container">
         <div class="row">
@@ -59,6 +58,10 @@
                 <div class="single-event-ticket">
                     <h5>Tickets</h5>
                     @if(!empty($ticket))
+                    <script>
+
+                        var tktlan = "{{count($ticket)}}";
+                    </script>
                     <!--<form id="ticket_form" action="{{route('tickets.buy')}}" method="post">-->
                     <form id="ticket_form"  method="post">
                         @foreach($ticket as $key=>$tik)
@@ -75,13 +78,14 @@
 
                         <p class="tkt">
                             <span class="tkt-name">{{$tik->name}} <span class="tkt-price">{{($tik->price)}}</span><span class="abs">{{$status}}</span> 
-                                <span class="tkt-quantity"><input class="form-control numberOfTicket" name="number{{$key}}" data-value="{{($tik->price)}}" data-amount="" value="" type="number"></span>
+                                <span class="tkt-quantity">
+                                    <input class="form-control numberOfTicket" id="ticket{{$key}}" name="number{{$key}}" data-value="{{($tik->price)}}" data-amount="0" value="" type="number"></span>
                                 <input type="hidden" name="tktId{{$key}}" value="{{($tik->id)}}" >
                                 <input type="hidden" name="evntId{{$key}}" value="{{($tik->event_id)}}" >
                                 <input type="hidden"  name="single_amount{{$key}}" value="{{($tik->price)}}" >
                                 </p>
                                 @endforeach
-                                <input type="hidden" class="totalAmount" name="total_amount{{$key}}" value="" >
+                                <input type="hidden" class="totalAmount" name="total_amount" value="" >
                                 <p id="totalAmount" style="color:red;"></p>
                                 <p class="buy-tkt"><button type="button" class="btn vtn-success">Buy Ticket(s)</button></p>
                     </form>
@@ -146,26 +150,37 @@
         </div>
     </div>
 </div>
-<script>  
+<script>
 
     $('.numberOfTicket').keyup(function (e) {
         var quantity = 0;
+        var sum = 0;
         var qty = $(this).val();
         var amt = $(this).data('value');
         var total = qty * amt;
         $(this).attr('data-amount', total);
-        $('.numberOfTicket').each(function () {
-            var quant = $(this).data('amount');
-//            alert(quant);
-            if (!isNaN(quant)) {
-                quantity += quantity + quant;               
-            }
+//        alert(tktlan);
+//        for (var i = 0; i < tktlan; i++) {
+//            var a =  $('#ticket' + i).data('amount')
+//            console.log("************",a)
+//            alert('#ticket' + i+"**"+a);
+//            sum = sum + $('#ticket' + i).data('amount');
+
+//                $(".total").val(sum);
+
+
+        $('.numberOfTicket').each(function (d, f) {
+//            console.log("############",d,f)
+            var sum1 = $("#ticket" + d).attr("data-amount")
+
+
+            sum = sum + parseInt(sum1);
         });
+
 //         console.log(quantity);
+        $("#totalAmount").text(sum);
 
-        $("#totalAmount").text(quantity);
     });
-
 //    $('.vtn-success').on('click', function () {
 //        var myData = $("#ticket_form").serializeArray();
 //        console.log(myData);
