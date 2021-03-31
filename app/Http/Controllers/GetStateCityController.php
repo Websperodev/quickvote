@@ -24,5 +24,5 @@ class GetStateCityController extends Controller {
                 ->get(['name', 'id']);
         return response()->json($cities);
     }
-
+ 
 }
