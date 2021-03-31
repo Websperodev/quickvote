@@ -83,7 +83,7 @@
                         <input type="hidden" id="voting_id" name="voting_id" value="{{$vote->id}}">
                         <input type="hidden" id="contestant_id" name="contestant_id" value="{{$contestants->id}}" >
                         <div class="form-group">
-                            <input type="Number" name="quantity" id="quantity" required value="" class="form-control" placeholder="Enter the total number of votes you">
+                            <input type="Number" name="quantity" id="quantity" required value="" class="form-control quantity" placeholder="Enter the total number of votes you">
 
                             <div class="error"><p id="quantityerror"></p></div>
 
@@ -175,11 +175,15 @@
 </div>
 <!-- place below the html form -->
 <script>
+    $(".quantity").keyup(function () {
+        var quantity = $('.quantity').val();
+        if (quantity < 1) {
+            $('.quantity').val('');
+        }
+    })
+</script>
+<script>
     function checkuserAndPayType() {
-
-
-
-
         if (userStats == 'yes' && votetype == 'paid') {
             return true;
         } else if (userStats == 'no' && votetype == 'paid') {

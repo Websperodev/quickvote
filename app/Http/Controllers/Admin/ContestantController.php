@@ -58,7 +58,8 @@ class ContestantController extends Controller {
             $images = $request->file('image');
             foreach ($images as $key => $image) {
                 $row = Contestant::select('candidate_id')->latest('id')->first();
-                if (!empty($row)) {
+//                print_r($row); die;
+                if (empty($row)) {
                     $candidate_id = 1;
                 } else {
                     $candidate_id = $row->candidate_id + 1;
