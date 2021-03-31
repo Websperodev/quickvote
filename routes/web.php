@@ -49,7 +49,6 @@ Route::namespace('User')->group(function () {
     Route::get('contestants/{id}', 'ContestantsController@index')->name('contestants.index');
     Route::get('vote/contestants/{id}/{any}', 'ContestantsController@buyVotesByUser')->name('contestants.buyvotes');
     Route::post('vote/contestants', 'ContestantsController@saveBuyVotesByUser')->name('pay');
-   
 
     //**  //** Categories**//
     Route::get('categories-list', 'CategoriesController@index')->name('user.categories.index');
@@ -57,9 +56,9 @@ Route::namespace('User')->group(function () {
     //**  //** Sub-Categories**//
     Route::get('vote/categories-list', 'SubCategoriesController@index')->name('user.subcategories.index');
     Route::post('vote/categories-list', 'SubCategoriesController@index')->name('user.subcategories.index');
-    
+
     //** Buy event Tickets**//
-     Route::post('event-tickets-buy', 'EventController@buyEventTickets')->name('tickets.buy');
+    Route::post('event-tickets-buy', 'EventController@buyEventTickets')->name('tickets.buy');
 //     Route::get('/payment/callback', 'ContestantsController@handleGatewayCallback');
 });
 
@@ -203,6 +202,12 @@ Route::namespace('Admin')->group(function () {
 
 // Route::get('/redirect', 'SocialAuthFacebookController@redirect');
 // Route::get('/callback', 'SocialAuthFacebookController@callback');
+//** Country State City **//
+Route::get('/allCountries', 'GetStateCityController@getCountries');
+Route::get('/allstates/{id}', 'GetStateCityController@getStates')->name('allstates');
+Route::get('/allCities/{id}', 'GetStateCityController@getCities')->name('allcities');
+
+
 
 Route::get('/auth/redirect/{provider}', 'SocialController@redirect');
 Route::get('/callback/{provider}', 'SocialController@callback');
