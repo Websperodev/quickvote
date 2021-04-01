@@ -12,10 +12,13 @@ use App\Models\Event;
 use App\Models\Ticket;
 use DB;
 use App\Models\Slider;
+use App\Models\EventTicketsPayments;
 use App\Models\Testimonial;
 use App\Models\PricingPlans;
+use App\Models\buyTicketsDetails;
 use Paystack;
 use Response;
+use Auth;
 use Illuminate\Support\Facades\Redirect;
 
 class EventController extends Controller {
@@ -47,9 +50,94 @@ class EventController extends Controller {
     }
 
     function buyEventTickets(Request $request) {
-        echo '<pre>';
-        print_r($request->input());
-        die;
+        
+        $user = Auth::user();
+        $newrow = [];
+        $x = 0;
+        $totalpaidtikects = 0;
+        $mytime = Carbon::now();
+        $date = $mytime->toDateString();
+        $time = $mytime->toTimeString();
+        $credt = $date . ' ' . $time;
+        try {
+            if ($request->input()) {
+                $data = $request->input();
+
+                $size = count($data['number']);
+                for ($x = 0; $x < $size; $x++) {
+                    if ($data['number'][$x] != '') {
+                        $newrow[$x]['number'] = $data['number'][$x];
+                        $newrow[$x]['tktId'] = $data['tktId'][$x];
+                        $newrow[$x]['evntId'] = $data['evntId'][$x];
+                        $newrow[$x]['single_amount'] = $data['single_amount'][$x];
+                        if ($data['type'][$x] != 'paid') {
+                            $totalpaidtikects = $totalpaidtikects + $data['number'][$x];
+                        }
+                    }
+                }
+//                 print_r($newrow); die;
+                foreach ($newrow as $key => $row) {
+                    $event_payment = new EventTicketsPayments;
+                    $buyTicketsDetails = new buyTicketsDetails;
+                    $ticket = Ticket::find($row['tktId']);
+
+                    if (!empty($ticket)) {
+
+                        if ($ticket->ticket_type == 'free') {
+                            if (!empty($user) && $user->id != '') {
+                                $buyTicketsDetails->user_id = $user->id;
+                            }
+                            $buyTicketsDetails->event_id = $row['evntId'];
+                            $buyTicketsDetails->ticket_id = $row['tktId'];
+                            if ($ticket->ticket_number != '') {
+                                $buyTicketsDetails->ticket_number = $ticket->ticket_number;
+                            }
+                            $buyTicketsDetails->total_tickets = $row['number'];
+                            $buyTicketsDetails->type = $ticket->ticket_type;
+                            $buyTicketsDetails->created_at = $credt;
+                            $buyTicketsDetails->updated_at = $credt;
+                            $buyTicketsDetails->save();
+                        } else {
+                            if (!empty($user) && $user->id != '') {
+                                $event_payment->user_id = $user->id;
+                            }
+                            $totalamount = $row['number'] * $row['single_amount'];
+                            $event_payment->reference = $data['reference'];
+                            $event_payment->trans = $data['trans'];
+                            $event_payment->status = $data['status'];
+                            $event_payment->transaction = $data['transaction'];
+                            $event_payment->coupon = NULL;
+                            $event_payment->total_tickets = $totalpaidtikects;
+                            $event_payment->paid_amount = $totalamount;
+
+                            $event_payment->total_amount = $totalamount;
+                            $event_payment->created_at = $credt;
+                            $event_payment->updated_at = $credt;
+                            $event_payment->save();
+                            $id = $event_payment->id;
+                            if (!empty($user) && $user->id != '') {
+                                $buyTicketsDetails->user_id = $user->id;
+                            }
+                            $buyTicketsDetails->event_tickets_payments_id = $id;
+                            $buyTicketsDetails->event_id = $row['evntId'];
+                            $buyTicketsDetails->ticket_id = $row['tktId'];
+                            $event_payment->ticket_amount = $row['single_amount'];
+                              if ($ticket->ticket_number != '') {
+                                $buyTicketsDetails->ticket_number = $ticket->ticket_number;
+                            }
+                            $buyTicketsDetails->total_tickets = $row['number'];
+                            $buyTicketsDetails->type = $ticket->ticket_type;
+                            $buyTicketsDetails->created_at = $credt;
+                            $buyTicketsDetails->updated_at = $credt;
+                            $buyTicketsDetails->save();
+                        }
+                    }
+                }
+            }
+            return Response::json(['success' => true, 'status' => 1, 'message' => "Event Ticket has been bought successfully."]);
+        } catch (\Exception $e) {
+            return Response::json(['success' => false, 'status' => 2, "error" => $e->getMessage()]);
+        }
     }
 
 }

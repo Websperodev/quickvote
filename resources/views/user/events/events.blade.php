@@ -64,6 +64,8 @@
                     </script>
                     <!--<form id="ticket_form" action="{{route('tickets.buy')}}" method="post">-->
                     <form id="ticket_form"  method="post">
+                        <script src="https://js.paystack.co/v1/inline.js"></script>
+                        @csrf
                         @foreach($ticket as $key=>$tik)
                         @php 
                         $endDt=strtotime($tik->end_date);
@@ -79,15 +81,22 @@
                         <p class="tkt">
                             <span class="tkt-name">{{$tik->name}} <span class="tkt-price">{{($tik->price)}}</span><span class="abs">{{$status}}</span> 
                                 <span class="tkt-quantity">
-                                    <input class="form-control numberOfTicket" id="ticket{{$key}}" name="number{{$key}}" data-value="{{($tik->price)}}" data-amount="0" value="" type="number"></span>
-                                <input type="hidden" name="tktId{{$key}}" value="{{($tik->id)}}" >
-                                <input type="hidden" name="evntId{{$key}}" value="{{($tik->event_id)}}" >
-                                <input type="hidden"  name="single_amount{{$key}}" value="{{($tik->price)}}" >
+                                    <input class="form-control numberOfTicket quantity" id="ticket{{$key}}" name="number[]" data-value="{{($tik->price)}}" data-amount="0" value="" type="number"></span>
+                                <input type="hidden" name="tktId[]" value="{{($tik->id)}}" >
+                                <input type="hidden" name="evntId[]" value="{{($tik->event_id)}}" >
+                                <input type="hidden"  name="single_amount[]" value="{{($tik->price)}}" >
+                                <input type="hidden"  name="type[]" value="{{($tik->type)}}" >
+
                                 </p>
                                 @endforeach
                                 <input type="hidden" class="totalAmount" name="total_amount" value="" >
+                                <input type="hidden" name="reference" value="" id="reference">
+                                <input type="hidden" name="trans" value="" id="trans">
+                                <input type="hidden" name="status" value="" id="status">
+                                <input type="hidden" name="transaction" value="" id="transaction">
+
                                 <p id="totalAmount" style="color:red;"></p>
-                                <p class="buy-tkt"><button type="button" class="btn vtn-success">Buy Ticket(s)</button></p>
+                                <p class="buy-tkt"><button type="button" onclick="payWithPaystack()" class="btn vtn-success">Buy Ticket(s)</button></p>
                     </form>
                     @endif
                 </div>
@@ -151,41 +160,127 @@
     </div>
 </div>
 <script>
+    $(".quantity").keyup(function () {
+        var quantity = $(this).val();
+        if (quantity < 1) {
+            $(this).val('');
+        }
+    })
+</script>
+<script>
 
     $('.numberOfTicket').keyup(function (e) {
         var quantity = 0;
         var sum = 0;
         var qty = $(this).val();
-        var amt = $(this).data('value');
+        var amt = 0;
+        var amts = $(this).data('value');
+        if (amts == 'free') {
+            amt = 0;
+        } else {
+            amt = amts;
+        }
         var total = qty * amt;
         $(this).attr('data-amount', total);
-//        alert(tktlan);
-//        for (var i = 0; i < tktlan; i++) {
-//            var a =  $('#ticket' + i).data('amount')
-//            console.log("************",a)
-//            alert('#ticket' + i+"**"+a);
-//            sum = sum + $('#ticket' + i).data('amount');
-
-//                $(".total").val(sum);
-
-
         $('.numberOfTicket').each(function (d, f) {
 //            console.log("############",d,f)
             var sum1 = $("#ticket" + d).attr("data-amount")
-
-
             sum = sum + parseInt(sum1);
         });
-
 //         console.log(quantity);
+        totalticketPrice = sum;
         $("#totalAmount").text(sum);
-
     });
-//    $('.vtn-success').on('click', function () {
-//        var myData = $("#ticket_form").serializeArray();
-//        console.log(myData);
-//
-//    })
+    function payWithPaystack() {
+
+        var url = "{{url('event-tickets-buy')}}";
+        var amount = totalticketPrice;
+
+        if (amount && amount != '') {
+            var handler = PaystackPop.setup({
+                key: 'pk_test_402e4abb808a62fc2ba080d79887f256cb5c574a',
+                email: 'dilpreet@webspero.com',
+                amount: amount * 100,
+                ref: '' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+                metadata: {
+                    custom_fields: [
+                        {
+                            display_name: "Mobile Number",
+                            variable_name: "mobile_number",
+                            value: "+2348012345678"
+                        }
+                    ]
+                },
+                callback: function (response) {
+                    alert(response.reference);
+                    console.log(response);
+                    $('#reference').val(response.reference);
+                    $('#trans').val(response.trans);
+                    $('#status').val(response.status);
+                    $('#transaction').val(response.transaction);
+                    var myData = $("#ticket_form").serializeArray();
+                    $.ajax({
+                        url: url,
+                        type: "post",
+                        data: myData,
+                        success: function (res) {
+                            if (res.status == 1) {
+                                Swal.fire({
+                                    type: 'Success',
+                                    title: 'Success!',
+                                    text: res.message,
+                                    confirmButtonClass: 'btn btn-confirm mt-2',
+                                });
+                            } else {
+                                Swal.fire({
+                                    type: 'error',
+                                    title: 'Error!',
+                                    text: 'Cannot buy votes',
+                                    confirmButtonClass: 'btn btn-confirm mt-2',
+                                });
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log(textStatus, errorThrown);
+                        }
+                    });
+                },
+                onClose: function () {
+
+                }
+            });
+            handler.openIframe();
+        } else {
+//            alert('dfjhjfd');
+            var myData = $("#ticket_form").serializeArray();
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: myData,
+                dataType: "json",
+                success: (function (success) {
+                    if (success.status == 1) {
+                        Swal.fire({
+                            type: 'Success',
+                            title: 'Success!',
+                            text: success.message,
+                            confirmButtonClass: 'btn btn-confirm mt-2',
+                        });
+                    } else {
+                        Swal.fire({
+                            type: 'error',
+                            title: 'Error!',
+                            text: 'Cannot buy votes',
+                            confirmButtonClass: 'btn btn-confirm mt-2',
+                        });
+                    }
+                })
+
+
+            });
+
+        }
+    }
 
 
 </script>

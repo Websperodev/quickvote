@@ -71,7 +71,7 @@ class ContestantsController extends Controller {
     }
 
     function buyVotesByUser($vId, $cId) {
-        
+
         $mytime = Carbon::now();
         $user = Auth::user();
         $date = $mytime->toDateString();
@@ -214,9 +214,6 @@ class ContestantsController extends Controller {
 //        }
 //    }
     function saveBuyVotesByUser(Request $request) {
-//        echo '<pre>';
-//        print_r($request->input()); die;
-
         $mytime = Carbon::now();
         $user = Auth::user();
         $date = $mytime->toDateString();
@@ -238,6 +235,9 @@ class ContestantsController extends Controller {
             if ($data['votetype'] == 'paid') {
                 $votingCont->total_votes = $data['quantity'];
                 $votingCont->reference = $data['reference'];
+                $votingCont->trans = $data['trans'];
+                $votingCont->status = $data['status'];
+                $votingCont->transaction = $data['transaction'];
                 $votingCont->single_vote_fees = $data['fees'];
                 $votingCont->total_votes_fees = $data['amount'];
                 $votingCont->payment_gateway = 'paystack';

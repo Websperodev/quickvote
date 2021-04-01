@@ -42,16 +42,11 @@
             $img ="img/fe2.jpg";
             }
             $date = $contestants->created_at;
-
-
             $start_day=date('D', strtotime($date));
             $start_month=date('F', strtotime($date));
             $start_month_shot=date('m', strtotime($date));
             $start_date=date('d',strtotime($date));
             $start_year=date('Y',strtotime($date));
-
-
-
             @endphp
             <div class="col-md-8 col-sm-12 edetail">
                 <div class="event-titlee">
@@ -227,7 +222,9 @@
                             },
                             callback: function (response) {
                                 var payurl = "{{url('vote/contestants')}}";
-                                var data = {'reference': response.reference, 'votetype': votetype, _token: "{!! csrf_token() !!}", 'name': name, 'fees': fees, 'phone': phone, 'quantity': quantity, 'amount': amount, 'email': email, 'voting_id': voting_id, 'contestant_id': contestant_id}
+
+
+                                var data = {'reference': response.reference, 'trans': response.trans, 'status': response.status, 'transaction': response.transaction, 'votetype': votetype, _token: "{!! csrf_token() !!}", 'name': name, 'fees': fees, 'phone': phone, 'quantity': quantity, 'amount': amount, 'email': email, 'voting_id': voting_id, 'contestant_id': contestant_id}
                                 $.ajax({
                                     url: payurl,
                                     type: "post",
@@ -273,7 +270,7 @@
                         var voting_id = "{{$vote->id}}";
                         var contestant_id = "{{$contestants->id}}";
                         var payurl = "{{url('vote/contestants')}}";
-                        var data = {'reference': '', _token: "{!! csrf_token() !!}", 'votetype': votetype, 'name': name, 'fees': fees, 'phone': phone, 'quantity': quantity, 'amount': amount, 'email': email, 'voting_id': voting_id, 'contestant_id': contestant_id}
+                        var data = {'reference': '', 'trans': '', 'status': '', 'transaction': '', _token: "{!! csrf_token() !!}", 'votetype': votetype, 'name': name, 'fees': fees, 'phone': phone, 'quantity': quantity, 'amount': amount, 'email': email, 'voting_id': voting_id, 'contestant_id': contestant_id}
                         $.ajax({
                             url: payurl,
                             type: "post",
