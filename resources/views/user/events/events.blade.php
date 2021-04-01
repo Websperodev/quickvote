@@ -56,8 +56,9 @@
             </div>
             <div class="col-md-4 col-sm-12 sidebar">
                 <div class="single-event-ticket">
-                    <h5>Tickets</h5>
                     @if(!empty($ticket))
+                    <h5>Tickets</h5>
+
                     <script>
 
                         var tktlan = "{{count($ticket)}}";
@@ -233,7 +234,7 @@
                                 Swal.fire({
                                     type: 'error',
                                     title: 'Error!',
-                                    text: 'Cannot buy votes',
+                                    text: 'You cannot buy event tickets',
                                     confirmButtonClass: 'btn btn-confirm mt-2',
                                 });
                             }
@@ -267,7 +268,7 @@
                         Swal.fire({
                             type: 'error',
                             title: 'Error!',
-                            text: 'Cannot buy votes',
+                            text: 'You cannot buy event tickets',
                             confirmButtonClass: 'btn btn-confirm mt-2',
                         });
                     }
