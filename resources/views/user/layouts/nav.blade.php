@@ -12,7 +12,7 @@
         <a class="nav-link" href="{{ route('about-us') }}">About Us</a>
         <a class="nav-link" href="{{ route('our-services') }}">Services</a>
         <a class="nav-link" href="{{ route('pricing') }}">Pricing</a>
-        <a class="nav-link" href="{{ route('faq') }} ">FAQs</a>
+        <a class="nav-link" href="{{ route('faq') }} ">FAQ</a>
         <a class="nav-link" href="{{ route('contact') }}">Contact</a>
       </div>
       <div class="reg-login">

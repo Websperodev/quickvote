@@ -31,11 +31,11 @@
         </div>
         <div class="form-group w50">
           <label for="phone">Phone Number</label>
-        <input class="form-control" type="number" id="phone" name="phone" placeholder="Your Phone Number">
+        <input class="form-control" type="number" id="phone" name="phone" max='12' placeholder="Your Phone Number">
         </div>
         <div class="form-group w100">
           <label for="message">Write Message</label>
-        <textarea class="form-control" type="text" id="message" name="message" placeholder="Your Message"></textarea>
+        <textarea class="form-control" type="text" id="message" name="message" placeholder="Message here"></textarea>
         </div>
         <p><input class="submit btn btn-bg" type="submit" value="Send Message"></p>
       {!! Form::close() !!}

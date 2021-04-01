@@ -7,7 +7,7 @@
     <h4>{{ isset($banners['heading1']) ? $banners['heading1'] : 'Quickvote Services' }}</h4>
     <h2>{{ isset($banners['heading2']) ? $banners['heading2'] : 'Our Services' }}</h2>
     <div class="lmore breadcrumb">
-      <p>Home | <span>Pricing</span></p>
+      <p>Home | <span>Services</span></p>
     </div>
   </div>
 </div>

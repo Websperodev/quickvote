@@ -36,7 +36,7 @@
       <h2 class="titleh2">Navigation</h2>
       <ul class="footer-li">
         <li><a href="{{ route('/') }}">Home</a></li>
-        <li><a href="{{ route('about-us') }}">About</a></li>
+        <li><a href="{{ route('about-us') }}">About Us</a></li>
         <li><a href="#">Create Contest</a></li>
         <li><a href="#">View Contests</a></li>
         <li><a href="#{{ route('our-services') }}>Services</a></li>
@@ -50,7 +50,7 @@
         <li><a href="#">Legal</a></li>
         <li><a href="#">Term Of Services</a></li>
         <li><a href="{{ route('privacy-policy') }}">Privacy Policy</a></li>
-        <li><a href="{{ route('faq') }}">FAQs</a></li>
+        <li><a href="{{ route('faq') }}">FAQ</a></li>
         <li><a href="{{ route('contact') }}">Contact Us</a></li>
 
       </ul>
