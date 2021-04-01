@@ -212,8 +212,6 @@
                     ]
                 },
                 callback: function (response) {
-                    alert(response.reference);
-                    console.log(response);
                     $('#reference').val(response.reference);
                     $('#trans').val(response.trans);
                     $('#status').val(response.status);
@@ -246,7 +244,6 @@
                     });
                 },
                 onClose: function () {
-
                 }
             });
             handler.openIframe();
@@ -275,14 +272,9 @@
                         });
                     }
                 })
-
-
             });
-
         }
     }
-
-
 </script>
 @include('user.components.newsletter')
 @include('user.components.trusted-brands')
