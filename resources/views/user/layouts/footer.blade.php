@@ -66,5 +66,5 @@
       </div>
     </div>
     </div>
-    <div class="copyright"><p align="center">© 2020 Copyright QuickVote Nigeria Powered By Toast Technologies</p></div>
+    <div class="copyright"><p align="center">©2020 Copyright QuickVote Nigeria Powered By Toast Technologies</p></div>
   </footer>

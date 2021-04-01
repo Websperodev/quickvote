@@ -53,7 +53,7 @@
 
           <!-- <a href="{{ route('user.logout') }}" class="btn btn-grad-bd"> <span>Logout </span></a> -->
         @else
-          <a data-toggle="modal" data-target="#loginModal" class="btn btn-grad-bd"> <span>Login </span></a>
+          <a data-toggle="modal" data-target="#loginModal" class="btn btn-grad-bd"> <span>Log in </span></a>
         @endif
        
       </div>

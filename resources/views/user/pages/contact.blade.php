@@ -31,7 +31,7 @@
         </div>
         <div class="form-group w50">
           <label for="phone">Phone Number</label>
-        <input class="form-control" type="number" id="phone" name="phone" max='12' placeholder="Your Phone Number">
+        <input class="form-control" type="number" id="phone" name="phone"  placeholder="Your Phone Number">
         </div>
         <div class="form-group w100">
           <label for="message">Write Message</label>
@@ -97,6 +97,7 @@
             },
             phone: {
                 required: true,
+                
             },
             message: {
                 required: true,
