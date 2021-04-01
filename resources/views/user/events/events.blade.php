@@ -6,7 +6,9 @@
     }
 </style>
 <script>
+    var userStats = "{{$userStatus}}";
     var totalticketPrice = 0;</script>
+
 <div id="eve-detail" class="single-event">
     <div class="container">
         <div class="row">
@@ -196,83 +198,93 @@
 
         var url = "{{url('event-tickets-buy')}}";
         var amount = totalticketPrice;
+        if (userStats == 'yes') {
 
-        if (amount && amount != '') {
-            var handler = PaystackPop.setup({
-                key: 'pk_test_402e4abb808a62fc2ba080d79887f256cb5c574a',
-                email: 'dilpreet@webspero.com',
-                amount: amount * 100,
-                ref: '' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-                metadata: {
-                    custom_fields: [
-                        {
-                            display_name: "Mobile Number",
-                            variable_name: "mobile_number",
-                            value: "+2348012345678"
-                        }
-                    ]
-                },
-                callback: function (response) {
-                    $('#reference').val(response.reference);
-                    $('#trans').val(response.trans);
-                    $('#status').val(response.status);
-                    $('#transaction').val(response.transaction);
-                    var myData = $("#ticket_form").serializeArray();
-                    $.ajax({
-                        url: url,
-                        type: "post",
-                        data: myData,
-                        success: function (res) {
-                            if (res.status == 1) {
-                                Swal.fire({
-                                    type: 'Success',
-                                    title: 'Success!',
-                                    text: res.message,
-                                    confirmButtonClass: 'btn btn-confirm mt-2',
-                                });
-                            } else {
-                                Swal.fire({
-                                    type: 'error',
-                                    title: 'Error!',
-                                    text: 'You cannot buy event tickets',
-                                    confirmButtonClass: 'btn btn-confirm mt-2',
-                                });
+
+            if (amount && amount != '') {
+                var handler = PaystackPop.setup({
+                    key: 'pk_test_402e4abb808a62fc2ba080d79887f256cb5c574a',
+                    email: 'dilpreet@webspero.com',
+                    amount: amount * 100,
+                    ref: '' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+                    metadata: {
+                        custom_fields: [
+                            {
+                                display_name: "Mobile Number",
+                                variable_name: "mobile_number",
+                                value: "+2348012345678"
                             }
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            console.log(textStatus, errorThrown);
-                        }
-                    });
-                },
-                onClose: function () {
-                }
-            });
-            handler.openIframe();
-        } else {
-//            alert('dfjhjfd');
-            var myData = $("#ticket_form").serializeArray();
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: myData,
-                dataType: "json",
-                success: (function (success) {
-                    if (success.status == 1) {
-                        Swal.fire({
-                            type: 'Success',
-                            title: 'Success!',
-                            text: success.message,
-                            confirmButtonClass: 'btn btn-confirm mt-2',
+                        ]
+                    },
+                    callback: function (response) {
+                        $('#reference').val(response.reference);
+                        $('#trans').val(response.trans);
+                        $('#status').val(response.status);
+                        $('#transaction').val(response.transaction);
+                        var myData = $("#ticket_form").serializeArray();
+                        $.ajax({
+                            url: url,
+                            type: "post",
+                            data: myData,
+                            success: function (res) {
+                                if (res.status == 1) {
+                                    Swal.fire({
+                                        type: 'Success',
+                                        title: 'Success!',
+                                        text: res.message,
+                                        confirmButtonClass: 'btn btn-confirm mt-2',
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        type: 'error',
+                                        title: 'Error!',
+                                        text: 'You cannot buy event tickets',
+                                        confirmButtonClass: 'btn btn-confirm mt-2',
+                                    });
+                                }
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                console.log(textStatus, errorThrown);
+                            }
                         });
-                    } else {
-                        Swal.fire({
-                            type: 'error',
-                            title: 'Error!',
-                            text: 'You cannot buy event tickets',
-                            confirmButtonClass: 'btn btn-confirm mt-2',
-                        });
+                    },
+                    onClose: function () {
                     }
-                })
+                });
+                handler.openIframe();
+            } else {
+//            alert('dfjhjfd');
+                var myData = $("#ticket_form").serializeArray();
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: myData,
+                    dataType: "json",
+                    success: (function (success) {
+                        if (success.status == 1) {
+                            Swal.fire({
+                                type: 'Success',
+                                title: 'Success!',
+                                text: success.message,
+                                confirmButtonClass: 'btn btn-confirm mt-2',
+                            });
+                        } else {
+                            Swal.fire({
+                                type: 'error',
+                                title: 'Error!',
+                                text: 'You cannot buy event tickets',
+                                confirmButtonClass: 'btn btn-confirm mt-2',
+                            });
+                        }
+                    })
+                });
+            }
+        } else {
+            Swal.fire({
+                type: 'error',
+                title: 'Error!',
+                text: 'You have to login then can be buy the tickets',
+                confirmButtonClass: 'btn btn-confirm mt-2',
             });
         }
     }

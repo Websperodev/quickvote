@@ -40,10 +40,15 @@ class EventController extends Controller {
         $slider = Slider::whereIn('name', $inArray)->get();
         $testimonials = Testimonial::all();
         $crruntDate = $date;
+        if (!empty($user) && $user->id != '') {
+            $userStatus = "yes";
+        } else {
+            $userStatus = "no";
+        }
         if (!empty($event)) {
             $sugstEvent = Event::with('tickets')->where('end_date', '>', $date)->where('category_id', $event->category_id)->where('id', '!=', $event->id)->limit(3)->get()->toArray();
             $ticket = Ticket::where('event_id', $event->id)->get();
-            return view('user.events.events', compact('event', 'sugstEvent', 'ticket', 'crruntDate', 'slider', 'testimonials'));
+            return view('user.events.events', compact('event', 'userStatus', 'sugstEvent', 'ticket', 'crruntDate', 'slider', 'testimonials'));
         } else {
             
         }
