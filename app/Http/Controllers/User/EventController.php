@@ -50,7 +50,7 @@ class EventController extends Controller {
     }
 
     function buyEventTickets(Request $request) {
-        
+
         $user = Auth::user();
         $newrow = [];
         $x = 0;
@@ -80,23 +80,22 @@ class EventController extends Controller {
                     $event_payment = new EventTicketsPayments;
                     $buyTicketsDetails = new buyTicketsDetails;
                     $ticket = Ticket::find($row['tktId']);
-
                     if (!empty($ticket)) {
-
                         if ($ticket->ticket_type == 'free') {
                             if (!empty($user) && $user['id'] != '') {
-                                $buyTicketsDetails->user_id = $user['id'];
+                                $event_payment->user_id = $user['id'];
                             }
-                            $buyTicketsDetails->event_id = $row['evntId'];
-                            $buyTicketsDetails->ticket_id = $row['tktId'];
+                            $event_payment->event_id = $row['evntId'];
+                            $event_payment->ticket_id = $row['tktId'];
                             if ($ticket->ticket_number != '') {
-                                $buyTicketsDetails->ticket_number = $ticket->ticket_number;
+                                $event_payment->ticket_number = $ticket->ticket_number;
                             }
-                            $buyTicketsDetails->total_tickets = $row['number'];
-                            $buyTicketsDetails->type = $ticket->ticket_type;
-                            $buyTicketsDetails->created_at = $credt;
-                            $buyTicketsDetails->updated_at = $credt;
-                            $buyTicketsDetails->save();
+                            $event_payment->coupon = NULL;
+                            $event_payment->total_tickets = $row['number'];
+                            $event_payment->type = $ticket->ticket_type;
+                            $event_payment->created_at = $credt;
+                            $event_payment->updated_at = $credt;
+                            $event_payment->save();
                         } else {
                             if (!empty($user) && $user['id'] != '') {
                                 $event_payment->user_id = $user['id'];
@@ -109,27 +108,18 @@ class EventController extends Controller {
                             $event_payment->coupon = NULL;
                             $event_payment->total_tickets = $totalpaidtikects;
                             $event_payment->paid_amount = $totalamount;
-
                             $event_payment->total_amount = $totalamount;
+                            $event_payment->event_id = $row['evntId'];
+                            $event_payment->ticket_id = $row['tktId'];
+                            $event_payment->ticket_amount = $row['single_amount'];
+                            if ($ticket->ticket_number != '') {
+                                $event_payment->ticket_number = $ticket->ticket_number;
+                            }
+                            $event_payment->total_tickets = $row['number'];
+                            $event_payment->type = $ticket->ticket_type;
                             $event_payment->created_at = $credt;
                             $event_payment->updated_at = $credt;
                             $event_payment->save();
-                            $id = $event_payment->id;
-                            if (!empty($user) && $user['id'] != '') {
-                                $buyTicketsDetails->user_id = $user['id'];
-                            }
-                            $buyTicketsDetails->event_tickets_payments_id = $id;
-                            $buyTicketsDetails->event_id = $row['evntId'];
-                            $buyTicketsDetails->ticket_id = $row['tktId'];
-                            $event_payment->ticket_amount = $row['single_amount'];
-                              if ($ticket->ticket_number != '') {
-                                $buyTicketsDetails->ticket_number = $ticket->ticket_number;
-                            }
-                            $buyTicketsDetails->total_tickets = $row['number'];
-                            $buyTicketsDetails->type = $ticket->ticket_type;
-                            $buyTicketsDetails->created_at = $credt;
-                            $buyTicketsDetails->updated_at = $credt;
-                            $buyTicketsDetails->save();
                         }
                     }
                 }

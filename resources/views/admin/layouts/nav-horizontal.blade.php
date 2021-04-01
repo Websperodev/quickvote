@@ -137,6 +137,9 @@
                     <li>
                         <a href="{{ route('admin.votes.payments') }}">Votes Payments</a>
                     </li>
+                    <li>
+                        <a href="{{ route('admin.tickets.payments') }}">Event Tickets Payments</a>
+                    </li>
 
 
             </li>

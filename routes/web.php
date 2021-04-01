@@ -198,6 +198,8 @@ Route::namespace('Admin')->group(function () {
     //** Payment Mangement**//
     Route::get('votespayments-list', 'PaymentsManagement@votesIndex')->name('admin.votes.payments');
     Route::post('votes-payments', 'PaymentsManagement@allVotes')->name('admin.votes.list.payments');
+    Route::get('event-tickets-payments-list', 'PaymentsManagement@eventTicketsIndex')->name('admin.tickets.payments');
+    Route::post('event-tickets-payments', 'PaymentsManagement@allEventTickets')->name('admin.tickets.list.payments');
 });
 
 // Route::get('/redirect', 'SocialAuthFacebookController@redirect');
@@ -206,8 +208,6 @@ Route::namespace('Admin')->group(function () {
 Route::get('/allCountries', 'GetStateCityController@getCountries');
 Route::get('/allstates/{id}', 'GetStateCityController@getStates')->name('allstates');
 Route::get('/allCities/{id}', 'GetStateCityController@getCities')->name('allcities');
-
-
 
 Route::get('/auth/redirect/{provider}', 'SocialController@redirect');
 Route::get('/callback/{provider}', 'SocialController@callback');

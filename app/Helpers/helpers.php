@@ -52,4 +52,21 @@ if (!function_exists('votingTitle)')) {
     }
 
 }
+if (!function_exists('eventsName)')) {
+
+    function eventsName($id) {
+        $event = DB::table('events')->first();
+        return $event->name;
+    }
+
+}
+
+if (!function_exists('ticketName)')) {
+
+    function ticketName($id) {
+        $ticket = DB::table('tickets')->first();
+        return $ticket->name;
+    }
+
+}
 ?>
