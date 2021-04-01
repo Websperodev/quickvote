@@ -84,8 +84,8 @@ class EventController extends Controller {
                     if (!empty($ticket)) {
 
                         if ($ticket->ticket_type == 'free') {
-                            if (!empty($user) && $user->id != '') {
-                                $buyTicketsDetails->user_id = $user->id;
+                            if (!empty($user) && $user['id'] != '') {
+                                $buyTicketsDetails->user_id = $user['id'];
                             }
                             $buyTicketsDetails->event_id = $row['evntId'];
                             $buyTicketsDetails->ticket_id = $row['tktId'];
@@ -98,8 +98,8 @@ class EventController extends Controller {
                             $buyTicketsDetails->updated_at = $credt;
                             $buyTicketsDetails->save();
                         } else {
-                            if (!empty($user) && $user->id != '') {
-                                $event_payment->user_id = $user->id;
+                            if (!empty($user) && $user['id'] != '') {
+                                $event_payment->user_id = $user['id'];
                             }
                             $totalamount = $row['number'] * $row['single_amount'];
                             $event_payment->reference = $data['reference'];
@@ -115,8 +115,8 @@ class EventController extends Controller {
                             $event_payment->updated_at = $credt;
                             $event_payment->save();
                             $id = $event_payment->id;
-                            if (!empty($user) && $user->id != '') {
-                                $buyTicketsDetails->user_id = $user->id;
+                            if (!empty($user) && $user['id'] != '') {
+                                $buyTicketsDetails->user_id = $user['id'];
                             }
                             $buyTicketsDetails->event_tickets_payments_id = $id;
                             $buyTicketsDetails->event_id = $row['evntId'];
