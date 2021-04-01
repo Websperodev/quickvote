@@ -229,7 +229,7 @@ class ContestantsController extends Controller {
             $votingCont->email = $data['email'];
             $votingCont->phone = $data['phone'];
             $votingCont->type = $data['votetype'];
-            if ($user->id != '') {
+            if ($user['id'] != '') {
                 $votingCont->user_id = $user['id'];
             }
             if ($data['votetype'] == 'paid') {
