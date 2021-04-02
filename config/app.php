@@ -155,6 +155,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        DevMarketer\EasyNav\EasyNavServiceProvider::class,
     ],
     /*
       |--------------------------------------------------------------------------
@@ -206,5 +207,6 @@ return [
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Paystack' => Unicodeveloper\Paystack\Facades\Paystack::class,
+        'Nav' => DevMarketer\EasyNav\EasyNavFacade::class,
     ],
 ];
