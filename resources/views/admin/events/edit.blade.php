@@ -236,6 +236,7 @@ $timezoneArray = config('constants.timezones');
                     @if(!empty($event->tickets))
                     @foreach($event->tickets as $ticket)
                     <div class="row">
+                        <input type="hidden" value="{{ $ticket->id }}" name="ticket_id[]">
                         <div class="col-md-4 form-group cus-form-group">
                             <label for="image">Ticket Name</label>
                             <input type="text" value="{{ $ticket->name }}"  class="form-control" name="ticket_name[]" aria-describedby="emailHelp" placeholder="Ticket Name">
@@ -290,7 +291,7 @@ $timezoneArray = config('constants.timezones');
                             <label for="status">Rejected</label>
                             <input type="radio" value="Rejected" id='Rejected' checked name='status' class='eventstatus' />
                             @else
-                               <label for="status">Pending</label>
+                            <label for="status">Pending</label>
                             <input type="radio" value="Pending" checked name='status' class='eventstatus' />
                             <label for="status">Accepted</label>
                             <input type="radio" value="Accepted" name='status' class='eventstatus' />

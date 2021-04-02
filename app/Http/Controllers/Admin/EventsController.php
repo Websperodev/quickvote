@@ -86,7 +86,7 @@ class EventsController extends Controller {
                 $event->timezone = $data['timezone'];
                 $event->description = $data['description'];
                 $event->event_priority = $data['event_priority'];
-                  $event->status ='Accepted';
+                $event->status = 'Accepted';
                 $event->user_id = $user->id;
 
                 if ($request->hasFile('image')) {
@@ -113,7 +113,7 @@ class EventsController extends Controller {
                 if (!empty($ticketName)) {
                     foreach ($ticketName as $key => $ticket) {
                         $row = Ticket::select('ticket_number')->latest('id')->first();
-                       if (!empty($row) && $row->ticket_number != '') {
+                        if (!empty($row)) {
                             $ticket_number = $row->ticket_number + 1;
                         } else {
                             $ticket_number = 10000000;
@@ -124,7 +124,7 @@ class EventsController extends Controller {
                         $ticket->name = $ticketName[$key];
                         $ticket->quantity = $ticketQuantity[$key];
                         $ticket->price = $ticketPrice[$key];
-//                        $ticket->ticket_number = $ticket_number;
+                        $ticket->ticket_number = $ticket_number;
                         $ticket->start_date = date("Y-m-d", strtotime($ticketStartDate[$key]));
                         $ticket->end_date = date("Y-m-d", strtotime($ticketEndDate[$key]));
                         $ticket->created_by = $user->id;
@@ -239,7 +239,7 @@ class EventsController extends Controller {
                 $event->country_id = $data['country'];
                 $event->timezone = $data['timezone'];
                 $event->status = $data['status'];
-                
+
                 if ($data['status'] == 'Rejected' && $data['reason'] != '') {
                     $event->reason = $data['reason'];
                 } else {
@@ -264,22 +264,27 @@ class EventsController extends Controller {
                 $ticketName = $request->get('ticket_name');
 
                 if (!empty($ticketName)) {
+//                    echo '<pre>';
+//                    print_r($request->get('ticket_id')); die;
                     $ticketType = $request->get('ticket_type');
                     $ticketQuantity = $request->get('quantity');
                     $ticketPrice = $request->get('price');
                     $ticketStartDate = $request->get('ticket_start_date');
                     $ticketEndDate = $request->get('ticketend_date');
+                    $ticket_id = $request->get('ticket_id');
                     $deleteTicket = Ticket::where('event_id', $event->id)->delete();
                     foreach ($ticketName as $key => $ticket) {
-//                        $rownum = Ticket::select('ticket_number')->orderBy('id', 'desc')->first();
-//                        if (!empty($rownum)) {
-//                            $ticket_number = $rownum->ticket_number;
-//                        } else {
-//                            $ticket_number = 1000000;
-//                        }
+                        if (!isset($ticket_id[$key]) || $ticket_id[$key] == '') {
+                            $rownum = Ticket::select('ticket_number')->orderBy('id', 'desc')->first();
+                            if (!empty($rownum)) {
+                                $ticket_id[$key] = $rownum->ticket_number + 1;
+                            } else {
+                                $ticket_id[$key] = 1000000;
+                            }
+                        }
                         $ticket = new Ticket;
                         $ticket->event_id = $event->id;
-//                        $ticket->ticket_number = $ticket_number;
+                        $ticket->ticket_number = $ticket_id[$key];
                         $ticket->ticket_type = $ticketType[$key];
                         $ticket->name = $ticketName[$key];
                         $ticket->quantity = $ticketQuantity[$key];
@@ -287,7 +292,6 @@ class EventsController extends Controller {
                         $ticket->start_date = date("Y-m-d", strtotime($ticketStartDate[$key]));
                         $ticket->end_date = date("Y-m-d", strtotime($ticketEndDate[$key]));
                         $ticket->created_by = $user->id;
-
                         $ticket->save();
                     }
                 }

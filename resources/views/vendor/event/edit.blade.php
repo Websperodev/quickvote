@@ -199,6 +199,7 @@ $timezoneArray = config('constants.timezones');
                     @if(!empty($event->tickets))
                     @foreach($event->tickets as $ticket)
                     <div class="row">
+                        <input type="hidden" value="{{ $ticket->id }}" name="ticket_id[]">
                         <div class="col-md-4 form-group cus-form-group">
                             <label for="image">Ticket Name</label>
                             <input type="text" value="{{ $ticket->name }}"  class="form-control" name="ticket_name[]" aria-describedby="emailHelp" placeholder="Ticket Name">
