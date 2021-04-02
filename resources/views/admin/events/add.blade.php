@@ -297,15 +297,13 @@ $timezoneArray = config('constants.timezones');
 //                            });</script> 
 <script type="text/javascript">
     $(document).ready(function () {
-        var cid = "{{ isset($userCountry) ? $userCountry:'1' }}";
+        var cid = 1;
         var url = '{{ route("states", ":id") }}';
         url = url.replace(':id', cid);
-        console.log('cid', cid);
-        var stateId = "{{ isset($userState) ? $userState : 1 }}";
-        var cityUrl = '{{ route("cities", ":id") }}';
-        cityUrl = cityUrl.replace(':id', stateId);
-        console.log('sid', stateId);
-        var cityId = "{{ isset($userCity) ? $userCity : '' }}";
+
+
+
+        var cityId = 1;
         var selected = '';
         if (cid) {
             $.ajax({
@@ -332,7 +330,9 @@ $timezoneArray = config('constants.timezones');
                 }
             });
         }
-
+        var stateId = 1;
+        var cityUrl = '{{ route("cities", ":id") }}';
+        cityUrl = cityUrl.replace(':id', stateId);
         if (stateId) {
             $.ajax({
                 type: 'GET',
@@ -469,7 +469,13 @@ $timezoneArray = config('constants.timezones');
                     console.log('response', res);
                     if (res) {
                         $("#state").empty();
-                        $("#state").append('<option>Select</option>');
+                        if (res != '') {
+                            var stateid = res[0].id;
+                            citylist(stateid);
+                        } else {
+                            $("#state").empty();
+                            $("#city").empty();
+                        }
                         $.each(res, function (key, value) {
                             $("#state").append('<option value="' + value.id + '">' + value.name + '</option>');
                         });
@@ -486,34 +492,33 @@ $timezoneArray = config('constants.timezones');
 
 
     });
+    function citylist(stateid) {
+        var ctyurl = '{{ route("cities", ":id") }}';
+        ctyurl = ctyurl.replace(':id', stateid);
+        $.ajax({
+            type: 'GET',
+            url: ctyurl,
+            success: function (res) {
+                console.log('response', res);
+                if (res)
+                {
+                    $("#city").empty();
+                    $.each(res, function (key, value) {
+                        $("#city").append('<option value="' + value.id + '">' + value.name + '</option>');
+                    });
+                } else {
+                    $("#city").empty();
+                }
+
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
     $('#state').change(function () {
         var sid = $(this).val();
-        var url = '{{ route("cities", ":id") }}';
-        url = url.replace(':id', sid);
-        if (sid) {
-            $.ajax({
-                type: 'GET',
-                url: url,
-                success: function (res) {
-                    console.log('response', res);
-                    if (res)
-                    {
-                        $("#city").empty();
-                        $("#city").append('<option>Select City</option>');
-                        $.each(res, function (key, value) {
-                            $("#city").append('<option value="' + value.id + '">' + value.name + '</option>');
-                        });
-                    } else {
-                        $("#city").empty();
-                    }
-
-                },
-                error: function (err) {
-                    console.log(err);
-                }
-            });
-        }
-
+        citylist(sid);
     });
 
 </script>

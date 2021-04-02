@@ -32,7 +32,7 @@
                         <tr>
                             <th>Image</th>
                             <th>Name</th>
-                            <th>Vote</th>
+                            <th>Contest Name</th>
                             <th>Contact</th>
                             <th>About</th>
                             <th>Created</th>

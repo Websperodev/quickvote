@@ -262,37 +262,7 @@
             });
         }
 
-
-
-        var sid = 1;
-
-        var url = '{{ route("cities", ":id") }}';
-        url = url.replace(':id', sid);
-        console.log(url);
-
-        if (sid) {
-            $.ajax({
-                type: 'GET',
-                url: url,
-                success: function (res) {
-                    console.log('response', res);
-                    if (res)
-                    {
-                        $("#city").empty();
-                      
-                        $.each(res, function (key, value) {
-                            $("#city").append('<option value="' + value.id + '">' + value.name + '</option>');
-                        });
-                    } else {
-                        $("#city").empty();
-                    }
-
-                },
-                error: function (err) {
-                    console.log(err);
-                }
-            });
-        }
+        citylist(1);
 
 
 
@@ -311,13 +281,22 @@
                     console.log('response', res);
                     if (res) {
                         $("#state").empty();
-                        $("#state").append('<option>Select</option>');
+                        if (res != '') {
+                            var stateid = res[0].id;
+                            citylist(stateid);
+                        } else {
+                            $("#state").empty();
+                            $("#city").empty();
+                        }
+
                         $.each(res, function (key, value) {
                             $("#state").append('<option value="' + value.id + '">' + value.name + '</option>');
                         });
 
                     } else {
+
                         $("#state").empty();
+
                     }
 
                 },
@@ -329,37 +308,33 @@
 
 
     });
+    function citylist(stateid) {
+        var ctyurl = '{{ route("cities", ":id") }}';
+        ctyurl = ctyurl.replace(':id', stateid);
+        $.ajax({
+            type: 'GET',
+            url: ctyurl,
+            success: function (res) {
+                console.log('response', res);
+                if (res)
+                {
+                    $("#city").empty();
+                    $.each(res, function (key, value) {
+                        $("#city").append('<option value="' + value.id + '">' + value.name + '</option>');
+                    });
+                } else {
+                    $("#city").empty();
+                }
+
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
     $('#state').change(function () {
         var sid = $(this).val();
-
-        var url = '{{ route("cities", ":id") }}';
-        url = url.replace(':id', sid);
-        console.log(url);
-
-        if (sid) {
-            $.ajax({
-                type: 'GET',
-                url: url,
-                success: function (res) {
-                    console.log('response', res);
-                    if (res)
-                    {
-                        $("#city").empty();
-                        $("#city").append('<option>Select City</option>');
-                        $.each(res, function (key, value) {
-                            $("#city").append('<option value="' + value.id + '">' + value.name + '</option>');
-                        });
-                    } else {
-                        $("#city").empty();
-                    }
-
-                },
-                error: function (err) {
-                    console.log(err);
-                }
-            });
-        }
-
+        citylist(sid);
     });
 
 </script>

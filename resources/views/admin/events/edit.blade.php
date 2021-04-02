@@ -6,6 +6,7 @@
 @php 
 $timezoneArray = config('constants.timezones');
 @endphp
+
 <style> 
 
     .container{
@@ -54,6 +55,10 @@ $timezoneArray = config('constants.timezones');
         opacity: 1;
     }  
 </style> 
+<script>
+    var country = "{{$event->country_id}}";
+    var state = "{{$event->state_id}}";
+    var city = "{{$event->city_id}}";</script>
 <div class="row justify-content-center">
 
     <div class="col-md-12">
@@ -420,6 +425,10 @@ $timezoneArray = config('constants.timezones');
 <!--<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>-->
 <script src="{{url('assets/ckeditor/ckeditor.js')}}"></script>
 <script type="text/javascript">
+                            CKEDITOR.replace('area1', {
+                            height: '20%',
+                                    width: '100%'
+                            });
                             var evtstatus = $("input[name='status']:checked").val();
                             if (evtstatus == 'Rejected'){
                             $('.eventreason').show();
@@ -517,44 +526,58 @@ $timezoneArray = config('constants.timezones');
                                     }
                             });
                             }
+
+
+
+
+
+
                             $(document).ready(function() {
-                            var cid = "{{ isset($eventCountry) ? $eventCountry:'161' }}";
+                            if (country != '') {
+                            var cid = country;
+                            } else {
+                            var cid = 1;
+                            }
+
+                            if (state != '') {
+                            var stateId = state;
+                            } else {
+                            var stateId = 1;
+                            }
+                            if (city != '') {
+                            var cityId = city;
+                            } else {
+                            var cityId = 1;
+                            }
+
                             var url = '{{ route("states", ":id") }}';
-                            url = url.replace(':id', cid);
-                            console.log('cid', cid);
-                            var stateId = "{{ isset($eventState) ? $eventState : '' }}";
-                            var cityUrl = '{{ route("cities", ":id") }}';
-                            cityUrl = cityUrl.replace(':id', stateId);
-                            console.log('sid', stateId);
-                            var cityId = "{{ isset($eventCity) ? $eventCity : '' }}";
+                            url = url.replace(':id', stateId);
                             var selected = '';
-                            if (cid){
                             $.ajax({
                             type: 'GET',
                                     url: url,
                                     success: function (res) {
-                                    if (res){
+                                    if (res) {
                                     $("#state").empty();
-                                    $.each(res, function(key, value){
-                                    if (stateId == value.id){
+                                    $.each(res, function (key, value) {
+                                    if (stateId == value.id) {
                                     selected = "selected";
-                                    } else{
+                                    } else {
                                     selected = '';
                                     }
                                     $("#state").append('<option ' + selected + ' value="' + value.id + '">' + value.name + '</option>');
                                     });
-                                    } else{
+                                    } else {
                                     $("#state").empty();
                                     }
 
                                     },
-                                    error: function(err) {
+                                    error: function (err) {
                                     console.log(err);
                                     }
                             });
-                            }
-
-                            if (stateId){
+                            var cityUrl = '{{ route("cities", ":id") }}';
+                            cityUrl = cityUrl.replace(':id', stateId);
                             $.ajax({
                             type: 'GET',
                                     url: cityUrl,
@@ -562,28 +585,25 @@ $timezoneArray = config('constants.timezones');
                                     if (res)
                                     {
                                     $("#city").empty();
-                                    $.each(res, function(key, value){
-                                    if (cityId == value.id){
+                                    $.each(res, function (key, value) {
+                                    if (cityId == value.id) {
                                     selected = "selected";
-                                    } else{
+                                    } else {
                                     selected = '';
                                     }
                                     $("#city").append('<option ' + selected + ' value="' + value.id + '">' + value.name + '</option>');
                                     });
-                                    } else{
+                                    } else {
+
                                     $("#city").empty();
                                     }
 
                                     },
-                                    error: function(err) {
+                                    error: function (err) {
                                     console.log(err);
                                     }
+
                             });
-                            }
-                            });
-                            CKEDITOR.replace('area1', {
-                            height: '20%',
-                                    width: '100%'
                             });
                             //bkLib.onDomLoaded(function() {
                             //        new nicEditor({ maxHeight : 100 }).panelInstance('area1');
@@ -593,28 +613,34 @@ $timezoneArray = config('constants.timezones');
                             //        // new nicEditor({maxHeight : 100}).panelInstance('area5');
                             //});
 
-                            $('#country').change(function(){
+                            $('#country').change(function () {
                             var cid = $(this).val();
                             var url = '{{ route("states", ":id") }}';
                             url = url.replace(':id', cid);
-                            if (cid){
+                            if (cid) {
                             $.ajax({
                             type: 'GET',
                                     url: url,
                                     success: function (res) {
                                     console.log('response', res);
-                                    if (res){
+                                    if (res) {
                                     $("#state").empty();
-                                    $("#state").append('<option>Select</option>');
-                                    $.each(res, function(key, value){
+                                    if (res != '') {
+                                    var stateid = res[0].id;
+                                    citylist(stateid);
+                                    } else {
+                                    $("#state").empty();
+                                    $("#city").empty();
+                                    }
+                                    $.each(res, function (key, value) {
                                     $("#state").append('<option value="' + value.id + '">' + value.name + '</option>');
                                     });
-                                    } else{
+                                    } else {
                                     $("#state").empty();
                                     }
 
                                     },
-                                    error: function(err) {
+                                    error: function (err) {
                                     console.log(err);
                                     }
                             });
@@ -622,35 +648,33 @@ $timezoneArray = config('constants.timezones');
 
 
                             });
-                            $('#state').change(function(){
-                            var sid = $(this).val();
-                            var url = '{{ route("cities", ":id") }}';
-                            url = url.replace(':id', sid);
-                            console.log(url);
-                            if (sid){
+                            function citylist(stateid) {
+                            var ctyurl = '{{ route("cities", ":id") }}';
+                            ctyurl = ctyurl.replace(':id', stateid);
                             $.ajax({
                             type: 'GET',
-                                    url: url,
+                                    url: ctyurl,
                                     success: function (res) {
                                     console.log('response', res);
                                     if (res)
                                     {
                                     $("#city").empty();
-                                    $("#city").append('<option>Select City</option>');
-                                    $.each(res, function(key, value){
+                                    $.each(res, function (key, value) {
                                     $("#city").append('<option value="' + value.id + '">' + value.name + '</option>');
                                     });
-                                    } else{
+                                    } else {
                                     $("#city").empty();
                                     }
 
                                     },
-                                    error: function(err) {
+                                    error: function (err) {
                                     console.log(err);
                                     }
                             });
                             }
-
+                            $('#state').change(function () {
+                            var sid = $(this).val();
+                            citylist(sid);
                             });
 
 </script>

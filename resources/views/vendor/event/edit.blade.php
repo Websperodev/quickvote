@@ -6,6 +6,10 @@
 @php 
 $timezoneArray = config('constants.timezones');
 @endphp
+<script>
+    var country = "{{$event->country_id}}";
+    var state = "{{$event->state_id}}";
+    var city = "{{$event->city_id}}";</script>
 <div class="row justify-content-center">    
     <div class="col-md-12">
         <div class="card">
@@ -161,7 +165,7 @@ $timezoneArray = config('constants.timezones');
                             <label for="state">State</label>
 
                             <select class="form-control" name="state" id="state" aria-describedby="emailHelp">
-                                <option value="{{$event->state_id}}">{{ ($event->state_id)}}</option>
+
                             </select>
 
                             @if($errors->has('state'))
@@ -174,7 +178,7 @@ $timezoneArray = config('constants.timezones');
                         <div class="col-md-6 form-group cus-form-group">
                             <label for="city">City</label>
                             <select class="form-control" name="city" id="city" aria-describedby="emailHelp">
-                                <option value="">Select City</option>
+
                             </select>
 
                             @if($errors->has('city'))
@@ -333,128 +337,53 @@ $timezoneArray = config('constants.timezones');
 
 <!--<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>-->
 <script src="{{url('assets/ckeditor/ckeditor.js')}}"></script>
-<script type="text/javascript">
-                            CKEDITOR.replace('area1', {
-                            height: '20%',
-                                    width: '100%'
-                            });
-                            $(document).ready(function() {
-                            var ticketNo = $('#free-no').val(); //maximum input boxes allowed
-                            var wrapper = $(".input_fields_wrap"); //Fields wrapper
-                            var add_button = $(".add_ticket_button"); //Add button ID
-
-                            console.log('ticketNo', ticketNo);
-                            var x = 0; //initlal text box count
-                            $(add_button).click(function(e){ //on add input button click
-                            // e.preventDefault();
-                            var ticketNo = '';
-                            var price = '';
-                            var readonly = '';
-                            var ttype = '';
-                            if ($('#free-no').val() != ''){
-                            ticketNo = $('#free-no').val();
-                            price = 'free';
-                            readonly = "readonly";
-                            ttype = 'free';
-                            }
-                            if ($('#paid-no').val() != ''){
-                            ticketNo = $('#paid-no').val();
-                            ttype = 'paid';
-                            }
-                            console.log('aaa', ticketNo);
-                            for (x = 0; x < ticketNo; x++){ //max input box allowed
-                            //text box increment
-                            console.log('x', x);
-                            $(wrapper).append('<div class="row"><div class="col-md-4 form-group cus-form-group"><label for="image">Ticket Name</label><input type="text"  class="form-control" name="ticket_name[]" aria-describedby="emailHelp" placeholder="Ticket Name"></div><div class="col-md-4 form-group cus-form-group"><label for="image">Quantity available</label><input type="text"  class="form-control" name="quantity[]" aria-describedby="emailHelp" placeholder="Quantity available"></div> <div class="col-md-2 form-group cus-form-group"><label for="image">Price</label><input type="text"  class="form-control" ' + readonly + ' value="' + price + '" name="price[]" aria-describedby="emailHelp" placeholder="Price"></div><div class="col-md-2 form-group cus-form-group"><label for="image">Remove Ticket</label><a href="javascript:void(0)" class="remove_field">Remove</a></div><div class="col-md-6 form-group cus-form-group"><label for="image">Start Date</label><input type="text"  class="form-control datepicker" name="ticket_start_date[]" aria-describedby="emailHelp" placeholder="Start date"></div><div class="col-md-6 form-group cus-form-group"><label for="image">End Date</label><input type="text" class="form-control ticket_end_date" name="ticketend_date[]" aria-describedby="emailHelp" placeholder="End Date"></div><input type="hidden"  class="form-control" value="' + ttype + '" name="ticket_type[]" aria-describedby="emailHelp" placeholder="Price"></div>');
-                            }
-                            $('#FreeModal').modal('hide');
-                            $('#paidModal').modal('hide');
-                            });
-                            $(wrapper).on("click", ".remove_field", function(e){ //user click on remove text
-                            e.preventDefault(); $(this).parent('div').parent('div').remove(); x--;
-                            });
-                            });
-                            $(".datetimepicker").datetimepicker({
-                            format:'m/d/Y H:i'
-                            });
-                            function openModal(par){
-                            if (par == 'paid'){
-                            $('#paidModal').modal('show');
-                            }
-                            if (par == 'free'){
-                            $('#FreeModal').modal('show');
+<script>
+                           $(document).ready(function() {
+                            if (country != '') {
+                            var cid = country;
+                            } else {
+                            var cid = 1;
                             }
 
-                            $('#ticketModal').modal('hide');
+                            if (state != '') {
+                            var stateId = state;
+                            } else {
+                            var stateId = 1;
+                            }
+                            if (city != '') {
+                            var cityId = city;
+                            } else {
+                            var cityId = 1;
                             }
 
-                            function deleteTicket(id){
-                            var url = '{{ route("deleteTicket", ":id") }}';
-                            url = url.replace(':id', id);
-                            console.log(url);
-                            $.ajax({
-                            type: 'GET',
-                                    url: url,
-                                    success: function (res) {
-                                    console.log(res);
-                                    if (res.success == true){
-                                    Swal.fire({
-                                    type: 'success',
-                                            title: 'Success!',
-                                            text: res.message,
-                                            confirmButtonClass: 'btn btn-confirm mt-2',
-                                    }).then((result) => {
-                                    // Reload the Page
-                                    location.reload();
-                                    });
-                                    } else{
-
-                                    }
-
-                                    },
-                                    error: function(err) {
-                                    console.log(err);
-                                    }
-                            });
-                            }
-                            $(document).ready(function() {
-                            var cid = "{{ isset($eventCountry) ? $eventCountry:'161' }}";
-                            var url = '{{ route("states", ":id") }}';
-                            url = url.replace(':id', cid);
-                            console.log('cid', cid);
-                            var stateId = "{{ isset($eventState) ? $eventState : '' }}";
-                            var cityUrl = '{{ route("cities", ":id") }}';
-                            cityUrl = cityUrl.replace(':id', stateId);
-                            console.log('sid', stateId);
-                            var cityId = "{{ isset($eventCity) ? $eventCity : '' }}";
+                            var url = '{{ route("vendor.states", ":id") }}';
+                            url = url.replace(':id', stateId);
                             var selected = '';
-                            if (cid){
                             $.ajax({
                             type: 'GET',
                                     url: url,
                                     success: function (res) {
-                                    if (res){
+                                    if (res) {
                                     $("#state").empty();
-                                    $.each(res, function(key, value){
-                                    if (stateId == value.id){
+                                    $.each(res, function (key, value) {
+                                    if (stateId == value.id) {
                                     selected = "selected";
-                                    } else{
+                                    } else {
                                     selected = '';
                                     }
                                     $("#state").append('<option ' + selected + ' value="' + value.id + '">' + value.name + '</option>');
                                     });
-                                    } else{
+                                    } else {
                                     $("#state").empty();
                                     }
 
                                     },
-                                    error: function(err) {
+                                    error: function (err) {
                                     console.log(err);
                                     }
                             });
-                            }
-
-                            if (stateId){
+                            var cityUrl = '{{ route("vendor.cities", ":id") }}';
+                            cityUrl = cityUrl.replace(':id', stateId);
                             $.ajax({
                             type: 'GET',
                                     url: cityUrl,
@@ -462,84 +391,177 @@ $timezoneArray = config('constants.timezones');
                                     if (res)
                                     {
                                     $("#city").empty();
-                                    $.each(res, function(key, value){
-                                    if (cityId == value.id){
+                                    $.each(res, function (key, value) {
+                                    if (cityId == value.id) {
                                     selected = "selected";
-                                    } else{
+                                    } else {
                                     selected = '';
                                     }
                                     $("#city").append('<option ' + selected + ' value="' + value.id + '">' + value.name + '</option>');
                                     });
-                                    } else{
+                                    } else {
+
                                     $("#city").empty();
                                     }
 
                                     },
-                                    error: function(err) {
+                                    error: function (err) {
                                     console.log(err);
                                     }
+
                             });
-                            }
                             });
-                            $('#country').change(function(){
+                            $('#country').change(function () {
                             var cid = $(this).val();
-                            var url = '{{ route("states", ":id") }}';
+                            var url = '{{ route("vendor.states", ":id") }}';
                             url = url.replace(':id', cid);
-                            if (cid){
+                            if (cid) {
                             $.ajax({
                             type: 'GET',
                                     url: url,
                                     success: function (res) {
                                     console.log('response', res);
-                                    if (res){
+                                    if (res) {
                                     $("#state").empty();
-                                    $("#state").append('<option>Select</option>');
-                                    $.each(res, function(key, value){
+                                    if (res != '') {
+                                    var stateid = res[0].id;
+                                    citylist(stateid);
+                                    } else {
+                                    $("#state").empty();
+                                    $("#city").empty();
+                                    }
+                                    $.each(res, function (key, value) {
                                     $("#state").append('<option value="' + value.id + '">' + value.name + '</option>');
                                     });
-                                    } else{
+                                    } else {
                                     $("#state").empty();
                                     }
-
                                     },
-                                    error: function(err) {
+                                    error: function (err) {
                                     console.log(err);
                                     }
                             });
                             }
-
-
                             });
-                            $('#state').change(function(){
-                            var sid = $(this).val();
-                            var url = '{{ route("cities", ":id") }}';
-                            url = url.replace(':id', sid);
-                            console.log(url);
-                            if (sid){
+                            function citylist(stateid) {
+                            var ctyurl = '{{ route("vendor.cities", ":id") }}';
+                            ctyurl = ctyurl.replace(':id', stateid);
                             $.ajax({
                             type: 'GET',
-                                    url: url,
+                                    url: ctyurl,
                                     success: function (res) {
                                     console.log('response', res);
                                     if (res)
                                     {
                                     $("#city").empty();
-                                    $("#city").append('<option>Select City</option>');
-                                    $.each(res, function(key, value){
+                                    $.each(res, function (key, value) {
                                     $("#city").append('<option value="' + value.id + '">' + value.name + '</option>');
                                     });
-                                    } else{
+                                    } else {
                                     $("#city").empty();
                                     }
 
                                     },
-                                    error: function(err) {
+                                    error: function (err) {
                                     console.log(err);
                                     }
                             });
                             }
-
+                            $('#state').change(function () {
+                            var sid = $(this).val();
+                            citylist(sid);
                             });</script>
+<script type="text/javascript">
+    CKEDITOR.replace('area1', {
+    height: '20%',
+            width: '100%'
+    });
+    $(document).ready(function() {
+    var ticketNo = $('#free-no').val(); //maximum input boxes allowed
+    var wrapper = $(".input_fields_wrap"); //Fields wrapper
+    var add_button = $(".add_ticket_button"); //Add button ID
+
+    console.log('ticketNo', ticketNo);
+    var x = 0; //initlal text box count
+    $(add_button).click(function(e){ //on add input button click
+    // e.preventDefault();
+    var ticketNo = '';
+    var price = '';
+    var readonly = '';
+    var ttype = '';
+    if ($('#free-no').val() != ''){
+    ticketNo = $('#free-no').val();
+    price = 'free';
+    readonly = "readonly";
+    ttype = 'free';
+    }
+    if ($('#paid-no').val() != ''){
+    ticketNo = $('#paid-no').val();
+    ttype = 'paid';
+    }
+    console.log('aaa', ticketNo);
+    for (x = 0; x < ticketNo; x++){ //max input box allowed
+    //text box increment
+    console.log('x', x);
+    $(wrapper).append('<div class="row"><div class="col-md-4 form-group cus-form-group"><label for="image">Ticket Name</label><input type="text"  class="form-control" name="ticket_name[]" aria-describedby="emailHelp" placeholder="Ticket Name"></div><div class="col-md-4 form-group cus-form-group"><label for="image">Quantity available</label><input type="text"  class="form-control" name="quantity[]" aria-describedby="emailHelp" placeholder="Quantity available"></div> <div class="col-md-2 form-group cus-form-group"><label for="image">Price</label><input type="text"  class="form-control" ' + readonly + ' value="' + price + '" name="price[]" aria-describedby="emailHelp" placeholder="Price"></div><div class="col-md-2 form-group cus-form-group"><label for="image">Remove Ticket</label><a href="javascript:void(0)" class="remove_field">Remove</a></div><div class="col-md-6 form-group cus-form-group"><label for="image">Start Date</label><input type="text"  class="form-control datepicker" name="ticket_start_date[]" aria-describedby="emailHelp" placeholder="Start date"></div><div class="col-md-6 form-group cus-form-group"><label for="image">End Date</label><input type="text" class="form-control ticket_end_date" name="ticketend_date[]" aria-describedby="emailHelp" placeholder="End Date"></div><input type="hidden"  class="form-control" value="' + ttype + '" name="ticket_type[]" aria-describedby="emailHelp" placeholder="Price"></div>');
+    }
+    $('#FreeModal').modal('hide');
+    $('#paidModal').modal('hide');
+    });
+    $(wrapper).on("click", ".remove_field", function(e){ //user click on remove text
+    e.preventDefault(); $(this).parent('div').parent('div').remove(); x--;
+    });
+    });
+    $(".datetimepicker").datetimepicker({
+    format:'m/d/Y H:i'
+    });
+    function openModal(par){
+    if (par == 'paid'){
+    $('#paidModal').modal('show');
+    }
+    if (par == 'free'){
+    $('#FreeModal').modal('show');
+    }
+
+    $('#ticketModal').modal('hide');
+    }
+
+    function deleteTicket(id){
+    var url = '{{ route("deleteTicket", ":id") }}';
+    url = url.replace(':id', id);
+    console.log(url);
+    $.ajax({
+    type: 'GET',
+            url: url,
+            success: function (res) {
+            console.log(res);
+            if (res.success == true){
+            Swal.fire({
+            type: 'success',
+                    title: 'Success!',
+                    text: res.message,
+                    confirmButtonClass: 'btn btn-confirm mt-2',
+            }).then((result) => {
+            // Reload the Page
+            location.reload();
+            });
+            } else{
+
+            }
+
+            },
+            error: function(err) {
+            console.log(err);
+            }
+    });
+    }
+
+
+
+
+
+
+</script>
 <script>
     $('#event_category').change(function () {
     var cid = $(this).val();
