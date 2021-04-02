@@ -82,8 +82,12 @@
                                 </div>
                                 <div class="form-group col-12">
                                     <label>Vendor Name</label>
-                                    <input type="text" class="form-control col-6 fl" autocomplete="off" name="first_name" placeholder="First Name">
-                                    <input type="text" class="form-control col-6 fr" autocomplete="off" name="last_name" placeholder="Last Name">
+									<div class="col-6">
+									  <input type="text" class="form-control col-6 fl" autocomplete="off" name="first_name" placeholder="First Name">
+									</div>
+									<div class="col-6">
+                                      <input type="text" class="form-control col-6 fr" autocomplete="off" name="last_name" placeholder="Last Name">
+									</div>
                                 </div>
                                 <div class="form-group col-12">
                                     <label>Business Name</label>
@@ -111,25 +115,25 @@
 
                                 <div class="form-group multii col-12">
                                     <label>Address</label>
-                                    <input type="text" class="form-control col-6 fl" name="address1" autocomplete="off" placeholder="Street Address">
-                                    <input type="text" class="form-control col-6 fr" name="address2" autocomplete="off"  placeholder="Street Address Line 2">   
-                                    <input type="text" class="form-control col-6 fl" name="postcode" autocomplete="off" placeholder="Postal / Zip Code">
-                                    <select class="form-control col-6 fr" autocomplete="off" name="country" id="country">
+                                    <div class="col-6"> <input type="text" class="form-control col-6 fl" name="address1" autocomplete="off" placeholder="Street Address"> </div>
+                                    <div class="col-6"> <input type="text" class="form-control col-6 fr" name="address2" autocomplete="off"  placeholder="Street Address Line 2"> </div>
+                                    <div class="col-6"> <input type="text" class="form-control col-6 fl" name="postcode" autocomplete="off" placeholder="Postal / Zip Code"> </div>
+                                    <div class="col-6"> <select class="form-control col-6 fr" autocomplete="off" name="country" id="country">
                                         <option value="">Select Country</option>
                                         @if(isset($countries) && !empty($countries))
                                         @foreach($countries as $country)
                                         <option {{($country->id == 1) ? 'selected':'' }} value="{{ $country->id }}">{{ $country->name }}</option>
                                         @endforeach
                                         @endif
-                                    </select>
+                                    </select> </div>
 
-                                    <select class="form-control col-6 fl" name="state" autocomplete="off" id="state">
+                                    <div class="col-6"> <select class="form-control col-6 fl" name="state" autocomplete="off" id="state">
                                         <option value="">Select State</option>
-                                    </select>
+                                    </select> </div>
 
-                                    <select class="form-control col-6 fr" name="city" autocomplete="off" id="city">
+                                    <div class="col-6"> <select class="form-control col-6 fr" name="city" autocomplete="off" id="city">
 
-                                    </select>
+                                    </select> </div>
 
 
                                 </div>

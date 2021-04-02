@@ -345,14 +345,21 @@ div#floating-search h2:after {
 
 .pricing .card-title {
   margin: 0.5rem 0;
-  font-size: 0.9rem;
+  font-size: 20px;
   letter-spacing: .1rem;
-  font-weight: bold;
+  font-weight: 500;
+  color: #000 !important;
+    margin-bottom: 40px;
 }
 
 .pricing .card-price {
   font-size: 3rem;
   margin: 0 0 10px;
+    display: inline-block;
+}
+
+.pricing .card-body ul.fa-ul {
+    text-align: left;
 }
 
 .pricing .card-price .period {
@@ -364,7 +371,7 @@ div#floating-search h2:after {
 }
 
 .pricing .text-muted {
-  opacity: 0.7;
+  opacity: 1;
 }
 
 .pricing .btn {
@@ -453,10 +460,25 @@ div#about {
     font-weight: 700;
     font-family: 'Montserrat', sans-serif;
     margin-bottom: 10px;
+    position: relative;
+}
+
+.pricing .free .card-price:before {
+    content: "";
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    left: -18px;
+    top: 0;
+    display: block;
+    background: url(../img/ngc.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 ul.fa-ul li {
-    font-size: 20px;
+    font-size: 18px;
     color: #5c5c5c;
     font-family: 'Poppins';
     font-weight: 500;
@@ -491,6 +513,7 @@ ul.fa-ul li {
 
 .col-6.card.paid * {
     color: #fff !important;
+    opacity: 1;
 }
 
 .col-6.card.paid {
@@ -545,6 +568,7 @@ div.card-body {
     border-radius: 50%;
     box-shadow: 0px 0px 7px 0px #0002 !important;
     margin: 0;
+	opacity: 1;
 }
 
 #tests .owl-carousel .owl-nav button.owl-next:hover, #tests .owl-carousel .owl-nav button.owl-prev:hover {
@@ -626,8 +650,8 @@ div.card-body {
     top: 0;
     bottom: 0;
     margin: auto 0 auto -5px;
-    height: max-content;
-    padding-top: 25px;
+    height: 40px;
+    padding-top: 0px;
 }
 
 #tests .owl-carousel .owl-nav button.owl-next:hover, #tests .owl-carousel .owl-nav button.owl-prev:hover {
@@ -756,6 +780,7 @@ footer#footer p, footer#footer a, footer#footer li {
 ul.footer-li.adds li i {
     display: inline-block;
     margin-top: 6px;
+    color: #fdb92e;
 }
 
 .copyright p {
@@ -772,11 +797,15 @@ ul.footer-li.adds li i {
     padding-left: 10px !important;
     padding-right: 10px !important;
     position: relative;
-    padding-bottom: 60px !important;
+    padding-bottom: 0px !important;
 }
 
 #feat .tcard img.img-fluid {
     margin: 0 !important;
+	object-fit: cover;
+	display: inline-flex;
+	height: 15vw;
+	width: 100%;
 }
 
 span.date-abs {
@@ -794,7 +823,7 @@ span.date-abs {
 
 .fe-abs {
     display: none;
-    padding: 20px;
+    padding: 30px;
 }
 
 .owl-item.active + .owl-item.active + .owl-item.active .fe-abs {
@@ -805,7 +834,7 @@ span.date-abs {
 }
 
 .feat-event div.owl-item {
-    transform: scale(.8);
+    transform: scale(.7);
 }
 
 .feat-event .owl-item.active + .owl-item.active {
@@ -813,7 +842,7 @@ span.date-abs {
 }
 
 .feat-event .owl-item.active + .owl-item.active + .owl-item.active {
-    transform: scale(0.8);
+    transform: scale(0.7);	
 }
 
 h2.titleh2.event-title {
@@ -840,7 +869,7 @@ span.date-abs {
 }
 
 .txt-card {
-    width: 75%;
+    width: 80%;
     padding: 25px 20px;
     position: absolute;
     top: 4vw;
@@ -848,6 +877,7 @@ span.date-abs {
     background: #fff;
     border-radius: 2px;
     box-shadow: 0px 0px 15px 0px #0002;
+	max-width: 360px;
 }
 
 #feat p.content {
@@ -874,7 +904,8 @@ a.btn.btn-bg.view-contest {
     bottom: 0;
     margin: auto 0 auto -5px;
     height: max-content;
-    padding-top: 25px;
+    padding-top: 0px;
+	height: 40px;
 }
 
 #feat .owl-carousel .owl-nav button.owl-next, #feat .owl-carousel .owl-nav button.owl-prev {
@@ -885,7 +916,7 @@ a.btn.btn-bg.view-contest {
     font-size: 40px !important;
     width: 40px;
     height: 40px;
-    line-height: 20px !important;
+    line-height: 19px !important;
     border-radius: 50%;
     box-shadow: 0px 0px 7px 0px #0002 !important;
     margin: 0;
@@ -1139,6 +1170,7 @@ div.modal-dialog {
     top: 10vh;
     max-height: 70vh;
     margin: 0 auto;
+	pointer-events: auto;
 }
 
 .modal button.close {
@@ -1248,6 +1280,29 @@ h3.titleh3:after {
 .mform .form-group {
     margin-bottom: 35px;
     display: block;
+	position: relative;
+}
+
+#login-frm-user .form-control[type="password"] ~ span {
+    bottom: 16px;
+}
+
+.form-control[type="password"] ~ span {
+    position: absolute;
+    bottom: 14px;
+    height: 18px;
+    line-height: 20px;
+
+}
+
+.form-control[type="password"] {
+    padding-left: 30px !important;
+}
+
+.form-group label.error {
+    font-size: 10px;
+    color: #ff2525;
+    position: absolute;
 }
 
 .mform .form-control.col-6.fr {
@@ -1266,6 +1321,7 @@ p.flx {
     color: #828282;
     font-weight: 500;
     letter-spacing: 0.5px;
+	align-items: center;
 }
 
 p.flx .rem input {
@@ -1378,6 +1434,7 @@ div#about.about-page {
     text-align: center;
     background: #fff;
     margin-bottom: 30px;
+    height: 100%;
 }
 
 h3.titleh3.tc:after {
@@ -1402,7 +1459,7 @@ h3.titleh3.tc:after {
 .services p {
     text-align: center;
     max-width: 800px;
-    margin: 0 auto 30px;
+    margin: 0 auto;
 }
 
 .services {
@@ -1444,7 +1501,7 @@ img.w-img {
 }
 
 .serv-body:hover img.w-img {
-    display: inline-block;
+    display: none;
 }
 
 .serv-body img {
@@ -1565,7 +1622,7 @@ span.icnn {
     text-align: center;
     display: block;
     width: auto;
-    float: revert;
+    float: right;
 }
 
 span.map-icn {
@@ -1651,7 +1708,7 @@ button:hover {
 
 form#vendForm .form-group {
     float: left;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 #vendForm input, #vendForm textarea, #vendForm select {
@@ -1918,16 +1975,19 @@ span.eprice {
 div#service-page {
     background-image: url(../img/service-img.jpg);
     background-size: cover;
+    border-radius: 0;
 }
 
 div#team-page {
     background-image: url(../img/team-img.jpg);
     background-size: cover;
+    border-radius: 0;
 }
 
 div#invest {
     background-image: url(../img/investors-img.jpg);
     background-size: cover;
+    border-radius: 0;
 }
 
 .services.srv-page {
@@ -1960,12 +2020,14 @@ div#invest {
     font-size: 18px;
     letter-spacing: 0.5px;
     margin-bottom: 25px;
+    text-transform: capitalize;
 }
 
 .team-mem h3 {
     color: #000;
     font-size: 26px;
     font-weight: 600;
+	text-transform: capitalize;
 }
 
 .team-mem img {
@@ -2033,7 +2095,7 @@ button:focus {
     outline: none;
 }
 
-.team-mem span {
+.team-mem > span {
     display: inline-block;
     width: 200px;
     height: 200px;
@@ -2041,6 +2103,14 @@ button:focus {
     overflow: hidden;
     border-radius: 50%;
     box-shadow: 0px 0px 11px 0px #0002;
+}
+
+#team .owl-carousel {
+    width: 100% !important;
+}
+
+.item > .team-mem > img {
+    border-radius: 50%;
 }
 
 .team2 .col-12 {
@@ -2322,6 +2392,10 @@ p.vote-payment {
 
 #feat .tcard .row.justify-content-center {
     margin: 0;
+	max-height: 15vw;
+	overflow: hidden;
+	object-fit: cover;
+	position: relative;
 }
 
 .reg-login.show {  
@@ -2373,7 +2447,13 @@ p.vote-payment {
 }
 
 .feat-event div.owl-item {
-    margin-bottom: 35px;
+    margin-bottom: 0px;
+}
+
+#feat .owl-carousel .owl-stage {
+    display: flex;
+    align-items: center;
+    padding: 20px 0;
 }
 
 div#feat.py-5 {
@@ -2421,4 +2501,184 @@ p.vote-payment {
 
 .event-name p.time-price + div a {
     color: #000;
+}
+
+h2#swal2-title {
+    font-size: 20px;
+    line-height: initial;
+}
+
+.swal2-container.swal2-center.swal2-backdrop-show {
+    padding: 0 25px;
+}
+
+.page-start > .banner {
+    border-radius: 0;
+}
+
+.form-group label.error {
+    font-size: 10px;
+    color: #ff2525;
+    bottom: 0;
+    margin-bottom: -15px;
+    position: absolute;
+}
+
+.form-control[type="number"]:focus {
+    -moz-appearance: auto;
+}
+.form-control[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.paid hr {
+    border-top: 1px solid #fff;
+    opacity: 1;
+}
+
+.serv span {
+    background: transparent !important;
+}
+
+.serv-body:hover * {
+    color: #fff !important;
+}
+
+.serv {
+    margin-bottom: 25px;
+}
+
+#footer ul.footer-li.adds li:nth-child(4) {
+    order: 4;
+}
+
+#footer ul.footer-li.adds li:nth-child(2) {
+    order: 3;
+}
+
+#footer ul.footer-li.adds li:nth-child(3) {
+    order: 2;
+}
+
+ul.footer-li.adds {
+    display: flex;
+    flex-direction: column;
+}
+
+p:empty {
+    display: none;
+}
+
+.pricing .card-body {
+    text-align: center;
+}
+
+#why-choose .service-sec.row {
+    margin-top: 30px;
+}
+
+#why-choose img {
+    max-width: 65px;
+    margin-bottom: 20px;
+}
+
+input#inputDate::-webkit-calendar-picker-indicator {
+    position: absolute;
+    left: -28px;
+    width: 14px;
+    background: url(../img/cicon.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#floating-search input#inputDate {
+    padding-left: 25px;
+    position: relative;
+}
+
+#floating-search .fa-search:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    background: url(../img/sicon.png);
+    display: block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#login-frm-user .social-logins .col-md-12 {
+    display: flex;
+    justify-content: space-between;
+}
+
+#login-frm-user .social-logins .col-md-12 a {
+    padding: 12px 10px;
+    border-radius: 30px;
+    background: #000;
+    color: #fff;
+    font-size: 13px;
+    width: calc(33.33% - 7px);
+    text-align: center;
+}
+
+#login-frm-user .social-logins .col-md-12 a i {
+    margin-right: 10px;
+}
+
+#login-frm-user .social-logins .col-md-12 a:first-child {
+	background: #4267B2;
+}
+
+#login-frm-user .social-logins .col-md-12 a:nth-child(2) {
+	background: #db3236 ;
+}
+
+#login-frm-user .social-logins .col-md-12 a:nth-child(3) {
+	background: #1DA1F2 ;
+}
+
+#vendForm .form-group.col-12 div.col-6 {
+    float: left;
+}
+
+#vendForm .form-group.col-12 div.col-6:nth-child(odd) {
+    padding-right: 0;
+}
+
+#vendForm .form-group.col-12 div.col-6:nth-child(even) {
+    padding-left: 0;
+}
+
+#vendForm .form-group.col-12 div.col-6 input {
+    margin-bottom: 0;
+}
+
+#vendForm .form-group.col-12.multii div.col-6 {
+    margin-bottom: 20px;
+}
+
+#vendForm .form-group.col-12 input, #vendForm .form-group.col-12 select {
+    margin-bottom: 0px;
+    max-width: 100%;
+    flex: 0 0 100%;	
+    width: 100%;
+}
+
+.modal-body {
+    padding: 0;
+}
+
+button#btnPrevious, button#nxtBtn {
+    margin-bottom: 10px;
+}
+
+#vendForm .hide-div {
+    display: none;
+}
+
+button.swal2-close:focus {
+    outline: none;
+    box-shadow: none;
 }

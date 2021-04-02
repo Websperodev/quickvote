@@ -53,11 +53,13 @@ a.btn.btn-bg.view-contest {
 .txt-card {
     padding: 18px 15px;
     box-shadow: 0px 0px 11px 0px #0002;
+	width: calc(100% - 70px);
 }
 
 span.date-abs {
-    font-size: 22px;
-    width: 80px;
+    font-size: 20px;
+    width: 70px;
+    top: 20px;
 }
 
 #about p {
@@ -95,7 +97,14 @@ ul.fa-ul li {
     font-size: 48px;
 }
 
+.serv-body h3 {
+    font-size: 24px;
+}
 
+#feat p.content {
+    font-size: 12px;
+    letter-spacing: 0px;
+}
 
 }
 
@@ -108,6 +117,22 @@ ul.fa-ul li {
     min-height: 20vw;
     max-height: 20vw;
 }
+
+
+form.subs {
+    max-width: 480px;
+    float: right;
+    width: 100%;
+}
+
+.cta input.form-control {
+    height: 60px;
+}
+
+button.btn.btn-primary.nletter {
+    line-height: 62px;
+}
+
 
 }
 
@@ -174,7 +199,7 @@ footer h2.titleh2 {
 button.btn.btn-primary.nletter {
     width: 130px;
     font-size: 14px;
-    line-height: 38px;
+    line-height: 52px;
 }
 
 .cta input.form-control {
@@ -224,6 +249,62 @@ a.btn.btn-bg {
     min-height: 25vw;
     max-height: 25vw;
 }
+
+form#seachform .row > .col-md-6 {
+    max-width: 45%;
+}
+
+form#seachform .row > .col-md-4 {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: calc(55% - 195px);
+    flex: 0 0 calc(55% - 195px);
+}
+
+#floating-search .col-md-2 {
+    position: relative;
+    max-width: 195px;
+    flex: 0 0 195px;
+}
+
+.team-mem {
+    padding: 30px 0 !important;
+}
+
+.team-mem h3 {
+    font-size: 20px !important;
+}
+
+.team-mem h4 {
+    font-size: 15px !important;
+}
+
+.team-mem > span {
+    width: 140px;
+    height: 140px;
+}
+
+.item > .team-mem > img {
+    width: 140px !important;
+    height: 140px !important;
+}
+
+#login-frm-user .social-logins .col-md-12 a {
+    padding: 12px 8px;
+    font-size: 11px;
+    width: calc(33.33% - 3px);
+}
+
+.popupp .col-md-7 {
+    padding: 30px 30px 0;
+}
+
+p.flx {
+    font-size: 12px;
+}
+
+
+
 	
 }
 
@@ -268,13 +349,14 @@ span.date-abs {
 }
 
 .txt-card {
-    bottom: 70px;
-    top: unset;
+    bottom: 0;
+    top: 0;
     left: 0;
     right: 0;
     margin: auto;
     width: 80%;
-    max-width: 460px;
+    max-width: 400px;
+    height: fit-content;
 }
 
 .cta h2.titleh2 {
@@ -307,7 +389,7 @@ button.btn.btn-primary.nletter {
 }
 
 .cta input.form-control {
-    line-height: 40px;
+    line-height: 50px;
     padding: 4px 125px 2px 20px;
 }
 
@@ -447,7 +529,84 @@ h2.cand-name {
 span.cand-no {
     font-size: 14px;
 }
+
+.cta .col-md-7, .cta .col-md-5 {
+    max-width: 50%;
+    flex: 0 0 50%;
+}
+
+#feat .tcard img.img-fluid {
+    height: 50vw;
+}
+
+#feat .tcard .row.justify-content-center {
+    max-height: inherit;
+}
+
+#feat p.content {
+    font-size: 14px;
+}
+
+ul.social-icon li {
+    width: 30px;
+    height: 30px;
+    line-height: 28px;
+    margin: 0 2px;
+}
+
+ul.social-icon li i {
+    font-size: 12px;
+}
+
+.popupp .col-md-5 {
+    padding: 50px 20px;
+    background-image: url(../img/pop-bg.jpg);
+    background-size: cover;
+    max-width: 38%;
+}
+
+.mform .form-group {
+    margin-bottom: 20px;
+}
+
+p.flx .rem input {
+    height: 20px;
+}
+
+p.dhacc.tc {
+    margin-top: 4vw;
+}
+
+#login-frm-user .social-logins .col-md-12 a {
+    font-size: 10px;
+    width: calc(33.33% - 3px);
+}
+
+.popupp .col-md-7 {
+    max-width: 62%;
+    flex: 0 0 62%;
+}
+
+.popupp .col-md-5 {
+    max-width: 38%;
+}
+
+.popupp .col-md-12 {
+    padding: 0 7px;
+}
+
 	
+}
+
+@media (min-width:992px) {
+
+header {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 9;
+}
+
 }
 
 @media (max-width: 700px) {
@@ -650,7 +809,12 @@ div#floating-search h2 {
 }
 
 .popupp .col-md-5 {
-    padding: 30px 20px 10px;
+    padding: 30px 15px;
+    min-height: 32vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 h3.titleh3 {
@@ -681,6 +845,7 @@ p.flx {
 .mform .btn.btn-bg {
     padding: 12px 25px;
     font-size: 12px;
+    width: 100%;
 }
 
 p.dhacc.tc {
@@ -737,6 +902,7 @@ form.vform.mform.row > .btn {
 
 #vendorModal .modal-content {
     padding-bottom: 0;
+    overflow: hidden;
 }
 
 .slider-content h4 {
@@ -765,7 +931,8 @@ form.vform.mform.row > .btn {
 }
 
 .slider-content h2 {
-    font-size: 30px;
+    font-size: 28px;
+	padding: 0 10px;
 }
 
 .faqs .card-body span {
@@ -817,7 +984,8 @@ div#floating-search .row .form-group input {
 
 #floating-search.evnt button.btn.btn-primary {
     width: auto;
-padding: 10px 25px;}
+	padding: 10px 25px;
+}
 
 div#eve {
     padding-top: 30px;
@@ -848,6 +1016,106 @@ div#floating-search .row {
 
 p.eve-date-time span {
     width: auto;
+}
+
+form#seachform .row > .col-md-6 {
+    max-width: 100%;
+}
+
+form#seachform .row > .col-md-4 {
+    padding-left: 15px;
+    padding-right: 15px;
+    max-width: 100%;
+    flex: 0 0 100%;
+}
+
+#floating-search .col-md-2 {
+    position: relative;
+    max-width: unset;
+    flex: none;
+}
+
+h2#swal2-title {
+    font-size: 18px;
+    line-height: initial;
+}
+
+.cta .col-md-7, .cta .col-md-5 {
+    max-width: 100%;
+    flex: 0 0 100%;
+}
+
+.serv-body h3 {
+    font-size: 20px;
+}
+
+#carouselExampleControls .carousel-control-next {
+    position: absolute;
+    width: 25px;
+    margin: 15px 5px 0 5px;
+    display: inline-block;
+    bottom: 10px;
+    height: 25px;
+    top: unset;
+    right: 40%;
+    opacity: 1;
+}
+#carouselExampleControls .carousel-control-prev {
+    position: absolute;
+    width: 25px;
+    margin: 15px 5px 0 5px;
+    display: inline-block;
+    bottom: 10px;
+    height: 25px;
+    top: unset;
+    left: 40%;
+    opacity: 1;
+}
+
+div#carouselExampleControls > a img {
+    width: 25px;
+}
+
+.slider-content > p span {
+    font-size: 16px !important;
+    letter-spacing: 0;
+}
+
+.slider-content > p {
+    font-size: 16px;
+    letter-spacing: 0px;
+	padding: 15px;
+}
+
+button.btn.btn-primary.nletter {
+    width: 135px;
+}
+
+.cta input.form-control {
+    padding: 4px 140px 2px 20px;
+}
+
+.popupp .col-md-5, .popupp .col-md-7 {
+    max-width: 100%;
+    flex: 0 0 100%;
+}
+
+#login-frm-user .social-logins .col-md-12 a {
+    margin-bottom: 10px;
+}
+
+#login-frm-user .social-logins .col-md-12 {
+    flex-direction: column;
+	padding: 0 15px;
+}
+
+#login-frm-user .social-logins .col-md-12 a {
+    font-size: 12px;
+    width: 100%;
+}
+
+form#login-frm-user {
+    display: inline;
 }
 
 
@@ -924,5 +1192,146 @@ div#eve-detail {
 .eve-description {
     padding: 20px 30px;
 }
+
+.form-group.w50, .form-group.w100 {
+    width: 100%;
+    padding: 10px;
+}
+
+.addrs {
+    position: unset;
+    width: 95%;
+    margin: 0 auto 30px;
+}
+
+.addrs h3.titleh3 {
+    font-size: 18px;
+}
+
+a.btn.lmap {
+    font-size: 12px;
+}
+
+span.icnn {
+    font-size: 14px;
+}
+
+span.map-icn {
+    width: 65px;
+    padding: 15px;
+}
+
+.direc.col-8 {
+    max-width: calc(100% - 65px);
+    flex: calc(100% - 65px);
+}
+
+.dicon.col-4 {
+    width: 65px;
+    flex: 65px;
+    max-width: 65px;
+    float: right;
+}
+
+.form-control {
+    font-size: 16px;
+}
+
+span.date-abs {
+    font-size: 16px;
+    width: 60px;
+    top: 30px;
+}
+
+#vendForm .form-group.col-12 div.col-6 {
+    float: left;
+	max-width: 100%;
+	flex: 0 0 100%;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+#vendForm .form-group.col-12.multii input, #vendForm .form-group.col-12.multii select {
+    margin-bottom: 0px;
+}
+
+button#btnPrevious, button#nxtBtn {
+    margin-bottom: 10px;
+    max-width: calc(100% - 30px);
+    margin: 0 auto 10px;
+    display: block;
+    top: 10px;
+    position: relative;
+}
+
+#vendForm .form-group.col-12 div.col-6:last-child {
+    margin-bottom: 0;
+}
+
+
+}
+
+
+/********************************Ipad**************************/
+
+@media only screen and (device-width: 768px) {
+  /* iPad screen size rules */
+  
+input[type="date"]:before {
+	color: #999999;
+	content: attr(placeholder);
+}
+input[type="date"] {
+	color: #ffffff;
+}
+input[type="date"]:focus, input[type="date"]:valid {
+	color: #666666;
+}
+input[type="date"]:focus::before, input[type="date"]:valid::before {
+	content: "" !important;
+}
+
+
+}
+
+@media only screen and (min-device-width: 481px) and 
+(max-device-width: 1024px) and (orientation:portrait) {
+  /* Portrait iPad display */
+  
+input[type="date"]:before {
+	color: #999999;
+	content: attr(placeholder);
+}
+input[type="date"] {
+	color: #ffffff;
+}
+input[type="date"]:focus, input[type="date"]:valid {
+	color: #666666;
+}
+input[type="date"]:focus::before, input[type="date"]:valid::before {
+	content: "" !important;
+}
+
+
+}
+
+@media only screen and (min-device-width: 481px) and 
+(max-device-width: 1024px) and (orientation:landscape) {
+  /* Landscape iPad display */
+  
+input[type="date"]:before {
+	color: #999999;
+	content: attr(placeholder);
+}
+input[type="date"] {
+	color: #ffffff;
+}
+input[type="date"]:focus, input[type="date"]:valid {
+	color: #666666;
+}
+input[type="date"]:focus::before, input[type="date"]:valid::before {
+	content: "" !important;
+}
+
 
 }
