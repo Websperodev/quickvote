@@ -96,6 +96,9 @@ class ContestantController extends Controller {
                         ->addColumn('name', function ($allContestant) {
                             return $allContestant->name;
                         })
+                        ->addColumn('voting_id', function ($allContestant) {
+                            return votingName($allContestant->voting_id);
+                        })
                         ->addColumn('contact', function ($allContestant) {
                             return $allContestant->phone;
                         })

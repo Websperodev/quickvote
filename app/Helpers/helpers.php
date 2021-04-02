@@ -77,4 +77,12 @@ if (!function_exists('ticketNumber)')) {
     }
 
 }
+if (!function_exists('votingName)')) {
+
+    function votingName($id) {
+        $voting = DB::table('voting_contests')->first();
+        return $voting->title;
+    }
+
+}
 ?>

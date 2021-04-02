@@ -32,6 +32,7 @@
                         <tr>
                             <th>Image</th>
                             <th>Name</th>
+                            <th>Vote</th>
                             <th>Contact</th>
                             <th>About</th>
                             <th>Created</th>
@@ -133,6 +134,7 @@ table_instance = $('#contestant-table').DataTable({
     columns: [
         {data: 'image', name: 'image'},
         {data: 'name', name: 'name'},
+        {data: 'voting_id', name: 'voting_id'},
         {data: 'contact', name: 'contact'},
         {data: 'about', name: 'about'},
         {data: 'created_at', name: 'created_at'},
