@@ -47,6 +47,7 @@
             $start_month_shot=date('m', strtotime($date));
             $start_date=date('d',strtotime($date));
             $start_year=date('Y',strtotime($date));
+           
             @endphp
             <div class="col-md-8 col-sm-12 edetail">
                 <div class="event-titlee">
@@ -60,6 +61,9 @@
                     <div class="eve-description">
 
                         <div><h4>Join Date</h4> <span>{{$start_day.' '.$start_month.' '.$start_date. ' '.$start_year}}</span></div>
+
+
+                        <div><h4>Vote Detail</h4> <span>{{$contestants->about}}</span></div>
                         <div>
                         </div>
                     </div>
