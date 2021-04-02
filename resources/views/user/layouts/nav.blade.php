@@ -82,14 +82,6 @@
 <script src="{{asset('js/custom.js')}}"></script>
 
 <script type="text/javascript">
-
-$('.nav-link').click(function () {
-    $('.nav-link').removeClass("active");
-    $(this).addClass("active");
-});
-
-
-
 $('.modal').on('hidden.bs.modal', function () {
     $("form").each(function () {
         $(this).validate().resetForm();

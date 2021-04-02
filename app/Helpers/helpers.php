@@ -69,4 +69,12 @@ if (!function_exists('ticketName)')) {
     }
 
 }
+if (!function_exists('ticketNumber)')) {
+
+    function ticketNumber($id) {
+        $ticket = DB::table('tickets')->first();
+        return $ticket->ticket_number;
+    }
+
+}
 ?>

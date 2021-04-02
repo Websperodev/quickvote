@@ -78,6 +78,9 @@ class PaymentsManagement extends Controller {
                         ->addColumn('ticket_id', function ($allTickets) {
                             return ticketName($allTickets->ticket_id);
                         })
+                        ->editColumn('ticket_number', function ($allTickets) {
+                            return ticketNumber($allTickets->ticket_id);
+                        })
                         ->addColumn('reference', function ($allTickets) {
                             if ($allTickets->reference == '') {
                                 return '__';
