@@ -237,12 +237,12 @@
                 }
             });
         }
-    });
 
-    var sid = 1;
-    var url = '{{ route("allcities", ":id") }}';
-    url = url.replace(':id', sid);
-    if (sid) {
+
+        var sid = 1;
+        var url = '{{ route("allcities", ":id") }}';
+        url = url.replace(':id', sid);
+
         $.ajax({
             type: 'GET',
             url: url,
@@ -266,8 +266,8 @@
                 console.log(err);
             }
         });
-    }
 
+    });
 
 
     $('#c_country').change(function () {
@@ -281,7 +281,13 @@
                 success: function (res) {
                     if (res) {
                         $("#c_state").empty();
-
+                        if (res != '') {
+                            var stateid = res[0].id;
+                            citylist(stateid);
+                        } else {
+                            $("#c_state").empty();
+                            $("#c_city").empty();
+                        }
                         $.each(res, function (key, value) {
                             $("#c_state").append('<option value="' + value.id + '">' + value.name + '</option>');
                         });
@@ -298,32 +304,36 @@
         }
     });
 
-    $('#c_state').change(function () {
-        var sid = $(this).val();
+    function citylist(sid) {
         var url = '{{ route("allcities", ":id") }}';
         url = url.replace(':id', sid);
-        if (sid) {
-            $.ajax({
-                type: 'GET',
-                url: url,
-                success: function (res) {
-                    if (res)
-                    {
-                        $("#c_city").empty();
 
-                        $.each(res, function (key, value) {
-                            $("#c_city").append('<option value="' + value.id + '">' + value.name + '</option>');
-                        });
-                    } else {
-                        $("#c_city").empty();
-                    }
+        $.ajax({
+            type: 'GET',
+            url: url,
+            success: function (res) {
+                if (res)
+                {
+                    $("#c_city").empty();
 
-                },
-                error: function (err) {
-                    console.log(err);
+                    $.each(res, function (key, value) {
+                        $("#c_city").append('<option value="' + value.id + '">' + value.name + '</option>');
+                    });
+                } else {
+                    $("#c_city").empty();
                 }
-            });
-        }
+
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+
+    }
+    $('#c_state').change(function () {
+        var sid = $(this).val();
+        citylist(sid);
+
 
     });
 
@@ -331,7 +341,6 @@
         var cid = $(this).val();
         var url = '{{ route("allstates", ":id") }}';
         url = url.replace(':id', cid);
-
         if (cid) {
             $.ajax({
                 type: 'GET',
@@ -339,50 +348,52 @@
                 success: function (res) {
                     if (res) {
                         $("#state").empty();
-
+                        if (res != '') {
+                            var stateid = res[0].id;
+                            citylist2(stateid);
+                        } else {
+                            $("#state").empty();
+                            $("#city").empty();
+                        }
                         $.each(res, function (key, value) {
                             $("#state").append('<option value="' + value.id + '">' + value.name + '</option>');
                         });
-
                     } else {
                         $("#state").empty();
                     }
-
                 },
                 error: function (err) {
                     console.log(err);
                 }
             });
         }
-
-
     });
-    $('#state').change(function () {
-        var sid = $(this).val();
+    function citylist2(sid) {
         var url = '{{ route("allcities", ":id") }}';
         url = url.replace(':id', sid);
+        $.ajax({
+            type: 'GET',
+            url: url,
+            success: function (res) {
+                if (res)
+                {
+                    $("#city").empty();
 
-        if (sid) {
-            $.ajax({
-                type: 'GET',
-                url: url,
-                success: function (res) {
-                    if (res)
-                    {
-                        $("#city").empty();
-
-                        $.each(res, function (key, value) {
-                            $("#city").append('<option value="' + value.id + '">' + value.name + '</option>');
-                        });
-                    } else {
-                        $("#city").empty();
-                    }
-                },
-                error: function (err) {
-                    console.log(err);
+                    $.each(res, function (key, value) {
+                        $("#city").append('<option value="' + value.id + '">' + value.name + '</option>');
+                    });
+                } else {
+                    $("#city").empty();
                 }
-            });
-        }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+    $('#state').change(function () {
+        var sid = $(this).val();
+        citylist2(sid);
 
     });
 </script>
