@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section("meta_page_title") Admin | Quickvote | Countries @endsection
-@section("page_title") <a href="{!! route('admin.categories') !!}" class="head-a"> Categories </a> > Add @endsection
+@section("page_title") <a href="{!! url('countries') !!}" class="head-a"> Countries </a> > Add @endsection
 @section("content")
 <div class="row justify-content-center">
     <div class="col-md-12">

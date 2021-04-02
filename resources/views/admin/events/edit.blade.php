@@ -551,7 +551,7 @@ $timezoneArray = config('constants.timezones');
                             }
 
                             var url = '{{ route("states", ":id") }}';
-                            url = url.replace(':id', stateId);
+                            url = url.replace(':id', cid);
                             var selected = '';
                             $.ajax({
                             type: 'GET',

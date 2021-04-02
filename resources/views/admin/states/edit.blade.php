@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section("meta_page_title") Admin | Quickvote | States @endsection
-@section("page_title") <a href="{!! route('admin.categories') !!}" class="head-a"> States </a> > Edit @endsection
+@section("page_title") <a href="{!! url('states') !!}" class="head-a"> States </a> > Edit @endsection
 
 
 @section("content")
