@@ -296,7 +296,7 @@ form#seachform .row > .col-md-4 {
 }
 
 .popupp .col-md-7 {
-    padding: 30px 30px 0;
+    padding: 30px;
 }
 
 p.flx {
@@ -445,6 +445,7 @@ div#navbarNavAltMarkup {
     z-index: 9;
     height: 100vh;
     background: #fde72e;
+    overflow-y: auto;
 }
 
 button.navbar-toggler {
@@ -582,9 +583,14 @@ p.dhacc.tc {
     width: calc(33.33% - 3px);
 }
 
+#login-frm-user .social-logins .col-md-12 a i {
+    margin-right: 5px;
+}
+
 .popupp .col-md-7 {
     max-width: 62%;
     flex: 0 0 62%;
+    padding: 20px;
 }
 
 .popupp .col-md-5 {
@@ -593,6 +599,26 @@ p.dhacc.tc {
 
 .popupp .col-md-12 {
     padding: 0 7px;
+}
+
+div#navbarNavAltMarkup .dropdown-menu-right {
+    right: unset;
+    left: 165px;
+    margin-top: 5px;
+}
+
+.reg-login a.dropdown-toggle {
+    display: inline-block;
+    text-align: center;
+    padding: 12px 10px;
+    top: 0;
+    width: 120px;
+    font-size: 12px;
+}
+
+.reg-login a.dropdown-toggle:focus {
+	outline: none;
+	box-shadow: none;
 }
 
 	
@@ -605,6 +631,21 @@ header {
     top: 0;
     background: #fff;
     z-index: 9;
+}
+
+}
+
+@media (max-width:767px) {
+
+#login-frm-user .social-logins .col-md-12 {
+    flex-direction: column;
+	padding: 0 15px;
+}
+
+#login-frm-user .social-logins .col-md-12 a {
+    font-size: 12px;
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 }
@@ -791,7 +832,7 @@ div#floating-search h2 {
 }
 
 .popupp .col-md-7 {
-    padding: 20px 15px 0;
+    padding: 20px 15px;
 }
 
 .form-group label {
@@ -1100,23 +1141,17 @@ button.btn.btn-primary.nletter {
     flex: 0 0 100%;
 }
 
-#login-frm-user .social-logins .col-md-12 a {
-    margin-bottom: 10px;
-}
-
-#login-frm-user .social-logins .col-md-12 {
-    flex-direction: column;
-	padding: 0 15px;
-}
-
-#login-frm-user .social-logins .col-md-12 a {
-    font-size: 12px;
-    width: 100%;
-}
-
 form#login-frm-user {
     display: inline;
 }
+
+div#navbarNavAltMarkup .dropdown-menu-right {
+    right: unset;
+    left: 165px;
+    margin-top: 5px;
+}
+
+
 
 
 }
