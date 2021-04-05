@@ -247,7 +247,7 @@
                 success: function (res) {
                     if (res) {
                         $("#state").empty();
-                        $("#state").append('<option>Select state</option>');
+                        $("#state").append('<option value="">Select state</option>');
                         $.each(res, function (key, value) {
                             $("#state").append('<option value="' + value.id + '">' + value.name + '</option>');
                         });
@@ -282,7 +282,7 @@
                     console.log('response', res);
                     if (res) {
                         $("#state").empty();
-                        $("#state").append('<option>Select state</option>');
+                        $("#state").append('<option value="">Select state</option>');
                         if (res != '') {
                             var stateid = res[0].id;
                             citylist(stateid);
@@ -321,7 +321,7 @@
                 if (res)
                 {
                     $("#city").empty();
-                    $("#city").append('<option>Select city</option>');
+                    $("#city").append('<option value="">Select city</option>');
                     $.each(res, function (key, value) {
                         $("#city").append('<option value="' + value.id + '">' + value.name + '</option>');
                     });

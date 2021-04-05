@@ -280,9 +280,6 @@ class UserController extends Controller {
         $teamMember = TeamMember::all();
         $allCategories = Categories::all();
 
-
-
-
         return view('user.pages.event', compact('countries', 'sliders', 'pageData', 'testimonials', 'services', 'banners', 'teamMember', 'allCategories', 'eventname', 'eventDate'));
     }
 
@@ -347,5 +344,4 @@ class UserController extends Controller {
 //        }
 //        return json_encode($allEvents);
 //    }
-
 }
