@@ -84,7 +84,7 @@
                         <p class="tkt">
                             <span class="tkt-name">{{$tik->name}} <span class="tkt-price">{{($tik->price)}}</span><span class="abs">{{$status}}</span> 
                                 <span class="tkt-quantity">
-                                    <input class="form-control numberOfTicket quantity" id="ticket{{$key}}" name="number[]" data-value="{{($tik->price)}}" data-amount="0" value="" type="number"></span>
+                                    <input class="form-control numberOfTicket quantity" id="ticket{{$key}}" name="number[]" data-value="{{($tik->price)}}" data-amount="0" value="" type="text"></span>
                                 <input type="hidden" name="tktId[]" value="{{($tik->id)}}" >
                                 <input type="hidden" name="evntId[]" value="{{($tik->event_id)}}" >
                                 <input type="hidden"  name="single_amount[]" value="{{($tik->price)}}" >
@@ -162,14 +162,18 @@
         </div>
     </div>
 </div>
+
 <script>
     $(".quantity").keyup(function () {
         var quantity = $(this).val();
-        if (quantity < 1) {
+        if ($.isNumeric(quantity) && quantity > 1) {
+            true;
+        } else {
             $(this).val('');
         }
     })
 </script>
+
 <script>
 
     $('.numberOfTicket').keyup(function (e) {
@@ -186,11 +190,11 @@
         var total = qty * amt;
         $(this).attr('data-amount', total);
         $('.numberOfTicket').each(function (d, f) {
-//            console.log("############",d,f)
+            //            console.log("############",d,f)
             var sum1 = $("#ticket" + d).attr("data-amount")
             sum = sum + parseInt(sum1);
         });
-//         console.log(quantity);
+        //         console.log(quantity);
         totalticketPrice = sum;
         $("#totalAmount").text(sum);
     });
@@ -253,7 +257,7 @@
                 });
                 handler.openIframe();
             } else {
-//            alert('dfjhjfd');
+                //            alert('dfjhjfd');
                 var myData = $("#ticket_form").serializeArray();
                 $.ajax({
                     type: "POST",

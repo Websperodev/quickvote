@@ -47,7 +47,7 @@
             $start_month_shot=date('m', strtotime($date));
             $start_date=date('d',strtotime($date));
             $start_year=date('Y',strtotime($date));
-           
+
             @endphp
             <div class="col-md-8 col-sm-12 edetail">
                 <div class="event-titlee">
@@ -82,7 +82,7 @@
                         <input type="hidden" id="voting_id" name="voting_id" value="{{$vote->id}}">
                         <input type="hidden" id="contestant_id" name="contestant_id" value="{{$contestants->id}}" >
                         <div class="form-group">
-                            <input type="Number" name="quantity" id="quantity" required value="" class="form-control quantity" placeholder="Enter the total number of votes you">
+                            <input type="text" name="quantity" id="quantity" required value="" class="form-control quantity" placeholder="Enter the total number of votes you">
 
                             <div class="error"><p id="quantityerror"></p></div>
 
@@ -176,7 +176,10 @@
 <script>
     $(".quantity").keyup(function () {
         var quantity = $('.quantity').val();
-        if (quantity < 1) {
+
+        if ($.isNumeric(quantity) && quantity > 1) {
+            true;
+        } else {
             $('.quantity').val('');
         }
     })
