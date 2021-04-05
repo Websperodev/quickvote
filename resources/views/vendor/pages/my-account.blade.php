@@ -221,15 +221,19 @@
 
 
 @section('script-bottom')
+  <script>
+        var country = "{{$user->country_id}}";
+        var state = "{{$user->state_id}}";
+        var city = "{{$user->city_id}}";
+
+    </script>
 <script type="text/javascript">
     $(document).ready(function () {
-
         if (country != '') {
             var cid = country;
         } else {
             var cid = 1;
         }
-
         if (state != '') {
             var stateId = state;
         } else {
@@ -240,7 +244,6 @@
         } else {
             var cityId = 1;
         }
-
         var url = '{{ route("allstates", ":id") }}';
         url = url.replace(':id', cid);
         var selected = '';
@@ -259,18 +262,14 @@
                         }
                         $("#state").append('<option ' + selected + ' value="' + value.id + '">' + value.name + '</option>');
                     });
-
                 } else {
                     $("#state").empty();
                 }
-
             },
             error: function (err) {
                 console.log(err);
             }
         });
-
-
         var cityUrl = '{{ route("allcities", ":id") }}';
         cityUrl = cityUrl.replace(':id', stateId);
         $.ajax({
@@ -290,24 +289,18 @@
                         $("#city").append('<option ' + selected + ' value="' + value.id + '">' + value.name + '</option>');
                     });
                 } else {
-
                     $("#city").empty();
                 }
-
             },
             error: function (err) {
                 console.log(err);
             }
-
         });
-
     });
-
     $('#country').change(function () {
         var cid = $(this).val();
         var url = '{{ route("allstates", ":id") }}';
         url = url.replace(':id', cid);
-
         if (cid) {
             $.ajax({
                 type: 'GET',
@@ -327,19 +320,15 @@
                         $.each(res, function (key, value) {
                             $("#state").append('<option value="' + value.id + '">' + value.name + '</option>');
                         });
-
                     } else {
                         $("#state").empty();
                     }
-
                 },
                 error: function (err) {
                     console.log(err);
                 }
             });
         }
-
-
     });
     function citylist(stateid) {
         var ctyurl = '{{ route("allcities", ":id") }}';
@@ -359,7 +348,6 @@
                 } else {
                     $("#city").empty();
                 }
-
             },
             error: function (err) {
                 console.log(err);
@@ -370,7 +358,6 @@
         var sid = $(this).val();
         citylist(sid);
     });
-
 </script>
 
 
