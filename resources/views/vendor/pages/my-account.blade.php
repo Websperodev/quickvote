@@ -223,76 +223,89 @@
 @section('script-bottom')
 <script type="text/javascript">
     $(document).ready(function () {
-        var cid = "{{ isset($userCountry) ? $userCountry:'161' }}";
-        var url = '{{ route("states", ":id") }}';
+
+        if (country != '') {
+            var cid = country;
+        } else {
+            var cid = 1;
+        }
+
+        if (state != '') {
+            var stateId = state;
+        } else {
+            var stateId = 1;
+        }
+        if (city != '') {
+            var cityId = city;
+        } else {
+            var cityId = 1;
+        }
+
+        var url = '{{ route("allstates", ":id") }}';
         url = url.replace(':id', cid);
-        console.log('cid', cid);
-        var stateId = "{{ isset($userState) ? $userState : '' }}";
-        var cityUrl = '{{ route("cities", ":id") }}';
-        cityUrl = cityUrl.replace(':id', stateId);
-        console.log('sid', stateId);
-        var cityId = "{{ isset($userCity) ? $userCity : '' }}";
         var selected = '';
+        $.ajax({
+            type: 'GET',
+            url: url,
+            success: function (res) {
+                if (res) {
+                    $("#state").empty();
+                    $("#state").append('<option>Select state</option>');
+                    $.each(res, function (key, value) {
+                        if (stateId == value.id) {
+                            selected = "selected";
+                        } else {
+                            selected = '';
+                        }
+                        $("#state").append('<option ' + selected + ' value="' + value.id + '">' + value.name + '</option>');
+                    });
 
-        if (cid) {
-            $.ajax({
-                type: 'GET',
-                url: url,
-                success: function (res) {
-                    if (res) {
-                        $("#state").empty();
-                        $.each(res, function (key, value) {
-                            if (stateId == value.id) {
-                                selected = "selected";
-                            } else {
-                                selected = '';
-                            }
-                            $("#state").append('<option ' + selected + ' value="' + value.id + '">' + value.name + '</option>');
-                        });
-
-                    } else {
-                        $("#state").empty();
-                    }
-
-                },
-                error: function (err) {
-                    console.log(err);
+                } else {
+                    $("#state").empty();
                 }
-            });
-        }
 
-        if (stateId) {
-            $.ajax({
-                type: 'GET',
-                url: cityUrl,
-                success: function (res) {
-                    if (res)
-                    {
-                        $("#city").empty();
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
 
-                        $.each(res, function (key, value) {
-                            if (cityId == value.id) {
-                                selected = "selected";
-                            } else {
-                                selected = '';
-                            }
-                            $("#city").append('<option ' + selected + ' value="' + value.id + '">' + value.name + '</option>');
-                        });
-                    } else {
-                        $("#city").empty();
-                    }
 
-                },
-                error: function (err) {
-                    console.log(err);
+        var cityUrl = '{{ route("allcities", ":id") }}';
+        cityUrl = cityUrl.replace(':id', stateId);
+        $.ajax({
+            type: 'GET',
+            url: cityUrl,
+            success: function (res) {
+                if (res)
+                {
+                    $("#city").empty();
+                    $("#city").append('<option>Select city</option>');
+                    $.each(res, function (key, value) {
+                        if (cityId == value.id) {
+                            selected = "selected";
+                        } else {
+                            selected = '';
+                        }
+                        $("#city").append('<option ' + selected + ' value="' + value.id + '">' + value.name + '</option>');
+                    });
+                } else {
+
+                    $("#city").empty();
                 }
-            });
-        }
+
+            },
+            error: function (err) {
+                console.log(err);
+            }
+
+        });
+
     });
 
     $('#country').change(function () {
         var cid = $(this).val();
-        var url = '{{ route("states", ":id") }}';
+        var url = '{{ route("allstates", ":id") }}';
         url = url.replace(':id', cid);
 
         if (cid) {
@@ -303,7 +316,14 @@
                     console.log('response', res);
                     if (res) {
                         $("#state").empty();
-                        $("#state").append('<option>Select</option>');
+                        $("#state").append('<option>Select state</option>');
+                        if (res != '') {
+                            var stateid = res[0].id;
+                            citylist(stateid);
+                        } else {
+                            $("#state").empty();
+                            $("#city").empty();
+                        }
                         $.each(res, function (key, value) {
                             $("#state").append('<option value="' + value.id + '">' + value.name + '</option>');
                         });
@@ -321,37 +341,34 @@
 
 
     });
+    function citylist(stateid) {
+        var ctyurl = '{{ route("allcities", ":id") }}';
+        ctyurl = ctyurl.replace(':id', stateid);
+        $.ajax({
+            type: 'GET',
+            url: ctyurl,
+            success: function (res) {
+                console.log('response', res);
+                if (res)
+                {
+                    $("#city").empty();
+                    $("#city").append('<option>Select city</option>');
+                    $.each(res, function (key, value) {
+                        $("#city").append('<option value="' + value.id + '">' + value.name + '</option>');
+                    });
+                } else {
+                    $("#city").empty();
+                }
+
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
     $('#state').change(function () {
         var sid = $(this).val();
-
-        var url = '{{ route("cities", ":id") }}';
-        url = url.replace(':id', sid);
-        console.log(url);
-
-        if (sid) {
-            $.ajax({
-                type: 'GET',
-                url: url,
-                success: function (res) {
-                    console.log('response', res);
-                    if (res)
-                    {
-                        $("#city").empty();
-                        $("#city").append('<option>Select City</option>');
-                        $.each(res, function (key, value) {
-                            $("#city").append('<option value="' + value.id + '">' + value.name + '</option>');
-                        });
-                    } else {
-                        $("#city").empty();
-                    }
-
-                },
-                error: function (err) {
-                    console.log(err);
-                }
-            });
-        }
-
+        citylist(sid);
     });
 
 </script>

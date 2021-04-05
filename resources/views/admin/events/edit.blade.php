@@ -527,11 +527,6 @@ $timezoneArray = config('constants.timezones');
                             });
                             }
 
-
-
-
-
-
                             $(document).ready(function() {
                             if (country != '') {
                             var cid = country;
@@ -559,6 +554,7 @@ $timezoneArray = config('constants.timezones');
                                     success: function (res) {
                                     if (res) {
                                     $("#state").empty();
+                                    $("#state").append('<option>Select state</option>');
                                     $.each(res, function (key, value) {
                                     if (stateId == value.id) {
                                     selected = "selected";
@@ -585,6 +581,7 @@ $timezoneArray = config('constants.timezones');
                                     if (res)
                                     {
                                     $("#city").empty();
+                                    $("#city").append('<option>Select city</option>');
                                     $.each(res, function (key, value) {
                                     if (cityId == value.id) {
                                     selected = "selected";
@@ -632,6 +629,7 @@ $timezoneArray = config('constants.timezones');
                                     $("#state").empty();
                                     $("#city").empty();
                                     }
+                                    $("#state").append('<option>Select state</option>');
                                     $.each(res, function (key, value) {
                                     $("#state").append('<option value="' + value.id + '">' + value.name + '</option>');
                                     });
@@ -645,8 +643,6 @@ $timezoneArray = config('constants.timezones');
                                     }
                             });
                             }
-
-
                             });
                             function citylist(stateid) {
                             var ctyurl = '{{ route("cities", ":id") }}';
@@ -659,6 +655,7 @@ $timezoneArray = config('constants.timezones');
                                     if (res)
                                     {
                                     $("#city").empty();
+                                    $("#city").append('<option>Select city</option>');
                                     $.each(res, function (key, value) {
                                     $("#city").append('<option value="' + value.id + '">' + value.name + '</option>');
                                     });
@@ -678,12 +675,6 @@ $timezoneArray = config('constants.timezones');
                             });
 
 </script>
-
 @endsection
-
-
-
 @section('script-bottom')
-
-
 @endsection

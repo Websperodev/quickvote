@@ -312,12 +312,13 @@ $timezoneArray = config('constants.timezones');
                 success: function (res) {
                     if (res) {
                         $("#state").empty();
+                        $("#state").append('<option>Select state</option>');
                         $.each(res, function (key, value) {
-                            if (stateId == value.id) {
-                                selected = "selected";
-                            } else {
-                                selected = '';
-                            }
+//                            if (stateId == value.id) {
+//                                selected = "selected";
+//                            } else {
+//                                selected = '';
+//                            }
                             $("#state").append('<option ' + selected + ' value="' + value.id + '">' + value.name + '</option>');
                         });
                     } else {
@@ -341,12 +342,13 @@ $timezoneArray = config('constants.timezones');
                     if (res)
                     {
                         $("#city").empty();
+                        $("#city").append('<option>Select city</option>');
                         $.each(res, function (key, value) {
-                            if (cityId == value.id) {
-                                selected = "selected";
-                            } else {
-                                selected = '';
-                            }
+//                            if (cityId == value.id) {
+//                                selected = "selected";
+//                            } else {
+//                                selected = '';
+//                            }
                             $("#city").append('<option ' + selected + ' value="' + value.id + '">' + value.name + '</option>');
                         });
                     } else {
@@ -469,6 +471,7 @@ $timezoneArray = config('constants.timezones');
                     console.log('response', res);
                     if (res) {
                         $("#state").empty();
+                             $("#state").append('<option>Select state</option>');
                         if (res != '') {
                             var stateid = res[0].id;
                             citylist(stateid);
@@ -503,6 +506,7 @@ $timezoneArray = config('constants.timezones');
                 if (res)
                 {
                     $("#city").empty();
+                         $("#city").append('<option>Select city</option>');
                     $.each(res, function (key, value) {
                         $("#city").append('<option value="' + value.id + '">' + value.name + '</option>');
                     });

@@ -204,6 +204,7 @@
             success: function (res) {
                 if (res) {
                     $("#state").empty();
+                    $("#state").append('<option>Select state</option>');
                     $.each(res, function (key, value) {
                         if (stateId == value.id) {
                             selected = "selected";
@@ -233,6 +234,7 @@
                 if (res)
                 {
                     $("#city").empty();
+                    $("#city").append('<option>Select city</option>');
                     $.each(res, function (key, value) {
                         if (cityId == value.id) {
                             selected = "selected";
@@ -268,6 +270,7 @@
                     console.log('response', res);
                     if (res) {
                         $("#state").empty();
+                        $("#state").append('<option>Select state</option>');
                         if (res != '') {
                             var stateid = res[0].id;
                             citylist(stateid);
@@ -303,6 +306,7 @@
                 if (res)
                 {
                     $("#city").empty();
+                    $("#city").append('<option>Select city</option>');
                     $.each(res, function (key, value) {
                         $("#city").append('<option value="' + value.id + '">' + value.name + '</option>');
                     });

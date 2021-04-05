@@ -322,11 +322,11 @@ $timezoneArray = config('constants.timezones');
         var url = '{{ route("vendor.states", ":id") }}';
 
         url = url.replace(':id', cid);
-      
+
         var stateId = 1;
         var cityUrl = '{{ route("vendor.cities", ":id") }}';
         cityUrl = cityUrl.replace(':id', stateId);
-       
+
         var cityId = 1;
         var selected = '';
 
@@ -338,13 +338,13 @@ $timezoneArray = config('constants.timezones');
                 success: function (res) {
                     if (res) {
                         $("#state").empty();
-
+                        $("#state").append('<option>Select state</option>');
                         $.each(res, function (key, value) {
-                            if (stateId == value.id) {
-                                selected = "selected";
-                            } else {
-                                selected = '';
-                            }
+//                            if (stateId == value.id) {
+//                                selected = "selected";
+//                            } else {
+//                                selected = '';
+//                            }
                             $("#state").append('<option ' + selected + ' value="' + value.id + '">' + value.name + '</option>');
                         });
                     } else {
@@ -366,12 +366,13 @@ $timezoneArray = config('constants.timezones');
                     if (res)
                     {
                         $("#city").empty();
+                        $("#city").append('<option>Select city</option>');
                         $.each(res, function (key, value) {
-                            if (cityId == value.id) {
-                                selected = "selected";
-                            } else {
-                                selected = '';
-                            }
+//                            if (cityId == value.id) {
+//                                selected = "selected";
+//                            } else {
+//                                selected = '';
+//                            }
                             $("#city").append('<option ' + selected + ' value="' + value.id + '">' + value.name + '</option>');
                         });
                     } else {
@@ -491,7 +492,8 @@ $timezoneArray = config('constants.timezones');
                     console.log('response', res);
                     if (res) {
                         $("#state").empty();
-                       if (res != '') {
+                        $("#state").append('<option>Select state</option>');
+                        if (res != '') {
                             var stateid = res[0].id;
                             citylist(stateid);
                         } else {
@@ -512,10 +514,10 @@ $timezoneArray = config('constants.timezones');
             });
         }
     });
-    
-    
-    
-     function citylist(stateid) {
+
+
+
+    function citylist(stateid) {
         var ctyurl = '{{ route("vendor.cities", ":id") }}';
         ctyurl = ctyurl.replace(':id', stateid);
         $.ajax({
@@ -526,6 +528,7 @@ $timezoneArray = config('constants.timezones');
                 if (res)
                 {
                     $("#city").empty();
+                    $("#city").append('<option>Select city</option>');
                     $.each(res, function (key, value) {
                         $("#city").append('<option value="' + value.id + '">' + value.name + '</option>');
                     });
@@ -543,9 +546,6 @@ $timezoneArray = config('constants.timezones');
         var sid = $(this).val();
         citylist(sid);
     });
-    
-    
-    
 
 </script>
 <script>
@@ -554,14 +554,6 @@ $timezoneArray = config('constants.timezones');
 
         getsubcategories(cid);
     });
-
-
-
-
-
-
-
-
     $(".datepicker_init").datetimepicker({
         format: 'm/d/Y H:i'
     });

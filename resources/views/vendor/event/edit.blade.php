@@ -338,7 +338,7 @@ $timezoneArray = config('constants.timezones');
 <!--<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>-->
 <script src="{{url('assets/ckeditor/ckeditor.js')}}"></script>
 <script>
-                           $(document).ready(function() {
+                            $(document).ready(function() {
                             if (country != '') {
                             var cid = country;
                             } else {
@@ -365,6 +365,7 @@ $timezoneArray = config('constants.timezones');
                                     success: function (res) {
                                     if (res) {
                                     $("#state").empty();
+                                    $("#state").append('<option>Select state</option>');
                                     $.each(res, function (key, value) {
                                     if (stateId == value.id) {
                                     selected = "selected";
@@ -391,6 +392,7 @@ $timezoneArray = config('constants.timezones');
                                     if (res)
                                     {
                                     $("#city").empty();
+                                    $("#city").append('<option>Select city</option>');
                                     $.each(res, function (key, value) {
                                     if (cityId == value.id) {
                                     selected = "selected";
@@ -423,6 +425,7 @@ $timezoneArray = config('constants.timezones');
                                     console.log('response', res);
                                     if (res) {
                                     $("#state").empty();
+                                    $("#state").append('<option>Select state</option>');
                                     if (res != '') {
                                     var stateid = res[0].id;
                                     citylist(stateid);
@@ -454,6 +457,7 @@ $timezoneArray = config('constants.timezones');
                                     if (res)
                                     {
                                     $("#city").empty();
+                                    $("#city").append('<option>Select city</option>');
                                     $.each(res, function (key, value) {
                                     $("#city").append('<option value="' + value.id + '">' + value.name + '</option>');
                                     });
