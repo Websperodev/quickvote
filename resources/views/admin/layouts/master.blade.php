@@ -32,11 +32,11 @@
             </div>
             <div class="container">
                <!-- Navigation Bar-->
-                <div class="left-sidebar-back" >
+                <div id="sidebar" class="left-sidebar-back" >
                    @include('admin.layouts.nav-horizontal') 
                 </div>
                 <!-- End Navigation Bar-->
-                <div class="right-cont-section">
+                <div id="main-area" class="right-cont-section">
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box">
