@@ -72,8 +72,11 @@ button.swal2-confirm{
 /*================================== admin css ========================*/
 .left-sidebar-back {
     float: left;
-    width: 22%;
-    background: #333;
+    width: 250px;
+    background: #1f1f1f;
+    position: fixed;
+    top: 70px;
+    bottom: 0;
 }
 .navigation-menu > li {
     float: left;
@@ -83,8 +86,8 @@ button.swal2-confirm{
 
 .right-cont-section {
     float: left;
-    width: 78%;
-    margin-left: 0;
+    width: calc(100% - 250px);
+    margin-left: 250px;
 }
 .footer {
     bottom: 0;
@@ -293,6 +296,217 @@ form.custum-frm .btn-right.submit-btn {
     color: #111;
     right: 15px;
 }
+
+/**************************************5-Apr-2021*************************************/
+
+.right-cont-section > .row {
+    margin: 0;
+}
+
+.right-cont-section > .row > .col-12 {
+    max-width: 1080px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.widget-rounded-circle.card-box .col-6 .text-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: #1f1f1f;
+    width: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.widget-rounded-circle.card-box {
+    padding: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.widget-rounded-circle.card-box .row {
+    margin: 0;
+}
+
+.widget-rounded-circle.card-box .col-6 {
+    padding: 25px 20px;
+}
+
+.widget-rounded-circle.card-box .col-6 .text-right * {
+    color: #fff !important;
+    opacity: 1 !important;
+}
+
+.right-cont-section {
+    padding-top: 20px;
+}
+
+.right-cont-section .page-title-box .page-title {
+    margin: 0;
+    padding: 0px 0 0px;
+}
+
+.dashbrd.wrapper.full-width .content-area {
+    min-height: calc(100vh - 130px);
+}
+
+.widget-rounded-circle.card-box .col-6 .avatar-lg i {
+    color: #fff !important;
+    font-size: 36px !important;
+}
+
+.widget-rounded-circle.card-box .bg-soft-danger {
+    background: #f1556c;
+}
+
+.widget-rounded-circle.card-box:hover .bg-soft-danger {
+    background: #fff;
+    transition: all ease 0.5s;
+    transition-delay: 0.5s;
+}
+
+.widget-rounded-circle.card-box:hover .bg-soft-danger i {
+    color: #f1556c !important;
+    transition: all ease 0.5s;
+    transition-delay: 0.5s;
+}
+
+.widget-rounded-circle.card-box .bg-soft-success {
+    background-color: #1abc9c;
+}
+
+.widget-rounded-circle.card-box:hover .bg-soft-success {
+    background: #fff;
+    transition: all ease 0.5s;
+    transition-delay: 0.5s;
+}
+
+.widget-rounded-circle.card-box:hover .bg-soft-success i {
+    color: #1abc9c !important;
+    transition: all ease 0.5s;
+    transition-delay: 0.5s;
+}
+
+.widget-rounded-circle.card-box .bg-soft-primary {
+    background-color: #6658dd;
+}
+
+.widget-rounded-circle.card-box:hover .bg-soft-primary {
+    background: #fff;
+    transition: all ease 0.5s;
+    transition-delay: 0.5s;
+}
+
+.widget-rounded-circle.card-box:hover .bg-soft-primary i {
+    color: #6658dd !important;
+    transition: all ease 0.5s;
+    transition-delay: 0.5s;
+}
+
+.widget-rounded-circle.card-box .bg-soft-info {
+    background-color: #4fc6e1;
+}
+
+.widget-rounded-circle.card-box:hover .bg-soft-info {
+    background: #fff;
+    transition: all ease 0.5s;
+    transition-delay: 0.5s;
+}
+
+.widget-rounded-circle.card-box:hover .bg-soft-info i {
+    color: #4fc6e1 !important;
+    transition: all ease 0.5s;
+    transition-delay: 0.5s;
+}
+
+.card-box.avatar-lg {
+    height: 6rem;
+    width: 6rem;
+}
+
+.card1 .widget-rounded-circle.card-box:before {
+    content: "";
+    width: 101%;
+    height: 101%;
+    right: -101%;
+    background: #f1556c;
+    display: block;
+    position: absolute;
+    top: 0;
+    transition: all ease 0.5s;
+}
+
+.card2 .widget-rounded-circle.card-box:before {
+    content: "";
+    width: 101%;
+    height: 101%;
+    right: -101%;
+    background: #1abc9c;
+    display: block;
+    position: absolute;
+    top: 0;
+    transition: all ease 0.5s;
+}
+
+.card3 .widget-rounded-circle.card-box:before {
+    content: "";
+    width: 101%;
+    height: 101%;
+    right: -101%;
+    background: #6658dd;
+    display: block;
+    position: absolute;
+    top: 0;
+    transition: all ease 0.5s;
+}
+
+.card4 .widget-rounded-circle.card-box:before {
+    content: "";
+    width: 101%;
+    height: 101%;
+    right: -101%;
+    background: #4fc6e1;
+    display: block;
+    position: absolute;
+    top: 0;
+    transition: all ease 0.5s;
+}
+
+.card1 .widget-rounded-circle.card-box:hover:before, .card2 .widget-rounded-circle.card-box:hover:before, .card3 .widget-rounded-circle.card-box:hover:before, .card4 .widget-rounded-circle.card-box:hover:before {
+    right: 0;
+}
+
+.card-box .row {
+    margin: 0;
+}
+
+.card-box .avatar-lg {
+    height: 6rem;
+    width: 6rem;
+}
+
+ul.navigation-menu.in li:hover, ul.navigation-menu.in li.active {
+    border-left: 2px solid #fff;
+}
+
+ul.navigation-menu.in li {
+    border-left: 2px solid #0000;
+    margin-bottom: 5px;
+}
+
+ul.navigation-menu.in li a {
+    padding: 12px 20px;
+}
+
+
+
+
+
 
 /*====================== Responsive Css ==========================*/
 @media(max-width: 991px){

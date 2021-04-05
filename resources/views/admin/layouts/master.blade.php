@@ -16,7 +16,7 @@
 
     <body>
 
-    <header id="topnav">
+    <header class="admin-panel-header" id="topnav">
         @include('admin.layouts.topbar')
             <div class="desk">
         @include('admin.layouts.nav-horizontal') 
@@ -26,11 +26,11 @@
         <!-- ============================================================== -->
         <!-- Start Page Content here -->
         <!-- ============================================================== -->
-        <div class="wrapper full-width">
+        <div class="dashbrd wrapper full-width">
             <div id="full_page_loader" class="loader_wrapper d-none ">
                 <div class="spinner-border avatar-lg text-primary m-2" role="status"></div>
             </div>
-            <div class="container">
+            <div class="content-area container">
                <!-- Navigation Bar-->
                 <div id="sidebar" class="left-sidebar-back" >
                    @include('admin.layouts.nav-horizontal') 

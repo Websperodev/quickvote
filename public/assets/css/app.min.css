@@ -5244,3 +5244,7 @@ form#storeCategory .form-group .form-control, .bootstrap-select .dropdown-menu l
 body.modal-open{
   padding-right: 0 !important;
 }
+
+.admin-panel-header .navbar-custom {
+    background-color: #1f1f1f;
+}

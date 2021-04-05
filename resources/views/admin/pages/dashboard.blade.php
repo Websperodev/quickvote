@@ -8,7 +8,7 @@
 <div class="row">
     <div class="col-md-12 col-12">
     	<div class="row">
-    		<div class="col-sm-6 col-12">
+    		<div class="col-sm-6 col-12 card1">
     			<div class="widget-rounded-circle card-box">
 		            <a href="#">
 			           	 <div class="row">
@@ -27,7 +27,7 @@
 		            </a>
 		        </div>
     		</div>
-    		<div class="col-sm-6 col-12">
+    		<div class="col-sm-6 col-12 card2">
     			<div class="widget-rounded-circle card-box">
     				<a href="#">
 			            <div class="row">
@@ -46,7 +46,7 @@
 		        	</a>
 		        </div>
     		</div>
-    		<div class="col-sm-6 col-12">
+    		<div class="col-sm-6 col-12 card3">
     			<div class="widget-rounded-circle card-box">
     				<a href="#">
 			            <div class="row">
@@ -65,7 +65,7 @@
 		        	</a>
 		        </div>
     		</div>
-    		<div class="col-sm-6 col-12">
+    		<div class="col-sm-6 col-12 card4">
     			<div class="widget-rounded-circle card-box">
     				<a href="#">
 			            <div class="row">
