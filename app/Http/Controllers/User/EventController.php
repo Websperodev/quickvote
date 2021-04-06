@@ -66,7 +66,7 @@ class EventController extends Controller {
         if (!empty($event)) {
             $sugstEvent = Event::with('tickets')->where('end_date', '>', $date)->where('category_id', $event->category_id)->where('id', '!=', $event->id)->limit(3)->get()->toArray();
             $ticket = Ticket::where('event_id', $event->id)->get();
-            return view('user.events.events', compact('event', 'userStatus', 'sugstEvent', 'ticket', 'crruntDate', 'search', 'sliders', 'testimonials', 'services', 'banners'));
+            return view('user.events.events', compact('event', 'userStatus', 'sugstEvent', 'ticket', 'crruntDate', 'sliders', 'testimonials', 'services', 'banners'));
         } else {
             
         }
