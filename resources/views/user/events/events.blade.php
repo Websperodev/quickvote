@@ -76,17 +76,21 @@
 
                         if($endDt >= $currtDt){
                         $status='';
-                        $disabled='';
+
                         }else{
                         $status='Closed';
-                        $disabled='disabled';
+
                         }
                         @endphp
 
                         <p class="tkt">
                             <span class="tkt-name">{{$tik->name}} <span class="tkt-price">{{($tik->price)}}</span><span class="abs">{{$status}}</span> 
                                 <span class="tkt-quantity">
-                                    <input class="form-control numberOfTicket quantity" id="ticket{{$key}}" name="number[]" {{$disabled}} data-value="{{($tik->price)}}" data-amount="0" value="" type="text"></span>
+                                    @php
+                                    if($status!='Closed'){
+                                    <input class="form-control numberOfTicket quantity" id="ticket{{$key}}" name="number[]"  data-value="{{($tik->price)}}" data-amount="0" value="" type="text">
+
+                                    }@endphp</span>
                                 <input type="hidden" name="tktId[]" value="{{($tik->id)}}" >
                                 <input type="hidden" name="evntId[]" value="{{($tik->event_id)}}" >
                                 <input type="hidden"  name="single_amount[]" value="{{($tik->price)}}" >
