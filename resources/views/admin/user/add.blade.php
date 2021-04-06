@@ -84,7 +84,7 @@
                     <div class="row">
                         <div class="col-md-6 form-group cus-form-group">
                             <label for="email">Password <span class="required_field required_red">*</span></label>
-                            <input type="text"  class="form-control" name="password" id="password" aria-describedby="emailHelp" placeholder="Enter Password">
+                            <input type="password"  class="form-control" name="password" id="password" aria-describedby="emailHelp" placeholder="Enter Password">
                             @if($errors->has('password'))
                             <div class="error">{{ $errors->first('password') }}</div>
                             @endif

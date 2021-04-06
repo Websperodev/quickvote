@@ -77,6 +77,8 @@ button.swal2-confirm{
     position: fixed;
     top: 70px;
     bottom: 0;
+	left: -250px;
+    transition: all ease 0.5s;
 }
 .navigation-menu > li {
     float: left;
@@ -86,8 +88,9 @@ button.swal2-confirm{
 
 .right-cont-section {
     float: left;
-    width: calc(100% - 250px);
-    margin-left: 250px;
+    width: 100%;
+    margin-left: 0;
+    transition: all ease 0.5s;
 }
 .footer {
     bottom: 0;
@@ -303,7 +306,7 @@ form.custum-frm .btn-right.submit-btn {
     margin: 0;
 }
 
-.right-cont-section > .row > .col-12 {
+.right-cont-section > .row > .col-12, .right-cont-section > .row > .col-md-12 {
     max-width: 1080px;
     margin: 0 auto;
     width: 100%;
@@ -503,8 +506,21 @@ ul.navigation-menu.in li a {
     padding: 12px 20px;
 }
 
+.left-sidebar-back.open {
+    left: 0;
+}
 
+.left-sidebar-back.open + .right-cont-section {
+    margin-left: 250px;
+}
 
+.left-sidebar-back.open + .right-cont-section {
+    margin-left: 250px;
+}
+
+.dashbrd .arrow-down {
+    top: 13px;
+}
 
 
 

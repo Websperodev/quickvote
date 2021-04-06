@@ -64,6 +64,21 @@
                 </span>
             </a>
         </div>
+		
+		<div class="sidenav-btnn">
+		  <button class="hamburger">
+			<span></span>
+			<span></span>
+			<span></span>
+		  </button>
+		  
+		  <script>
+			$("button.hamburger").click(function(){
+			  $(this).toggleClass("is-open");
+			  $('.dashbrd #sidebar').toggleClass('open')
+			});
+		  </script>
+		</div>
     </div> <!-- end container-fluid-->
 </div>
 <!-- end Topbar-->

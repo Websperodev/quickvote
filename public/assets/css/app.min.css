@@ -569,6 +569,7 @@ Responsive Menu
   height: 70px;
   float: left;
   padding-right: 40px;
+  min-width: 238px;
 }
 
 .navbar-custom {
@@ -5247,4 +5248,44 @@ body.modal-open{
 
 .admin-panel-header .navbar-custom {
     background-color: #1f1f1f;
+}
+
+.sidenav-btnn {
+    display: inline-block;
+    position: relative;
+    top: 24px;
+}
+
+button.hamburger {
+    background: none;
+    border: none;
+}
+
+button.hamburger span {
+    width: 25px;
+    height: 2px;
+    display: block;
+    background: #fff;
+    margin-bottom: 7px;
+    position: relative;
+    transition: all ease 0.5s;
+}
+
+button.hamburger span:last-child {
+    margin-bottom: 0;
+}
+
+button.hamburger.is-open span:nth-child(2) {
+    opacity: 0;
+    transition: all ease 0s;
+}
+
+button.hamburger.is-open span:nth-child(1) {
+    transform: rotate(45deg);
+    top: 9px;
+}
+
+button.hamburger.is-open span:nth-child(3) {
+    transform: rotate(-45deg);
+    top: -9px;
 }
