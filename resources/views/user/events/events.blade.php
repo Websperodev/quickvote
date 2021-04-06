@@ -201,10 +201,26 @@
         $('.numberOfTicket').each(function (d, f) {
             //            console.log("############",d,f)
             var sum1 = $("#ticket" + d).attr("data-amount")
-           totltktqty = $("#ticket" + d).val()
-            totltktqty = totltktqty + parseInt(totltktqty);
-            
+            var checksum = isNaN(sum1);
+            if (checksum != false) {
+                sum1 = 0;
+            } else if (typeof (sum1) == 'undefined') {
+                sum1 = 0;
+            }
+
             sum = sum + parseInt(sum1);
+
+            var totltktq = $("#ticket" + d).val();
+            var checknun = isNaN(totltktq);
+            if (checknun != false) {
+                totltktq = 0;
+            } else if (typeof (totltktq) == 'undefined') {
+                totltktq = 0;
+            }
+
+            totltktqty = totltktqty + parseInt(totltktq);
+
+
         });
         //         console.log(quantity);
         totalticketPrice = sum;
@@ -215,7 +231,7 @@
         var url = "{{url('event-tickets-buy')}}";
         var amount = totalticketPrice;
         if (totltktqty > 0) {
-             $('.errortktqty').text('');
+            $('.errortktqty').text('');
             if (userStats == 'yes') {
 
                 if (amount && amount != '') {
