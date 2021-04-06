@@ -177,7 +177,7 @@
     $(".quantity").keyup(function () {
         var quantity = $('.quantity').val();
 
-        if ($.isNumeric(quantity) && quantity > 1) {
+        if ($.isNumeric(quantity) && quantity > 0) {
             true;
         } else {
             $('.quantity').val('');
@@ -211,8 +211,6 @@
                 var phoneno = /^[0-9]+$/;
                 if (phone.match(phoneno)) {
                     if (checkuserAndPayType() && res != '3') {
-
-
                         var handler = PaystackPop.setup({
                             key: 'pk_test_402e4abb808a62fc2ba080d79887f256cb5c574a',
                             email: email,
@@ -328,13 +326,30 @@
                 $('#emailerror').text(emailtext);
             }
         } else {
-            Swal.fire({
-                title: 'Warning',
-                text: 'Please fill all input fields!',
-                type: 'warning',
-                confirmButtonText: 'Close',
-                showConfirmButton: true
-            })
+            if (!$('#quantity').val()) {
+                var quantityerror = 'Your quantity field is required!';
+                $('#quantityerror').text(quantityerror);
+            } else {
+                $('#quantityerror').text('');
+            }
+            if (!$('#name').val()) {
+                var nameerror = 'Your name field is required!';
+                $('#nameerror').text(nameerror);
+            } else {
+                $('#nameerror').text('');
+            }
+            if (!$('#phone').val()) {
+                var phonetext = 'Your phone field is required!';
+                $('#phoneerror').text(phonetext);
+            } else {
+                $('#phoneerror').text('');
+            }
+            if (!$('#email').val()) {
+                var emailtext = 'Your email field is required!';
+                $('#emailerror').text(emailtext);
+            } else {
+                $('#emailerror').text('');
+            }
         }
     }
 </script>

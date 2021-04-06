@@ -166,7 +166,7 @@
 <script>
     $(".quantity").keyup(function () {
         var quantity = $(this).val();
-        if ($.isNumeric(quantity) && quantity > 1) {
+        if ($.isNumeric(quantity) && quantity > 0) {
             true;
         } else {
             $(this).val('');
