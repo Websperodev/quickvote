@@ -67,36 +67,37 @@
                     </script>
                     <!--<form id="ticket_form" action="{{route('tickets.buy')}}" method="post">-->
                     <form id="ticket_form"  method="post">
-                        <script src="https://js.paystack.co/v1/inline.js"></script>
-                        @csrf
-                        @foreach($ticket as $key=>$tik)
-                        @php 
-                        $endDt=strtotime($tik->end_date);
-                        $currtDt=strtotime($crruntDate);
+                        <p style="color:red" class="errortktqty">
+                            <script src="https://js.paystack.co/v1/inline.js"></script>
+                            @csrf
+                            @foreach($ticket as $key=>$tik)
+                            @php 
+                            $endDt=strtotime($tik->end_date);
+                            $currtDt=strtotime($crruntDate);
 
-                        if($endDt >= $currtDt){
-                        $status='';
+                            if($endDt >= $currtDt){
+                            $status='';
 
-                        }else{
-                        $status='Closed';
+                            }else{
+                            $status='Closed';
 
-                        }
-                        @endphp
+                            }
+                            @endphp
 
                         <p class="tkt">
                             <span class="tkt-name">{{$tik->name}} <span class="tkt-price">{{($tik->price)}}</span><span class="abs">{{$status}}</span> 
-                               
+
                                 @if($status != 'Closed')
                                 <span class="tkt-quantity">
-                                    <input class="form-control numberOfTicket quantity" id="ticket{{$key}}" name="number[]"  data-value="{{($tik->price)}}" data-amount="0" value="" type="text">
-                                    @endif
+                                    <input class="form-control numberOfTicket quantity" id="ticket{{$key}}" name="number[]"  data-value="{{($tik->price)}}" data-amount="0" value="0" type="text">
+
                                 </span>
-                               
+
                                 <input type="hidden" name="tktId[]" value="{{($tik->id)}}" >
                                 <input type="hidden" name="evntId[]" value="{{($tik->event_id)}}" >
                                 <input type="hidden"  name="single_amount[]" value="{{($tik->price)}}" >
                                 <input type="hidden"  name="type[]" value="{{($tik->type)}}" >
-
+                                @endif
                                 </p>
                                 @endforeach
                                 <input type="hidden" class="totalAmount" name="total_amount" value="" >
@@ -171,6 +172,7 @@
 </div>
 
 <script>
+    var totltktqty = 0;
     $(".quantity").keyup(function () {
         var quantity = $(this).val();
         if ($.isNumeric(quantity) && quantity > 0) {
@@ -199,6 +201,9 @@
         $('.numberOfTicket').each(function (d, f) {
             //            console.log("############",d,f)
             var sum1 = $("#ticket" + d).attr("data-amount")
+           totltktqty = $("#ticket" + d).val()
+            totltktqty = totltktqty + parseInt(totltktqty);
+            
             sum = sum + parseInt(sum1);
         });
         //         console.log(quantity);
@@ -209,94 +214,98 @@
 
         var url = "{{url('event-tickets-buy')}}";
         var amount = totalticketPrice;
-        if (userStats == 'yes') {
+        if (totltktqty > 0) {
+             $('.errortktqty').text('');
+            if (userStats == 'yes') {
 
-
-            if (amount && amount != '') {
-                var handler = PaystackPop.setup({
-                    key: 'pk_test_402e4abb808a62fc2ba080d79887f256cb5c574a',
-                    email: 'dilpreet@webspero.com',
-                    amount: amount * 100,
-                    ref: '' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-                    metadata: {
-                        custom_fields: [
-                            {
-                                display_name: "Mobile Number",
-                                variable_name: "mobile_number",
-                                value: "+2348012345678"
-                            }
-                        ]
-                    },
-                    callback: function (response) {
-                        $('#reference').val(response.reference);
-                        $('#trans').val(response.trans);
-                        $('#status').val(response.status);
-                        $('#transaction').val(response.transaction);
-                        var myData = $("#ticket_form").serializeArray();
-                        $.ajax({
-                            url: url,
-                            type: "post",
-                            data: myData,
-                            success: function (res) {
-                                if (res.status == 1) {
-                                    Swal.fire({
-                                        type: 'Success',
-                                        title: 'Success!',
-                                        text: res.message,
-                                        confirmButtonClass: 'btn btn-confirm mt-2',
-                                    });
-                                } else {
-                                    Swal.fire({
-                                        type: 'error',
-                                        title: 'Error!',
-                                        text: 'You cannot buy event tickets',
-                                        confirmButtonClass: 'btn btn-confirm mt-2',
-                                    });
+                if (amount && amount != '') {
+                    var handler = PaystackPop.setup({
+                        key: 'pk_test_402e4abb808a62fc2ba080d79887f256cb5c574a',
+                        email: 'dilpreet@webspero.com',
+                        amount: amount * 100,
+                        ref: '' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+                        metadata: {
+                            custom_fields: [
+                                {
+                                    display_name: "Mobile Number",
+                                    variable_name: "mobile_number",
+                                    value: "+2348012345678"
                                 }
-                            },
-                            error: function (jqXHR, textStatus, errorThrown) {
-                                console.log(textStatus, errorThrown);
-                            }
-                        });
-                    },
-                    onClose: function () {
-                    }
-                });
-                handler.openIframe();
-            } else {
-                //            alert('dfjhjfd');
-                var myData = $("#ticket_form").serializeArray();
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: myData,
-                    dataType: "json",
-                    success: (function (success) {
-                        if (success.status == 1) {
-                            Swal.fire({
-                                type: 'Success',
-                                title: 'Success!',
-                                text: success.message,
-                                confirmButtonClass: 'btn btn-confirm mt-2',
+                            ]
+                        },
+                        callback: function (response) {
+                            $('#reference').val(response.reference);
+                            $('#trans').val(response.trans);
+                            $('#status').val(response.status);
+                            $('#transaction').val(response.transaction);
+                            var myData = $("#ticket_form").serializeArray();
+                            $.ajax({
+                                url: url,
+                                type: "post",
+                                data: myData,
+                                success: function (res) {
+                                    if (res.status == 1) {
+                                        Swal.fire({
+                                            type: 'Success',
+                                            title: 'Success!',
+                                            text: res.message,
+                                            confirmButtonClass: 'btn btn-confirm mt-2',
+                                        });
+                                    } else {
+                                        Swal.fire({
+                                            type: 'error',
+                                            title: 'Error!',
+                                            text: 'You cannot buy event tickets',
+                                            confirmButtonClass: 'btn btn-confirm mt-2',
+                                        });
+                                    }
+                                },
+                                error: function (jqXHR, textStatus, errorThrown) {
+                                    console.log(textStatus, errorThrown);
+                                }
                             });
-                        } else {
-                            Swal.fire({
-                                type: 'error',
-                                title: 'Error!',
-                                text: 'You cannot buy event tickets',
-                                confirmButtonClass: 'btn btn-confirm mt-2',
-                            });
+                        },
+                        onClose: function () {
                         }
-                    })
+                    });
+                    handler.openIframe();
+                } else {
+                    //            alert('dfjhjfd');
+                    var myData = $("#ticket_form").serializeArray();
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: myData,
+                        dataType: "json",
+                        success: (function (success) {
+                            if (success.status == 1) {
+                                Swal.fire({
+                                    type: 'Success',
+                                    title: 'Success!',
+                                    text: success.message,
+                                    confirmButtonClass: 'btn btn-confirm mt-2',
+                                });
+                            } else {
+                                Swal.fire({
+                                    type: 'error',
+                                    title: 'Error!',
+                                    text: 'You cannot buy event tickets',
+                                    confirmButtonClass: 'btn btn-confirm mt-2',
+                                });
+                            }
+                        })
+                    });
+                }
+            } else {
+                Swal.fire({
+                    type: 'error',
+                    title: 'Error!',
+                    text: 'You have to login then can be buy the tickets',
+                    confirmButtonClass: 'btn btn-confirm mt-2',
                 });
             }
         } else {
-            Swal.fire({
-                type: 'error',
-                title: 'Error!',
-                text: 'You have to login then can be buy the tickets',
-                confirmButtonClass: 'btn btn-confirm mt-2',
-            });
+            $('.errortktqty').text('Please enter ticket quinty');
         }
     }
 </script>

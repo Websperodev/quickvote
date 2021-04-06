@@ -32,8 +32,7 @@
                 <p class="sub-header">View and manage account users on this page.</p>
                 <table id="users-table" class="table table-hover m-0 table-centered dt-responsive nowrap w-100">
                     <thead>
-                        <tr>
-                           
+                        <tr>                          
                             <th>Contestant</th>
                             <th>Vote</th>
                             <th>Name</th>

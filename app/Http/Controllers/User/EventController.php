@@ -35,6 +35,7 @@ class EventController extends Controller {
 //        $this->middleware('auth');
 //    }
     function view(Request $request, $id) {
+          $user = Auth::user();
         $mytime = Carbon::now();
         $date = $mytime->toDateString();
         $event = Event::with('country')->where('end_date', '>', $date)->find($id);
@@ -58,10 +59,13 @@ class EventController extends Controller {
             $banners = $aboutBanner;
         }
         $crruntDate = $date;
+      
         if (!empty($user) && $user->id != '') {
+         
             $userStatus = "yes";
         } else {
             $userStatus = "no";
+        
         }
         if (!empty($event)) {
             $sugstEvent = Event::with('tickets')->where('end_date', '>', $date)->where('category_id', $event->category_id)->where('id', '!=', $event->id)->limit(3)->get()->toArray();
