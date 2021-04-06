@@ -14,6 +14,8 @@ use DB;
 use App\Models\Slider;
 use App\Models\EventTicketsPayments;
 use App\Models\Testimonial;
+use App\Models\Service;
+use App\Models\Banner;
 use App\Models\PricingPlans;
 use App\Models\buyTicketsDetails;
 use Paystack;
@@ -36,9 +38,25 @@ class EventController extends Controller {
         $mytime = Carbon::now();
         $date = $mytime->toDateString();
         $event = Event::with('country')->where('end_date', '>', $date)->find($id);
+        $testimonials = Testimonial::all();
         $inArray = ['home', 'trusted brands'];
         $slider = Slider::whereIn('name', $inArray)->get();
-        $testimonials = Testimonial::all();
+        if ($slider->count() > 0) {
+            foreach ($slider as $val) {
+                $sliders[$val->name][] = $val;
+            }
+        }
+        $allServices = Service::get();
+        if ($allServices->count() > 0) {
+            foreach ($allServices as $val) {
+                $services[$val->type][] = $val;
+            }
+        }
+
+        $aboutBanner = Banner::where('page', 'aboutus')->first();
+        if (!empty($aboutBanner)) {
+            $banners = $aboutBanner;
+        }
         $crruntDate = $date;
         if (!empty($user) && $user->id != '') {
             $userStatus = "yes";
@@ -48,7 +66,7 @@ class EventController extends Controller {
         if (!empty($event)) {
             $sugstEvent = Event::with('tickets')->where('end_date', '>', $date)->where('category_id', $event->category_id)->where('id', '!=', $event->id)->limit(3)->get()->toArray();
             $ticket = Ticket::where('event_id', $event->id)->get();
-            return view('user.events.events', compact('event', 'userStatus', 'sugstEvent', 'ticket', 'crruntDate', 'slider', 'testimonials'));
+            return view('user.events.events', compact('event', 'userStatus', 'sugstEvent', 'ticket', 'crruntDate', 'search', 'sliders', 'testimonials', 'services', 'banners'));
         } else {
             
         }

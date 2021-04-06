@@ -17,6 +17,8 @@ use Yajra\Datatables\Datatables;
 use App\Models\Slider;
 use App\Models\Testimonial;
 use App\Models\PricingPlans;
+use App\Models\Service;
+use App\Models\Banner;
 
 class CategoriesController extends Controller {
 
@@ -44,10 +46,25 @@ class CategoriesController extends Controller {
                     ->groupBy('categories.id')
                     ->get();
         }
-        $inArray = ['home', 'trusted brands'];
-        $slider = Slider::whereIn('name', $inArray)->get();
+        $inArray = ['Categories', 'trusted brands'];
+      $slider = Slider::whereIn('name', $inArray)->get();
+        if ($slider->count() > 0) {
+            foreach ($slider as $val) {
+                $sliders[$val->name][] = $val;
+            }
+        }
+        $allServices = Service::get();
+        if ($allServices->count() > 0) {
+            foreach ($allServices as $val) {
+                $services[$val->type][] = $val;
+            }
+        }
         $testimonials = Testimonial::all();
-        return view('user.categories.list', compact('categories', 'slider', 'search', 'testimonials'));
+        $aboutBanner = Banner::where('page', 'aboutus')->first();
+        if (!empty($aboutBanner)) {
+            $banners = $aboutBanner;
+        }
+        return view('user.categories.list', compact('categories', 'sliders', 'search', 'testimonials', 'services', 'banners'));
     }
 
 }

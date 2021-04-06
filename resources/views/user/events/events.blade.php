@@ -293,7 +293,7 @@
         }
     }
 </script>
-@include('user.components.newsletter')
-@include('user.components.trusted-brands')
+
+ @include('user.components.trusted-brands')
 
 @endsection

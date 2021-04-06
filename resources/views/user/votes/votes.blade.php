@@ -75,6 +75,5 @@
         </div>
     </div>
 </div>   
-@include('user.components.newsletter')
-@include('user.components.trusted-brands')
+ @include('user.components.trusted-brands')
 @endsection

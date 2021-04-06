@@ -29,8 +29,13 @@ class ContestantsController extends Controller {
         $mytime = Carbon::now();
         $date = $mytime->toDateString();
         $voting = Votingcontest::where('id', $vId)->first();
-        $inArray = ['home', 'trusted brands'];
-        $slider = Slider::whereIn('name', $inArray)->get();
+        $inArray = ['Contestants', 'trusted brands'];
+         $slider = Slider::whereIn('name', $inArray)->get();
+        if ($slider->count() > 0) {
+            foreach ($slider as $val) {
+                $sliders[$val->name][] = $val;
+            }
+        }
         $testimonials = Testimonial::all();
         $constnt_id = '';
         $contestants = [];
@@ -63,7 +68,7 @@ class ContestantsController extends Controller {
 
             $voting_contest = Votingcontest::where('closing_date', '>', $date)->where('category_id', $voting->category_id)->limit(3)->get();
 
-            return view('user.contestants.list', compact('voting', 'contestants', 'voting_contest', 'constnt_id', 'allContestants', 'slider', 'testimonials'));
+            return view('user.contestants.list', compact('voting', 'contestants', 'voting_contest', 'constnt_id', 'allContestants', 'sliders', 'testimonials'));
         }
 
 //        echo '<pre>';
@@ -80,7 +85,13 @@ class ContestantsController extends Controller {
 //        echo '<pre>';
 //        print_r($contestants); die;
         $inArray = ['home', 'trusted brands'];
-        $slider = Slider::whereIn('name', $inArray)->get();
+         $inArray = ['Contestants', 'trusted brands'];
+         $slider = Slider::whereIn('name', $inArray)->get();
+        if ($slider->count() > 0) {
+            foreach ($slider as $val) {
+                $sliders[$val->name][] = $val;
+            }
+        }
         $testimonials = Testimonial::all();
         if (!empty($user) && $user->id != '') {
             $userStatus = "yes";
@@ -90,7 +101,7 @@ class ContestantsController extends Controller {
 //       echo $userStatus; die;
         if (!empty($vote) && !empty($contestants) && $contestants->voting_id == $vId) {
             $voting_contest = Votingcontest::where('closing_date', '>', $date)->where('category_id', $vote->category_id)->limit(3)->get();
-            return view('user.contestants.votesBuyForm', compact('vote', 'userStatus', 'contestants', 'voting_contest', 'slider', 'testimonials'));
+            return view('user.contestants.votesBuyForm', compact('vote', 'userStatus', 'contestants', 'voting_contest', 'sliders', 'testimonials'));
         }
     }
 

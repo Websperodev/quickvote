@@ -53,7 +53,7 @@ class UserController extends Controller {
         $sliders = [];
         $services = [];
         $banners = [];
-
+    
         if ($data->count() > 0) {
             foreach ($data as $val) {
                 $pageData[$val->page_name][$val->section] = $val;

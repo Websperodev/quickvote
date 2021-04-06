@@ -17,5 +17,5 @@
 
 
 @livewire('show-event')
-
+   @include('user.components.trusted-brands')
 @endsection

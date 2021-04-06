@@ -30,7 +30,7 @@
     </a>
 </div>
 
-<div id="floating-search" class="container">
+<!--<div id="floating-search" class="container">
     <h2>Browse Voting Contests</h2>
     <form action="{{url('categories-list')}}" method="POST" id="seachform">
         @csrf
@@ -53,7 +53,7 @@
 
         </div>
     </form>
-</div>
+</div>-->
 
 
 <div id="feat" class="feat-event py-5">

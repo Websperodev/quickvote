@@ -77,7 +77,8 @@
             @endif
         </div>
     </div>
-    @include('user.components.newsletter')
+
+
     @include('user.components.trusted-brands')
 
     @endsection

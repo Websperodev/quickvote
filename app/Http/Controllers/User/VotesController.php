@@ -22,7 +22,12 @@ class VotesController extends Controller {
         $mytime = Carbon::now();
         $date = $mytime->toDateString();
         $inArray = ['home', 'trusted brands'];
-        $slider = Slider::whereIn('name', $inArray)->get();
+         $slider = Slider::whereIn('name', $inArray)->get();
+        if ($slider->count() > 0) {
+            foreach ($slider as $val) {
+                $sliders[$val->name][] = $val;
+            }
+        }
         $testimonials = Testimonial::all();
         if (!empty($req->input())) {
             if ($req->input('vote_name') && $req->input('vote_name') != '') {
@@ -51,7 +56,7 @@ class VotesController extends Controller {
                     ->where('status', 'Accepted')
                     ->get();
         }
-        return view('user/votes/votes', compact('voting_contest', 'id', 'slider', 'testimonials', 'vote_name', 'searchdate'));
+        return view('user/votes/votes', compact('voting_contest', 'id', 'sliders', 'testimonials', 'vote_name', 'searchdate'));
     }
 
     function nonCateVotes(Request $req) {
@@ -63,8 +68,13 @@ class VotesController extends Controller {
 
         $mytime = Carbon::now();
         $date = $mytime->toDateString();
-        $inArray = ['home', 'trusted brands'];
-        $slider = Slider::whereIn('name', $inArray)->get();
+        $inArray = ['Non-Category Votes', 'trusted brands'];
+         $slider = Slider::whereIn('name', $inArray)->get();
+        if ($slider->count() > 0) {
+            foreach ($slider as $val) {
+                $sliders[$val->name][] = $val;
+            }
+        }
         $testimonials = Testimonial::all();
         if (!empty($req->input())) {
 
@@ -86,7 +96,7 @@ class VotesController extends Controller {
                     ->where('status', 'Accepted')
                     ->get();
         }
-        return view('user/votes/nonCatvotes', compact('voting_contest', 'slider', 'testimonials', 'vote_name'));
+        return view('user/votes/nonCatvotes', compact('voting_contest', 'sliders', 'testimonials', 'vote_name'));
     }
 
 }

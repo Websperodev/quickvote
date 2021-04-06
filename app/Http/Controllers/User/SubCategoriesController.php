@@ -17,6 +17,8 @@ use Yajra\Datatables\Datatables;
 use App\Models\Slider;
 use App\Models\Testimonial;
 use App\Models\PricingPlans;
+use App\Models\Service;
+use App\Models\Banner;
 
 class SubCategoriesController extends Controller {
 
@@ -24,6 +26,7 @@ class SubCategoriesController extends Controller {
         $mytime = Carbon::now();
         $date = $mytime->toDateString();
         $search = '';
+        $testimonials=[];
         if (!empty($req->input()) && $req->input('scat_name') != '') {
             $name = $req->input('scat_name');
             $search = $name;
@@ -45,10 +48,26 @@ class SubCategoriesController extends Controller {
         }
 //        echo '<pre>';
 //        print_r($subcategories); die;
-        $inArray = ['home', 'trusted brands'];
-        $slider = Slider::whereIn('name', $inArray)->get();
         $testimonials = Testimonial::all();
-        return view('user.subcategories.list', compact('subcategories', 'slider', 'search', 'testimonials'));
+        $inArray = ['trusted brands'];
+        $slider = Slider::whereIn('name', $inArray)->get();
+        if ($slider->count() > 0) {
+            foreach ($slider as $val) {
+                $sliders[$val->name][] = $val;
+            }
+        }
+        $allServices = Service::get();
+        if ($allServices->count() > 0) {
+            foreach ($allServices as $val) {
+                $services[$val->type][] = $val;
+            }
+        }
+
+        $aboutBanner = Banner::where('page', 'aboutus')->first();
+        if (!empty($aboutBanner)) {
+            $banners = $aboutBanner;
+        }
+        return view('user.subcategories.list', compact('subcategories', 'search', 'sliders', 'testimonials', 'services', 'banners'));
     }
 
 }
