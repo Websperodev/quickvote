@@ -19,6 +19,7 @@
 <div id="eve-detail" class="event-contestant">
     <div class="container">
         <div class="row">
+           
             @php
 
             if($voting->image != '')

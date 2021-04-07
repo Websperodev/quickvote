@@ -17,7 +17,7 @@
                     <input type="text" class="form-control" name="vote_name" value="{{ucfirst($vote_name)}}" id="floatingInputGrid" >
                 </div>
             </div>
-         
+
             <div class="col-md-2">
                 <button type="submit" class="btn btn-primary">Search Vote</button>
             </div>
@@ -53,6 +53,13 @@
             $clos_date=date('d',strtotime($close_date));
             $close_year=date('Y',strtotime($close_date));
             $close_time=date('h:m',strtotime($close_date));
+            if($voting->description!='')
+            $description=substr(strip_tags($voting->description),0, 150);
+            $char=strlen($voting->description);
+            if($char >250)
+            $description=ucfirst($description.'...');
+
+
             @endphp
             <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter Paid">
                 <div class="tcard border-0 py-3 px-4">
@@ -62,9 +69,10 @@
                         <div class="txt-card">
                             <div class="event-name">
                                 <h2 class="titleh2 event-title">{{ucfirst($voting->title)}}</h2>
-                                
+
                             </div>
                             <p class="time-price"><span class="etime"><i class="far fa-clock"></i> Start {{$start_day .' '.$start_month. ' '.$start_date.' '.$start_year .' - '.$close_day.' '.$close_month.' '.$clos_date}}</span> </p>
+                            <div><p>{{($description)}}</p></div>
                             <a class="btn btn-grad-bd ticket-details" href="{{url('contestants').'/'.$voting->id}}">View contest</a>
                         </div>
                     </div>
@@ -76,5 +84,5 @@
     </div>
 </div>   
 
- @include('user.components.trusted-brands')
+@include('user.components.trusted-brands')
 @endsection

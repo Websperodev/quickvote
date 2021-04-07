@@ -131,7 +131,7 @@
                                 $('#add_contestant_form').empty();
                                 var html = '';
                                 for (let i = 0; i < total; i++) {
-                                    html += '<div class="col-md-12 form-group cus-form-group"><label for="name" class="col-12">Name</label><input type="text" name="name[]" required class="form-control" placeholder="Enter Contestant name" /></div><div class="col-md-12 form-group cus-form-group"><label for="image" class="col-12">Image</label><input type="file" name="image[]" required class="form-control" placeholder="Choose image" /></div><div class="col-md-12 form-group cus-form-group"><label for="number" class="col-12">Number</label><input type="text" name="number[]" required class="form-control" placeholder="Enter Number" /></div><div class="col-md-12 form-group cus-form-group"><label for="image" class="col-12">About</label><textarea type="text" required cols="50" class="form-control" name="about[]" placeholder="About here.."></textarea></div>';
+                                    html += '<div class="col-md-12 form-group cus-form-group"><label for="name" class="col-12">Name</label><input type="text" name="name[]" required class="form-control" placeholder="Enter Contestant name" /></div><div class="col-md-12 form-group cus-form-group"><label for="image" class="col-12">Image</label><input type="file" name="image[]" required class="form-control" placeholder="Choose image" accept="image/x-png,image/jpeg"  /></div><div class="col-md-12 form-group cus-form-group"><label for="number" class="col-12">Number</label><input type="text" name="number[]" required class="form-control" placeholder="Enter Number" /></div><div class="col-md-12 form-group cus-form-group"><label for="image" class="col-12">About</label><textarea type="text" required cols="50" class="form-control" name="about[]" placeholder="About here.."></textarea></div>';
                                 }
 
                                 html += '<input type="hidden" name="voting_id" value=' + eventId + ' /><div class="col-12 btn-right"><button type="submit" class="btn btn-bg ladda-button submitBtn">Add</button></div>';
@@ -185,7 +185,7 @@
                                     });
                                 });
                             });
-                           
+
 </script>
 
 @endsection

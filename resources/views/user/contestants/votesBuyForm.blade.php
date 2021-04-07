@@ -243,7 +243,7 @@
                                             Swal.fire({
                                                 type: 'Success',
                                                 title: 'Success!',
-                                                text: data.message,
+                                                text: 'Thanks! ' + name + '. You have bought ' + quantity + ' votes. Payment transaction number ' + transaction,
                                                 confirmButtonClass: 'btn btn-confirm mt-2',
                                             });
                                         } else {
@@ -289,7 +289,7 @@
                                     Swal.fire({
                                         type: 'Success',
                                         title: 'Success!',
-                                        text: data.message,
+                                        text: 'Thanks! ' + name + ' You have taken ' + quantity + ' votes',
                                         confirmButtonClass: 'btn btn-confirm mt-2',
                                     });
                                 } else {
@@ -353,5 +353,5 @@
         }
     }
 </script>
- @include('user.components.trusted-brands')
+@include('user.components.trusted-brands')
 @endsection
