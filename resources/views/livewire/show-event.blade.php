@@ -85,7 +85,9 @@
                                     @if($startTime != '')
                                     <p class="time-price"><span class="etime"><i class="far fa-clock"></i>  Start {{ $startTime}}</span> 
                                         @endif
-                                        <span class="eprice">{{ ucfirst($ticketType[0]) }}</span></p>
+                                        <span class="eprice">
+                                            @if(isset($ticketType[0]))
+                                            echo  ucfirst($ticketType[0])@endif</span></p>
                                     <div><p>{{($description)}}</p><a href="{{url('event-detail').'/'.$event['id']}}" >Read more</a></div>
                                     <a class="btn btn-grad-bd ticket-details" href="{{url('event-detail').'/'.$event['id']}}">Tickets & Details</a>
                                 </div>
