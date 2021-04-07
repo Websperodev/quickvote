@@ -77,17 +77,12 @@
     </div>
 </div>
 @endsection
-
-
-
 @section('script-bottom')
 <script type="text/javascript" src="{{ URL::asset('assets/js/nicEdit-latest.js') }}"></script>
 <script type="text/javascript">
-
                             bkLib.onDomLoaded(function () {
                                 new nicEditor({maxHeight: 100}).panelInstance('answer');
                             });
-
                             function contenstcheck() {
 
                                 let total = $('#contestant-no').val();
@@ -99,7 +94,6 @@
                                 }
                             }
                             function eventcheck() {
-
                                 let eventId = $('#event').val();
                                 if (eventId == '') {
                                     $('#error_event').text('Event field is requied');
@@ -109,7 +103,6 @@
                                 }
                             }
                             $("#add-contestant").click(function () {
-
                                 $('#error_event').text('');
                                 $('#error_contestant').text('');
                                 let total = $('#contestant-no').val();
@@ -154,7 +147,6 @@
                                         processData: false,
                                         beforeSend: function () {
                                             // $('.submitBtn').attr("disabled","disabled");
-
                                         },
                                         success: function (response) { //console.log(response);
                                             console.log(response);
@@ -180,12 +172,10 @@
                                         },
                                         error(e) {
                                             console.log(e);
-
                                         }
                                     });
                                 });
                             });
-
 </script>
 
 @endsection

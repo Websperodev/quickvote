@@ -26,7 +26,7 @@
                               <img src="{{ url($member['image']) }}" width="250" height="200">
                             @endif
 
-                            <input type="file" class="form-control"  name="image" id="image" aria-describedby="emailHelp" placeholder="Choose Image">
+                            <input type="file" class="form-control"  name="image" id="image" aria-describedby="emailHelp" placeholder="Choose Image" accept="image/x-png,image/jpeg">
                             @if($errors->has('image'))
                                 <div class="error">{{ $errors->first('image') }}</div>
                             @endif
