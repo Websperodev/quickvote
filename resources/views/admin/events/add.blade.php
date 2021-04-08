@@ -287,7 +287,7 @@ $timezoneArray = config('constants.timezones');
 </div>
 <script src="{{url('assets/ckeditor/ckeditor.js')}}"></script>
 
-
+<script src="{{url('js/eventValidation.js')}}"></script>
 <script type="text/javascript">
                             $('.ticketModal').on('click', function () {
                                 var pricetype = $('.priceclass').val();
@@ -540,76 +540,7 @@ $timezoneArray = config('constants.timezones');
     });
 
 </script>
-<script>
 
-    $("#add_event_form").validate({
-        // Specify validation rules
-        rules: {
-            'event_title': {
-                required: true,
-
-            },
-            event_category: {
-                required: true,
-
-            },
-            'event_priority': {
-                required: true,
-
-            },
-            'start_date': {
-                required: true,
-
-            },
-            'end_date': {
-                required: true,
-
-            },
-            'organiser_name': {
-                required: true,
-
-            },
-            'description': {
-                required: true,
-
-            },
-            'country': {
-                required: true,
-
-            },
-            'state': {
-                required: true,
-
-            },
-            'city': {
-                required: true,
-
-            },
-            'timezone': {
-                required: true,
-
-            },
-            'ticket_name[]': {
-                required: true,
-
-            },
-            'quantity[]': {
-                required: true,
-
-            },
-            'ticket_start_date[]': {
-                required: true,
-
-            },
-            'ticketend_date[]': {
-                required: true,
-
-            },
-
-        },
-      
-    });
-</script>
 
 @endsection
 
