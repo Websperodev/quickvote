@@ -87,7 +87,8 @@
                                         @endif
                                         <span class="eprice">
                                             @if(isset($ticketType[0]))
-                                            echo  ucfirst($ticketType[0])@endif</span></p>
+                                            {{ucfirst($ticketType[0])}}
+                                            @endif</span></p>
                                     <div><p>{{($description)}}</p><a href="{{url('event-detail').'/'.$event['id']}}" >Read more</a></div>
                                     <a class="btn btn-grad-bd ticket-details" href="{{url('event-detail').'/'.$event['id']}}">Tickets & Details</a>
                                 </div>
