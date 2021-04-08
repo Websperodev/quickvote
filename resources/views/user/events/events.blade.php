@@ -85,7 +85,7 @@
                             @endphp
 
                         <p class="tkt">
-                            <span class="tkt-name">{{$tik->name}} <span class="tkt-price">{{($tik->price)}}</span><span class="abs">{{$status}}</span> 
+                            <span class="tkt-name"><span class="tikname">{{$tik->name}} </span> <span class="tkt-price">{{($tik->price)}}</span><span class="abs">{{$status}}</span> 
 
                                 @if($status != 'Closed')
                                 <span class="tkt-quantity">
@@ -107,7 +107,7 @@
                                 <input type="hidden" name="transaction" value="" id="transaction">
 
                                 <p id="totalAmount" style="color:red;"></p>
-                                <p class="buy-tkt"><button type="button" onclick="payWithPaystack()" class="btn vtn-success">Buy Ticket(s)</button></p>
+                                <p class="buy-tkt"><button type="button" onclick="payWithPaystack()" class="btn btn-bg col-sm-12 vtn-success">Buy Ticket(s)</button></p>
                     </form>
                     @endif
                 </div>

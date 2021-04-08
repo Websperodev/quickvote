@@ -256,18 +256,18 @@ $timezoneArray = config('constants.timezones');
                         </div>
                         <div class="col-md-2 form-group cus-form-group">
                             <label for="image">Delete Ticket</label>
-                            <a href="#" class="" onclick='deleteTicket("{{ $ticket->id }}");'>Delete</a>
+                            <a href="#" class="btn btn-danger col-sm-12" onclick='deleteTicket("{{ $ticket->id }}");'>Delete</a>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-6 form-group cus-form-group">
                             <label for="image">Start Date</label>
-                            <input type="text" value="{{ $ticket->start_date }}" class="form-control datepicker" name="ticket_start_date[]" aria-describedby="emailHelp" placeholder="Start date">
+                            <input type="date" value="{{ $ticket->start_date }}" class="form-control datepicker" name="ticket_start_date[]" aria-describedby="emailHelp" placeholder="Start date">
                         </div>
                         <div class="col-md-6 form-group cus-form-group">
                             <label for="image">End Date</label>
-                            <input type="text" value="{{ $ticket->end_date }}" class="form-control ticket_end_date" name="ticketend_date[]" aria-describedby="emailHelp" placeholder="End Date">
+                            <input type="date" value="{{ $ticket->end_date }}" class="form-control ticket_end_date" name="ticketend_date[]" aria-describedby="emailHelp" placeholder="End Date">
                         </div>
                         <input type="hidden" value="{{ $ticket->ticket_type }}" class="form-control" value="" name="ticket_type[]" aria-describedby="emailHelp" placeholder="Price"></div>
                     @endforeach

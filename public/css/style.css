@@ -1158,6 +1158,7 @@ button.navbar-toggler:focus {
 
 div.form-group {
     margin-bottom: 0;
+    position: relative;
 }
 
 .form-control {
@@ -2148,7 +2149,31 @@ button:focus {
     width: 50%;
 }
 .eve-img {    width: 200px;    float: left;    margin-right: 20px;}.eve-img img {    width: 100%;}.eve-title h2 {    font-size: 22px;    color: #000;    font-weight: 700;}.eve-title {    width: calc(100% - 220px);    float: left;    display: flex;    align-items: baseline;    flex-direction: column;    justify-content: center;}.event-titlee {	width: 100%;	margin-bottom: 20px;	display: flex;	justify-content: center;	align-content: center;}div#eve-detail, #cand-detail {    padding: 60px 0;}p.eve-date-time {    margin-bottom: 0;    font-size: 16px;    color: #000;    font-weight: 500;    width: 100%;    display: flex;}.eve-description {    padding: 20px 40px;    margin: 20px 0;    box-shadow: 0 0 40px 3px #0002;    border-radius: 3px;}.eve-description h4 {    font-size: 22px;    color: #000;    text-transform: uppercase;    font-weight: 500;    letter-spacing: 1px;}.eve-description div {    padding-bottom: 15px;    border-bottom: 1px solid #000;    margin-bottom: 30px;}.eve-description span {    font-size: 14px;}.eve-description div:last-child {    border-bottom: none;    margin-bottom: 0;    padding-bottom: 0;}
-.single-event-ticket {    padding: 20px;    box-shadow: 0 0 10px 0 #0002;    max-width: 460px;    float: right;    width: 100%;}.single-event-ticket h5 {    margin-bottom: 20px;    color: #000;}span.tkt-quantity {    width: 40px;    display: inline-block;    float: right;}.tkt-quantity input.form-control {    width: 100%;    height: 40px;    border: none;    background: #e2ecef;    border-radius: 3px;    font-size: 16px;    padding-left: 14px;    text-align: center;    color: #000;    font-weight: 500;}p.tkt {    display: flex;    justify-content: space-between;    align-items: center;    padding: 3px 0 20px;    border-bottom: 1px solid #ccc;}span.tkt-name {    width: calc(100% - 60px);    display: inline-flex;    justify-content: space-between;    color: #000;    font-weight: 500;    font-size: 16px;    position: relative;}span.tkt-price {    font-weight: bold;}span.abs {    position: absolute;    bottom: -17px;    font-size: 12px;    color: #ff3131;}a.btn.vtn-success {    background: #63AA4E;    color: #fff;    width: 100%;    padding: 12px 0 10px;}p.tkt:nth-last-child(2) {    border-bottom: 0;}p.buy-tkt {    margin: 20px 0 5px;}div#eve .row > p {    width: 100%;}div#eve {    padding-bottom: 50px;}p.eve-date-time span {    width: 50%;}.event-details img {    width: 100%;}
+.single-event-ticket {    padding: 20px;    box-shadow: 0 0 10px 0 #0002;    max-width: 460px;    float: right;    width: 100%;}.single-event-ticket h5 {    margin-bottom: 20px;    color: #000;}span.tkt-quantity {    width: 40px;    display: inline-block;    float: right;}.tkt-quantity input.form-control {    width: 100%;    height: 40px;    border: none;    background: #e2ecef;    border-radius: 3px;    font-size: 16px;    padding-left: 14px;    text-align: center;    color: #000;    font-weight: 500;}p.tkt {    display: flex;    justify-content: space-between;    align-items: center;    padding: 3px 0 20px;    border-bottom: 1px solid #ccc;}
+span.tkt-name {
+	width: 100%;
+	display: inline-block;
+	justify-content: space-between;
+	color: #000;
+	font-weight: 500;
+	font-size: 16px;
+	position: relative;
+	text-transform: capitalize;
+}
+
+span.tikname {
+    width: 150px;
+    display: inline-block;
+}
+
+span.tkt-price {
+    font-weight: bold;
+    width: 80px;
+    display: inline-block;
+    text-align: center;
+}
+
+span.abs {    position: absolute;    bottom: -17px;    font-size: 12px;    color: #ff3131; left:0;}a.btn.vtn-success {    background: #63AA4E;    color: #fff;    width: 100%;    padding: 12px 0 10px;}p.tkt:nth-last-child(2) {    border-bottom: 0;}p.buy-tkt {    margin: 20px 0 5px;}div#eve .row > p {    width: 100%;}div#eve {    padding-bottom: 50px;}p.eve-date-time span {    width: 50%;}.event-details img {    width: 100%;}
 
 
 
@@ -2387,7 +2412,7 @@ div#cand {
 
 .candidate-vote .form-control {
     background: #ececec;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     border-bottom: none;
     padding: 0px 20px;
     border-radius: 30px;
@@ -2715,4 +2740,39 @@ button.swal2-close:focus {
 .alert.alert-danger p {
     margin-bottom: 0;
     text-align: center;
+}
+
+.fe-abs .txt-card {
+    max-width: 100%;
+}
+
+p.descrp {
+    font-size: 14px;
+    min-height: 70px;
+    margin-bottom: 0;
+}
+
+p.descrp {
+    font-size: 14px;
+    margin-bottom: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.form-group .error {
+    position: absolute;
+    font-size: 10px;
+    bottom: -15px;
+    left: 20px;
+}
+
+.error p {
+    margin-bottom: 0;
+}
+
+span.eprice:empty {
+    display: none;
 }
