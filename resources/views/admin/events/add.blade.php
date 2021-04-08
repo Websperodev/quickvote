@@ -409,19 +409,19 @@ $timezoneArray = config('constants.timezones');
                 console.log('x', x);
                 var tmp = $(wrapper).append('<div class="row"><div class="col-md-4 form-group cus-form-group">\n\
     <label for="image">Ticket Name</label>\n\
-        <input type="text"  class="form-control ticketclass" name="ticket_name[]" aria-describedby="emailHelp" placeholder="Ticket Name"></div>\n\
+        <input type="text"  class="form-control ticketclass" required name="ticket_name[]" aria-describedby="emailHelp" placeholder="Ticket Name"></div>\n\
     <div class="col-md-4 form-group cus-form-group"><label for="image">Quantity available</label>\n\
-        <input type="text"  class="form-control ticketclass" name="quantity[]" aria-describedby="emailHelp" placeholder="Quantity available"></div>\n\
+        <input type="text"  class="form-control ticketclass" required name="quantity[]" aria-describedby="emailHelp" placeholder="Quantity available"></div>\n\
     <div class="col-md-2 form-group cus-form-group">\n\
     <label for="image">Price</label>\n\
-        <input type="text"  class="form-control priceclass ticketclass" ' + readonly + ' value="' + price + '"  name="price[]" aria-describedby="emailHelp" placeholder="Price"></div>\n\
+        <input type="text"  class="form-control priceclass ticketclass" ' + readonly + ' value="' + price + '"  required name="price[]" aria-describedby="emailHelp" placeholder="Price"></div>\n\
     <div class="col-md-2 form-group cus-form-group">\n\
     <label for="image">Remove Ticket</label><a href="#" class="remove_field">Remove</a></div>\n\
     <div class="col-md-6 form-group cus-form-group">\n\
     <label for="image">Start Date</label>\n\
-       <input type="date"  class="form-control datepicker_init ticketclass" name="ticket_start_date[]"  aria-describedby="emailHelp" placeholder="Start date"></div>\n\
+       <input type="date"  class="form-control datepicker_init ticketclass" name="ticket_start_date[]" required aria-describedby="emailHelp" placeholder="Start date"></div>\n\
     <div class="col-md-6 form-group cus-form-group"><label for="image">End Date</label>\n\
-         <input type="date" class="form-control ticket_end_date datepicker_init ticketclass" name="ticketend_date[]" aria-describedby="emailHelp" placeholder="End Date"></div>\n\
+         <input type="date" class="form-control ticket_end_date datepicker_init ticketclass" required name="ticketend_date[]" aria-describedby="emailHelp" placeholder="End Date"></div>\n\
          <input type="hidden"  class="form-control" value="' + ttype + '" name="ticket_type[]" aria-describedby="emailHelp" placeholder="Price"></div>');
             }
             $('.addticketcheck').val('yes');
@@ -605,12 +605,9 @@ $timezoneArray = config('constants.timezones');
                 required: true,
 
             },
-            'price[]': {
-                required: true,
-            }
 
         },
-
+      
     });
 </script>
 

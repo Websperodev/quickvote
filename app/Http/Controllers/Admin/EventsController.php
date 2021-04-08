@@ -112,23 +112,25 @@ class EventsController extends Controller {
                 $ticketEndDate = $request->get('ticketend_date');
                 if (!empty($ticketName)) {
                     foreach ($ticketName as $key => $ticket) {
-                        $row = Ticket::select('ticket_number')->latest('id')->first();
-                        if (!empty($row)) {
-                            $ticket_number = $row->ticket_number + 1;
-                        } else {
-                            $ticket_number = 10000000;
+                        if (isset($ticketName[$key]) && $ticketName[$key] != '' && isset($ticketQuantity[$key]) && $ticketQuantity[$key] != '') {
+                            $row = Ticket::select('ticket_number')->latest('id')->first();
+                            if (!empty($row)) {
+                                $ticket_number = $row->ticket_number + 1;
+                            } else {
+                                $ticket_number = 10000000;
+                            }
+                            $ticket = new Ticket;
+                            $ticket->event_id = $event->id;
+                            $ticket->ticket_type = $ticketType[$key];
+                            $ticket->name = $ticketName[$key];
+                            $ticket->quantity = $ticketQuantity[$key];
+                            $ticket->price = $ticketPrice[$key];
+                            $ticket->ticket_number = $ticket_number;
+                            $ticket->start_date = date("Y-m-d", strtotime($ticketStartDate[$key]));
+                            $ticket->end_date = date("Y-m-d", strtotime($ticketEndDate[$key]));
+                            $ticket->created_by = $user->id;
+                            $ticket->save();
                         }
-                        $ticket = new Ticket;
-                        $ticket->event_id = $event->id;
-                        $ticket->ticket_type = $ticketType[$key];
-                        $ticket->name = $ticketName[$key];
-                        $ticket->quantity = $ticketQuantity[$key];
-                        $ticket->price = $ticketPrice[$key];
-                        $ticket->ticket_number = $ticket_number;
-                        $ticket->start_date = date("Y-m-d", strtotime($ticketStartDate[$key]));
-                        $ticket->end_date = date("Y-m-d", strtotime($ticketEndDate[$key]));
-                        $ticket->created_by = $user->id;
-                        $ticket->save();
                     }
                 }
 
@@ -274,25 +276,27 @@ class EventsController extends Controller {
                     $ticket_id = $request->get('ticket_id');
                     $deleteTicket = Ticket::where('event_id', $event->id)->delete();
                     foreach ($ticketName as $key => $ticket) {
-                        if (!isset($ticket_id[$key]) || $ticket_id[$key] == '') {
-                            $rownum = Ticket::select('ticket_number')->orderBy('id', 'desc')->first();
-                            if (!empty($rownum)) {
-                                $ticket_id[$key] = $rownum->ticket_number + 1;
-                            } else {
-                                $ticket_id[$key] = 1000000;
+                        if (isset($ticketName[$key]) && $ticketName[$key] != '' && isset($ticketQuantity[$key]) && $ticketQuantity[$key] != '') {
+                            if (!isset($ticket_id[$key]) || $ticket_id[$key] == '') {
+                                $rownum = Ticket::select('ticket_number')->orderBy('id', 'desc')->first();
+                                if (!empty($rownum)) {
+                                    $ticket_id[$key] = $rownum->ticket_number + 1;
+                                } else {
+                                    $ticket_id[$key] = 1000000;
+                                }
                             }
+                            $ticket = new Ticket;
+                            $ticket->event_id = $event->id;
+                            $ticket->ticket_number = $ticket_id[$key];
+                            $ticket->ticket_type = $ticketType[$key];
+                            $ticket->name = $ticketName[$key];
+                            $ticket->quantity = $ticketQuantity[$key];
+                            $ticket->price = $ticketPrice[$key];
+                            $ticket->start_date = date("Y-m-d", strtotime($ticketStartDate[$key]));
+                            $ticket->end_date = date("Y-m-d", strtotime($ticketEndDate[$key]));
+                            $ticket->created_by = $user->id;
+                            $ticket->save();
                         }
-                        $ticket = new Ticket;
-                        $ticket->event_id = $event->id;
-                        $ticket->ticket_number = $ticket_id[$key];
-                        $ticket->ticket_type = $ticketType[$key];
-                        $ticket->name = $ticketName[$key];
-                        $ticket->quantity = $ticketQuantity[$key];
-                        $ticket->price = $ticketPrice[$key];
-                        $ticket->start_date = date("Y-m-d", strtotime($ticketStartDate[$key]));
-                        $ticket->end_date = date("Y-m-d", strtotime($ticketEndDate[$key]));
-                        $ticket->created_by = $user->id;
-                        $ticket->save();
                     }
                 }
 

@@ -252,7 +252,7 @@ $timezoneArray = config('constants.timezones');
                         </div>
                         <div class="col-md-2 form-group cus-form-group">
                             <label for="image">Price</label>
-                            <input type="text" {{ ($ticket->ticket_type == 'free')? "readonly" :'' }} value="{{ $ticket->price }}" class="form-control" value="'+price+'" name="price[]" aria-describedby="emailHelp" placeholder="Price">
+                            <input type="text" {{ ($ticket->ticket_type == 'free')? "readonly" :'' }} value="{{ $ticket->price }}" class="form-control priceclass" value="'+price+'" name="price[]" aria-describedby="emailHelp" placeholder="Price">
                         </div>
                         <div class="col-md-2 form-group cus-form-group">
                             <label for="image">Delete Ticket</label>
@@ -316,7 +316,7 @@ $timezoneArray = config('constants.timezones');
                         @endif
                         <div class="col-md-12 form-group cus-form-group eventreason">
                             <label for="description">Reject Reason</label>
-                            <textarea type="text" cols="50" class="form-control" name="reason" id="reason" placeholder="Description here..">{{ isset($event->reason)? ucfirst($event->reason) : ''}} 
+                            <textarea type="text"  cols="50" class="form-control" name="reason" id="reason" placeholder="Description here..">{{ isset($event->reason)? ucfirst($event->reason) : ''}} 
                             </textarea>
                             @if($errors->has('reason'))
 
@@ -325,7 +325,7 @@ $timezoneArray = config('constants.timezones');
                         </div>
                     </div>
 
-                    <button type="button" class="btn btn-bg ladda-button" data-toggle="modal" data-target="#ticketModal">Add Ticket</button>
+                    <button type="button" class="btn btn-bg ladda-button ticketModal" data-toggle="modal" data-target="#ticketModal">Add Ticket</button>
 
                     <div id="ticket-div" class="input_fields_wrap">
 
@@ -344,7 +344,7 @@ $timezoneArray = config('constants.timezones');
     </div>
 </div> 
 
-<div class="modal fade" id="ticketModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="ticketModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -364,10 +364,10 @@ $timezoneArray = config('constants.timezones');
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                     <div class="col-md-4 form-group cus-form-group">
-                        <button type="button" class="btn btn-secondary" onclick="openModal('paid');">Paid Ticket</button>
+                        <button type="button" class="btn btn-secondary paidclass" onclick="openModal('paid');">Paid Ticket</button>
                     </div>
                     <div class="col-md-4 form-group cus-form-group">
-                        <button type="button" class="btn btn-secondary" onclick="openModal('free');">Free Ticket</button>
+                        <button type="button" class="btn btn-secondary freeclass" onclick="openModal('free');">Free Ticket</button>
                     </div>
                 </div>
 
@@ -421,113 +421,95 @@ $timezoneArray = config('constants.timezones');
         </div>
     </div>
 </div>
-
-<!--<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>-->
 <script src="{{url('assets/ckeditor/ckeditor.js')}}"></script>
-<script type="text/javascript">
-                            CKEDITOR.replace('area1', {
-                            height: '20%',
-                                    width: '100%'
-                            });
-                            var evtstatus = $("input[name='status']:checked").val();
-                            if (evtstatus == 'Rejected'){
-                            $('.eventreason').show();
-                            } else{
-                            $('.eventreason').hide();
-                            }
 
-                            $('.eventstatus').on('click', function(){
+ <script>
+$(document).ready(function(){
+    $("#edit_event_form").validate({
+        // Specify validation rules
+        rules: {
+            'event_title': {
+                required: true,
 
-                            var evtstatus = $(this).val();
-                            if (evtstatus == 'Rejected'){
-                            $('.eventreason').show();
-                            } else{
-                            $('.eventreason').hide();
-                            }
+            },
+            event_category: {
+                required: true,
+
+            },
+            'event_priority': {
+                required: true,
+
+            },
+            'start_date': {
+                required: true,
+
+            },
+            'end_date': {
+                required: true,
+
+            },
+            'organiser_name': {
+                required: true,
+
+            },
+            'description': {
+                required: true,
+
+            },
+            'country': {
+                required: true,
+
+            },
+            'state': {
+                required: true,
+
+            },
+            'city': {
+                required: true,
+
+            },
+            'timezone': {
+                required: true,
+
+            },
+            'ticket_name[]': {
+                required: true,
+
+            },
+            'quantity[]': {
+                required: true,
+
+            },
+            'ticket_start_date[]': {
+                required: true,
+
+            },
+            'ticketend_date[]': {
+                required: true,
+
+            },
+            'price[]': {
+                required: true,
+            }
+
+        },
+
+    });
+     });
+</script>
+<!--<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>-->
+
+<script>
+                            $(document).ready(function() {                                                              
+                                 $('.ticketModal').on('click', function () {
+                                var pricetype = $('.priceclass').val();
+                                if (typeof (pricetype) == 'undefined') {
+                                } else if (pricetype != 'free') {
+                                    $('.freeclass').hide();
+                                } else {
+                                    $('.paidclass').hide();
+                                }
                             })
-                                    $(document).ready(function() {
-
-
-                            var ticketNo = $('#free-no').val(); //maximum input boxes allowed
-                            var wrapper = $(".input_fields_wrap"); //Fields wrapper
-                            var add_button = $(".add_ticket_button"); //Add button ID
-
-                            console.log('ticketNo', ticketNo);
-                            var x = 0; //initlal text box count
-                            $(add_button).click(function(e){ //on add input button click
-                            // e.preventDefault();
-                            var ticketNo = '';
-                            var price = '';
-                            var readonly = '';
-                            var ttype = '';
-                            if ($('#free-no').val() != ''){
-                            ticketNo = $('#free-no').val();
-                            price = 'free';
-                            readonly = "readonly";
-                            ttype = 'free';
-                            }
-                            if ($('#paid-no').val() != ''){
-                            ticketNo = $('#paid-no').val();
-                            ttype = 'paid';
-                            }
-                            console.log('aaa', ticketNo);
-                            for (x = 0; x < ticketNo; x++){ //max input box allowed
-                            //text box increment
-                            console.log('x', x);
-                            $(wrapper).append('<div class="row"><div class="col-md-4 form-group cus-form-group"><label for="image">Ticket Name</label><input type="text"  class="form-control" name="ticket_name[]" aria-describedby="emailHelp" placeholder="Ticket Name"></div><div class="col-md-4 form-group cus-form-group"><label for="image">Quantity available</label><input type="text"  class="form-control" name="quantity[]" aria-describedby="emailHelp" placeholder="Quantity available"></div> <div class="col-md-2 form-group cus-form-group"><label for="image">Price</label><input type="text"  class="form-control" ' + readonly + ' value="' + price + '" name="price[]" aria-describedby="emailHelp" placeholder="Price"></div><div class="col-md-2 form-group cus-form-group"><label for="image">Remove Ticket</label><a href="#" class="remove_field">Remove</a></div><div class="col-md-6 form-group cus-form-group"><label for="image">Start Date</label><input type="text"  class="form-control datepicker" name="ticket_start_date[]" aria-describedby="emailHelp" placeholder="Start date"></div><div class="col-md-6 form-group cus-form-group"><label for="image">End Date</label><input type="text" class="form-control ticket_end_date" name="ticketend_date[]" aria-describedby="emailHelp" placeholder="End Date"></div><input type="hidden"  class="form-control" value="' + ttype + '" name="ticket_type[]" aria-describedby="emailHelp" placeholder="Price"></div>');
-                            }
-                            $('#FreeModal').modal('hide');
-                            $('#paidModal').modal('hide');
-                            });
-                            $(wrapper).on("click", ".remove_field", function(e){ //user click on remove text
-                            e.preventDefault(); $(this).parent('div').parent('div').remove(); x--;
-                            });
-                            });
-                            $(".datetimepicker").datetimepicker({
-                            format:'m/d/Y H:i'
-                            });
-                            function openModal(par){
-                            if (par == 'paid'){
-                            $('#paidModal').modal('show');
-                            }
-                            if (par == 'free'){
-                            $('#FreeModal').modal('show');
-                            }
-
-                            $('#ticketModal').modal('hide');
-                            }
-
-                            function deleteTicket(id){
-                            var url = '{{ route("deleteTicket", ":id") }}';
-                            url = url.replace(':id', id);
-                            console.log(url);
-                            $.ajax({
-                            type: 'GET',
-                                    url: url,
-                                    success: function (res) {
-                                    console.log(res);
-                                    if (res.success == true){
-                                    Swal.fire({
-                                    type: 'success',
-                                            title: 'Success!',
-                                            text: res.message,
-                                            confirmButtonClass: 'btn btn-confirm mt-2',
-                                    }).then((result) => {
-                                    // Reload the Page
-                                    location.reload();
-                                    });
-                                    } else{
-
-                                    }
-
-                                    },
-                                    error: function(err) {
-                                    console.log(err);
-                                    }
-                            });
-                            }
-
-                            $(document).ready(function() {
                             if (country != '') {
                             var cid = country;
                             } else {
@@ -545,7 +527,7 @@ $timezoneArray = config('constants.timezones');
                             var cityId = 1;
                             }
 
-                            var url = '{{ route("states", ":id") }}';
+                            var url ='{{ route("allstates", ":id") }}';
                             url = url.replace(':id', cid);
                             var selected = '';
                             $.ajax({
@@ -572,7 +554,7 @@ $timezoneArray = config('constants.timezones');
                                     console.log(err);
                                     }
                             });
-                            var cityUrl = '{{ route("cities", ":id") }}';
+                            var cityUrl = '{{ route("allcities", ":id") }}';
                             cityUrl = cityUrl.replace(':id', stateId);
                             $.ajax({
                             type: 'GET',
@@ -602,17 +584,14 @@ $timezoneArray = config('constants.timezones');
 
                             });
                             });
-                            //bkLib.onDomLoaded(function() {
-                            //        new nicEditor({ maxHeight : 100 }).panelInstance('area1');
-                            //        
-                            //        // new nicEditor({iconsPath : '../nicEditorIcons.gif'}).panelInstance('area3');
-                            //        // new nicEditor({buttonList : ['fontSize','bold','italic','underline','strikeThrough','subscript','superscript','html','image']}).panelInstance('area4');
-                            //        // new nicEditor({maxHeight : 100}).panelInstance('area5');
-                            //});
-
+                            
+                            
+                            
+                            
+                            
                             $('#country').change(function () {
                             var cid = $(this).val();
-                            var url = '{{ route("states", ":id") }}';
+                            var url = '{{ route("allstates", ":id") }}';
                             url = url.replace(':id', cid);
                             if (cid) {
                             $.ajax({
@@ -622,6 +601,7 @@ $timezoneArray = config('constants.timezones');
                                     console.log('response', res);
                                     if (res) {
                                     $("#state").empty();
+                                    $("#state").append('<option value="">Select state</option>');
                                     if (res != '') {
                                     var stateid = res[0].id;
                                     citylist(stateid);
@@ -629,14 +609,12 @@ $timezoneArray = config('constants.timezones');
                                     $("#state").empty();
                                     $("#city").empty();
                                     }
-                                    $("#state").('<option value="">Select state</option>');
                                     $.each(res, function (key, value) {
                                     $("#state").append('<option value="' + value.id + '">' + value.name + '</option>');
                                     });
                                     } else {
                                     $("#state").empty();
                                     }
-
                                     },
                                     error: function (err) {
                                     console.log(err);
@@ -644,8 +622,13 @@ $timezoneArray = config('constants.timezones');
                             });
                             }
                             });
+                            
+                            
+                            
+                            
+                            
                             function citylist(stateid) {
-                            var ctyurl = '{{ route("cities", ":id") }}';
+                            var ctyurl = '{{ route("allcities", ":id") }}';
                             ctyurl = ctyurl.replace(':id', stateid);
                             $.ajax({
                             type: 'GET',
@@ -669,12 +652,160 @@ $timezoneArray = config('constants.timezones');
                                     }
                             });
                             }
+                            
+                            
+                            
+                            
                             $('#state').change(function () {
                             var sid = $(this).val();
                             citylist(sid);
                             });
+                        
+                    
+                
+           
+                            CKEDITOR.replace('area1', {
+                            height: '20%',
+                                    width: '100%'
+                            });
+                            
+    
+                            $(document).ready(function() {
+                                    var ticketNo = $('#free-no').val(); //maximum input boxes allowed
+                            var wrapper = $(".input_fields_wrap"); //Fields wrapper
+                            var add_button = $(".add_ticket_button"); //Add button ID
+
+                            console.log('ticketNo', ticketNo);
+                            var x = 0; //initlal text box count
+                            $(add_button).click(function(e){ //on add input button click
+                            // e.preventDefault();
+                            var ticketNo = '';
+                            var price = '';
+                            var readonly = '';
+                            var ttype = '';
+                            if ($('#free-no').val() != ''){
+                            ticketNo = $('#free-no').val();
+                            price = 'free';
+                            readonly = "readonly";
+                            ttype = 'free';
+                            }
+                            if ($('#paid-no').val() != ''){
+                            ticketNo = $('#paid-no').val();
+                            ttype = 'paid';
+                            }
+                            console.log('aaa', ticketNo);
+                            for (x = 0; x < ticketNo; x++){ //max input box allowed
+                            //text box increment
+                            console.log('x', x);
+                            $(wrapper).append('<div class="row"><div class="col-md-4 form-group cus-form-group">\n\
+    <label for="image">Ticket Name</label>\n\
+        <input type="text"  class="form-control ticketclass" required name="ticket_name[]" aria-describedby="emailHelp" placeholder="Ticket Name"></div>\n\
+    <div class="col-md-4 form-group cus-form-group"><label for="image">Quantity available</label>\n\
+        <input type="text"  class="form-control ticketclass" required name="quantity[]" aria-describedby="emailHelp" placeholder="Quantity available"></div>\n\
+    <div class="col-md-2 form-group cus-form-group">\n\
+    <label for="image">Price</label>\n\
+        <input type="text"  class="form-control priceclass ticketclass" ' + readonly + ' value="' + price + '"  name="price[]" aria-describedby="emailHelp" required placeholder="Price"></div>\n\
+    <div class="col-md-2 form-group cus-form-group">\n\
+    <label for="image">Remove Ticket</label><a href="#" class="remove_field">Remove</a></div>\n\
+    <div class="col-md-6 form-group cus-form-group">\n\
+    <label for="image">Start Date</label>\n\
+       <input type="date"  class="form-control datepicker_init ticketclass" name="ticket_start_date[]"  aria-describedby="emailHelp" required placeholder="Start date"></div>\n\
+    <div class="col-md-6 form-group cus-form-group"><label for="image">End Date</label>\n\
+         <input type="date" class="form-control ticket_end_date datepicker_init ticketclass" name="ticketend_date[]" required aria-describedby="emailHelp" placeholder="End Date"></div>\n\
+         <input type="hidden"  class="form-control" value="' + ttype + '" name="ticket_type[]" aria-describedby="emailHelp" placeholder="Price"></div>');
+                                }
+                                $('#FreeModal').modal('hide');
+                                $('#paidModal').modal('hide');
+                                });
+                                $(wrapper).on("click", ".remove_field", function(e){ //user click on remove text
+                                e.preventDefault(); $(this).parent('div').parent('div').remove(); x--;
+                                });
+                            });
+                            
+                            
+                            
+                            
+                            $(".datetimepicker").datetimepicker({
+                                        format:'m/d/Y H:i'
+                                });
+                                    
+                                    
+                                    function openModal(par){
+                                        if (par == 'paid'){
+                                $('#paidModal').modal('show');
+                                }
+                                if (par == 'free'){
+                                $('#FreeModal').modal('show');
+                                }
+
+                                $('#ticketModal').modal('hide');
+                            }
+                            
+                            function deleteTicket(id){
+                                        var url = '{{ route("deleteTicket", ":id") }}';
+                                url = url.replace(':id', id);
+                                console.log(url);
+                                $.ajax({
+                                type: 'GET',
+                                        url: url,
+                                        success: function (res) {
+                                        console.log(res);
+                                        if (res.success == true){
+                                        Swal.fire({
+                                        type: 'success',
+                                                title: 'Success!',
+                                                text: res.message,
+                                                confirmButtonClass: 'btn btn-confirm mt-2',
+                                        }).then((result) => {
+                                        // Reload the Page
+                                        location.reload();
+                                        });
+                                        } else{
+
+                                        }
+
+       },
+            error: function(err) {
+            console.log(err);
+            }
+    });
+    }
+
+
+
+
+
 
 </script>
-@endsection
-@section('script-bottom')
-@endsection
+        <script>
+                                        $('#event_category').change(function () {
+                                        var cid = $(this).val();
+                                        var url = '{{ route("subcategories", ":id") }}';
+                                        url = url.replace(':id', cid);
+                                        if (cid) {
+                                        $.ajax({
+                                        type: 'GET',
+                                                url: url,
+                                                success: function (res) {
+                                                console.log('response', res);
+                                                if (res) {
+                                                $("#event_subcategory").empty();
+                                                $("#event_subcategory").append('<option value="">Select</option>');
+                                                $.each(res, function (key, value) {
+                                                $("#event_subcategory").append('<option value="' + value.id + '">' + value.name + '</option>');
+                                                });
+                                                } else {
+                                                $("#event_subcategory").empty();
+                                                }
+                                                },
+                                                error: function (err) {
+                                                console.log(err);
+                                                }
+                                        });
+                                        }
+                                        });
+                                        </script>
+                                       
+                                                @endsection
+                                                @section('script-bottom')
+                                                @endsection

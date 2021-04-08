@@ -237,10 +237,10 @@ $timezoneArray = config('constants.timezones');
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                     <div class="col-md-4 form-group cus-form-group">
-                        <button type="button" class="btn btn-secondary" onclick="openModal('paid');">Paid Ticket</button>
+                        <button type="button" class="btn btn-secondary paidclass" onclick="openModal('paid');">Paid Ticket</button>
                     </div>
                     <div class="col-md-4 form-group cus-form-group">
-                        <button type="button" class="btn btn-secondary" onclick="openModal('free');">Free Ticket</button>
+                        <button type="button" class="btn btn-secondary " onclick="openModal('free');">Free Ticket</button>
                     </div>
                 </div>
 
@@ -298,40 +298,41 @@ $timezoneArray = config('constants.timezones');
 </div>
 
 <!--<script type="text/javascript" src="{{ URL::asset('assets/js/nicEdit-latest.js') }}"></script>-->
-
 <script src="{{url('assets/ckeditor/ckeditor.js')}}"></script>
 
+
 <script type="text/javascript">
-                            $(".datepicker_init").datepicker({
-                                dateFormat: 'dd-mm-yy',
-                                changeMonth: true,
-                                changeYear: true,
-                                showAnim: 'slideDown',
-                                duration: 'fast',
-                                yearRange: new Date().getFullYear() + ':' + new Date().getFullYear(),
-                            });
-                            CKEDITOR.replace('area1', {
-                                height: '20%',
-                                width: '100%'
-                            });
-</script> 
+                            $('.ticketModal').on('click', function () {
+                                var pricetype = $('.priceclass').val();
+
+                                if (typeof (pricetype) == 'undefined') {
+
+                                } else if (pricetype != 'free') {
+                                    $('.freeclass').hide();
+                                } else {
+                                    $('.paidclass').hide();
+                                }
+
+                            })
+//                            $(".datepicker_init").datepicker({
+//                                dateFormat: 'dd-mm-yy',
+//                                changeMonth: true,
+//                                changeYear: true,
+//                                showAnim: 'slideDown',
+//                                duration: 'fast',
+//                                yearRange: new Date().getFullYear() + ':' + new Date().getFullYear(),
+//                            });</script> 
 <script type="text/javascript">
     $(document).ready(function () {
-
         var cid = 1;
-        var url = '{{ route("vendor.states", ":id") }}';
-
+        var url = '{{ route("states", ":id") }}';
         url = url.replace(':id', cid);
 
-        var stateId = 1;
-        var cityUrl = '{{ route("vendor.cities", ":id") }}';
-        cityUrl = cityUrl.replace(':id', stateId);
+
 
         var cityId = 1;
         var selected = '';
-
         if (cid) {
-
             $.ajax({
                 type: 'GET',
                 url: url,
@@ -357,7 +358,9 @@ $timezoneArray = config('constants.timezones');
                 }
             });
         }
-
+        var stateId = 1;
+        var cityUrl = '{{ route("cities", ":id") }}';
+        cityUrl = cityUrl.replace(':id', stateId);
         if (stateId) {
             $.ajax({
                 type: 'GET',
@@ -366,7 +369,7 @@ $timezoneArray = config('constants.timezones');
                     if (res)
                     {
                         $("#city").empty();
-                        $("#city").append('<option value="">Select city</option>');
+                        $("#city").append('<option value=""> Select city</option>');
                         $.each(res, function (key, value) {
 //                            if (cityId == value.id) {
 //                                selected = "selected";
@@ -385,9 +388,10 @@ $timezoneArray = config('constants.timezones');
                 }
             });
         }
-    });
 
+    });
     $(document).ready(function () {
+
         var ticketNo = $('#free-no').val(); //maximum input boxes allowed
         var wrapper = $(".input_fields_wrap"); //Fields wrapper
         var add_button = $(".add_ticket_button"); //Add button ID
@@ -396,6 +400,7 @@ $timezoneArray = config('constants.timezones');
         var x = 0; //initlal text box count
         $(add_button).click(function (e) { //on add input button click
             // e.preventDefault();
+
             var ticketNo = '';
             var price = '';
             var readonly = '';
@@ -411,31 +416,32 @@ $timezoneArray = config('constants.timezones');
                 ttype = 'paid';
             }
             console.log('aaa', ticketNo);
+
             for (x = 0; x < ticketNo; x++) { //max input box allowed
                 //text box increment
                 console.log('x', x);
                 var tmp = $(wrapper).append('<div class="row"><div class="col-md-4 form-group cus-form-group">\n\
     <label for="image">Ticket Name</label>\n\
-        <input type="text"  class="form-control" name="ticket_name[]" aria-describedby="emailHelp" placeholder="Ticket Name"></div>\n\
+        <input type="text"  class="form-control ticketclass" name="ticket_name[]" aria-describedby="emailHelp" required placeholder="Ticket Name"></div>\n\
     <div class="col-md-4 form-group cus-form-group"><label for="image">Quantity available</label>\n\
-        <input type="text"  class="form-control" name="quantity[]" aria-describedby="emailHelp" placeholder="Quantity available"></div>\n\
+        <input type="text"  class="form-control ticketclass" name="quantity[]" aria-describedby="emailHelp" required placeholder="Quantity available"></div>\n\
     <div class="col-md-2 form-group cus-form-group">\n\
     <label for="image">Price</label>\n\
-        <input type="text"  class="form-control" ' + readonly + ' value="' + price + '" name="price[]" aria-describedby="emailHelp" placeholder="Price"></div>\n\
+        <input type="text"  class="form-control priceclass ticketclass" ' + readonly + ' value="' + price + '"  name="price[]" aria-describedby="emailHelp" required placeholder="Price"></div>\n\
     <div class="col-md-2 form-group cus-form-group">\n\
     <label for="image">Remove Ticket</label><a href="#" class="remove_field">Remove</a></div>\n\
     <div class="col-md-6 form-group cus-form-group">\n\
     <label for="image">Start Date</label>\n\
-       <input type="text"  class="form-control datepicker_init" name="ticket_start_date[]" aria-describedby="emailHelp" placeholder="Start date"></div>\n\
+       <input type="date"  class="form-control datepicker_init ticketclass" name="ticket_start_date[]"  aria-describedby="emailHelp" required placeholder="Start date"></div>\n\
     <div class="col-md-6 form-group cus-form-group"><label for="image">End Date</label>\n\
-         <input type="text" class="form-control ticket_end_date datepicker_init" name="ticketend_date[]" aria-describedby="emailHelp" placeholder="End Date"></div>\n\
+         <input type="date" class="form-control ticket_end_date datepicker_init ticketclass" name="ticketend_date[]" aria-describedby="emailHelp" required placeholder="End Date"></div>\n\
          <input type="hidden"  class="form-control" value="' + ttype + '" name="ticket_type[]" aria-describedby="emailHelp" placeholder="Price"></div>');
             }
             $('.addticketcheck').val('yes');
             $('#FreeModal').modal('hide');
             $('#paidModal').modal('hide');
+//           reAddedpikkerDate();
         });
-
         $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
             e.preventDefault();
             $(this).parent('div').parent('div').remove();
@@ -443,11 +449,11 @@ $timezoneArray = config('constants.timezones');
             if (x == 0) {
                 $('.addticketcheck').val('');
             }
+
+
+
         });
-
     });
-
-
     function openModal(par) {
         if (par == 'paid') {
             $('#paidModal').modal('show');
@@ -459,18 +465,18 @@ $timezoneArray = config('constants.timezones');
         $('#ticketModal').modal('hide');
     }
 
+
     $(".datetimepicker").datetimepicker({
         format: 'm/d/Y H:i'
     });
 
 
-//    $(".datepicker").datetimepicker();
 
-
-//CKEDITOR.replace('area1', {
-//    height: '20%',
-//    width: '100%'
-//});
+    $(".datepicker").datetimepicker();
+    CKEDITOR.replace('area1', {
+        height: '20%',
+        width: '100%'
+    });
 //bkLib.onDomLoaded(function() {
 //        new nicEditor({ maxHeight : 100 }).panelInstance('area1');
 //        
@@ -482,7 +488,7 @@ $timezoneArray = config('constants.timezones');
 
     $('#country').change(function () {
         var cid = $(this).val();
-        var url = '{{ route("vendor.states", ":id") }}';
+        var url = '{{ route("states", ":id") }}';
         url = url.replace(':id', cid);
         if (cid) {
             $.ajax({
@@ -503,22 +509,21 @@ $timezoneArray = config('constants.timezones');
                         $.each(res, function (key, value) {
                             $("#state").append('<option value="' + value.id + '">' + value.name + '</option>');
                         });
-
                     } else {
                         $("#state").empty();
                     }
+
                 },
                 error: function (err) {
                     console.log(err);
                 }
             });
         }
+
+
     });
-
-
-
     function citylist(stateid) {
-        var ctyurl = '{{ route("vendor.cities", ":id") }}';
+        var ctyurl = '{{ route("cities", ":id") }}';
         ctyurl = ctyurl.replace(':id', stateid);
         $.ajax({
             type: 'GET',
@@ -549,49 +554,78 @@ $timezoneArray = config('constants.timezones');
 
 </script>
 <script>
-    $(document).ready(function () {
-        var cid = $('#event_category').val();
 
-        getsubcategories(cid);
-    });
-    $(".datepicker_init").datetimepicker({
-        format: 'm/d/Y H:i'
-    });
-</script>
-<script>
+    $("#add_event_form").validate({
+        // Specify validation rules
+        
+        rules: {
+            'event_title': {
+                required: true,
 
-    $('#event_category').change(function () {
-        var cid = $(this).val();
-
-        getsubcategories(cid);
-    })
-
-
-    function getsubcategories(cid) {
-        var url = '{{ route("subcategories", ":id") }}';
-        url = url.replace(':id', cid);
-        $.ajax({
-            type: 'GET',
-            url: url,
-            success: function (res) {
-                console.log('response', res);
-                if (res) {
-                    $("#event_subcategory").empty();
-                    $("#event_subcategory").append('<option value="">Select</option>');
-                    $.each(res, function (key, value) {
-                        $("#event_subcategory").append('<option value="' + value.id + '">' + value.name + '</option>');
-                    });
-
-                } else {
-                    $("#event_subcategory").empty();
-                }
             },
-            error: function (err) {
-                console.log(err);
-            }
-        });
-    }
+            event_category: {
+                required: true,
 
+            },
+            'event_priority': {
+                required: true,
+
+            },
+            'start_date': {
+                required: true,
+
+            },
+            'end_date': {
+                required: true,
+
+            },
+            'organiser_name': {
+                required: true,
+
+            },
+            'description': {
+                required: true,
+
+            },
+            'country': {
+                required: true,
+
+            },
+            'state': {
+                required: true,
+
+            },
+            'city': {
+                required: true,
+
+            },
+            'timezone': {
+                required: true,
+
+            },
+            'ticket_name[]': {
+                required: true,
+
+            },
+            'quantity[]': {
+                required: true,
+
+            },
+            'ticket_start_date[]': {
+                required: true,
+
+            },
+            'ticketend_date[]': {
+                required: true,
+
+            },
+            'price[]': {
+                required: true,
+            }
+
+        },
+
+    });
 </script>
 
 @endsection
