@@ -9,6 +9,7 @@
 $timezoneArray = config('constants.timezones');
 @endphp
 
+
 <!-- $timezoneArray = timezone_identifiers_list(); -->
 <div class="row justify-content-center">
 
@@ -187,7 +188,7 @@ $timezoneArray = config('constants.timezones');
                         </div>
                     </div>
 
-                    <button type="button" class="btn btn-bg ladda-button" data-toggle="modal" data-target="#ticketModal">Add Ticket</button>
+                    <button type="button" class="btn btn-bg ladda-button ticketModal" data-toggle="modal" data-target="#ticketModal">Add Ticket</button>
 
                     <div id="ticket-div" class="input_fields_wrap">
 
@@ -227,11 +228,11 @@ $timezoneArray = config('constants.timezones');
                     <div class="col-md-4 form-group cus-form-group">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
-                    <div class="col-md-4 form-group cus-form-group">
-                        <button type="button" class="btn btn-secondary" onclick="openModal('paid');">Paid Ticket</button>
+                    <div class="col-md-4 form-group cus-form-group ">
+                        <button type="button" class="btn btn-secondary paidclass" onclick="openModal('paid');">Paid Ticket</button>
                     </div>
                     <div class="col-md-4 form-group cus-form-group">
-                        <button type="button" class="btn btn-secondary" onclick="openModal('free');">Free Ticket</button>
+                        <button type="button" class="btn btn-secondary freeclass" onclick="openModal('free');">Free Ticket</button>
                     </div>
                 </div>
 
@@ -278,7 +279,7 @@ $timezoneArray = config('constants.timezones');
                 <div class="row">
                     <div class="col-md-4 form-group cus-form-group">
                         <button type="button" class="btn btn-secondary add_ticket_button">OK</button>
-                    </div>
+                    </div> 
                 </div>
             </div>
         </div>
@@ -286,7 +287,20 @@ $timezoneArray = config('constants.timezones');
 </div>
 <script src="{{url('assets/ckeditor/ckeditor.js')}}"></script>
 
+
 <script type="text/javascript">
+                            $('.ticketModal').on('click', function () {
+                                var pricetype = $('.priceclass').val();
+
+                                if (typeof (pricetype) == 'undefined') {
+
+                                } else if (pricetype != 'free') {
+                                    $('.freeclass').hide();
+                                } else {
+                                    $('.paidclass').hide();
+                                }
+
+                            })
 //                            $(".datepicker_init").datepicker({
 //                                dateFormat: 'dd-mm-yy',
 //                                changeMonth: true,
@@ -395,19 +409,19 @@ $timezoneArray = config('constants.timezones');
                 console.log('x', x);
                 var tmp = $(wrapper).append('<div class="row"><div class="col-md-4 form-group cus-form-group">\n\
     <label for="image">Ticket Name</label>\n\
-        <input type="text"  class="form-control" name="ticket_name[]" aria-describedby="emailHelp" placeholder="Ticket Name"></div>\n\
+        <input type="text"  class="form-control ticketclass" name="ticket_name[]" aria-describedby="emailHelp" placeholder="Ticket Name"></div>\n\
     <div class="col-md-4 form-group cus-form-group"><label for="image">Quantity available</label>\n\
-        <input type="text"  class="form-control" name="quantity[]" aria-describedby="emailHelp" placeholder="Quantity available"></div>\n\
+        <input type="text"  class="form-control ticketclass" name="quantity[]" aria-describedby="emailHelp" placeholder="Quantity available"></div>\n\
     <div class="col-md-2 form-group cus-form-group">\n\
     <label for="image">Price</label>\n\
-        <input type="text"  class="form-control" ' + readonly + ' value="' + price + '" name="price[]" aria-describedby="emailHelp" placeholder="Price"></div>\n\
+        <input type="text"  class="form-control priceclass ticketclass" ' + readonly + ' value="' + price + '"  name="price[]" aria-describedby="emailHelp" placeholder="Price"></div>\n\
     <div class="col-md-2 form-group cus-form-group">\n\
     <label for="image">Remove Ticket</label><a href="#" class="remove_field">Remove</a></div>\n\
     <div class="col-md-6 form-group cus-form-group">\n\
     <label for="image">Start Date</label>\n\
-       <input type="text"  class="form-control datepicker_init" name="ticket_start_date[]" aria-describedby="emailHelp" placeholder="Start date"></div>\n\
+       <input type="date"  class="form-control datepicker_init ticketclass" name="ticket_start_date[]"  aria-describedby="emailHelp" placeholder="Start date"></div>\n\
     <div class="col-md-6 form-group cus-form-group"><label for="image">End Date</label>\n\
-         <input type="text" class="form-control ticket_end_date datepicker_init" name="ticketend_date[]" aria-describedby="emailHelp" placeholder="End Date"></div>\n\
+         <input type="date" class="form-control ticket_end_date datepicker_init ticketclass" name="ticketend_date[]" aria-describedby="emailHelp" placeholder="End Date"></div>\n\
          <input type="hidden"  class="form-control" value="' + ttype + '" name="ticket_type[]" aria-describedby="emailHelp" placeholder="Price"></div>');
             }
             $('.addticketcheck').val('yes');
@@ -471,7 +485,7 @@ $timezoneArray = config('constants.timezones');
                     console.log('response', res);
                     if (res) {
                         $("#state").empty();
-                             $("#state").append('<option value="">Select state</option>');
+                        $("#state").append('<option value="">Select state</option>');
                         if (res != '') {
                             var stateid = res[0].id;
                             citylist(stateid);
@@ -506,7 +520,7 @@ $timezoneArray = config('constants.timezones');
                 if (res)
                 {
                     $("#city").empty();
-                         $("#city").append('<option value="">Select city</option>');
+                    $("#city").append('<option value="">Select city</option>');
                     $.each(res, function (key, value) {
                         $("#city").append('<option value="' + value.id + '">' + value.name + '</option>');
                     });
@@ -526,7 +540,79 @@ $timezoneArray = config('constants.timezones');
     });
 
 </script>
+<script>
 
+    $("#add_event_form").validate({
+        // Specify validation rules
+        rules: {
+            'event_title': {
+                required: true,
+
+            },
+            event_category: {
+                required: true,
+
+            },
+            'event_priority': {
+                required: true,
+
+            },
+            'start_date': {
+                required: true,
+
+            },
+            'end_date': {
+                required: true,
+
+            },
+            'organiser_name': {
+                required: true,
+
+            },
+            'description': {
+                required: true,
+
+            },
+            'country': {
+                required: true,
+
+            },
+            'state': {
+                required: true,
+
+            },
+            'city': {
+                required: true,
+
+            },
+            'timezone': {
+                required: true,
+
+            },
+            'ticket_name[]': {
+                required: true,
+
+            },
+            'quantity[]': {
+                required: true,
+
+            },
+            'ticket_start_date[]': {
+                required: true,
+
+            },
+            'ticketend_date[]': {
+                required: true,
+
+            },
+            'price[]': {
+                required: true,
+            }
+
+        },
+
+    });
+</script>
 
 @endsection
 
