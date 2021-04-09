@@ -79,7 +79,6 @@
 </div>
 @endsection
 @section('script-bottom')
-<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js"></script>
 <script type="text/javascript" src="{{ URL::asset('assets/js/nicEdit-latest.js') }}"></script>
 <script src="{{url('js/constantAddValidation.js')}}"></script>
 <script type="text/javascript">
