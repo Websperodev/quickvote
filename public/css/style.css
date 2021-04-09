@@ -2762,7 +2762,7 @@ p.descrp {
     -webkit-box-orient: vertical;
 }
 
-.form-group .error {
+.form-group label.error {
     position: absolute;
     font-size: 10px;
     bottom: -15px;
@@ -2775,4 +2775,11 @@ p.descrp {
 
 span.eprice:empty {
     display: none;
+}
+
+#login-frm-user .form-group label.error {
+    position: absolute;
+    font-size: 10px;
+    bottom: 0px;
+    left: 0px;
 }
