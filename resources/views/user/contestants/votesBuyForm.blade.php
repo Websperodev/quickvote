@@ -211,6 +211,10 @@
                 var phoneno = /^[0-9]+$/;
                 if (phone.match(phoneno)) {
                     if (checkuserAndPayType() && res != '3') {
+                        $('#quantityerror').text('');
+                        $('#nameerror').text('');
+                        $('#phoneerror').text('');
+                        $('#emailerror').text('');
                         var handler = PaystackPop.setup({
                             key: 'pk_test_402e4abb808a62fc2ba080d79887f256cb5c574a',
                             email: email,
@@ -266,6 +270,10 @@
                         });
                         handler.openIframe();
                     } else if (res == '3') {
+                        $('#quantityerror').text('');
+                        $('#nameerror').text('');
+                        $('#phoneerror').text('');
+                        $('#emailerror').text('');
                         var fees = "";
                         var phone = $('#phone').val();
                         var name = $('#name').val();
