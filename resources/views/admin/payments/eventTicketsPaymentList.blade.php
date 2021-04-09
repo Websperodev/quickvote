@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
-@section("meta_page_title") Dashboard | User List | Users @endsection
-@section("page_title") Users @endsection
+@section("meta_page_title") Dashboard | Event Ticket| Event Ticket Payment List @endsection
+@section("page_title") Event Ticket Payment List @endsection
 @section("css")
 <style type="text/css">
     form#add_user_form .modal-body .form-group {position: relative;}
@@ -10,7 +10,7 @@
 @section("page_directory")
 <ol class="breadcrumb m-0">
     <li class="breadcrumb-item"><a href="{!! route('admin.dashboard') !!}">Dashboard</a></li>
-    <li class="breadcrumb-item active">Users</li>
+    <li class="breadcrumb-item active">Payment</li>
 </ol>
 @endsection
 @section("content")
@@ -20,7 +20,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-6">
-                        <h4 class="header-title">Votes Payment List</h4>
+                        <h4 class="header-title">Event Ticket Payment List</h4>
                     </div>
                     <div class="col-6">
 
@@ -29,7 +29,7 @@
 
                     </div>
                 </div>
-                <p class="sub-header">View and manage account users on this page.</p>
+                  <p class="sub-header">View payment list on this page.</p>
                 <table id="users-table" class="table table-hover m-0 table-centered dt-responsive nowrap w-100">
                     <thead>
                         <tr>

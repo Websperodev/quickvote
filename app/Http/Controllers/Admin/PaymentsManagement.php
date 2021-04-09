@@ -55,13 +55,19 @@ class PaymentsManagement extends Controller {
                             return 'N/A';
                         })
                         ->addColumn('action', function ($allVotes) {
-                            $str = '<div class="btn-group dropdown"></div></div>';
+                            $str = '<div class="btn-group dropdown"><a data-toggle="tooltip" data-placement="top" title="Detail" class="dropdown-item"  href="' . route('admin.votes.paymentsDetail', ['id' => $allVotes['id']]) . '"><i class="mdi mdi-details mr-1 text-muted font-18 vertical-middle"></i>Detail</a></div>';
                             return $str;
                         })
                         ->rawColumns(['contestant_id', 'voting_id', 'created_at', 'action'])
                         ->make(true);
 //                          echo '<pre>';
 //        print_r($allVotes); die;
+    }
+
+    public function votePaymentDetail($id) {
+        $voteDetail = VotingContestants::find($id);
+
+        return view('admin/payments/votePaymentDetail', compact('voteDetail'));
     }
 
     function eventTicketsIndex() {
@@ -95,13 +101,19 @@ class PaymentsManagement extends Controller {
                             return 'N/A';
                         })
                         ->addColumn('action', function ($allTickets) {
-                            $str = '<div class="btn-group dropdown"></div></div>';
+                            $str = '<div class="btn-group dropdown"><a data-toggle="tooltip" data-placement="top" title="Detail" class="dropdown-item"  href="' . route('admin.tickets.paymentsDetail', ['id' => $allTickets['id']]) . '"><i class="mdi mdi-details mr-1 text-muted font-18 vertical-middle"></i>Detail</a></div>';
                             return $str;
                         })
                         ->rawColumns(['contestant_id', 'voting_id', 'created_at', 'action'])
                         ->make(true);
 //                          echo '<pre>';
 //        print_r($allVotes); die;
+    }
+
+    public function ticketPaymentDetail($id) {
+        $eventTicketDetail = EventTicketsPayments::find($id);
+
+        return view('admin/payments/ticketPaymentDetail', compact('eventTicketDetail'));
     }
 
 }

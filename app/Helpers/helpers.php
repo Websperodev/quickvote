@@ -85,4 +85,12 @@ if (!function_exists('votingName)')) {
     }
 
 }
+if (!function_exists('userName)')) {
+
+    function userName($id) {
+        $users = DB::table('users')->first();
+        return $users->first_name.' '.$users->last_name;
+    }
+
+}
 ?>

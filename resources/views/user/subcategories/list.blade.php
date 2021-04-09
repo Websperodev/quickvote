@@ -11,13 +11,13 @@
 </style>
 <div id="event-page" class="banner breadcrumb">
     <div class="slider-content">
-        <h4>Quick Category</h4>
-        <h2>Search Category</h2>
+        <h4>Quick Contest</h4>
+        <h2>Search Contest</h2>
     </div>
 </div>
 <form action="{{url('vote/categories-list')}}" method="POST" >
     <div id="floating-search" class="container evnt">
-        <h2>Category Browse</h2>
+        <h2>Contest Browse</h2>
         @csrf
         <div class=" row">
             <div class="col-md-8">

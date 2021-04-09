@@ -198,8 +198,10 @@ Route::namespace('Admin')->group(function () {
     //** Payment Mangement**//
     Route::get('votespayments-list', 'PaymentsManagement@votesIndex')->name('admin.votes.payments');
     Route::post('votes-payments', 'PaymentsManagement@allVotes')->name('admin.votes.list.payments');
+    Route::get('votespayments-detail/{id}', 'PaymentsManagement@votePaymentDetail')->name('admin.votes.paymentsDetail');
     Route::get('event-tickets-payments-list', 'PaymentsManagement@eventTicketsIndex')->name('admin.tickets.payments');
     Route::post('event-tickets-payments', 'PaymentsManagement@allEventTickets')->name('admin.tickets.list.payments');
+    Route::get('votespayments-payments-detail/{id}', 'PaymentsManagement@ticketPaymentDetail')->name('admin.tickets.paymentsDetail');
 });
 
 // Route::get('/redirect', 'SocialAuthFacebookController@redirect');
