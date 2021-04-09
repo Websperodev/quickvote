@@ -109,7 +109,7 @@
                             @else
                             {{$vote->fees}} USD
                             @endif</span></p>
-                    <p class="vote-payment"><button type="button" onclick="payWithPaystack()" class="btn btn-bg">Proceed To Payment</button></p>
+                    <p class="vote-payment"><button type="button" onclick="payWithPaystack()" class="btn btn-bg">Submit</button></p>
                     </form>
                 </div>
 
@@ -256,6 +256,7 @@
                                                 title: 'Error!',
                                                 text: 'Cannot buy votes',
                                                 confirmButtonClass: 'btn btn-confirm mt-2',
+                                                timer: 2000,
                                             });
                                         }
                                     },
@@ -299,6 +300,7 @@
                                         title: 'Success!',
                                         text: 'Thanks! ' + name + ' You have taken ' + quantity + ' votes',
                                         confirmButtonClass: 'btn btn-confirm mt-2',
+                                        timer: 2000,
                                     });
                                 } else {
                                     Swal.fire({
@@ -306,6 +308,7 @@
                                         title: 'Error!',
                                         text: 'Cannot buy votes',
                                         confirmButtonClass: 'btn btn-confirm mt-2',
+                                        timer: 2000,
                                     });
                                 }
                             },
@@ -319,7 +322,8 @@
                             text: 'Please log in then you can buy the votes!',
                             type: 'warning',
                             confirmButtonText: 'Back on login page',
-                            showConfirmButton: true
+                            showConfirmButton: true,
+                            timer: 2000,
                         }).then(function () {
                             window.location.href = '{{url("/")}}';
                         })
