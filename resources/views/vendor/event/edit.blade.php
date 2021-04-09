@@ -6,6 +6,7 @@
 @php 
 $timezoneArray = config('constants.timezones');
 @endphp
+  <script src="{{url('js/evenEditValidation.js')}}"></script>
 <script>
     var country = "{{$event->country_id}}";
     var state = "{{$event->state_id}}";
@@ -338,7 +339,7 @@ $timezoneArray = config('constants.timezones');
 <!--<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>-->
 <script src="{{url('assets/ckeditor/ckeditor.js')}}"></script>
 
-  <script src="{{url('js/evenEditValidation.js')}}"></script>
+
 <!--<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>-->
 
 <script>

@@ -1,7 +1,5 @@
-
-    $("#edit_user_form").validate({
-        // Specify validation rules
-        
+    $("#edit_event_form").validate({
+        // Specify validation rules       
         rules: {
             'event_title': {
                 required: true,

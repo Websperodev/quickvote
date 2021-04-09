@@ -540,13 +540,6 @@ $timezoneArray = config('constants.timezones');
     });
 
 </script>
-
-
 @endsection
-
-
-
 @section('script-bottom')
-
-
 @endsection

@@ -423,21 +423,21 @@ $timezoneArray = config('constants.timezones');
 </div>
 <script src="{{url('assets/ckeditor/ckeditor.js')}}"></script>
 
- <script src="{{url('js/evenEditValidation.js')}}"></script>
+<script src="{{url('js/evenEditValidation.js')}}"></script>
 <!--<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>-->
 
 <script>
-                            $(document).ready(function() {                                                              
-                                 $('.ticketModal').on('click', function () {
-                                var pricetype = $('.priceclass').val();
-                                if (typeof (pricetype) == 'undefined') {
-                                } else if (pricetype != 'free') {
-                                    $('.freeclass').hide();
-                                } else {
-                                    $('.paidclass').hide();
-                                }
+                            $(document).ready(function() {
+                            $('.ticketModal').on('click', function () {
+                            var pricetype = $('.priceclass').val();
+                            if (typeof (pricetype) == 'undefined') {
+                            } else if (pricetype != 'free') {
+                            $('.freeclass').hide();
+                            } else {
+                            $('.paidclass').hide();
+                            }
                             })
-                            if (country != '') {
+                                    if (country != '') {
                             var cid = country;
                             } else {
                             var cid = 1;
@@ -454,7 +454,7 @@ $timezoneArray = config('constants.timezones');
                             var cityId = 1;
                             }
 
-                            var url ='{{ route("allstates", ":id") }}';
+                            var url = '{{ route("allstates", ":id") }}';
                             url = url.replace(':id', cid);
                             var selected = '';
                             $.ajax({
@@ -511,11 +511,6 @@ $timezoneArray = config('constants.timezones');
 
                             });
                             });
-                            
-                            
-                            
-                            
-                            
                             $('#country').change(function () {
                             var cid = $(this).val();
                             var url = '{{ route("allstates", ":id") }}';
@@ -549,11 +544,6 @@ $timezoneArray = config('constants.timezones');
                             });
                             }
                             });
-                            
-                            
-                            
-                            
-                            
                             function citylist(stateid) {
                             var ctyurl = '{{ route("allcities", ":id") }}';
                             ctyurl = ctyurl.replace(':id', stateid);
@@ -579,26 +569,20 @@ $timezoneArray = config('constants.timezones');
                                     }
                             });
                             }
-                            
-                            
-                            
-                            
+
+
+
+
                             $('#state').change(function () {
                             var sid = $(this).val();
                             citylist(sid);
                             });
-                        
-                    
-                
-           
                             CKEDITOR.replace('area1', {
                             height: '20%',
                                     width: '100%'
                             });
-                            
-    
                             $(document).ready(function() {
-                                    var ticketNo = $('#free-no').val(); //maximum input boxes allowed
+                            var ticketNo = $('#free-no').val(); //maximum input boxes allowed
                             var wrapper = $(".input_fields_wrap"); //Fields wrapper
                             var add_button = $(".add_ticket_button"); //Add button ID
 
@@ -640,63 +624,57 @@ $timezoneArray = config('constants.timezones');
     <div class="col-md-6 form-group cus-form-group"><label for="image">End Date</label>\n\
          <input type="date" class="form-control ticket_end_date datepicker_init ticketclass" name="ticketend_date[]" required aria-describedby="emailHelp" placeholder="End Date"></div>\n\
          <input type="hidden"  class="form-control" value="' + ttype + '" name="ticket_type[]" aria-describedby="emailHelp" placeholder="Price"></div>');
-                                }
-                                $('#FreeModal').modal('hide');
-                                $('#paidModal').modal('hide');
-                                });
-                                $(wrapper).on("click", ".remove_field", function(e){ //user click on remove text
-                                e.preventDefault(); $(this).parent('div').parent('div').remove(); x--;
-                                });
-                            });
-                            
-                            
-                            
-                            
-                            $(".datetimepicker").datetimepicker({
-                                        format:'m/d/Y H:i'
-                                });
-                                    
-                                    
-                                    function openModal(par){
-                                        if (par == 'paid'){
-                                $('#paidModal').modal('show');
-                                }
-                                if (par == 'free'){
-                                $('#FreeModal').modal('show');
-                                }
-
-                                $('#ticketModal').modal('hide');
                             }
-                            
+                            $('#FreeModal').modal('hide');
+                            $('#paidModal').modal('hide');
+                            });
+                            $(wrapper).on("click", ".remove_field", function(e){ //user click on remove text
+                            e.preventDefault(); $(this).parent('div').parent('div').remove(); x--;
+                            });
+                            });
+                            $(".datetimepicker").datetimepicker({
+                            format:'m/d/Y H:i'
+                            });
+                            function openModal(par){
+                            if (par == 'paid'){
+                            $('#paidModal').modal('show');
+                            }
+                            if (par == 'free'){
+                            $('#FreeModal').modal('show');
+                            }
+
+                            $('#ticketModal').modal('hide');
+                            }
+
                             function deleteTicket(id){
-                                        var url = '{{ route("deleteTicket", ":id") }}';
-                                url = url.replace(':id', id);
-                                console.log(url);
-                                $.ajax({
-                                type: 'GET',
-                                        url: url,
-                                        success: function (res) {
-                                        console.log(res);
-                                        if (res.success == true){
-                                        Swal.fire({
-                                        type: 'success',
-                                                title: 'Success!',
-                                                text: res.message,
-                                                confirmButtonClass: 'btn btn-confirm mt-2',
-                                        }).then((result) => {
-                                        // Reload the Page
-                                        location.reload();
-                                        });
-                                        } else{
+                            var url = '{{ route("deleteTicket", ":id") }}';
+                            url = url.replace(':id', id);
+                            console.log(url);
+                            $.ajax({
+                            type: 'GET',
+                                    url: url,
+                                    success: function (res) {
+                                    console.log(res);
+                                    if (res.success == true){
+                                    Swal.fire({
+                                    type: 'success',
+                                            title: 'Success!',
+                                            text: res.message,
+                                            confirmButtonClass: 'btn btn-confirm mt-2',
+                                    }).then((result) => {
+                                    // Reload the Page
+                                    location.reload();
+                                    });
+                                    } else{
 
-                                        }
+                                    }
 
-       },
-            error: function(err) {
-            console.log(err);
-            }
-    });
-    }
+                                    },
+                                    error: function(err) {
+                                    console.log(err);
+                                    }
+                            });
+                            }
 
 
 
@@ -704,35 +682,34 @@ $timezoneArray = config('constants.timezones');
 
 
 </script>
-        <script>
-                                        $('#event_category').change(function () {
-                                        var cid = $(this).val();
-                                        var url = '{{ route("subcategories", ":id") }}';
-                                        url = url.replace(':id', cid);
-                                        if (cid) {
-                                        $.ajax({
-                                        type: 'GET',
-                                                url: url,
-                                                success: function (res) {
-                                                console.log('response', res);
-                                                if (res) {
-                                                $("#event_subcategory").empty();
-                                                $("#event_subcategory").append('<option value="">Select</option>');
-                                                $.each(res, function (key, value) {
-                                                $("#event_subcategory").append('<option value="' + value.id + '">' + value.name + '</option>');
-                                                });
-                                                } else {
-                                                $("#event_subcategory").empty();
-                                                }
-                                                },
-                                                error: function (err) {
-                                                console.log(err);
-                                                }
-                                        });
-                                        }
-                                        });
-                                        </script>
-                                       
-                                                @endsection
-                                                @section('script-bottom')
-                                                @endsection
+<script>
+    $('#event_category').change(function () {
+    var cid = $(this).val();
+    var url = '{{ route("subcategories", ":id") }}';
+    url = url.replace(':id', cid);
+    if (cid) {
+    $.ajax({
+    type: 'GET',
+            url: url,
+            success: function (res) {
+            console.log('response', res);
+            if (res) {
+            $("#event_subcategory").empty();
+            $("#event_subcategory").append('<option value="">Select</option>');
+            $.each(res, function (key, value) {
+            $("#event_subcategory").append('<option value="' + value.id + '">' + value.name + '</option>');
+            });
+            } else {
+            $("#event_subcategory").empty();
+            }
+            },
+            error: function (err) {
+            console.log(err);
+            }
+    });
+    }
+    });
+</script>
+@endsection
+@section('script-bottom')
+@endsection

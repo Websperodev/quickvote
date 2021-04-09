@@ -169,11 +169,7 @@
         </div> 
     </div>
 </div> 
-@endsection
 
-
-
-@section('script-bottom')
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -326,5 +322,9 @@
     });
 </script>
 
+@endsection
 
+
+
+@section('script-bottom')
 @endsection
