@@ -351,7 +351,22 @@ form.custum-frm .btn-right.submit-btn {
 
 .right-cont-section .page-title-box .page-title {
     margin: 0;
-    padding: 0px 0 0px;
+    padding: 12px 25px 10px;
+    display: inline-block;
+    background: #e5e8ef;
+    font-size: 13px;
+    text-transform: uppercase;
+    min-width: 300px;
+    border-radius: 30px;
+    color: #565656;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.right-cont-section .page-title-box .page-title a.head-a {
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
 }
 
 .dashbrd.wrapper.full-width .content-area {
@@ -522,6 +537,108 @@ ul.navigation-menu.in li a {
     top: 13px;
 }
 
+.custum-frm .btn-right {
+    clear: both;
+}
+
+.ladda-button.btn.addtkt {
+    margin-top: 0px;
+}
+
+form.custum-frm > div label.error {
+    position: absolute;
+    font-size: 12px;
+}
+
+.custum-frm input.datetimepicker {
+    padding-left: 30px;
+}
+
+.cus-form-group input.form-control[type="file"] {
+    padding: 5px;
+}
+
+.contes.col-md-6.col-sm-12 {
+    float: left;
+    padding: 20px 5px 10px;
+    box-shadow: 0 0 10px 0 #0002;
+    margin: 15px 0px;
+    max-width: 49%;
+}
+
+form#add_contestant_form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.contes.col-md-6.col-sm-12 label.col-12 {
+    padding: 0;
+    margin-left: 0;
+}
+
+#contestantModal .modal-dialog {
+    max-width: 980px;
+    width: 90%;
+    top: 10vw;
+    margin: auto;
+    bottom: 0;
+    max-height: 80vh;
+    overflow-y: auto;
+    pointer-events: auto;
+}
+
+input[type=radio]:before, input[type=checkbox]:before {content: "";width: 14px;height: 14px;position: absolute;display: block;background: #fff;opacity: 1;top: 0;left: 0;border: 1px solid #cacaca;}
+
+input[type=radio]:checked:after, input[type=checkbox]:checked:after {
+    background: #f37f34;
+    width: 6px;
+    height: 6px;
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 4px;
+}
+
+input[type=radio]:checked:before, input[type=checkbox]:checked:before {
+    border-color: #f37f34;
+}
+
+form input[type=radio], form input[type=checkbox] {
+    box-sizing: border-box;
+    padding: 0;
+    width: 14px;
+    height: 14px;
+    top: 3px;
+    position: relative;
+}
+
+#add_voting_form .form-group.cus-form-group > label {
+    width: 100%;
+}
+
+#add_voting_form .col-md-6.col-sm-12.form-group.cus-form-group.row {
+    float: left;
+}
+
+#add_voting_form.custum-frm .col-md-6 {
+    float: left;
+}
+
+#add_voting_form .form-group.cus-form-group > label {
+    width: 100%;
+}
+
+#add_voting_form .form-group.cus-form-group {
+    display: inline-block;
+}
+
+.col-md-12.form-group.cus-form-group.votelimitcount {
+    margin-bottom: 0;
+}
+
+
+
 
 
 /*====================== Responsive Css ==========================*/
@@ -554,3 +671,13 @@ body{padding:0 !important;}
     width: 100%;
 }
 
+}
+
+
+@media (max-width: 767px) {
+	
+.contes.col-md-6.col-sm-12 {
+    max-width: 100%;
+}
+	
+}

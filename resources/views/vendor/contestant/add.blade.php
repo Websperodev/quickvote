@@ -40,7 +40,7 @@
                     </div>
 
                     <div class="col-12 btn-right">
-                        <button type="button" id="add-contestant" class="btn btn-bg ladda-button">Load</button>
+                        <button type="button" id="add-contestant" class="btn btn-bg lada-button">Load</button>
                     </div>
                 </div>
 
@@ -54,8 +54,8 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Add Contestant</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
 
@@ -67,9 +67,6 @@
                     {!! Form::close() !!}
                 </div>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
 
@@ -139,7 +136,7 @@
                                 $('#add_contestant_form').empty();
                                 var html = '';
                                 for (let i = 0; i < total; i++) {
-                                    html += '<div class="col-md-12 form-group cus-form-group">\n\
+                                    html += '<div class="contes col-md-6 col-sm-12"><div class="col-md-12 form-group cus-form-group">\n\
                         <label for="name" class="col-12">Name</label>\n\
                         <input type="text" name="name[]"  class="form-control" placeholder="Enter Contestant name" required/>\n\
                                              </div>\n\
@@ -151,10 +148,10 @@
 <input type="text" name="number[]"  class="form-control" placeholder="Enter Number" required/></div>\n\
 <div class="col-md-12 form-group cus-form-group"><label for="image" class="col-12">About</label>\n\
 <textarea type="text" required cols="50" class="form-control" name="about[]" placeholder="About here..">\n\
-</textarea></div>';
+</textarea></div></div>';
                                 }
 
-                                html += '<input type="hidden" name="voting_id" value=' + eventId + ' /><div class="col-12 btn-right"><button type="submit" class="btn btn-bg ladda-button submitBtn">Add</button></div>';
+                                html += '<input type="hidden" name="voting_id" value=' + eventId + ' /><div class="col-12 btn-right"><button type="submit" class="btn btn-bg lada-button submitBtn">Add</button></div>';
 
                                 $('#add_contestant_form').append(html);
                                 $('#contestantModal').modal('show');
