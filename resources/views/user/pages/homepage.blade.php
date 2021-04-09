@@ -30,30 +30,30 @@
     </a>
 </div>
 
-<!--<div id="floating-search" class="container">
+<div id="floating-search" class="container">
     <h2>Browse Voting Contests</h2>
     <form action="{{url('categories-list')}}" method="POST" id="seachform">
         @csrf
         <div class=" row">
 
-            <div class="col-md-6">
+            <div class="col-md-10">
                 <div class="form-group">
                     <div class="input-group-append"><span class="input-group-text px-4"><i class="fa fa-search"></i></span></div>
                     <input type="text" class="form-control seachName" onkeyup="checksearchInput()" name="eventname" value="" id="floatingInputGrid" placeholder="Search">
                 </div>
             </div>
-            <div class="col-md-4">
+<!--            <div class="col-md-4">
                 <div class="form-group">
                     <input type="date" class="form-control seachDate" onchange="checksearchInput()" name="eventDate" value="" id="inputDate" placeholder="Date">
                 </div>
-            </div>
+            </div>-->
             <div class="col-md-2">
                 <button type="submit" class="btn btn-primary seachButton" disabled>Search Event</button>
             </div>
 
         </div>
     </form>
-</div>-->
+</div>
 
 
 <div id="feat" class="feat-event py-5">

@@ -23,11 +23,14 @@ use App\Models\Banner;
 class SubCategoriesController extends Controller {
 
     function index(Request $req) {
+       
         $mytime = Carbon::now();
         $date = $mytime->toDateString();
         $search = '';
         $testimonials=[];
-        if (!empty($req->input()) && $req->input('scat_name') != '') {
+       
+        if ($req->input() && $req->input('scat_name') != '') {
+        
             $name = $req->input('scat_name');
             $search = $name;
             $subcategories = Categories::select('categories.*')
@@ -39,6 +42,7 @@ class SubCategoriesController extends Controller {
                     ->groupBy('categories.id')
                     ->get();
         } else {
+           
             $subcategories = Categories::select('categories.*')
                             ->rightjoin('voting_contests', 'voting_contests.category_id', '=', 'categories.id')
                             ->where('voting_contests.status', 'Accepted')

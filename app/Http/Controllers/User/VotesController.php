@@ -14,15 +14,16 @@ use App\Models\PricingPlans;
 class VotesController extends Controller {
 
     function index(Request $req, $id) {
+
         $vote_name = '';
         $searchdate = '';
 //        $scatid=$req->input('id');
-//   echo $scatid; die;
+
 
         $mytime = Carbon::now();
         $date = $mytime->toDateString();
         $inArray = ['home', 'trusted brands'];
-         $slider = Slider::whereIn('name', $inArray)->get();
+        $slider = Slider::whereIn('name', $inArray)->get();
         if ($slider->count() > 0) {
             foreach ($slider as $val) {
                 $sliders[$val->name][] = $val;
@@ -69,27 +70,25 @@ class VotesController extends Controller {
         $mytime = Carbon::now();
         $date = $mytime->toDateString();
         $inArray = ['Non-Category Votes', 'trusted brands'];
-         $slider = Slider::whereIn('name', $inArray)->get();
+        $slider = Slider::whereIn('name', $inArray)->get();
         if ($slider->count() > 0) {
             foreach ($slider as $val) {
                 $sliders[$val->name][] = $val;
             }
         }
         $testimonials = Testimonial::all();
-        if (!empty($req->input())) {
 
-            if ($req->input('vote_name') && $req->input('vote_name') != '') {
+        if ($req->input() && $req->input('vote_name') != '') {
 
-                $vote_name = $req->input('vote_name');
+            $vote_name = $req->input('vote_name');
 
-                $voting_contest = Votingcontest::where('category_id', NULL)
-                        ->where('status', 'Accepted')
-                        ->where('closing_date', '>', $date)
-                        ->where('title', 'like', '%' . $vote_name . '%')
-                        ->get();
-            }
+            $voting_contest = Votingcontest::where('category_id', NULL)
+                    ->where('status', 'Accepted')
+                    ->where('closing_date', '>', $date)
+                    ->where('title', 'like', '%' . $vote_name . '%')
+                    ->get();
         } else {
-
+            
             $voting_contest = Votingcontest::where('category_id', NULL)
                     ->orWhere('category_id', '')
                     ->where('closing_date', '>', $date)
