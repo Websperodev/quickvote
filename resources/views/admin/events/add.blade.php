@@ -187,12 +187,11 @@ $timezoneArray = config('constants.timezones');
                             @endif
                         </div>
                     </div>
+					
+                    <div id="ticket-div" class="input_fields_wrap">  </div>
 
-                    <button type="button" class="btn btn-bg ladda-button ticketModal" data-toggle="modal" data-target="#ticketModal">Add Ticket</button>
+                    <button type="button" class="btn btn-bg addtkt ladda-button ticketModal" data-toggle="modal" data-target="#ticketModal">Add Ticket</button>
 
-                    <div id="ticket-div" class="input_fields_wrap">
-
-                    </div>
                     <input type="hidden"  name="addticketcheck" class="addticketcheck"  value="">
 
                     @if($errors->has('addticketcheck'))
@@ -416,7 +415,7 @@ $timezoneArray = config('constants.timezones');
     <label for="image">Price</label>\n\
         <input type="text"  class="form-control priceclass ticketclass" ' + readonly + ' value="' + price + '"  required name="price[]" aria-describedby="emailHelp" placeholder="Price"></div>\n\
     <div class="col-md-2 form-group cus-form-group">\n\
-    <label for="image">Remove Ticket</label><a href="#" class="remove_field">Remove</a></div>\n\
+    <label for="image">Remove Ticket</label><a href="#" class="btn btn-danger col-sm-12 remove_field">Remove</a></div>\n\
     <div class="col-md-6 form-group cus-form-group">\n\
     <label for="image">Start Date</label>\n\
        <input type="date"  class="form-control datepicker_init ticketclass" name="ticket_start_date[]" required aria-describedby="emailHelp" placeholder="Start date"></div>\n\
