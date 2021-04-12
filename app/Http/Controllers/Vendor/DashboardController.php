@@ -10,6 +10,7 @@ use DB;
 use App\Models\Event;
 use App\Models\Cities;
 use App\Models\States;
+use Response;
 
 class DashboardController extends Controller {
 

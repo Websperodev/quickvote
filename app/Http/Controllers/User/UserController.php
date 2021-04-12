@@ -19,6 +19,7 @@ use App\Models\Categories;
 use App\Models\Testimonial;
 use App\Models\PricingPlans;
 use DB;
+use Response;
 
 class UserController extends Controller {
 

@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use App\Models\Slider;
 use App\Models\Testimonial;
 use App\Models\PricingPlans;
+use Response;
 
 class VotesController extends Controller {
 

@@ -12,6 +12,7 @@ use Auth;
 use App\Models\Page;
 use App\Models\ModulesList;
 use App\Models\VendorPermissions;
+use Response;
 
 class CategoriesController extends Controller {
 
@@ -272,14 +273,9 @@ class CategoriesController extends Controller {
      */
     public function destroy($id) {
         try {
-            $subcategory = Subcategory::findOrFail($id);
-            $subcategory->delete();
-
-            if ($subcategory) {
-                return Response::json(['success' => true, 'status' => 1, 'message' => "Subcategory has been deleted successfully."]);
-            } else {
-                return Response::json(['success' => false, 'status' => 2, "error" => 'Something went wrong.']);
-            }
+            $subcategory = Categories::findOrFail($id);
+            $subcategory->delete();         
+                return Response::json(['success' => true, 'status' => 1, 'message' => "Subcategory has been deleted successfully."]);           
         } catch (\Exception $e) {
             return Response::json(['success' => false, 'status' => 2, "error" => $e->getMessage()]);
         }
