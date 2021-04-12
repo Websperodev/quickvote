@@ -22,25 +22,23 @@ $timezoneArray = config('constants.timezones');
                 {!! Form::open(array('route' => 'vendor.edit.voting', 'id' => 'edit_voting_form', 'method' => 'post','class' => 'custum-frm', 'enctype' => 'multipart/form-data' )) !!}
                 @csrf
                 <div class="col-md-12 form-group cus-form-group">
-                    <div class="col-md-12 form-group cus-form-group row">
-                        <div class="col-md-12 form-group cus-form-group">
+                    <div class="col-md-6 col-sm-12 form-group cus-form-group">
                             <label for="Category">Category selection</label>
-                        </div>
                         @if($VotingContest->category=='1')
-                        <div class="col-md-3">
+                        <div class="col-md-6 col-sm-12">
                             <label for="Category">Pageants (Not Categorized)</label>
                             <input type="radio" class="category" checked name="category" value="1">
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-6 col-sm-12">
                             <label for="Category">Awards (Categorized)</label>
                             <input type="radio" class="category" name="category" value="2">
                         </div>
                         @else
-                        <div class="col-md-3">
+                        <div class="col-md-6 col-sm-12">
                             <label for="Category">Pageants (Not Categorized)</label>
                             <input type="radio" class="category"  name="category" value="1">
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-6 col-sm-12">
                             <label for="Category">Awards (Categorized)</label>
                             <input type="radio" class="category" checked name="category" value="2">
                         </div>
@@ -49,25 +47,23 @@ $timezoneArray = config('constants.timezones');
                         <div class="error">{{$errors->first('category')}}</div>
                         @endif
                     </div>
-                    <div class="col-md-12 form-group cus-form-group row">
-                        <div class="col-md-12 form-group cus-form-group">
+                    <div class="col-md-6 col-sm-12 form-group cus-form-group">
                             <label for="type">Voting type</label>
-                        </div>
                         @if($VotingContest->type=='paid')
-                        <div class="col-md-3">
+                        <div class="col-md-6 col-sm-12">
                             <label for="type">Paid</label>
                             <input type="radio" checked name="type" class="vote_type" id="vote_type" value="paid">
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-6 col-sm-12">
                             <label for="type">Free</label>
                             <input type="radio"  name="type" class="vote_type" value="free">
                         </div>
                         @else
-                        <div class="col-md-3">
+                        <div class="col-md-6 col-sm-12">
                             <label for="type">Paid</label>
                             <input type="radio"  name="type" class="vote_type" id="vote_type" value="paid">
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-6 col-sm-12">
                             <label for="type">Free</label>
                             <input type="radio" checked name="type" class="vote_type" value="free">
                         </div>
@@ -76,25 +72,23 @@ $timezoneArray = config('constants.timezones');
                         <div class="error">{{$errors->first('type')}}</div>
                         @endif
                     </div>
-                    <div class="col-md-12 form-group cus-form-group row">
-                        <div class="col-md-12 form-group cus-form-group">
+                    <div class="col-md-12 form-group cus-form-group">
                             <label for="limit">Daily vote limit</label>
-                        </div>
                         @if($VotingContest->limit=='0')
-                        <div class="col-md-3">
+                        <div class="col-md-6 col-sm-12">
                             <label for="limit">Unlimited</label>
                             <input type="radio" checked class="votelimit" name="limit" value="0">
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-6 col-sm-12">
                             <label for="limit">Limited</label>
                             <input type="radio"  name="limit" class="votelimit" value="1">
                         </div>
                         @else
-                        <div class="col-md-3">
+                        <div class="col-md-6 col-sm-12">
                             <label for="limit">Unlimited</label>
                             <input type="radio"  class="votelimit" name="limit" value="0">
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-6 col-sm-12">
                             <label for="limit">Limited</label>
                             <input type="radio" checked name="limit" class="votelimit" value="1">
                         </div>
@@ -132,25 +126,24 @@ $timezoneArray = config('constants.timezones');
                             <div class="error">{{ $errors->first('payment_gateway') }}</div>
                             @endif
                         </div>-->
-                        <div class="col-md-12 form-group cus-form-group row">
-                            <div class="col-md-12 form-group cus-form-group">
+                        </div>
+                        <div class="col-md-12 form-group cus-form-group">
                                 <label for="Profile">Contestant Profile view</label>
-                            </div>
                             @if($VotingContest->packages=='0')
-                            <div class="col-md-3">
+                            <div class="col-md-6 col-sm-12">
                                 <label for="Profile">OFF</label>
                                 <input type="radio" checked name="packages" value="0">
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-6 col-sm-12">
                                 <label for="Profile">ON</label>
                                 <input type="radio" name="packages" value="1">
                             </div>
                             @else
-                            <div class="col-md-3">
+                            <div class="col-md-6 col-sm-12">
                                 <label for="Profile">OFF</label>
                                 <input type="radio"  name="packages" value="0">
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-6 col-sm-12">
                                 <label for="Profile">ON</label>
                                 <input type="radio" checked name="packages" value="1">
                             </div>
@@ -159,7 +152,7 @@ $timezoneArray = config('constants.timezones');
                             <div class="error">{{ $errors->first('profile') }}</div>
                             @endif
                         </div>
-                        <div class="col-md-6 form-group cus-form-group">
+                        <div class="col-md-12 form-group cus-form-group">
                             <label for="image">Image</label>
                             @if(isset($VotingContest->image) && $VotingContest->image != '' )
                             <img src="{{ url($VotingContest->image) }}" width="150" height="150">
@@ -169,7 +162,6 @@ $timezoneArray = config('constants.timezones');
                             <div class="error">{{ $errors->first('image') }}</div>
                             @endif
                         </div>
-                        <div class="row">
                             <div class="col-md-6 form-group cus-form-group">
                                 <label for="title">Vote Contest title</label>
                                 <input type="text" autocomplete="off" class="form-control" name="title" id="title" value="{{ isset($VotingContest->title) ? $VotingContest->title : ''}}" placeholder="Enter title">
@@ -212,10 +204,7 @@ $timezoneArray = config('constants.timezones');
                                 @if($errors->has('timezone'))
                                 <div class="error">{{ $errors->first('timezone') }}</div>
                                 @endif
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">    
+                            </div>   
                         <div class="col-md-12 form-group cus-form-group">
                             <label for="description">Description</label>
                             <textarea type="text" cols="50" class="form-control" name="description" id="area1" placeholder="Description here..">{{ isset($VotingContest->description)? ucfirst($VotingContest->description) : ''}}</textarea>
@@ -223,10 +212,9 @@ $timezoneArray = config('constants.timezones');
                             <div class="error">{{ $errors->first('description') }}</div>
                             @endif
                         </div>
-                    </div>
                     <input type="hidden" name="VotingContest_id" value="{{ isset($VotingContest->id ) ? $VotingContest->id  : ''}}"> 
                     <div class="btn-right">
-                        <button type="submit" class="btn btn-bg ladda-button">Submit</button>
+                        <button type="submit" class="btn btn-bg lada-button">Submit</button>
                     </div>
                 </div>
                 {!! Form::close() !!}

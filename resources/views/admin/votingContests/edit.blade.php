@@ -151,7 +151,7 @@ $timezoneArray = config('constants.timezones');
                             <div class="error">{{ $errors->first('profile') }}</div>
                             @endif
                         </div>
-                        <div class="col-md-6 form-group cus-form-group">
+                        <div class="col-md-12 form-group cus-form-group">
                             <label for="image">Image</label>
                             @if(isset($VotingContest->image) && $VotingContest->image != '' )
                             <img src="{{ url($VotingContest->image) }}" width="150" height="150">
@@ -197,8 +197,7 @@ $timezoneArray = config('constants.timezones');
                                 <select class="form-control" name="timezone" id="timezone"  aria-describedby="emailHelp">
                                     @foreach($timezoneArray as $key=>$time)
                                     <option value="{{ $key }}" {{ $key == $VotingContest->timezone ? 'selected' : ''}}>{{ $key }}</option>
-                                    @endforeach
-
+                                    @endforeach 
                                 </select>
                                 @if($errors->has('timezone'))
                                 <div class="error">{{ $errors->first('timezone') }}</div>
@@ -216,26 +215,44 @@ $timezoneArray = config('constants.timezones');
                     <div class="row"> 
                         <div class="col-md-12 form-group cus-form-group">
                             @if($VotingContest->status=='Pending')
+                            <div class="col-md-3 form-group cus-form-group">
                             <label for="status">Pending</label>
                             <input type="radio" value="Pending" checked name='status' class='eventstatus' />
+							</div>
+                            <div class="col-md-3 form-group cus-form-group">
                             <label for="status">Accepted</label>
                             <input type="radio" value="Accepted" name='status' class='eventstatus' />
+							</div>
+                            <div class="col-md-3 form-group cus-form-group">
                             <label for="status">Rejected</label>
                             <input type="radio" value="Rejected" id='Rejected' name='status' class='eventstatus' />
+							</div>
                             @elseif($VotingContest->status=='Accepted')
+                            <div class="col-md-3 form-group cus-form-group">
                             <label for="status">Pending</label>
                             <input type="radio" value="Pending"  name='status' class='eventstatus' />
+							</div>
+                            <div class="col-md-3 form-group cus-form-group">
                             <label for="status">Accepted</label>
                             <input type="radio" value="Accepted" checked name='status' class='eventstatus' />
+							</div>
+                            <div class="col-md-3 form-group cus-form-group">
                             <label for="status">Rejected</label>
                             <input type="radio" value="Rejected" id='Rejected' name='status' class='eventstatus' />
+							</div>
                             @elseif($VotingContest->status=='Rejected')
+                            <div class="col-md-3 form-group cus-form-group">
                             <label for="status">Pending</label>
                             <input type="radio" value="Pending"  name='status' class='eventstatus' />
+							</div>
+                            <div class="col-md-3 form-group cus-form-group">
                             <label for="status">Accepted</label>
                             <input type="radio" value="Accepted" name='status' class='eventstatus' />
+							</div>
+                            <div class="col-md-3 form-group cus-form-group">
                             <label for="status">Rejected</label>
                             <input type="radio" value="Rejected" id='Rejected' checked name='status' class='eventstatus' />
+							</div>
                             @endif
                             @if($errors->has('status'))
                             <div class="error">{{ $errors->first('status') }}</div>
@@ -260,7 +277,7 @@ $timezoneArray = config('constants.timezones');
                     </div>
                     <input type="hidden" name="VotingContest_id" value="{{ isset($VotingContest->id ) ? $VotingContest->id  : ''}}"> 
                     <div class="btn-right">
-                        <button type="submit" class="btn btn-bg ladda-button">Submit</button>
+                        <button type="submit" class="btn btn-bg lada-button">Submit</button>
                     </div>
                 </div>
                 {!! Form::close() !!}
