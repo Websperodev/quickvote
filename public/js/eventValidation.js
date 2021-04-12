@@ -1,6 +1,6 @@
     $("#add_event_form").validate({
         // Specify validation rules
-
+ ignore: [],
         rules: {
             'event_title': {
                 required: true,
