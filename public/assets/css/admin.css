@@ -613,23 +613,19 @@ form input[type=radio], form input[type=checkbox] {
     position: relative;
 }
 
-#add_voting_form .form-group.cus-form-group > label {
+#add_voting_form .form-group.cus-form-group > label, #edit_voting_form .form-group.cus-form-group > label {
     width: 100%;
 }
 
-#add_voting_form .col-md-6.col-sm-12.form-group.cus-form-group.row {
+#add_voting_form .col-md-6.col-sm-12.form-group.cus-form-group.row, #edit_voting_form .col-md-6.col-sm-12.form-group.cus-form-group.row {
     float: left;
 }
 
-#add_voting_form.custum-frm .col-md-6 {
+#add_voting_form.custum-frm .col-md-6, #edit_voting_form.custum-frm .col-md-6 {
     float: left;
 }
 
-#add_voting_form .form-group.cus-form-group > label {
-    width: 100%;
-}
-
-#add_voting_form .form-group.cus-form-group {
+#add_voting_form .form-group.cus-form-group, #edit_voting_form .form-group.cus-form-group {
     display: inline-block;
 }
 

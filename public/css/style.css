@@ -2412,12 +2412,19 @@ div#cand {
 
 .candidate-vote .form-control {
     background: #ececec;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
     border-bottom: none;
     padding: 0px 20px;
     border-radius: 30px;
     height: 55px;
-}	
+}
+
+.candidate-vote .form-control + .error {
+    position: absolute;
+    bottom: -17px;
+    font-size: 12px;
+    left: 20px;
+}
 
 p.vote-payment a {
     width: 100%;
