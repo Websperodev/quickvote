@@ -211,7 +211,7 @@
         var contestant_id = "{{$contestants->id}}";
         if (phone != '' && name != '' && quantity != '' && email != '') {
             if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
-                var phoneno = /^[0-9]+$/;
+                var phoneno = /^[0][1-9]\d{9}$|^[1-9]\d{5,11}$/;
                 if (phone.match(phoneno)) {
                     if (checkuserAndPayType() && res != '3') {
                         $('#quantityerror').text('');

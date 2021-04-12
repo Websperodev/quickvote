@@ -64,7 +64,7 @@
             </div>
             <div class="col-md-12 form-group cus-form-group">
                 <label for="number" class="col-12">Number</label>
-                <input type="text" name="number"  id="number" required class="form-control" placeholder="Enter Number" />
+                <input type="text" name="number"  id="number" required class="form-control numberclass" placeholder="Enter Number" />
                 <p id="error_number" style="color:red;"></p>
             </div>
             <div class="col-md-12 form-group cus-form-group">
@@ -144,56 +144,66 @@ table_instance = $('#contestant-table').DataTable({
 $(document).ready(function (e) {
     $("#edit_contestant_form").on('submit', function (e) {
         e.preventDefault();
+      
         l = Ladda.create(document.querySelector('#edit_contestant_form .ladda-button'));
+        var number = $('.numberclass').val();
+        var ln = parseInt(number.length);
 
-        $.ajax({
-            type: 'POST',
-            url: update_url,
-            data: new FormData(this),
-            dataType: 'json',
-            contentType: false,
-            cache: false,
-            processData: false,
-            beforeSend: function () {
-                l.start();
-            },
-            success: function (data) {
-                console.log(data);
-                l.stop();
-                if (data.status == 2) {
-                    Swal.fire({
-                        type: 'error',
-                        title: 'Error!',
-                        text: data.error,
-                        confirmButtonClass: 'btn btn-confirm mt-2',
-                    });
-                    $('#editContestantModal').modal('hide');
-                } else if (data.status == 1) {
-                    Swal.fire({
-                        type: 'success',
-                        title: 'Success!',
-                        text: data.message,
-                        confirmButtonClass: 'btn btn-confirm mt-2',
-                    });
-                    table_instance.ajax.reload(null, true);
-                    $('#editContestantModal').modal('hide');
-                } else if (data.status == 3) {
-                    if (data.inputvalidation.number) {
-                        $('#error_number').text(data.inputvalidation.number);
+
+
+        if (ln < 5 || ln < 12) {
+              $('.error_number').text('');
+            $.ajax({
+                type: 'POST',
+                url: update_url,
+                data: new FormData(this),
+                dataType: 'json',
+                contentType: false,
+                cache: false,
+                processData: false,
+                beforeSend: function () {
+                    l.start();
+                },
+                success: function (data) {
+                    console.log(data);
+                    l.stop();
+                    if (data.status == 2) {
+                        Swal.fire({
+                            type: 'error',
+                            title: 'Error!',
+                            text: data.error,
+                            confirmButtonClass: 'btn btn-confirm mt-2',
+                        });
+                        $('#editContestantModal').modal('hide');
+                    } else if (data.status == 1) {
+                        Swal.fire({
+                            type: 'success',
+                            title: 'Success!',
+                            text: data.message,
+                            confirmButtonClass: 'btn btn-confirm mt-2',
+                        });
+                        table_instance.ajax.reload(null, true);
+                        $('#editContestantModal').modal('hide');
+                    } else if (data.status == 3) {
+                        if (data.inputvalidation.number) {
+                            $('#error_number').text(data.inputvalidation.number);
+                        }
+                        if (data.inputvalidation.name) {
+                            $('#error_name').text(data.inputvalidation.name);
+                        }
+                        if (data.inputvalidation.about) {
+                            $('#error_about').text(data.inputvalidation.about);
+                        }
                     }
-                    if (data.inputvalidation.name) {
-                        $('#error_name').text(data.inputvalidation.name);
-                    }
-                    if (data.inputvalidation.about) {
-                        $('#error_about').text(data.inputvalidation.about);
-                    }
+                },
+                error(e) {
+                    console.log(e);
+
                 }
-            },
-            error(e) {
-                console.log(e);
-
-            }
-        });
+            });
+        } else {
+            $('.error_number').text('Please use min 5 or max 12 lenth');
+        }
     });
 });
 
@@ -258,7 +268,7 @@ $(document).ready(function (e) {
 
 function editcontestant(obj, id) {
     update_url = "{{ url('contestant-update') }}/" + id;
-
+    $('.error_number').text('');
     var url = '{{ url(":img") }}';
     url = url.replace(':img', $(obj).data('image'));
 
