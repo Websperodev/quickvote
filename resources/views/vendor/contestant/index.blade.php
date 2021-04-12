@@ -63,8 +63,8 @@
             </div>
             <div class="col-md-12 form-group cus-form-group">
                 <label for="number" class="col-12">Number</label>
-                <input type="text" name="number"  id="number" class="form-control" placeholder="Enter Number" />
-                <p id="error_number" style="color:red;"></p>
+                <input type="number" name="number"  id="number" class="form-control numberclass" placeholder="Enter Number" />
+                <p id="error_number" class="error_number" style="color:red;"></p>
             </div>
             <div class="col-md-12 form-group cus-form-group">
                 <label for="image" class="col-12">About</label>
@@ -139,9 +139,20 @@ table_instance = $('#contestant-table').DataTable({
         {data: 'action', name: 'action', "searchable": false, "orderable": false, width: '50px', className: "text-center"}
     ],
 });
-function checkvalidation() {
 
-}
+
+//$('.numberclass').keyup(function () {
+//    var number = $(this).val();
+//    alert(typeof(number))
+//    if (typeof (number) == 'string') {
+//        $('.numberclass').val('');
+//          $('.error_number').text('Please use only number value');
+//        
+//    }else{
+//         $('.error_number').text('');
+//    }
+//
+//})
 $(document).ready(function (e) {
     $("#edit_contestant_form").on('submit', function (e) {
         e.preventDefault();
