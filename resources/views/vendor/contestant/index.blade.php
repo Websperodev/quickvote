@@ -93,7 +93,6 @@
 var update_url = '';
 var table_instance;
 var initialized = false;
-
 table_instance = $('#contestant-table').DataTable({
     "language": {
         "paginate": {
@@ -110,7 +109,6 @@ table_instance = $('#contestant-table').DataTable({
         }
         $('.dataTables_paginate > .pagination').addClass('pagination-rounded');
     },
-
     processing: true,
     serverSide: true,
     serverSide: true,
@@ -140,86 +138,80 @@ table_instance = $('#contestant-table').DataTable({
     ],
 });
 
-
-//$('.numberclass').keyup(function () {
-//    var number = $(this).val();
-//    alert(typeof(number))
-//    if (typeof (number) == 'string') {
-//        $('.numberclass').val('');
-//          $('.error_number').text('Please use only number value');
-//        
-//    }else{
-//         $('.error_number').text('');
-//    }
-//
-//})
 $(document).ready(function (e) {
     $("#edit_contestant_form").on('submit', function (e) {
         e.preventDefault();
-        var formdata = new FormData(this);
+        var number = $('.numberclass').val();
+        var ln = parseInt(number.length);
 
-        l = Ladda.create(document.querySelector('#edit_contestant_form .ladda-button'));
 
-        $.ajax({
-            type: 'POST',
-            url: update_url,
-            data: new FormData(this),
-            dataType: 'json',
-            contentType: false,
-            cache: false,
-            processData: false,
-            beforeSend: function () {
-                l.start();
-            },
-            success: function (data) {
-                console.log(data);
-                l.stop();
-                if (data.status == 2) {
-                    Swal.fire({
-                        type: 'error',
-                        title: 'Error!',
-                        text: data.error,
-                        confirmButtonClass: 'btn btn-confirm mt-2',
-                    });
-                    $('#editContestantModal').modal('hide');
-                } else if (data.status == 1) {
-                    Swal.fire({
-                        type: 'success',
-                        title: 'Success!',
-                        text: data.message,
-                        confirmButtonClass: 'btn btn-confirm mt-2',
-                    });
-                    table_instance.ajax.reload(null, true);
-                    $('#editContestantModal').modal('hide');
-                } else if (data.status == 3) {
-                    if (data.inputvalidation.number) {
 
-                        $('#error_number').text(data.inputvalidation.number);
+        if (ln < 5 || ln < 12 ) {
+             $('.error_number').text('');
+            var formdata = new FormData(this);
+            l = Ladda.create(document.querySelector('#edit_contestant_form .ladda-button'));
+            $.ajax({
+                type: 'POST',
+                url: update_url,
+                data: new FormData(this),
+                dataType: 'json',
+                contentType: false,
+                cache: false,
+                processData: false,
+                beforeSend: function () {
+                    l.start();
+                },
+                success: function (data) {
+                    console.log(data);
+                    $('.error_number').text('');
+                    l.stop();
+                    if (data.status == 2) {
+                        Swal.fire({
+                            type: 'error',
+                            title: 'Error!',
+                            text: data.error,
+                            confirmButtonClass: 'btn btn-confirm mt-2',
+                        });
+                        $('#editContestantModal').modal('hide');
+                    } else if (data.status == 1) {
+                        Swal.fire({
+                            type: 'success',
+                            title: 'Success!',
+                            text: data.message,
+                            confirmButtonClass: 'btn btn-confirm mt-2',
+                        });
+                        table_instance.ajax.reload(null, true);
+                        $('#editContestantModal').modal('hide');
+                    } else if (data.status == 3) {
+                        if (data.inputvalidation.number) {
+
+                            $('#error_number').text(data.inputvalidation.number);
+                        }
+                        if (data.inputvalidation.name) {
+
+                            $('#error_name').text(data.inputvalidation.name);
+                        }
+                        if (data.inputvalidation.about) {
+
+                            $('#error_about').text(data.inputvalidation.about);
+                        }
                     }
-                    if (data.inputvalidation.name) {
-
-                        $('#error_name').text(data.inputvalidation.name);
-                    }
-                    if (data.inputvalidation.about) {
-
-                        $('#error_about').text(data.inputvalidation.about);
-                    }
+                },
+                error(e) {
+                    console.log(e);
                 }
-            },
-            error(e) {
-                console.log(e);
-
-            }
-        });
+            });
+        } else {
+           
+            $('.error_number').text('Please use min 5 or max 12 lenth');
+        }
     });
 });
-
 function editcontestant(obj, id) {
+    $('.error_number').text('');
     update_url = "{{ url('vendor/contestant-update') }}/" + id;
-
     var url = '{{ url(":img") }}';
     url = url.replace(':img', $(obj).data('image'));
-
     $('#editContestantModal').modal('show');
     console.log('name', $(obj).data('name'));
     $('#name').val($(obj).data('name'));
@@ -227,14 +219,11 @@ function editcontestant(obj, id) {
     $('#about').val($(obj).data('about'));
     $('#existing_img').attr('src', url);
     $('#existing_image').val($(obj).data('image'));
-
-
 }
 function deleteContestant(obj, id)
 {
     var url = '{{ route("vendor.contestant.destroy", ":id") }}';
     url = url.replace(':id', id);
-
     Swal.fire({
         title: 'Delete Contestant?',
         text: "Do you really want to delete this Contestant and all data related to this Contestant?",
