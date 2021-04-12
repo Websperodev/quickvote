@@ -46,6 +46,6 @@
         <script src="{{ URL::asset('assets/js/jquery.datetimepicker.min.js')}}"></script>
         <link href="{{ URL::asset('assets/css/jquery.datetimepicker.min.css')}}" rel="stylesheet" type="text/css" />
          <script src="{{ URL::asset('assets/libs/bootstrap-select/bootstrap-select.min.js')}}"></script>
-<script src="{{url('js/jquery.validate.min.js')}}"></script>
-    
+<!--<script src="{{url('js/jquery.validate.min.js')}}"></script>-->
+    <script src="{{url('js/jquery.validate.js')}}"></script>
         @yield('bottom-css')

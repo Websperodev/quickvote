@@ -40,7 +40,10 @@
                             <i class="fe-user"></i>
                             <span>Change Password</span>
                         </a>
-
+                        <a href="{{ route('/') }}" class="dropdown-item notify-item">
+                            <i class="fe-user"></i>
+                            <span>Dashboard</span>
+                        </a>
                         <div class="dropdown-divider"></div>
 
                         <!-- item-->

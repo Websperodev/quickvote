@@ -38,7 +38,7 @@
 
             <div class="col-md-10">
                 <div class="form-group">
-                    <div class="input-group-append"><span class="input-group-text px-4"><i class="fa fa-search"></i></span></div>
+                    <div class="input-group-append"><span class="input-group-text px-4"></span></div>
                     <input type="text" class="form-control seachName" onkeyup="checksearchInput()" name="eventname" value="" id="floatingInputGrid" placeholder="Search">
                 </div>
             </div>

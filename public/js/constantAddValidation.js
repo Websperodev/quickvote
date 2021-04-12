@@ -1,4 +1,4 @@
-   $(document).ready(function () {
+  
 $("#add_contestant_form").validate({
     // Specify validation rules
 
@@ -20,8 +20,9 @@ $("#add_contestant_form").validate({
             required: true,
 
         },
-
     },
+});
+   jQuery.validator.addClassRules("ticketclass", {
+        "required": true
+    });
 
-});
-});

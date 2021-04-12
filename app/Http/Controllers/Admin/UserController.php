@@ -18,6 +18,7 @@ use App\Models\ModelHasRoles;
 use Carbon\Carbon;
 use Yajra\Datatables\Datatables;
 use Mail;
+use App\Models\VendorPermissions;
 
 class UserController extends Controller {
 
@@ -142,6 +143,16 @@ class UserController extends Controller {
                 $user->description = $data['description'];
                 $user->email_verified_at = Carbon::now();
                 $user->save();
+
+                if ($data['user_type'] == 'vendor') {
+                    $permissions = [['modul_id' => '1', 'vendor_id' => $user->id, 'add' => '1', 'edit' => '0', 'view' => '0', 'delete' => '0'],
+                        ['modul_id' => '2', 'vendor_id' => $user->id, 'add' => '1', 'edit' => '0', 'view' => '0', 'delete' => '0'],
+                        ['modul_id' => '3', 'vendor_id' => $user->id, 'add' => '1', 'edit' => '0', 'view' => '0', 'delete' => '0']];
+                    VendorPermissions::insert($permissions);
+                }
+
+
+
                 if ($data['user_type'] == 'vendor') {
                     $role = Role::find('2');
                     $user->roles()->attach($role);
