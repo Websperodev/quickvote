@@ -22,7 +22,7 @@ $("#add_contestant_form").validate({
         },
     },
 });
-   jQuery.validator.addClassRules("ticketclass", {
+   jQuery.validator.addClassRules("contestantclass", {
         "required": true
     });
 

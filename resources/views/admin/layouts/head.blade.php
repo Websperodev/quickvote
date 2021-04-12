@@ -1,6 +1,4 @@
-
         @yield('css')
-
         <link href="{{ URL::asset('assets/libs/datatables/datatables.min.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{ URL::asset('assets/libs/bootstrap-select/bootstrap-select.min.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{ URL::asset('assets/libs/ladda/ladda.min.css')}}" rel="stylesheet" type="text/css" />
@@ -12,9 +10,7 @@
         <link href="{{ URL::asset('assets/css/admin.css')}}" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
         <!-- <script src="{{ asset('js/app.js') }}" defer></script> -->
-
     <!-- Fonts -->
     <!-- <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -38,7 +34,6 @@
                 height: auto !important;
             }
         </style>
-
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="{{ URL::asset('assets/js/jquery.datetimepicker.full.js')}}"></script>

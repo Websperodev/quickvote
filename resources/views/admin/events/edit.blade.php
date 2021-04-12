@@ -404,7 +404,6 @@ $timezoneArray = config('constants.timezones');
 <div class="modal fade" id="paidModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 form-group cus-form-group">
@@ -422,7 +421,6 @@ $timezoneArray = config('constants.timezones');
     </div>
 </div>
 <script src="{{url('assets/ckeditor/ckeditor.js')}}"></script>
-
 <script src="{{url('js/evenEditValidation.js')}}"></script>
 <!--<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>-->
 
