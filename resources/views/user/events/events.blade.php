@@ -147,6 +147,11 @@
             $price='';
             $ticket_type='';
             }
+            $description=substr(strip_tags($sugg['description']),0, 150);
+            $char=strlen($event['description']);
+            if($char >150){
+            $description=ucfirst($description.'...');
+            }
             @endphp
             <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter Most Recent">
                 <div class="tcard border-0 py-3 px-4">
@@ -158,7 +163,9 @@
                                 <h2 class="titleh2 event-title">{{$sugg['name']}}</h2>
                                 <span class="tickets">Tickets From {{$price}}</span>
                             </div>
+                            <div><p>{{($description)}}</p><a href="{{url('event-detail').'/'.$event['id']}}" >Read more</a></div>
                             <p class="time-price"><span class="etime"><i class="far fa-clock"></i> Start {{$start_time .'-'.$end_time}}</span> <span class="eprice">{{$ticket_type}}</span></p>
+
                             <a class="btn btn-grad-bd ticket-details" href="{{url('event-detail').'/'.$sugg['id']}}">Tickets & Details</a>
                         </div>
                     </div>
