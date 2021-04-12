@@ -247,8 +247,7 @@
                                             $('#name').val('');
                                             $('#quantity').val('');
                                             $('#email').val('');
-                                            
-                                            var html='<p  id="successmsg">Votes have been bought successfully</p>'
+                                              var html='<p  id="successmsg">Votes have been bought successfully</p>'
                                             $('#msgsuccess').html(html);
 //                                            Swal.fire({
 //                                                type: 'Success',
