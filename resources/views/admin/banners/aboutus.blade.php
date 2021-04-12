@@ -50,7 +50,7 @@
                               <img src="{{ url($data['img']) }}" width="250" height="200">
                             @endif
 
-                            <input type="file" name="banner_img" id="banner_img" class="form-control" placeholder="Choose Image">
+                            <input type="file" name="banner_img" accept=".jpg,.jpeg,.png" id="banner_img" class="form-control" placeholder="Choose Image">
                             @if($errors->has('banner_img'))
                                 <div class="error">{{ $errors->first('banner_img') }}</div>
                             @endif

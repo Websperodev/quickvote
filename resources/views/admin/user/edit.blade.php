@@ -64,7 +64,7 @@
                             @if(isset($user->image) && $user->image != '' )
                             <img src="{{ url($user->image) }}" width="150" height="150">
                             @endif
-                            <input type="file"  class="form-control" name="image" id="image" aria-describedby="emailHelp" placeholder="Choose Image">
+                            <input type="file"  class="form-control" name="image" id="image" aria-describedby="emailHelp" accept=".jpg,.jpeg,.png" placeholder="Choose Image">
                             @if($errors->has('image'))
                             <div class="error">{{ $errors->first('image') }}</div>
                             @endif

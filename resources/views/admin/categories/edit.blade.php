@@ -34,7 +34,7 @@
                                 <img src="{{ isset($category->image) ? $category->image : ''}}" width="150" height="150">
                             @endif
                             <input type="hidden" name="old_file" value="{{ isset($category->image ) ? $category->image  : ''}}">
-                            <input type="file" class="form-control" value="{{ isset($category->image) ? $category->image : ''}}" name="image_name" id="image_name" aria-describedby="emailHelp" placeholder="Choose Image">
+                            <input type="file" class="form-control" value="{{ isset($category->image) ? $category->image : ''}}" accept=".jpg,.jpeg,.png" name="image_name" id="image_name" aria-describedby="emailHelp" placeholder="Choose Image">
                             @if($errors->has('image_name'))
                                 <div class="error">{{ $errors->first('image_name') }}</div>
                             @endif

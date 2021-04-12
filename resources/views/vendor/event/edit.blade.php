@@ -107,7 +107,7 @@ var city = "{{$event->city_id}}";</script>
                             @if(isset($event->image) && $event->image != '' )
                             <img src="{{ url($event->image) }}" width="150" height="150">
                             @endif
-                            <input type="file"  class="form-control" name="image" id="image" aria-describedby="emailHelp" placeholder="Choose Image">
+                            <input type="file"  class="form-control" name="image" id="image" accept=".jpg,.jpeg,.png" aria-describedby="emailHelp" placeholder="Choose Image">
                             @if($errors->has('image'))
                             <div class="error">{{ $errors->first('image') }}</div>
                             @endif

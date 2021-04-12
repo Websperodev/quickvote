@@ -105,7 +105,7 @@ $timezoneArray = config('constants.timezones');
                         </div>
                         <div class="col-md-6 form-group cus-form-group">
                             <label for="image">Image</label>
-                            <input type="file"  class="form-control" name="image" id="image" aria-describedby="emailHelp" placeholder="Choose Image">
+                            <input type="file"  class="form-control" name="image" accept=".jpg,.jpeg,.png" id="image" aria-describedby="emailHelp" placeholder="Choose Image">
                             @if($errors->has('image'))
                             <div class="error">{{ $errors->first('image') }}</div>
                             @endif

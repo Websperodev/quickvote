@@ -31,7 +31,7 @@
 
                     <div class="col-md-12 form-group cus-form-group">
                         <label for="image">Image</label>
-                        <input type="file" class="form-control" name="image_name" id="image_name" aria-describedby="emailHelp" placeholder="Choose Image">
+                        <input type="file" class="form-control" name="image_name" accept=".jpg,.jpeg,.png" id="image_name" aria-describedby="emailHelp" placeholder="Choose Image">
                         @if($errors->has('image'))
                         <div class="error">{{ $errors->first('image') }}</div>
                         @endif

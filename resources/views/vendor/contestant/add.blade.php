@@ -139,7 +139,7 @@
                                              </div>\n\
                           <div class="col-md-12 form-group cus-form-group">\n\
                            <label for="image" class="col-12">Image</label>\n\
-                          <input type="file" name="image[]"  class="form-control contestantclass" required placeholder="Choose image" />\n\
+                          <input type="file" name="image[]"  class="form-control contestantclass" required placeholder="Choose image" accept="image/x-png,image/jpeg" />\n\
                          </div><div class="col-md-12 form-group cus-form-group">\n\
                            <label for="number" class="col-12">Number</label>\n\
                                  <input type="number" name="number[]"  class="form-control contestantclass" placeholder="Enter Number" required/></div>\n\

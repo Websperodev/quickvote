@@ -157,7 +157,7 @@ $timezoneArray = config('constants.timezones');
                             @if(isset($VotingContest->image) && $VotingContest->image != '' )
                             <img src="{{ url($VotingContest->image) }}" width="150" height="150">
                             @endif
-                            <input type="file"  class="form-control" name="image" id="image" aria-describedby="emailHelp" placeholder="Choose Image">
+                            <input type="file"  class="form-control" accept=".jpg,.jpeg,.png" name="image" id="image" aria-describedby="emailHelp" placeholder="Choose Image">
                             @if($errors->has('image'))
                             <div class="error">{{ $errors->first('image') }}</div>
                             @endif
