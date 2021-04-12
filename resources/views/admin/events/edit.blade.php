@@ -58,7 +58,8 @@ $timezoneArray = config('constants.timezones');
 <script>
     var country = "{{$event->country_id}}";
     var state = "{{$event->state_id}}";
-    var city = "{{$event->city_id}}";</script>
+    var city = "{{$event->city_id}}";
+    var status = "{{$event->status}}";</script>
 <div class="row justify-content-center">
 
     <div class="col-md-12">
@@ -316,8 +317,7 @@ $timezoneArray = config('constants.timezones');
                         @endif
                         <div class="col-md-12 form-group cus-form-group eventreason">
                             <label for="description">Reject Reason</label>
-                            <textarea type="text"  cols="50" class="form-control" name="reason" id="reason" placeholder="Description here..">{{ isset($event->reason)? ucfirst($event->reason) : ''}} 
-                            </textarea>
+                            <textarea type="text"  cols="50" class="form-control" name="reason" id="reason" placeholder="Description here..">{{ isset($event->reason)? ucfirst($event->reason) : ''}}</textarea>
                             @if($errors->has('reason'))
 
                             <div class="error">{{ $errors->first('reason') }}</div>
@@ -425,7 +425,29 @@ $timezoneArray = config('constants.timezones');
 <!--<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>-->
 
 <script>
+    
+
                             $(document).ready(function() {
+
+                            if (status == 'Rejected'){
+                            $('.eventreason').show();
+                            } else{
+                            $('.eventreason').hide();
+                            }
+
+
+
+
+
+                            $('.eventstatus').on('click', function(){
+                            var valstatus = $("input[name='status']:checked").val();
+                            if (valstatus == 'Rejected'){
+                            $('.eventreason').show();
+                            } else{
+                            $('.eventreason').hide();
+                            }
+
+                            });
                             $('.ticketModal').on('click', function () {
                             var pricetype = $('.priceclass').val();
                             if (typeof (pricetype) == 'undefined') {
