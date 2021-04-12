@@ -1,6 +1,6 @@
 @extends('vendor.layouts.master')
 @section("meta_page_title") Vendor | Quickvote | Contestant @endsection
-@section("page_title") <a href="{!! route('contestant.index') !!}" class="head-a"> Contestant </a> > Add @endsection
+@section("page_title") <a href="{!! route('vendor.contestant.index') !!}" class="head-a"> Contestant </a> > Add @endsection
 
 
 @section("content")
