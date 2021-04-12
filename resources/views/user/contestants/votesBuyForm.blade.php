@@ -75,6 +75,9 @@
                     <h5>Vote Form</h5>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     <!--{!! Form::open(array('route' => 'pay', 'id' => 'buy_votes_form', 'method' => 'post','class' => 'custum-frm', 'enctype' => 'multipart/form-data' )) !!}-->
+                       <div class="alert alert-success" id="msgsuccess"> 
+                 
+                </div>
                     {!! Form::open(array('class' => 'custum-frm', 'id'=>'votformbuy','enctype' => 'multipart/form-data' )) !!}
                     <script src="https://js.paystack.co/v1/inline.js"></script>
                     @csrf
@@ -244,12 +247,14 @@
                                             $('#name').val('');
                                             $('#quantity').val('');
                                             $('#email').val('');
-                                            Swal.fire({
-                                                type: 'Success',
-                                                title: 'Success!',
-                                                text: 'Thanks! ' + name + '. You have bought ' + quantity + ' votes. Payment transaction number ' + transaction,
-                                                confirmButtonClass: 'btn btn-confirm mt-2',
-                                            });
+                                              var html='<p  id="successmsg">Votes have been bought successfully</p>'
+                                            $('#msgsuccess').html(html);
+//                                            Swal.fire({
+//                                                type: 'Success',
+//                                                title: 'Success!',
+//                                                text: 'Thanks! ' + name + '. You have bought ' + quantity + ' votes. Payment transaction number ' + transaction,
+//                                                confirmButtonClass: 'btn btn-confirm mt-2',
+//                                            });
                                         } else {
                                             Swal.fire({
                                                 type: 'error',
@@ -295,13 +300,8 @@
                                     $('#name').val('');
                                     $('#quantity').val('');
                                     $('#email').val('');
-                                    Swal.fire({
-                                        type: 'Success',
-                                        title: 'Success!',
-                                        text: 'Thanks! ' + name + ' You have taken ' + quantity + ' votes',
-                                        confirmButtonClass: 'btn btn-confirm mt-2',
-                                        timer: 2000,
-                                    });
+                                       var html='<p  id="successmsg">Votes have been bought successfully</p>'
+                                            $('#msgsuccess').html(html);
                                 } else {
                                     Swal.fire({
                                         type: 'error',

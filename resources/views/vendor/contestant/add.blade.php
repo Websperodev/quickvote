@@ -72,13 +72,10 @@
 
     </div>
 </div>
-@endsection
 
-
-
-@section('script-bottom')
 <!--<script type="text/javascript" src="{{ URL::asset('assets/js/nicEdit-latest.js') }}"></script>-->
 <script src="{{url('assets/ckeditor/ckeditor.js')}}"></script>
+<!--<script src="{{url('js/constantAddValidation.js')}}"></script>-->
 <script type="text/javascript">
                             CKEDITOR.replace('banner_description', {
                                 height: '20%',
@@ -138,17 +135,17 @@
                                 for (let i = 0; i < total; i++) {
                                     html += '<div class="contes col-md-6 col-sm-12"><div class="col-md-12 form-group cus-form-group">\n\
                         <label for="name" class="col-12">Name</label>\n\
-                        <input type="text" name="name[]"  class="form-control" placeholder="Enter Contestant name" required/>\n\
+                        <input type="text" name="name[]"  class="form-control contestantclass"  requiredplaceholder="Enter Contestant name" required/>\n\
                                              </div>\n\
                           <div class="col-md-12 form-group cus-form-group">\n\
                            <label for="image" class="col-12">Image</label>\n\
-                          <input type="file" name="image[]"  class="form-control" placeholder="Choose image" />\n\
-          </div><div class="col-md-12 form-group cus-form-group">\n\
-                <label for="number" class="col-12">Number</label>\n\
-<input type="text" name="number[]"  class="form-control" placeholder="Enter Number" required/></div>\n\
-<div class="col-md-12 form-group cus-form-group"><label for="image" class="col-12">About</label>\n\
-<textarea type="text" required cols="50" class="form-control" name="about[]" placeholder="About here..">\n\
-</textarea></div></div>';
+                          <input type="file" name="image[]"  class="form-control contestantclass" required placeholder="Choose image" />\n\
+                         </div><div class="col-md-12 form-group cus-form-group">\n\
+                           <label for="number" class="col-12">Number</label>\n\
+                                 <input type="text" name="number[]"  class="form-control contestantclass" placeholder="Enter Number" required/></div>\n\
+                            <div class="col-md-12 form-group cus-form-group"><label for="image" class="col-12">About</label>\n\
+                           <textarea type="text" required cols="50" class="form-control contestantclass" name="about[]" placeholder="About here..">\n\
+                            </textarea></div></div>';
                                 }
 
                                 html += '<input type="hidden" name="voting_id" value=' + eventId + ' /><div class="col-12 btn-right"><button type="submit" class="btn btn-bg lada-button submitBtn">Add</button></div>';
@@ -193,5 +190,9 @@
                                 });
                             });
 </script>
+@endsection
 
+
+
+@section('script-bottom')
 @endsection

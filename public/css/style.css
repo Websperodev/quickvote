@@ -2790,3 +2790,10 @@ span.eprice:empty {
     bottom: 0px;
     left: 0px;
 }
+#successmsg {
+    height: 39px;
+    width: 100%;
+    text-align: center;
+    margin-top: 19px;
+    text-align: 33px;
+}
