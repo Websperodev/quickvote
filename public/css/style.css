@@ -842,7 +842,7 @@ span.date-abs {
 }
 
 .feat-event .owl-item.active + .owl-item.active + .owl-item.active {
-    transform: scale(0.7);	
+    transform: scale(0.7);
 }
 
 h2.titleh2.event-title {
@@ -1143,12 +1143,12 @@ button.navbar-toggler {
     padding: 0;
     height: 40px;
 	border-radius: 50%;
-	border: none;	
+	border: none;
     background: #fff;
 }
 
 button.navbar-toggler.collapsed {
-	border: 1px solid #fff;	
+	border: 1px solid #fff;
 }
 
 button.navbar-toggler:focus {
@@ -1962,6 +1962,15 @@ span.etime {
     margin-right: 7px;
 }
 
+.votingdesc i.far.fa-info-square {
+    color: #fff;
+    background: linear-gradient(152deg, #f47f34, #fdb92e);
+    padding: 6px;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-right: 7px;
+}
+
 span.eprice {
     background: linear-gradient(152deg, #f47f34, #fdb92e);
     color: #fff;
@@ -2455,18 +2464,18 @@ p.vote-payment {
 	position: relative;
 }
 
-.reg-login.show {  
-    position: relative;    
+.reg-login.show {
+    position: relative;
 }
 
-.dropdown-menu.dropdown-menu-right.profile-dropdown.show {  
-    padding-bottom: 0;     
+.dropdown-menu.dropdown-menu-right.profile-dropdown.show {
+    padding-bottom: 0;
 }
 .dropdown-header.noti-title h6  {
-    padding: 0;     
-    width: 100%;   
-    font-size: 14px;    
-    font-weight: 600;   
+    padding: 0;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 600;
     color: #000;
     text-align: center;
     text-transform: uppercase;
@@ -2490,11 +2499,11 @@ p.vote-payment {
     color: #fff;
 }
 .dropdown-menu.dropdown-menu-right.profile-dropdown.show a:not(:last-child):hover {
-    background: #f7f7f7;  
+    background: #f7f7f7;
     color: #000;
 }
-.dropdown-menu.dropdown-menu-right.profile-dropdown.show .dropdown-divider {    
-    display: none;  
+.dropdown-menu.dropdown-menu-right.profile-dropdown.show .dropdown-divider {
+    display: none;
 }
 
 #about p a.btn.btn-bg {
@@ -2719,7 +2728,7 @@ input#inputDate::-webkit-calendar-picker-indicator {
 #vendForm .form-group.col-12 input, #vendForm .form-group.col-12 select {
     margin-bottom: 0px;
     max-width: 100%;
-    flex: 0 0 100%;	
+    flex: 0 0 100%;
     width: 100%;
 }
 

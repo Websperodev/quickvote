@@ -10,7 +10,7 @@
         color:red;
     }
     .vote-price{
-        color:red; 
+        color:red;
     }
     .img-fluid {
         max-width: 100% !important;
@@ -27,7 +27,7 @@
 <div id="cand-detail" class="candid">
     <div class="container">
         @if(session()->has('message.level'))
-        <div class="alert alert-{{ session('message.level') }}"> 
+        <div class="alert alert-{{ session('message.level') }}">
             {!! session('message.text') !!}
         </div>
         @endif
@@ -69,14 +69,14 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 col-sm-12 sidebar">			
+            <div class="col-md-4 col-sm-12 sidebar">
                 <div class="candidate-vote">
                     <img src="{{url($img)}}" class="cand-pic">
                     <h5>Vote Form</h5>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     <!--{!! Form::open(array('route' => 'pay', 'id' => 'buy_votes_form', 'method' => 'post','class' => 'custum-frm', 'enctype' => 'multipart/form-data' )) !!}-->
-                       <div class="alert alert-success" id="msgsuccess"> 
-                 
+                       <div class="alert alert-success" id="msgsuccess">
+
                 </div>
                     {!! Form::open(array('class' => 'custum-frm', 'id'=>'votformbuy','enctype' => 'multipart/form-data' )) !!}
                     <script src="https://js.paystack.co/v1/inline.js"></script>
@@ -164,6 +164,9 @@
 
                             </div>
                             <p class="time-price"><span class="etime"><i class="far fa-clock"></i> Start {{$start_day .' '.$start_month. ' '.$start_date.' '.$start_year .' - '.$close_day.' '.$close_month.' '.$clos_date}}</span> </p>
+                            @if($voting->description)
+                              <p><span class="votingdesc"><i class="far fa-info-square"></i>{{$voting->description}}</span></p>
+                            @endif
                             <a class="btn btn-grad-bd ticket-details" href="{{url('contestants').'/'.$voting->id}}">View Contestants</a>
                         </div>
                     </div>
