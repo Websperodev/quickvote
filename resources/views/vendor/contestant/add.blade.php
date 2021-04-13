@@ -12,12 +12,12 @@
             <div class="card-body">
                 <h4 class="mb-3 header-title">Add Contestant</h4>
                 @if(session()->has('message.level'))
-                <div class="alert alert-{{ session('message.level') }}"> 
+                <div class="alert alert-{{ session('message.level') }}">
                     {!! session('message.text') !!}
                 </div>
                 @endif
-                <div id="err" style="display: none;" class="alert alert-danger"> 
-                    <p> Fill Required fields</p>  
+                <div id="err" style="display: none;" class="alert alert-danger">
+                    <p> Fill Required fields</p>
                 </div>
 
                 <div id="contestant" class="mb-2 custum-frm">
@@ -45,9 +45,9 @@
                 </div>
 
             </div> <!-- end card-body-->
-        </div> 
+        </div>
     </div>
-</div> 
+</div>
 
 <div id="contestantModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -141,8 +141,8 @@
                            <label for="image" class="col-12">Image</label>\n\
                           <input type="file" name="image[]"  class="form-control contestantclass" required placeholder="Choose image" accept="image/x-png,image/jpeg" />\n\
                          </div><div class="col-md-12 form-group cus-form-group">\n\
-                           <label for="number" class="col-12">Number</label>\n\
-                                 <input type="number" name="number[]"  class="form-control contestantclass" placeholder="Enter Number" required/></div>\n\
+                           <label for="number" class="col-12">Phone Number</label>\n\
+                                 <input type="number" name="number[]"  class="form-control contestantclass" placeholder="Phone Number" required/></div>\n\
                             <div class="col-md-12 form-group cus-form-group"><label for="image" class="col-12">About</label>\n\
                            <textarea type="text" required cols="50" class="form-control contestantclass" name="about[]" placeholder="About here..">\n\
                             </textarea></div></div>';
