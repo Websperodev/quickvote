@@ -144,8 +144,8 @@
                            <label for="number" class="col-12">Phone Number</label>\n\
                                  <input type="number" name="number[]"  class="form-control contestantclass" placeholder="Phone Number" required/></div>\n\
                             <div class="col-md-12 form-group cus-form-group"><label for="image" class="col-12">About</label>\n\
-                           <textarea type="text" required cols="50" class="form-control contestantclass" name="about[]" placeholder="About here..">\n\
-                            </textarea></div></div>';
+                           <textarea type="text" required cols="50" class="form-control contestantclass" name="about[]" placeholder="About here.."></textarea>\n\
+                            </div></div>';
                                 }
 
                                 html += '<input type="hidden" name="voting_id" value=' + eventId + ' /><div class="col-12 btn-right"><button type="submit" class="btn btn-bg lada-button submitBtn">Add</button></div>';
