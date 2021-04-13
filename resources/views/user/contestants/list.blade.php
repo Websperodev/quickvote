@@ -19,7 +19,7 @@
 <div id="eve-detail" class="event-contestant">
     <div class="container">
         <div class="row">
-           
+
             @php
 
             if($voting->image != '')
@@ -74,7 +74,7 @@
                                         <option value=""> Select Contestant</option>
                                         @if(!empty($contestants))
                                         @foreach($allContestants as $cont)
-                                        <option {{ $constnt_id == $cont->id ? 'selected' : ''}}  value="{{ $cont->id }}">{{ $cont->name }}</option>                                      
+                                        <option {{ $constnt_id == $cont->id ? 'selected' : ''}}  value="{{ $cont->id }}">{{ $cont->name }}</option>
                                         @endforeach
                                         @endif
                                     </select>
@@ -87,11 +87,15 @@
                         <div id="organizer" class="tab-pane fade">
                             <div class="eve-description">
                                 <div><h4>Date & Time</h4> <span>{{$start_day.' '.$start_month.' '.$start_date. ' '.$start_year}}, Time:{{$start_time}}</span></div>
-                                <div><h4>Vote Details</h4> 
+                                @if($voting->description)
+                                <div>
+                                  <h4>Vote Details</h4>
+                                  <span>{{$voting->description}}</span>
                                 </div>
+                                @endif
                             </div>
                         </div>
-                    </div> 			  
+                    </div>
                 </div>
             </div>
             <div class="col-md-4 col-sm-12 sidebar">
@@ -125,7 +129,7 @@
                                 <h2 class="cand-name">{{ucfirst($cont->name)}}</h2>
                                 <span class="cand-no">Candidate Number: <span>{{ $cont->candidate_id}}<span></span>
                                         </div>
-                                        <div class="votez"><span class="vote-result">Vote Result: <span>{{$cont->percentage}}%</span></span> 
+                                        <div class="votez"><span class="vote-result">Vote Result: <span>{{$cont->percentage}}%</span></span>
                                             <span class="vote-btn"><a href="{{url('vote/contestants/').'/'.$voting->id.'/'.$cont->id}}" class="btn btn-bg">Vote</a></span></div>
                                         </div>
                                         </div>
@@ -133,8 +137,8 @@
                                         </div>
 
                                         @endforeach
-                                        
-                                       
+
+
                                         @endif
                                         </div>
                                         </div>
@@ -196,7 +200,7 @@
                                                 </div>
 
                                             </div>
-                                        </div>  
+                                        </div>
 
                                      @include('user.components.trusted-brands')
 
