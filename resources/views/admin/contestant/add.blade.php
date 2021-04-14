@@ -12,12 +12,12 @@
             <div class="card-body">
                 <h4 class="mb-3 header-title">Add Contestant</h4>
                 @if(session()->has('message.level'))
-                <div class="alert alert-{{ session('message.level') }}"> 
+                <div class="alert alert-{{ session('message.level') }}">
                     {!! session('message.text') !!}
                 </div>
                 @endif
-                <div id="err" style="display: none;" class="alert alert-danger"> 
-                    <p> Fill Required fields</p>  
+                <div id="err" style="display: none;" class="alert alert-danger">
+                    <p> Fill Required fields</p>
                 </div>
 
                 <div id="contestant" class="mb-2 custum-frm">
@@ -46,9 +46,9 @@
                 </div>
 
             </div> <!-- end card-body-->
-        </div> 
+        </div>
     </div>
-</div> 
+</div>
 
 <div id="contestantModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -122,7 +122,7 @@
                                 $('#add_contestant_form').empty();
                                 var html = '';
                                 for (let i = 0; i < total; i++) {
-                                    html += '<div class="contes col-md-6 col-sm-12"><div class="col-md-12 form-group cus-form-group"><label for="name" class="col-12">Name</label><input type="text" name="name[]" required class="form-control contestantclass" placeholder="Enter Contestant name" /></div><div class="col-md-12 form-group cus-form-group"><label for="image" class="col-12">Image</label><input type="file" name="image[]" required class="form-control contestantclass" placeholder="Choose image" accept="image/x-png,image/jpeg"  /></div><div class="col-md-12 form-group cus-form-group"><label for="number" class="col-12">Number</label><input type="number" name="number[]" required class="form-control contestantclass" placeholder="Enter Number" /></div><div class="col-md-12 form-group cus-form-group"><label for="image" class="col-12">About</label><textarea type="text" required cols="50" class="form-control contestantclass" name="about[]" placeholder="About here.."></textarea></div></div>';
+                                    html += '<div class="contes col-md-6 col-sm-12"><div class="col-md-12 form-group cus-form-group"><label for="name" class="col-12">Name</label><input type="text" name="name[]" required class="form-control contestantclass" placeholder="Enter Contestant name" /></div><div class="col-md-12 form-group cus-form-group"><label for="image" class="col-12">Image</label><input type="file" name="image[]" required class="form-control contestantclass" placeholder="Choose image" accept="image/x-png,image/jpeg"  /></div><div class="col-md-12 form-group cus-form-group"><label for="number" class="col-12">Phone Number</label><input type="number" name="number[]" required class="form-control contestantclass" placeholder="Phone Number" /></div><div class="col-md-12 form-group cus-form-group"><label for="image" class="col-12">About</label><textarea type="text" required cols="50" class="form-control contestantclass" name="about[]" placeholder="About here.."></textarea></div></div>';
                                 }
 
                                 html += '<input type="hidden" name="voting_id" value=' + eventId + ' /><div class="col-12 btn-right"><button type="submit" class="btn btn-bg lada-button submitBtn">Add</button></div>';
