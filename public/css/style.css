@@ -231,8 +231,8 @@ span.prev-icon:hover, span.next-icon:hover {
     position: relative;
 }
 
-#floating-search .col-md-6 .form-group {
-    border-right: 1px solid #000;
+#floating-search .col-md-6 .form-group, #floating-search .col-md-10 .form-group {
+    //border-right: 1px solid #000;
     padding-left: 30px;
 }
 
@@ -1284,19 +1284,19 @@ h3.titleh3:after {
 	position: relative;
 }
 
-#login-frm-user .form-control[type="password"] ~ span {
+#login-frm-user .form-control[type="password"] ~ span, #login-frm-user .form-control[name="password"] ~ span {
     bottom: 16px;
 }
 
-.form-control[type="password"] ~ span {
+.form-control[type="password"] ~ span, .form-control[name="password"] ~ span {
     position: absolute;
-    bottom: 14px;
+    bottom: 16px;
     height: 18px;
     line-height: 20px;
 
 }
 
-.form-control[type="password"] {
+.form-control[type="password"], .form-control[name="password"] {
     padding-left: 30px !important;
 }
 
@@ -1962,15 +1962,6 @@ span.etime {
     margin-right: 7px;
 }
 
-.votingdesc i.far.fa-info-square {
-    color: #fff;
-    background: linear-gradient(152deg, #f47f34, #fdb92e);
-    padding: 6px;
-    border-radius: 4px;
-    font-size: 14px;
-    margin-right: 7px;
-}
-
 span.eprice {
     background: linear-gradient(152deg, #f47f34, #fdb92e);
     color: #fff;
@@ -2449,7 +2440,7 @@ p.vote-payment {
     margin-bottom: 25px;
 }
 
-#eve .tcard img {
+#eve .tcard img, .events .tcard img {
     margin: 0 !important;
     width: 100% !important;
     height: 100% !important;
@@ -2663,7 +2654,7 @@ input#inputDate::-webkit-calendar-picker-indicator {
     position: relative;
 }
 
-#floating-search .fa-search:before {
+#floating-search .fa-search:before, #floating-search span.input-group-text.px-4 {
     content: "";
     width: 20px;
     height: 20px;
@@ -2805,4 +2796,32 @@ span.eprice:empty {
     text-align: center;
     margin-top: 19px;
     text-align: 33px;
+}
+
+.reg-login a.dropdown-toggle {
+    top: 2px;
+}
+
+.reg-login a {
+    padding: 15px 30px !important;
+    height: 49px;
+    top: 0;
+}
+
+.gallery_product .txt-card {
+    max-width: unset;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#vendForm .form-group label.error {
+    position: absolute;
+    font-size: 10px;
+    bottom: 0;
+    left: 16px;
 }
