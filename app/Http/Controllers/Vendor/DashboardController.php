@@ -37,11 +37,10 @@ class DashboardController extends Controller {
         return view('vendor.pages.change-password');
     }
 
-    public function getSubcategories(Request $request) {
-        $id = $request->id;
-        $states = DB::table('categories')->orderBy('name')->where("parent_id", $id)
+    public function getSubcategories($id) {
+        $subcategories = DB::table('categories')->orderBy('name')->where("parent_id", $id)
                 ->get(['name', 'id']);
-        return response()->json($states);
+        return response()->json($subcategories);
     }
       public function getStates(Request $request){
         $id = $request->id;

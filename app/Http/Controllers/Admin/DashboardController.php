@@ -20,7 +20,7 @@ class DashboardController extends Controller
      */
     public function __construct() {
         $this->middleware('auth');
-        $this->middleware('role:admin');
+        // $this->middleware('role:admin');
     }
 
     /**
@@ -29,7 +29,7 @@ class DashboardController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {   
+    {
         $vendorCount = '';
         $eventCount = '';
         $vendorCount = User::where('type','vendor')->count();
@@ -37,7 +37,7 @@ class DashboardController extends Controller
         return view('admin.pages.dashboard', compact('eventCount','vendorCount'));
     }
     public function getCountries(){
-        
+
 
     }
     public function getStates(Request $request){

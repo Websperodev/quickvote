@@ -123,7 +123,7 @@ class EventsController extends Controller {
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator);
+            return redirect()->back()->withInput()->withErrors($validator);
         }
         try {
             $user = Auth::user();

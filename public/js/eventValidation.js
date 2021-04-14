@@ -6,7 +6,11 @@
                 required: true,
 
             },
-            event_category: {
+            'event_category': {
+                required: true,
+
+            },
+            'subcategory_id': {
                 required: true,
 
             },

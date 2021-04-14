@@ -22,7 +22,7 @@
                     <div class="col-6">
                         <h4 class="header-title">Manage Categories</h4>
                          @if(session()->has('message.level'))
-                <div class="alert alert-{{ session('message.level') }}"> 
+                <div class="alert alert-{{ session('message.level') }}">
                     {!! session('message.text') !!}
                 </div>
                 @endif
@@ -38,8 +38,8 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Image</th>
                             <th>Parent Cat.</th>
+                            <th>Image</th>
                             <th>Created</th>
                             <th>Action</th>
                         </tr>

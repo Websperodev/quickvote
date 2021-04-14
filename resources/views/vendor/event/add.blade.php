@@ -4,7 +4,7 @@
 
 @section("content")
 
-@php 
+@php
 $timezoneArray = config('constants.timezones');
 @endphp
 
@@ -16,7 +16,7 @@ $timezoneArray = config('constants.timezones');
             <div class="card-body">
                 <h4 class="mb-3 header-title">Events</h4>
                 @if(session()->has('message.level'))
-                <div class="alert alert-{{ session('message.level') }}"> 
+                <div class="alert alert-{{ session('message.level') }}">
                     {!! session('message.text') !!}
                 </div>
                 @endif
@@ -27,7 +27,7 @@ $timezoneArray = config('constants.timezones');
                     <div class="row">
                         <div class="col-md-12 form-group cus-form-group">
                             <label for="event_title">Event Title</label>
-                            <input type="text" class="form-control" autocomplete="off" name="event_title" id="event_title" aria-describedby="emailHelp" placeholder="Enter Event title">
+                            <input type="text" class="form-control" autocomplete="off" name="event_title" value="{{ old('event_title') }}" id="event_title" aria-describedby="emailHelp" placeholder="Enter Event title">
                             @if($errors->has('event_title'))
                             <div class="error">{{ $errors->first('event_title') }}</div>
                             @endif
@@ -100,7 +100,7 @@ $timezoneArray = config('constants.timezones');
                     <div class="row">
                         <div class="col-md-12 form-group cus-form-group">
                             <label for="image">Image</label>
-                            <input type="file"  class="form-control" name="image" id="image" accept="image/x-png,image/jpeg" aria-describedby="emailHelp" placeholder="Choose Image">
+                            <input type="file"  class="form-control" name="image" id="image" accept="image/x-png,image/jpeg"  aria-describedby="emailHelp" placeholder="Choose Image">
                             @if($errors->has('image'))
                             <div class="error">{{ $errors->first('image') }}</div>
                             @endif
@@ -117,10 +117,11 @@ $timezoneArray = config('constants.timezones');
                         </div>
                     </div>
 
-                    <div class="row">    
+                    <div class="row">
                         <div class="col-md-12 form-group cus-form-group">
                             <label for="description">Description</label>
                             <textarea type="text"  cols="50" class="form-control" name="description" id="area1" placeholder="Description here..">
+                              {{ old('description') }}
                             </textarea>
                             @if($errors->has('description'))
                             <div class="error">{{ $errors->first('description') }}</div>
@@ -183,7 +184,7 @@ $timezoneArray = config('constants.timezones');
 
                                 @foreach($timezoneArray as $key=>$time)
                                 @if($key=='Africa/Lagos')
-                                <option value="{{ $key }}" selected>{{ $key }}</option>                                
+                                <option value="{{ $key }}" selected>{{ $key }}</option>
                                 @else
                                 <option value="{{ $key }}">{{ $key }}</option>
                                 @endif
@@ -211,9 +212,9 @@ $timezoneArray = config('constants.timezones');
                 </div>
                 {!! Form::close() !!}
             </div> <!-- end card-body-->
-        </div> 
+        </div>
     </div>
-</div> 
+</div>
 
 <div class="modal fade" id="ticketModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -319,7 +320,7 @@ $timezoneArray = config('constants.timezones');
 //                                showAnim: 'slideDown',
 //                                duration: 'fast',
 //                                yearRange: new Date().getFullYear() + ':' + new Date().getFullYear(),
-//                            });</script> 
+//                            });</script>
 <script type="text/javascript">
     $(document).ready(function () {
         var cid = 1;
@@ -451,6 +452,11 @@ $timezoneArray = config('constants.timezones');
 
 
         });
+
+        var eventCat = $('#event_category').val();
+        if (eventCat != '') {
+            eventSubCategory(eventCat);
+        }
     });
     function openModal(par) {
         if (par == 'paid') {
@@ -477,7 +483,7 @@ $timezoneArray = config('constants.timezones');
     });
 //bkLib.onDomLoaded(function() {
 //        new nicEditor({ maxHeight : 100 }).panelInstance('area1');
-//        
+//
 //        // new nicEditor({iconsPath : '../nicEditorIcons.gif'}).panelInstance('area3');
 //        // new nicEditor({buttonList : ['fontSize','bold','italic','underline','strikeThrough','subscript','superscript','html','image']}).panelInstance('area4');
 //        // new nicEditor({maxHeight : 100}).panelInstance('area5');
@@ -549,6 +555,37 @@ $timezoneArray = config('constants.timezones');
         var sid = $(this).val();
         citylist(sid);
     });
+
+    $('#event_category').change(function () {
+      var evntCatId = $(this).val();
+      eventSubCategory(evntCatId);
+    });
+
+    function eventSubCategory(catId){
+      var url = '{{ route("subcategories", ":id") }}';
+      url = url.replace(':id', catId);
+      $.ajax({
+          type: 'GET',
+          url: url,
+          success: function (res) {
+              $("#event_subcategory").empty();
+              if (res) {
+                  $("#event_subcategory").append('<option value="">Choose Subcategory</option>');
+                  if (res != '') {
+                      $.each(res, function (key, value) {
+                        $("#event_subcategory").append('<option value="' + value.id + '">' + value.name + '</option>');
+                      });
+                  } else {
+                    $("#event_subcategory").append('<option disabled> No category found </option>');
+                  }
+              }
+
+          },
+          error: function (err) {
+              console.log(err);
+          }
+      });
+    }
 
 </script>
 

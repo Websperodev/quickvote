@@ -1,9 +1,9 @@
 @extends('vendor.layouts.master')
 @section("meta_page_title") Vendor | Quickvote | Dashboard @endsection
-@section("page_title") <a href="{!! route('admin.events') !!}" class="head-a"> Events </a> > Edit @endsection
+@section("page_title") <a href="{!! route('event.index') !!}" class="head-a"> Events </a> > Edit @endsection
 
 @section("content")
-@php 
+@php
 $timezoneArray = config('constants.timezones');
 @endphp
 <script src="{{url('js/evenEditValidation.js')}}"></script>
@@ -11,13 +11,13 @@ $timezoneArray = config('constants.timezones');
 var country = "{{$event->country_id}}";
 var state = "{{$event->state_id}}";
 var city = "{{$event->city_id}}";</script>
-<div class="row justify-content-center">    
+<div class="row justify-content-center">
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
                 <h4 class="mb-3 header-title">Events</h4>
                 @if(session()->has('message.level'))
-                <div class="alert alert-{{ session('message.level') }}"> 
+                <div class="alert alert-{{ session('message.level') }}">
                     {!! session('message.text') !!}
                 </div>
                 @endif
@@ -77,7 +77,7 @@ var city = "{{$event->city_id}}";</script>
                             @endif
                         </div>
                     </div>
-                    @php 
+                    @php
                     $eventStartDate = isset($event->start_date)? ucfirst($event->start_date) : '' ;
                     $eventStartDate = date("m/d/Y H:i", strtotime($eventStartDate));
                     $eventEndDate = isset($event->end_date)? ucfirst($event->end_date) : '';
@@ -122,10 +122,10 @@ var city = "{{$event->city_id}}";</script>
                             @endif
                         </div>
                     </div>
-                    <div class="row">    
+                    <div class="row">
                         <div class="col-md-12 form-group cus-form-group">
                             <label for="description">Description</label>
-                            <textarea type="text" cols="50" class="form-control" name="description" id="area1" placeholder="Description here..">{{ isset($event->description)? ucfirst($event->description) : ''}} 
+                            <textarea type="text" cols="50" class="form-control" name="description" id="area1" placeholder="Description here..">{{ isset($event->description)? ucfirst($event->description) : ''}}
                             </textarea>
                             @if($errors->has('description'))
                             <div class="error">{{ $errors->first('description') }}</div>
@@ -248,12 +248,12 @@ var city = "{{$event->city_id}}";</script>
                     <div class="btn-right">
                         <button type="submit" class="btn btn-bg ladda-button">Update Event</button>
                     </div>
-                </div>    
+                </div>
                 {!! Form::close() !!}
             </div> <!-- end card-body-->
-        </div> 
+        </div>
     </div>
-</div> 
+</div>
 
 <div class="modal fade" id="ticketModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
