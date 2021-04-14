@@ -6,6 +6,30 @@
 
 }
 
+
+@media (min-width:1201px) and (max-width:1400px) {
+
+#navbarNavAltMarkup a.nav-link {
+    margin-right: 30px;
+}
+
+.reg-login a, .navbar-nav a {
+    font-size: 15px;
+}
+
+.reg-login .btn.btn-bg {
+    padding: 15px 30px;
+}
+
+#navbarNavAltMarkup a.nav-link {
+    margin-right: 22px;
+}
+
+
+
+}
+
+
 @media (min-width:1201px) and (max-width:1350px) {
 
 h2.titleh2.event-title {
@@ -111,7 +135,7 @@ ul.fa-ul li {
 
 @media (min-width:1100px) {
 
-#eve .tcard .justify-content-center {
+#eve .tcard .justify-content-center, .events .tcard .justify-content-center {
     width: 100%;
     height: 20vw;
     min-height: 20vw;
@@ -137,7 +161,7 @@ button.btn.btn-primary.nletter {
 }
 
 @media (max-width:1100px) {
-	
+
 #navbarNavAltMarkup a.nav-link {
     padding: 38px 0px;
     margin-right: 15px;
@@ -243,7 +267,7 @@ a.btn.btn-bg {
     max-width: 50%;
 }
 
-#eve .tcard .justify-content-center {
+#eve .tcard .justify-content-center, .events .tcard .justify-content-center {
     width: 100%;
     height: 25vw;
     min-height: 25vw;
@@ -305,11 +329,11 @@ p.flx {
 
 
 
-	
+
 }
 
 @media (max-width:999px) {
-	
+
 	.col-md-4.col-sm-12.sidebar {
     flex: 0 0 100%;
     max-width: 100%;
@@ -334,7 +358,7 @@ p.eve-date-time {
     font-size: 14px;
     justify-content: space-between;
 }
-	
+
 .feat-event div.owl-item {
     transform: scale(1);
 }
@@ -621,7 +645,7 @@ div#navbarNavAltMarkup .dropdown-menu-right {
 	box-shadow: none;
 }
 
-	
+
 }
 
 @media (min-width:992px) {
@@ -651,17 +675,17 @@ header {
 }
 
 @media (max-width: 700px) {
-	
+
 	#cand .img-fluid12 {
     max-width: 502px !important;
     width: 100%;
     height: auto !important;
 }
-	
+
 	.event-contestant .col-md-4.col-sm-12.sidebar {
     display: none;
 }
-	
+
 div.txt-card {
     position: relative;
     bottom: 0;
@@ -1157,14 +1181,14 @@ div#navbarNavAltMarkup .dropdown-menu-right {
 }
 
 @media (max-width: 580px) {
-	
-	
+
+
 #eve .gallery_product, #cand .gallery_product {
     flex: 0 0 100%;
     max-width: 100%;
 }
 
-#eve .tcard .justify-content-center {
+#eve .tcard .justify-content-center, .events .tcard .justify-content-center {
     width: 100%;
     height: 60vw;
     min-height: 60vw;
@@ -1311,7 +1335,7 @@ button#btnPrevious, button#nxtBtn {
 
 @media only screen and (device-width: 768px) {
   /* iPad screen size rules */
-  
+
 input[type="date"]:before {
 	color: #999999;
 	content: attr(placeholder);
@@ -1329,10 +1353,10 @@ input[type="date"]:focus::before, input[type="date"]:valid::before {
 
 }
 
-@media only screen and (min-device-width: 481px) and 
+@media only screen and (min-device-width: 481px) and
 (max-device-width: 1024px) and (orientation:portrait) {
   /* Portrait iPad display */
-  
+
 input[type="date"]:before {
 	color: #999999;
 	content: attr(placeholder);
@@ -1350,10 +1374,10 @@ input[type="date"]:focus::before, input[type="date"]:valid::before {
 
 }
 
-@media only screen and (min-device-width: 481px) and 
+@media only screen and (min-device-width: 481px) and
 (max-device-width: 1024px) and (orientation:landscape) {
   /* Landscape iPad display */
-  
+
 input[type="date"]:before {
 	color: #999999;
 	content: attr(placeholder);

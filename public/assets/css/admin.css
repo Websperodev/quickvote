@@ -49,7 +49,7 @@ input#image {
     border-radius: 30px;
     line-height: initial;
     width: 170px;
-    
+
 }
 
 table#events-table img {
@@ -60,7 +60,7 @@ table#events-table img {
 button.swal2-confirm{
   background: linear-gradient(to right,#9d3aba,#e51197);
   border: 0;
-  border-radius: 30px; 
+  border-radius: 30px;
 }
 
 .card-header:first-child {
@@ -79,7 +79,30 @@ button.swal2-confirm{
     bottom: 0;
 	left: -250px;
     transition: all ease 0.5s;
+    overflow-y: scroll;
+    padding-bottom: 50px;
 }
+
+.left-sidebar-back::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+.left-sidebar-back::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+.left-sidebar-back::-webkit-scrollbar-thumb {
+  background: #000;
+}
+
+/* Handle on hover */
+.left-sidebar-back::-webkit-scrollbar-thumb:hover {
+  background: #f47f34;
+}
+
+
 .navigation-menu > li {
     float: left;
     position: relative;
@@ -198,7 +221,7 @@ button.swal2-confirm{
 }
 .page-title-box .page-title-right {
     padding-right: 20px;
-        margin-top: 0;
+	margin-top: 0;
 }
 .right-cont-section .page-title-box {
     padding: 10px 0 15px;
@@ -633,11 +656,32 @@ form input[type=radio], form input[type=checkbox] {
     margin-bottom: 0;
 }
 
+input#old_password, input#new_password, input#confirm_password {
+    padding-left: 30px;
+}
+
+
+input#old_password + span, input#new_password + span, input#confirm_password + span {
+    position: absolute;
+    bottom: 7px;
+    left: 8px;
+}
+
+.form-group.cus-form-group {
+    position: relative;
+}
+
+#edit_contestant_form button[type="submit"] {
+    margin: 20px 0;
+}
+
 
 
 
 
 /*====================== Responsive Css ==========================*/
+
+
 @media(max-width: 991px){
 
 .full-width > .container {
@@ -671,9 +715,9 @@ body{padding:0 !important;}
 
 
 @media (max-width: 767px) {
-	
+
 .contes.col-md-6.col-sm-12 {
     max-width: 100%;
 }
-	
+
 }
