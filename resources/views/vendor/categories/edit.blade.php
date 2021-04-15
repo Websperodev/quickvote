@@ -44,7 +44,7 @@
                     <div class="col-md-12 form-group cus-form-group">
                         <label for="image">Image</label>
                         @if(isset($subcategory->image) && $subcategory->image != '')
-                        <img src="{{ isset($subcategory->image) ? $subcategory->image : ''}}" width="150"  height="150">
+                     <img src="{{ url($subcategory->image) ? $subcategory->image :''}}" width="150" height="150">
                         @endif
                         <input type="hidden" name="old_file" value="{{ isset($subcategory->image ) ? $subcategory->image  : ''}}">
                         <input type="file" class="form-control" value="{{ isset($subcategory->image) ? $subcategory->image : ''}}" name="image_name" accept="image/x-png,image/jpeg" id="image_name" aria-describedby="emailHelp" placeholder="Choose Image">
