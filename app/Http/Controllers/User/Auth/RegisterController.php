@@ -299,10 +299,10 @@ class RegisterController extends Controller
     public function sendContact(Request $request){
        
         $validator = Validator::make($request->all(), [
-            'name'     => 'required|max:120',
+            'name'     => 'required|max:70',
             'email'    => 'required|email',
             'subject'  => 'required',
-            'phone'    => 'required|regex:/(01)[0-9]{9}/',
+            'phone'    => 'required',
             'message'  => 'required',
         ]);
 

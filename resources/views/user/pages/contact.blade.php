@@ -19,7 +19,7 @@
 
         <div class="form-group w50">
             <label for="name">Name</label>
-            <input class="form-control" type="text" id="name" name="name" placeholder="Your Name">
+            <input class="form-control" type="text" maxlength="70" id="name" name="name" placeholder="Your Name">
             <div class="name"></div>
         </div>
         <div class="form-group w50">
@@ -32,7 +32,7 @@
         </div>
         <div class="form-group w50">
             <label for="phone">Phone Number</label>
-            <input class="form-control" type="number" id="phone" name="phone"  placeholder="Your Phone Number">
+            <input class="form-control" type="number" id="phone" minlength="5" maxlength="12" name="phone"  placeholder="Your Phone Number">
             <div class="phone"></div>
         </div>
         <div class="form-group w100">
@@ -86,16 +86,17 @@
 
 
 <script type="text/javascript">
-    $.validator.addMethod('phonenu', function (value, element) {
-        if (element.value != 10 && element.value == isNaN)
-        {
-            return false;
-        } else
-        {
-            return true;
-
-        }
-    });
+//    $.validator.addMethod('phonenu', function (value, element) {
+//        alert('sdkj');
+//        if (element.value != 10 && element.value == isNaN)
+//        {
+//            return false;
+//        } else
+//        {
+//            return true;
+//
+//        }
+//    });
 
 
     $("#contact_form").validate({
@@ -113,13 +114,20 @@
             },
             phone: {
                 required: true,
-                phonenu: true,
-
+              
             },
             message: {
                 required: true,
             },
         },
+          messages: {
+    
+      phone: {
+       
+        phonenu: "Please enter minimum 5 and maximum 12 number "
+      },
+     
+    },
         submitHandler: function (form) {
             $(".alert-danger").hide();
             $(".alert-danger").empty();
