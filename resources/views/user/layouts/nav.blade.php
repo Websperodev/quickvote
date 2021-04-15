@@ -2,6 +2,7 @@
 
     @if(isset(\Auth::user()->first_name))
     @php
+    $user='';
     $users=\Auth::user();
     @endphp
 
