@@ -5,7 +5,7 @@
 
 @section("content")
 
-@php 
+@php
 $timezoneArray = config('constants.timezones');
 @endphp
 
@@ -18,7 +18,7 @@ $timezoneArray = config('constants.timezones');
             <div class="card-body">
                 <h4 class="mb-3 header-title">Events</h4>
                 @if(session()->has('message.level'))
-                <div class="alert alert-{{ session('message.level') }}"> 
+                <div class="alert alert-{{ session('message.level') }}">
                     {!! session('message.text') !!}
                 </div>
                 @endif
@@ -107,7 +107,7 @@ $timezoneArray = config('constants.timezones');
                         </div>
                     </div>
 
-                    <div class="row">    
+                    <div class="row">
                         <div class="col-md-12 form-group cus-form-group">
                             <label for="description">Description</label>
                             <textarea type="text"  cols="50" class="form-control" name="description" id="area1" placeholder="Description here..">
@@ -159,7 +159,7 @@ $timezoneArray = config('constants.timezones');
                         <div class="col-md-6 form-group cus-form-group">
                             <label for="city">City</label>
                             <select class="form-control" name="city" id="city" aria-describedby="emailHelp">
-                                <option value="">Select City</option>  
+                                <option value="">Select City</option>
                             </select>
 
                             @if($errors->has('city'))
@@ -175,7 +175,7 @@ $timezoneArray = config('constants.timezones');
 
                                 @foreach($timezoneArray as $key=>$time)
                                 @if($key=='Africa/Lagos')
-                                <option value="{{ $key }}" selected>{{ $key }}</option>                                
+                                <option value="{{ $key }}" selected>{{ $key }}</option>
                                 @else
                                 <option value="{{ $key }}">{{ $key }}</option>
                                 @endif
@@ -187,7 +187,7 @@ $timezoneArray = config('constants.timezones');
                             @endif
                         </div>
                     </div>
-					
+
                     <div id="ticket-div" class="input_fields_wrap">  </div>
 
                     <button type="button" class="btn btn-bg addtkt ladda-button ticketModal" data-toggle="modal" data-target="#ticketModal">Add Ticket</button>
@@ -203,9 +203,9 @@ $timezoneArray = config('constants.timezones');
                 </div>
                 {!! Form::close() !!}
             </div> <!-- end card-body-->
-        </div> 
+        </div>
     </div>
-</div> 
+</div>
 
 <div class="modal fade" id="ticketModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -278,7 +278,7 @@ $timezoneArray = config('constants.timezones');
                 <div class="row">
                     <div class="col-md-4 form-group cus-form-group">
                         <button type="button" class="btn btn-secondary add_ticket_button">OK</button>
-                    </div> 
+                    </div>
                 </div>
             </div>
         </div>
@@ -307,7 +307,7 @@ $timezoneArray = config('constants.timezones');
 //                                showAnim: 'slideDown',
 //                                duration: 'fast',
 //                                yearRange: new Date().getFullYear() + ':' + new Date().getFullYear(),
-//                            });</script> 
+//                            });</script>
 <script type="text/javascript">
     $(document).ready(function () {
         var cid = 1;
@@ -410,7 +410,7 @@ $timezoneArray = config('constants.timezones');
     <label for="ticket_name">Ticket Name</label>\n\
         <input type="text"  class="form-control ticketclass"  name="ticket_name['+x+']" aria-describedby="emailHelp" placeholder="Ticket Name"></div>\n\
     <div class="col-md-4 form-group cus-form-group"><label for="quantity">Quantity available</label>\n\
-        <input type="text"  class="form-control ticketclass"  name="quantity['+x+']" aria-describedby="emailHelp" placeholder="Quantity available"></div>\n\
+        <input type="text"  class="form-control ticketclass"  name="quantity['+x+']" min="0" aria-describedby="emailHelp" placeholder="Quantity available"></div>\n\
     <div class="col-md-2 form-group cus-form-group">\n\
     <label for="price">Price</label>\n\
         <input type="text"  class="form-control priceclass ticketclass" ' + readonly + ' value="' + price + '"   name="price['+x+']" aria-describedby="emailHelp" placeholder="Price"></div>\n\
@@ -465,7 +465,7 @@ $timezoneArray = config('constants.timezones');
     });
 //bkLib.onDomLoaded(function() {
 //        new nicEditor({ maxHeight : 100 }).panelInstance('area1');
-//        
+//
 //        // new nicEditor({iconsPath : '../nicEditorIcons.gif'}).panelInstance('area3');
 //        // new nicEditor({buttonList : ['fontSize','bold','italic','underline','strikeThrough','subscript','superscript','html','image']}).panelInstance('area4');
 //        // new nicEditor({maxHeight : 100}).panelInstance('area5');

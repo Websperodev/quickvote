@@ -3,11 +3,11 @@
 @section("page_title") <a href="{!! route('admin.events') !!}" class="head-a"> Events </a> > Edit @endsection
 
 @section("content")
-@php 
+@php
 $timezoneArray = config('constants.timezones');
 @endphp
 
-<style> 
+<style>
 
     .container{
         float: left;
@@ -53,8 +53,8 @@ $timezoneArray = config('constants.timezones');
     }
     .radio input[type=radio]:checked + label:after {
         opacity: 1;
-    }  
-</style> 
+    }
+</style>
 <script>
     var country = "{{$event->country_id}}";
     var state = "{{$event->state_id}}";
@@ -68,7 +68,7 @@ $timezoneArray = config('constants.timezones');
                 <h4 class="mb-3 header-title">Events</h4>
 
                 @if(session()->has('message.level'))
-                <div class="alert alert-{{ session('message.level') }}"> 
+                <div class="alert alert-{{ session('message.level') }}">
                     {!! session('message.text') !!}
                 </div>
                 @endif
@@ -117,7 +117,7 @@ $timezoneArray = config('constants.timezones');
                             @endif
                         </div>
                     </div>
-                    @php 
+                    @php
                     $eventStartDate = isset($event->start_date)? ucfirst($event->start_date) : '' ;
                     $eventStartDate = date("m/d/Y H:i", strtotime($eventStartDate));
                     $eventEndDate = isset($event->end_date)? ucfirst($event->end_date) : '';
@@ -162,10 +162,10 @@ $timezoneArray = config('constants.timezones');
                             @endif
                         </div>
                     </div>
-                    <div class="row">    
+                    <div class="row">
                         <div class="col-md-12 form-group cus-form-group">
                             <label for="description">Description</label>
-                            <textarea type="text" cols="50" class="form-control" name="description" id="area1" placeholder="Description here..">{{ isset($event->description)? ucfirst($event->description) : ''}} 
+                            <textarea type="text" cols="50" class="form-control" name="description" id="area1" placeholder="Description here..">{{ isset($event->description)? ucfirst($event->description) : ''}}
                             </textarea>
                             @if($errors->has('description'))
                             <div class="error">{{ $errors->first('description') }}</div>
@@ -249,7 +249,7 @@ $timezoneArray = config('constants.timezones');
                         </div>
                         <div class="col-md-4 form-group cus-form-group">
                             <label for="image">Quantity available</label>
-                            <input type="text" value="{{ $ticket->quantity }}" class="form-control" name="quantity[]" aria-describedby="emailHelp" placeholder="Quantity available">
+                            <input type="text" value="{{ $ticket->quantity }}" class="form-control" name="quantity[]" min="0" aria-describedby="emailHelp" placeholder="Quantity available">
                         </div>
                         <div class="col-md-2 form-group cus-form-group">
                             <label for="image">Price</label>
@@ -273,7 +273,7 @@ $timezoneArray = config('constants.timezones');
                         <input type="hidden" value="{{ $ticket->ticket_type }}" class="form-control" value="" name="ticket_type[]" aria-describedby="emailHelp" placeholder="Price"></div>
                     @endforeach
                     @endif
-                    <div class="row"> 
+                    <div class="row">
                         <div class="col-md-12 form-group cus-form-group">
                             @if($event->status=='Pending')
                             <label for="status">Pending</label>
@@ -337,12 +337,12 @@ $timezoneArray = config('constants.timezones');
                     <div class="btn-right">
                         <button type="submit" class="btn btn-bg ladda-button">Update Event</button>
                     </div>
-                </div>    
+                </div>
                 {!! Form::close() !!}
             </div> <!-- end card-body-->
-        </div> 
+        </div>
     </div>
-</div> 
+</div>
 
 <div class="modal fade" id="ticketModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -425,7 +425,7 @@ $timezoneArray = config('constants.timezones');
 <!--<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>-->
 
 <script>
-    
+
 
                             $(document).ready(function() {
 
@@ -632,7 +632,7 @@ $timezoneArray = config('constants.timezones');
     <label for="image">Ticket Name</label>\n\
         <input type="text"  class="form-control ticketclass" required name="ticket_name[' + x + ']" aria-describedby="emailHelp" placeholder="Ticket Name"></div>\n\
     <div class="col-md-4 form-group cus-form-group"><label for="image">Quantity available</label>\n\
-        <input type="text"  class="form-control ticketclass" required name="quantity[' + x + ']" aria-describedby="emailHelp" placeholder="Quantity available"></div>\n\
+        <input type="text"  class="form-control ticketclass" required name="quantity[' + x + ']" aria-describedby="emailHelp" min="0" placeholder="Quantity available"></div>\n\
     <div class="col-md-2 form-group cus-form-group">\n\
     <label for="image">Price</label>\n\
         <input type="text"  class="form-control priceclass ticketclass" ' + readonly + ' value="' + price + '"  name="price[' + x + ']" aria-describedby="emailHelp" required placeholder="Price"></div>\n\
