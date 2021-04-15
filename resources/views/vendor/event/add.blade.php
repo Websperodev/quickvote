@@ -199,7 +199,7 @@ $timezoneArray = config('constants.timezones');
 
                     <div id="ticket-div" class="input_fields_wrap"> </div>
 
-                    <button type="button" class="btn btn-bg ladda-button addtkt" data-toggle="modal" data-target="#ticketModal">Add Ticket</button>
+                    <button type="button" class="btn btn-bg ladda-button addtkt ticketModal" data-toggle="modal" data-target="#ticketModal">Add Ticket</button>
 
                     <input type="hidden"  name="addticketcheck" class="addticketcheck"  value="">
 
@@ -235,11 +235,11 @@ $timezoneArray = config('constants.timezones');
                     <div class="col-md-4 form-group cus-form-group">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
-                    <div class="col-md-4 form-group cus-form-group">
+                    <div class="col-md-4 form-group cus-form-group ">
                         <button type="button" class="btn btn-secondary paidclass" onclick="openModal('paid');">Paid Ticket</button>
                     </div>
                     <div class="col-md-4 form-group cus-form-group">
-                        <button type="button" class="btn btn-secondary " onclick="openModal('free');">Free Ticket</button>
+                        <button type="button" class="btn btn-secondary freeclass" onclick="openModal('free');">Free Ticket</button>
                     </div>
                 </div>
 
@@ -423,7 +423,7 @@ $timezoneArray = config('constants.timezones');
     <label for="image">Ticket Name</label>\n\
         <input type="text"  class="form-control ticketclass" name="ticket_name[' + x + ']" aria-describedby="emailHelp" required placeholder="Ticket Name"></div>\n\
     <div class="col-md-4 form-group cus-form-group"><label for="image">Quantity available</label>\n\
-        <input type="text"  class="form-control ticketclass" name="quantity[' + x + ']" aria-describedby="emailHelp" required placeholder="Quantity available"></div>\n\
+        <input type="text"  class="form-control ticketclass" min="1" name="quantity[' + x + ']" aria-describedby="emailHelp" required placeholder="Quantity available"></div>\n\
     <div class="col-md-2 form-group cus-form-group">\n\
     <label for="image">Price</label>\n\
         <input type="text"  class="form-control priceclass ticketclass" ' + readonly + ' value="' + price + '"  name="price[' + x + ']" aria-describedby="emailHelp" required placeholder="Price"></div>\n\
@@ -557,34 +557,34 @@ $timezoneArray = config('constants.timezones');
     });
 
     $('#event_category').change(function () {
-      var evntCatId = $(this).val();
-      eventSubCategory(evntCatId);
+        var evntCatId = $(this).val();
+        eventSubCategory(evntCatId);
     });
 
-    function eventSubCategory(catId){
-      var url = '{{ route("subcategories", ":id") }}';
-      url = url.replace(':id', catId);
-      $.ajax({
-          type: 'GET',
-          url: url,
-          success: function (res) {
-              $("#event_subcategory").empty();
-              if (res) {
-                  $("#event_subcategory").append('<option value="">Choose Subcategory</option>');
-                  if (res != '') {
-                      $.each(res, function (key, value) {
-                        $("#event_subcategory").append('<option value="' + value.id + '">' + value.name + '</option>');
-                      });
-                  } else {
-                    $("#event_subcategory").append('<option disabled> No category found </option>');
-                  }
-              }
+    function eventSubCategory(catId) {
+        var url = '{{ route("subcategories", ":id") }}';
+        url = url.replace(':id', catId);
+        $.ajax({
+            type: 'GET',
+            url: url,
+            success: function (res) {
+                $("#event_subcategory").empty();
+                if (res) {
+                    $("#event_subcategory").append('<option value="">Choose Subcategory</option>');
+                    if (res != '') {
+                        $.each(res, function (key, value) {
+                            $("#event_subcategory").append('<option value="' + value.id + '">' + value.name + '</option>');
+                        });
+                    } else {
+                        $("#event_subcategory").append('<option disabled> No category found </option>');
+                    }
+                }
 
-          },
-          error: function (err) {
-              console.log(err);
-          }
-      });
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
     }
 
 </script>
