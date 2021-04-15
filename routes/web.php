@@ -223,5 +223,5 @@ Route::get('privacy-policy', 'HomeController@openPage')->name('privacy-policy');
 
 Auth::routes();
 
-// Route::get('/home', 'HomeController@index')->name('home');
+ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/vendor-test', 'HomeController@vendorTest')->name('vendor')->middleware('role:vendor');
