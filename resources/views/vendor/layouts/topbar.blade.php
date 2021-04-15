@@ -18,9 +18,13 @@
                 <!-- {{ URL::asset('assets/images/cfl-logo.png') }} -->
 
                 <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="{{url('/')}}" role="button" aria-haspopup="false" aria-expanded="false">
-                    <img src="{{ URL::asset('assets/images/avatar-11.jpg') }}" alt="user-image" class="rounded-circle">
+                    @if(Auth::user()->image)
+                      <img src="{{ Auth::user()->image}}" alt="user-image" class="rounded-circle">
+                    @else
+                      <img src="{{ URL::asset('assets/images/avatar-11.jpg') }}" alt="user-image" class="rounded-circle">
+                    @endif
                     <span class="pro-user-name ml-1">
-                    {{ ucfirst(\Auth::user()->first_name) }} <i class="mdi mdi-chevron-down"></i> 
+                    {{ ucfirst(\Auth::user()->first_name) }} <i class="mdi mdi-chevron-down"></i>
                     </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
@@ -28,7 +32,7 @@
                     <div class="dropdown-header noti-title">
                         <h6 class="text-overflow m-0">Welcome !</h6>
                     </div>
-    
+
                     <!-- item-->
                     <a href="{{ route('vendor.myaccount') }}" class="dropdown-item notify-item">
                         <i class="fe-user"></i>
@@ -38,19 +42,19 @@
                         <i class="fe-user"></i>
                         <span>Change Password</span>
                     </a>
-    
+
                     <div class="dropdown-divider"></div>
-    
+
                     <!-- item-->
                     <a href="{{ route('user.logout') }}" class="dropdown-item notify-item">
                         <i class="fe-log-out"></i>
                         <span>Logout</span>
                     </a>
-                    
+
                 </div>
             </li>
         </ul>
-    
+
         <!-- LOGO -->
         <div class="logo-box">
             <a href="#" class="logo text-center">
@@ -70,7 +74,7 @@
 			<span></span>
 			<span></span>
 		  </button>
-		  
+
 		  <script>
 			$("button.hamburger").click(function(){
 			  $(this).toggleClass("is-open");
@@ -81,4 +85,3 @@
     </div> <!-- end container-fluid-->
 </div>
 <!-- end Topbar-->
-
