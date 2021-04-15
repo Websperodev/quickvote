@@ -19,7 +19,7 @@
 
                 <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="{{url('/')}}" role="button" aria-haspopup="false" aria-expanded="false">
                     @if(Auth::user()->image)
-                      <img src="{{ Auth::user()->image}}" alt="user-image" class="rounded-circle">
+                      <img src="{{ url(Auth::user()->image)}}" alt="user-image" class="rounded-circle">
                     @else
                       <img src="{{ URL::asset('assets/images/avatar-11.jpg') }}" alt="user-image" class="rounded-circle">
                     @endif
