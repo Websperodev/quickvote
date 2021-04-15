@@ -370,7 +370,7 @@ var city = "{{$event->city_id}}";</script>
                             var cityId = 1;
                             }
 
-                            var url = '{{ route("states", ":id") }}';
+                            var url = '{{ route("allstates", ":id") }}';
                             url = url.replace(':id', cid);
                             var selected = '';
                             $.ajax({
@@ -397,7 +397,7 @@ var city = "{{$event->city_id}}";</script>
                                     console.log(err);
                                     }
                             });
-                            var cityUrl =  '{{ route("cities", ":id") }}';
+                            var cityUrl =  '{{ route("allcities", ":id") }}';
                             cityUrl = cityUrl.replace(':id', stateId);
                             $.ajax({
                             type: 'GET',
@@ -429,7 +429,7 @@ var city = "{{$event->city_id}}";</script>
                             });
                             $('#country').change(function () {
                             var cid = $(this).val();
-                            var url = '{{ route("states", ":id") }}';
+                            var url = '{{ route("allstates", ":id") }}';
                             url = url.replace(':id', cid);
                             if (cid) {
                             $.ajax({
@@ -461,7 +461,7 @@ var city = "{{$event->city_id}}";</script>
                             }
                             });
                             function citylist(stateid) {
-                            var ctyurl =  '{{ route("cities", ":id") }}';
+                            var ctyurl =  '{{ route("allcities", ":id") }}';
                             ctyurl = ctyurl.replace(':id', stateid);
                             $.ajax({
                             type: 'GET',

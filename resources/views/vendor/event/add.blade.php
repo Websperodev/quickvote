@@ -324,7 +324,7 @@ $timezoneArray = config('constants.timezones');
 <script type="text/javascript">
     $(document).ready(function () {
         var cid = 1;
-        var url = '{{ route("states", ":id") }}';
+        var url = '{{ route("allstates", ":id") }}';
         url = url.replace(':id', cid);
 
 
@@ -358,7 +358,7 @@ $timezoneArray = config('constants.timezones');
             });
         }
         var stateId = 1;
-        var cityUrl = '{{ route("cities", ":id") }}';
+        var cityUrl = '{{ route("allcities", ":id") }}';
         cityUrl = cityUrl.replace(':id', stateId);
         if (stateId) {
             $.ajax({
@@ -492,7 +492,7 @@ $timezoneArray = config('constants.timezones');
 
     $('#country').change(function () {
         var cid = $(this).val();
-        var url = '{{ route("states", ":id") }}';
+        var url = '{{ route("allstates", ":id") }}';
         url = url.replace(':id', cid);
         if (cid) {
             $.ajax({
@@ -527,7 +527,7 @@ $timezoneArray = config('constants.timezones');
 
     });
     function citylist(stateid) {
-        var ctyurl = '{{ route("cities", ":id") }}';
+        var ctyurl = '{{ route("allcities", ":id") }}';
         ctyurl = ctyurl.replace(':id', stateid);
         $.ajax({
             type: 'GET',
