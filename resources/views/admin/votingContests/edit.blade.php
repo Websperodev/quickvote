@@ -2,7 +2,7 @@
 @section("meta_page_title") Voting | Quickvote | Edit @endsection
 @section("page_title") <a href="{!! route('admin.voting.index') !!}" class="head-a"> Voting </a> > Edit @endsection
 @section("content")
-@php 
+@php
 $timezoneArray = config('constants.timezones');
 @endphp
 <script>
@@ -15,7 +15,7 @@ $timezoneArray = config('constants.timezones');
             <div class="card-body">
                 <h4 class="mb-3 header-title">Voting Contests</h4>
                 @if(session()->has('message.level'))
-                <div class="alert alert-{{ session('message.level') }}"> 
+                <div class="alert alert-{{ session('message.level') }}">
                     {!! session('message.text') !!}
                 </div>
                 @endif
@@ -98,7 +98,7 @@ $timezoneArray = config('constants.timezones');
                         @endif
                         <div class="col-md-7 form-group cus-form-group votelimitcount">
                             <label for="limit_count">Vote Limit</label>
-                            <input type="number" autocomplete="off" class="form-control" name="limit_count" id="limit_count" value="{{ isset($VotingContest->limit_count) ? $VotingContest->limit_count : ''}}" aria-describedby="emailHelp" placeholder="Enter limit count">
+                            <input type="number" autocomplete="off" class="form-control" name="limit_count" id="limit_count" value="{{ isset($VotingContest->limit_count) ? $VotingContest->limit_count : ''}}" aria-describedby="emailHelp" min="0" placeholder="Enter limit count">
                             @if($errors->has('limit_count'))
                             <div class="error">{{ $errors->first('limit_count') }}</div>
                             @endif
@@ -197,13 +197,13 @@ $timezoneArray = config('constants.timezones');
                                 <select class="form-control" name="timezone" id="timezone"  aria-describedby="emailHelp">
                                     @foreach($timezoneArray as $key=>$time)
                                     <option value="{{ $key }}" {{ $key == $VotingContest->timezone ? 'selected' : ''}}>{{ $key }}</option>
-                                    @endforeach 
+                                    @endforeach
                                 </select>
                                 @if($errors->has('timezone'))
                                 <div class="error">{{ $errors->first('timezone') }}</div>
                                 @endif
                             </div>
-							
+
                         <div class="col-md-12 form-group cus-form-group">
                             <label for="description">Description</label>
                             <textarea type="text" cols="50" class="form-control" name="description" id="area1" placeholder="Description here..">{{ isset($VotingContest->description)? ucfirst($VotingContest->description) : ''}}</textarea>
@@ -212,7 +212,7 @@ $timezoneArray = config('constants.timezones');
                             @endif
                         </div>
                     </div>
-                    <div class="row"> 
+                    <div class="row">
                         <div class="col-md-12 form-group cus-form-group">
                             @if($VotingContest->status=='Pending')
                             <div class="col-md-3 form-group cus-form-group">
@@ -267,7 +267,7 @@ $timezoneArray = config('constants.timezones');
                         @endif
                         <div class="col-md-12 form-group cus-form-group eventreason">
                             <label for="description">Reject Reason</label>
-                            <textarea type="text" cols="50" class="form-control" name="reason" id="reason" placeholder="Description here..">{{ isset($VotingContest->reason)? ucfirst($VotingContest->reason) : ''}} 
+                            <textarea type="text" cols="50" class="form-control" name="reason" id="reason" placeholder="Description here..">{{ isset($VotingContest->reason)? ucfirst($VotingContest->reason) : ''}}
                             </textarea>
                             @if($errors->has('reason'))
 
@@ -275,16 +275,16 @@ $timezoneArray = config('constants.timezones');
                             @endif
                         </div>
                     </div>
-                    <input type="hidden" name="VotingContest_id" value="{{ isset($VotingContest->id ) ? $VotingContest->id  : ''}}"> 
+                    <input type="hidden" name="VotingContest_id" value="{{ isset($VotingContest->id ) ? $VotingContest->id  : ''}}">
                     <div class="btn-right">
                         <button type="submit" class="btn btn-bg lada-button">Submit</button>
                     </div>
                 </div>
                 {!! Form::close() !!}
             </div> <!-- end card-body-->    </div>
-    </div> 
+    </div>
 </div>
-</div> 
+</div>
 
 <script type="text/javascript">
    $(".datetimepicker").datetimepicker({
