@@ -56,7 +56,7 @@ $timezoneArray = config('constants.timezones');
                         </div>
                         <div class="col-md-6 col-sm-12">
                             <label for="type">Free</label>
-                            <input type="radio"  name="type" class="vote_type" value="free">
+                            <input type="radio"  name="type"  class="vote_type" value="free">
                         </div>
                         @else
                         <div class="col-md-6 col-sm-12">
@@ -98,7 +98,7 @@ $timezoneArray = config('constants.timezones');
                         @endif
                         <div class="col-md-7 form-group cus-form-group votelimitcount">
                             <label for="limit_count">Vote Limit</label>
-                            <input type="number" autocomplete="off" class="form-control" name="limit_count" id="limit_count" value="{{ isset($VotingContest->limit_count) ? $VotingContest->limit_count : ''}}" aria-describedby="emailHelp" placeholder="Enter limit count">
+                            <input type="number" autocomplete="off" class="form-control" name="limit_count" min="1" id="limit_count" value="{{ isset($VotingContest->limit_count) ? $VotingContest->limit_count : ''}}" aria-describedby="emailHelp" placeholder="Enter limit count">
                             @if($errors->has('limit_count'))
                             <div class="error">{{ $errors->first('limit_count') }}</div>
                             @endif
@@ -172,7 +172,7 @@ $timezoneArray = config('constants.timezones');
 
                             <div class="col-md-6 form-group cus-form-group votesfees">
                                 <label for="fees">Voting Fee</label>
-                                <input type="number" autocomplete="off" class="form-control" name="fees" id="organiser_name" value="{{ isset($VotingContest->fees) ? $VotingContest->fees : ''}}"  placeholder="Enter Voting fee">
+                                <input type="number" autocomplete="off" class="form-control" name="fees" min="1" id="organiser_name" value="{{ isset($VotingContest->fees) ? $VotingContest->fees : ''}}"  placeholder="Enter Voting fee">
                                 @if($errors->has('fees'))
                                 <div class="error">{{ $errors->first('fees') }}</div>
                                 @endif

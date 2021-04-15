@@ -56,7 +56,7 @@ $timezoneArray = config('constants.timezones');
                         </div>
                         <div class="col-md-6 col-sm-12">
                             <label for="type">Free</label>
-                            <input type="radio"  name="type" class="vote_type" value="free">
+                            <input type="radio"  name="type"  min="1" class="vote_type" value="free">
                         </div>
                         @else
                         <div class="col-md-6 col-sm-12">
@@ -65,7 +65,7 @@ $timezoneArray = config('constants.timezones');
                         </div>
                         <div class="col-md-6 col-sm-12">
                             <label for="type">Free</label>
-                            <input type="radio" checked name="type" class="vote_type" value="free">
+                            <input type="radio" checked name="type" min="1" class="vote_type" value="free">
                         </div>
                         @endif
                         @if($errors->has('type'))
