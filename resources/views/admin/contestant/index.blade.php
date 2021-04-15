@@ -23,7 +23,7 @@
                         <h4 class="header-title">Manage Contestant</h4>
                     </div>
                     <div class="col-6">
-                        <a class="btn btn-bg" href="{{ route('contestant.create') }}" style="color: black">Add Contestant</a>     
+                        <a class="btn btn-bg" href="{{ route('contestant.create') }}" style="color: black">Add Contestant</a>
                     </div>
                 </div>
                 <p class="sub-header">View and manage Contestant users on this page.</p>
@@ -144,7 +144,7 @@ table_instance = $('#contestant-table').DataTable({
 $(document).ready(function (e) {
     $("#edit_contestant_form").on('submit', function (e) {
         e.preventDefault();
-      
+
         l = Ladda.create(document.querySelector('#edit_contestant_form .ladda-button'));
         var number = $('.numberclass').val();
         var ln = parseInt(number.length);
@@ -202,7 +202,7 @@ $(document).ready(function (e) {
                 }
             });
         } else {
-            $('.error_number').text('Please use min 5 or max 12 lenth');
+            $('.error_number').text('Please use min 5 or max 12 length');
         }
     });
 });
@@ -241,7 +241,7 @@ $(document).ready(function (e) {
 //                     });
 //                     table_instance.ajax.reload(null,true);
 
-//                 } 
+//                 }
 //                 $('#editContestantModal').modal('hide');
 //             },
 //             error: function (res) {

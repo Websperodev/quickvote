@@ -23,7 +23,7 @@
                         <h4 class="header-title">Manage Contestant</h4>
                     </div>
                     <div class="col-6">
-                        <a class="btn btn-bg" href="{{ route('vendor.contestant.create') }}" style="color: black">Add Contestant</a>     
+                        <a class="btn btn-bg" href="{{ route('vendor.contestant.create') }}" style="color: black">Add Contestant</a>
                     </div>
                 </div>
                 <p class="sub-header">View and manage Contestant users on this page.</p>
@@ -202,8 +202,8 @@ $(document).ready(function (e) {
                 }
             });
         } else {
-           
-            $('.error_number').text('Please use min 5 or max 12 lenth');
+
+            $('.error_number').text('Please use min 5 or max 12 length');
         }
     });
 });
