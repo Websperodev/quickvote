@@ -21,10 +21,16 @@ $user = substr($user, 0, 8);
             <li class="dropdown notification-list">
                 <!-- {{ URL::asset('assets/images/cfl-logo.png') }} -->
 
+
                 <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="{{ route('vendor.dashboard') }}" role="button" aria-haspopup="false" aria-expanded="false">
-                    <img src="{{ URL::asset('assets/images/avatar-11.jpg') }}" alt="user-image" class="rounded-circle">
+                    @if(Auth::user()->image)
+                      <img src="{{ url(Auth::user()->image)}}" alt="user-image" class="rounded-circle">
+                    @else
+                      <img src="{{ URL::asset('assets/images/avatar-11.jpg') }}" alt="user-image" class="rounded-circle">
+                    @endif
                     <span class="pro-user-name ml-1">
-                        {{$user }} <i class="mdi mdi-chevron-down"></i> 
+                    {{ ucfirst(\Auth::user()->first_name) }} <i class="mdi mdi-chevron-down"></i>
+
                     </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
@@ -69,20 +75,21 @@ $user = substr($user, 0, 8);
             </a>
         </div>
         <div class="sidenav-btnn">
-            <button class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
 
-            <script>
-                $("button.hamburger").click(function () {
-                    $(this).toggleClass("is-open");
-                    $('.dashbrd #sidebar').toggleClass('open')
-                });
-            </script>
-        </div>
+		  <button class="hamburger">
+			<span></span>
+			<span></span>
+			<span></span>
+		  </button>
+
+		  <script>
+			$("button.hamburger").click(function(){
+			  $(this).toggleClass("is-open");
+			  $('.dashbrd #sidebar').toggleClass('open')
+			});
+		  </script>
+		</div>
+
     </div> <!-- end container-fluid-->
 </div>
 <!-- end Topbar-->
-

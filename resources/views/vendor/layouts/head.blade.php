@@ -37,12 +37,17 @@
     .card-widgets{
         height: auto !important;
     }
+    .numberclass::-webkit-inner-spin-button,
+    .numberclass::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
 </style>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="{{ URL::asset('assets/js/jquery.datetimepicker.full.min.js')}}"></script>
 <link href="{{ URL::asset('assets/css/jquery.datetimepicker.min.css')}}" rel="stylesheet" type="text/css" />
-<script src="{{ URL::asset('assets/libs/bootstrap-select/bootstrap-select.min.js')}}"></script> 
+<script src="{{ URL::asset('assets/libs/bootstrap-select/bootstrap-select.min.js')}}"></script>
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js" integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg==" crossorigin="anonymous"></script>-->
 <script src="{{url('js/jquery.validate.min.js')}}"></script>
     <script src="{{url('js/jquery.validate.js')}}"></script>

@@ -2,7 +2,7 @@
 @section("meta_page_title") Voting | Quickvote | Dashboard @endsection
 @section("page_title") <a href="{!! route('vendor.voting.index') !!}" class="head-a"> Voting </a> > Add @endsection
 @section("content")
-@php 
+@php
 $timezoneArray = config('constants.timezones');
 @endphp
 <div class="row justify-content-center">
@@ -11,7 +11,7 @@ $timezoneArray = config('constants.timezones');
             <div class="card-body">
                 <h4 class="mb-3 header-title">Voting Contests</h4>
                 @if(session()->has('message.level'))
-                <div class="alert alert-{{ session('message.level') }}"> 
+                <div class="alert alert-{{ session('message.level') }}">
                     {!! session('message.text') !!}
                 </div>
                 @endif
@@ -61,7 +61,7 @@ $timezoneArray = config('constants.timezones');
                         @endif
                         <div class="col-md-7 form-group cus-form-group votelimitcount">
                             <label for="limit_count">Vote Limit</label>
-                            <input type="number" autocomplete="off" class="form-control" name="limit_count" id="organiser_name" value="" aria-describedby="emailHelp" placeholder="Enter limit count">
+                            <input type="number" autocomplete="off" class="form-control" name="limit_count" id="organiser_name" value="" min ="0" aria-describedby="emailHelp" placeholder="Enter limit count">
                             @if($errors->has('limit_count'))
                             <div class="error">{{ $errors->first('limit_count') }}</div>
                             @endif
@@ -147,7 +147,7 @@ $timezoneArray = config('constants.timezones');
                                 <select class="form-control" name="timezone" id="timezone"  aria-describedby="emailHelp">
                                     @foreach($timezoneArray as $key=>$time)
                                     @if($key=='Africa/Lagos')
-                                    <option value="{{ $key }}" selected>{{ $key }}</option>                                
+                                    <option value="{{ $key }}" selected>{{ $key }}</option>
                                     @else
                                     <option value="{{ $key }}">{{ $key }}</option>
                                     @endif
@@ -170,9 +170,9 @@ $timezoneArray = config('constants.timezones');
                 </div>
                 {!! Form::close() !!}
             </div> <!-- end card-body-->    </div>
-    </div> 
+    </div>
 </div>
-</div> 
+</div>
 <script>
     $(document).ready(function () {
         $('.votelimitcount').hide();
