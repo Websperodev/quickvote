@@ -87,7 +87,8 @@ class ProfileController extends Controller {
                         'regex:/^male$|^female$/'),
                     'facebook' => 'nullable|regex:/(https?:\/\/)?([\w\.]*)facebook\.com\/([a-zA-Z0-9_]*)$/',
                     'instagram' => 'nullable|regex:/(https?:\/\/)?([\w\.]*)instagram\.com\/([a-zA-Z0-9_]*)$/',
-                    'twitter' => 'nullable|regex:/(https?:\/\/)?([\w\.]*)twitter\.com\/([a-zA-Z0-9_]*)$/'
+                    'twitter' => 'nullable|regex:/(https?:\/\/)?([\w\.]*)twitter\.com\/([a-zA-Z0-9_]*)$/',
+                    'image' => 'mimes:jpeg,png|max:1014',
         ]);
 
         if ($validator->fails()) {
@@ -100,10 +101,10 @@ class ProfileController extends Controller {
             $user = Auth::user();
             if ($request->hasFile('image')) {
                 if ($request->file('image')->isValid()) {
-                    $validated = $request->validate([
-                        'image' => 'string|max:40',
-                        'image' => 'mimes:jpeg,png|max:1014',
-                    ]);
+                    // $validated = $request->validate([
+                    //     'image' => 'string|max:40',
+                    //     'image' => 'mimes:jpeg,png|max:1014',
+                    // ]);
                     $file = request()->file('image');
                     $fileName = md5($file->getClientOriginalName() . time()) . "." . $file->getClientOriginalExtension();
                     $file->move('./uploads/images/', $fileName);
