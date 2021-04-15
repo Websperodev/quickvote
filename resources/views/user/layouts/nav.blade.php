@@ -1,4 +1,26 @@
-<header>    
+<header>  
+
+    @if(isset(\Auth::user()->first_name))
+    @php
+    $users=\Auth::user();
+    @endphp
+
+    @if($users->type =='admin')
+    <script>window.location = "{{ route('admin.dashboard') }}";</script>
+
+
+    @elseif($users->type=='vendor')
+    <script>window.location = "{{ route('vendor.dashboard') }}";</script>
+
+    @elseif($users->type=='user')
+
+
+    @php $user = ucfirst(substr($users->first_name, 0, 8));
+
+
+    @endphp
+    @endif
+    @endif
     <nav id="navbar_top" class="navbar navbar-expand-lg navbar-light">
         <div class="container">
             <a class="navbar-brand" href="{{url('/')}}"><img class="logo" src="{{asset('img/qv-logo.png')}}"></a>
@@ -22,7 +44,7 @@
                     @if(Auth::user())
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                         <span class="pro-user-name ml-1">
-                            {{ isset(\Auth::user()->first_name) ? ucfirst(\Auth::user()->first_name) : 'User'}} <i class="mdi mdi-chevron-down"></i> 
+                            {{ $user}} <i class="mdi mdi-chevron-down"></i> 
                         </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
@@ -85,509 +107,510 @@
 <script src="{{asset('js/custom.js')}}"></script>
 
 <script type="text/javascript">
-$('.modal').on('hidden.bs.modal', function () {
-    $("form").each(function () {
-        $(this).validate().resetForm();
-    });
-});
-
-function showPassword(id) {
-    var x = document.getElementById(id);
-    if (x.type === "password") {
-        x.type = "text";
-    } else {
-        x.type = "password";
-    }
-}
-
-$(document).ready(function () {
-
-    $('.modal').on('hidden.bs.modal', function () {
-        $('.alert-danger').hide();
-        $(this).find('form').trigger('reset');
-    })
-
-    $('#openSignUp').click(function () {
-        $('#loginModal').modal('hide');
-        $('#registerModal').modal('show');
-
-        setTimeout(function () {
-            jQuery("body").addClass("modal-open");
-        }, 700);
-
-    });
-
-    $('#vendorSignUp').click(function () {
-        $('#registerModal').modal('hide');
-        $('#vendorModal').modal('show');
-        setTimeout(function () {
-            jQuery("body").addClass("modal-open");
-        }, 700);
-    });
-
-    $('#resetPass').click(function () {
-        $('#loginModal').modal('hide');
-        $('#forgetPassModal').modal('show');
-    });
-
-    $("#register-frm-user").validate({
-        ignore: ":hidden",
-        rules: {
-            email: {
-                required: true,
-                email: true
-            },
-            password: {
-                required: true,
-                minlength: 3
-            },
-            confirm_password: {
-                required: true,
-                equalTo: "#user-password"
-            },
-
-        },
-        submitHandler: function (form) {
-            $.ajax({
-                type: 'POST',
-                url: "{{ route('user.register') }}",
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                data: $('form.register-frm-user').serialize(),
-                success: function (response) {
-                    console.log('submit response', response);
-                    if (response.success == true) {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: response.message,
-                            text: 'Please verify Email',
-                            showConfirmButton: false,
-                            showCloseButton: true,
-
-                        })
-                        $('#registerModal').modal('hide');
-                    } else {
-                        $.each(response.errors, function (key, value) {
-                            $('.alert-danger').show();
-                            $('.alert-danger').append('<p>' + value + '</p>');
-                        });
-                    }
-                },
-                beforeSend: function () {
-                    $('.alert-danger').html('');
-                    $('.alert-danger').hide();
-                },
-                error: function (err) {
-                    console.log(err);
-                }
+        $('.modal').on('hidden.bs.modal', function () {
+            $("form").each(function () {
+                $(this).validate().resetForm();
             });
-            return false; // required to block normal submit since you used ajax
-        }
-    });
+        });
 
-    $("#vendForm").validate({
-        ignore: ":hidden",
-        rules: {
-            company_name: {
-                required: true,
-                minlength: 3
-            },
-            company_address: {
-                required: true,
-
-            },
-            company_country: {
-                required: true,
-            },
-            company_state: {
-                required: true,
-            },
-            company_city: {
-                required: true,
-            },
-            company_phone: {
-                required: true,
-            },
-            company_email: {
-                required: true,
-            },
-            company_website: {
-                required: true,
-            },
-            company_description: {
-                required: true,
-            },
-            first_name: {
-                required: true,
-            },
-            last_name: {
-                required: true,
-            },
-            business_name: {
-                required: true,
-            },
-            email: {
-                required: true,
-            },
-            password: {
-                required: true,
-            },
-            phone: {
-                required: true,
-            },
-            alternate_phone: {
-                required: true,
-            },
-            address1: {
-                required: true,
-            },
-            address2: {
-                required: true,
-            },
-            postcode: {
-                required: true,
-            },
-            country: {
-                required: true,
-            },
-            state: {
-                required: true,
-            },
-            city: {
-                required: true,
-            },
-            account_holder_name: {
-                required: true,
-            },
-            account_no: {
-                required: true,
-            },
-            bank_name: {
-                required: true,
+        function showPassword(id) {
+            var x = document.getElementById(id);
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
             }
-
-        },
-        submitHandler: function (form) {
-            console.log('vendor reg');
-            $.ajax({
-                type: 'POST',
-                url: "{{ route('vendor.register') }}",
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                data: $('form#vendForm').serialize(),
-                success: function (response) {
-                    console.log(response);
-                    if (response.success == true) {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: response.message,
-                            text: 'Please verify Email',
-                            showConfirmButton: false,
-                            showCloseButton: true,
-
-                        })
-                        $('.tab').css('display', 'none');
-                        $('#tabs-1').css('display', 'block');
-                        $('#vendorModal').modal('hide');
-                    } else {
-                        $.each(response.errors, function (key, value) {
-                            $('.alert-danger').show();
-                            $('.alert-danger').append('<p>' + value + '</p>');
-                        });
-                    }
-                },
-                error: function (err) {
-                    console.log(err);
-                },
-                beforeSend: function () {
-                    $('.alert-danger').html('');
-                    $('.alert-danger').hide();
-                }
-            });
-            return false; // required to block normal submit since you used ajax
         }
-    });
 
-    $("#login-frm-user").validate({
-        ignore: ":hidden",
-        rules: {
-            email: {
-                required: true,
-                email: true
-            },
-            password: {
-                required: true,
-                minlength: 8
-            }
-        },
-        submitHandler: function (form) {
-            $(".alert-danger").hide();
-            $(".alert-danger").empty();
+        $(document).ready(function () {
 
-            $.ajax({
-                type: 'POST',
-                url: "{{ route('user.login') }}",
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                data: $('form.login-frm-user').serialize(),
-                success: function (response) {
-                    console.log(response);
-                    if (response.success == true) {
-                        if (response.user_type == 'user') {
-                            location.href = "{{ route('user.dashboard') }}";
+            $('.modal').on('hidden.bs.modal', function () {
+                $('.alert-danger').hide();
+                $(this).find('form').trigger('reset');
+            })
+
+            $('#openSignUp').click(function () {
+                $('#loginModal').modal('hide');
+                $('#registerModal').modal('show');
+
+                setTimeout(function () {
+                    jQuery("body").addClass("modal-open");
+                }, 700);
+
+            });
+
+            $('#vendorSignUp').click(function () {
+                $('#registerModal').modal('hide');
+                $('#vendorModal').modal('show');
+                setTimeout(function () {
+                    jQuery("body").addClass("modal-open");
+                }, 700);
+            });
+
+            $('#resetPass').click(function () {
+                $('#loginModal').modal('hide');
+                $('#forgetPassModal').modal('show');
+            });
+
+            $("#register-frm-user").validate({
+                ignore: ":hidden",
+                rules: {
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    password: {
+                        required: true,
+                        minlength: 3
+                    },
+                    confirm_password: {
+                        required: true,
+                        equalTo: "#user-password"
+                    },
+
+                },
+                submitHandler: function (form) {
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('user.register') }}",
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        data: $('form.register-frm-user').serialize(),
+                        success: function (response) {
+                            console.log('submit response', response);
+                            if (response.success == true) {
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: 'success',
+                                    title: response.message,
+                                    text: 'Please verify Email',
+                                    showConfirmButton: false,
+                                    showCloseButton: true,
+
+                                })
+                                $('#registerModal').modal('hide');
+                            } else {
+                                $.each(response.errors, function (key, value) {
+                                    $('.alert-danger').show();
+                                    $('.alert-danger').append('<p>' + value + '</p>');
+                                });
+                            }
+                        },
+                        beforeSend: function () {
+                            $('.alert-danger').html('');
+                            $('.alert-danger').hide();
+                        },
+                        error: function (err) {
+                            console.log(err);
                         }
-                        if (response.user_type == 'vendor') {
-                            location.href = "{{ route('vendor.dashboard') }}";
+                    });
+                    return false; // required to block normal submit since you used ajax
+                }
+            });
+
+            $("#vendForm").validate({
+                ignore: ":hidden",
+                rules: {
+                    company_name: {
+                        required: true,
+                        minlength: 3
+                    },
+                    company_address: {
+                        required: true,
+
+                    },
+                    company_country: {
+                        required: true,
+                    },
+                    company_state: {
+                        required: true,
+                    },
+                    company_city: {
+                        required: true,
+                    },
+                    company_phone: {
+                        required: true,
+                    },
+                    company_email: {
+                        required: true,
+                    },
+                    company_website: {
+                        required: true,
+                    },
+                    company_description: {
+                        required: true,
+                    },
+                    first_name: {
+                        required: true,
+                    },
+                    last_name: {
+                        required: true,
+                    },
+                    business_name: {
+                        required: true,
+                    },
+                    email: {
+                        required: true,
+                    },
+                    password: {
+                        required: true,
+                    },
+                    phone: {
+                        required: true,
+                    },
+                    alternate_phone: {
+                        required: true,
+                    },
+                    address1: {
+                        required: true,
+                    },
+                    address2: {
+                        required: true,
+                    },
+                    postcode: {
+                        required: true,
+                    },
+                    country: {
+                        required: true,
+                    },
+                    state: {
+                        required: true,
+                    },
+                    city: {
+                        required: true,
+                    },
+                    account_holder_name: {
+                        required: true,
+                    },
+                    account_no: {
+                        required: true,
+                    },
+                    bank_name: {
+                        required: true,
+                    }
+
+                },
+                submitHandler: function (form) {
+                    console.log('vendor reg');
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('vendor.register') }}",
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        data: $('form#vendForm').serialize(),
+                        success: function (response) {
+                            console.log(response);
+                            if (response.success == true) {
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: 'success',
+                                    title: response.message,
+                                    text: 'Please verify Email',
+                                    showConfirmButton: false,
+                                    showCloseButton: true,
+
+                                })
+                                $('.tab').css('display', 'none');
+                                $('#tabs-1').css('display', 'block');
+                                $('#vendorModal').modal('hide');
+                            } else {
+                                $.each(response.errors, function (key, value) {
+                                    $('.alert-danger').show();
+                                    $('.alert-danger').append('<p>' + value + '</p>');
+                                });
+                            }
+                        },
+                        error: function (err) {
+                            console.log(err);
+                        },
+                        beforeSend: function () {
+                            $('.alert-danger').html('');
+                            $('.alert-danger').hide();
                         }
-                    } else {
-
-                        $.each(response.errors, function (key, value) {
-                            $('.alert-danger').show();
-                            $('.alert-danger').append('<p>' + value + '</p>');
-                        });
-                    }
-
-                },
-                beforeSend: function () {
-                    $('.alert-danger').html('');
-                    $('.alert-danger').hide();
-                },
-                error: function (err) {
-                    console.log(err);
+                    });
+                    return false; // required to block normal submit since you used ajax
                 }
             });
-            return false; // required to block normal submit since you used ajax
-        }
-    });
 
-    $("#forget-pass-frm").validate({
-        ignore: ":hidden",
-        rules: {
-            email: {
-                required: true,
-                email: true
-            },
-        },
-        submitHandler: function (form) {
-            $(".alert-danger").hide();
-            $(".alert-danger").empty();
-
-            $.ajax({
-                type: 'POST',
-                url: "{{ route('forget.password') }}",
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                data: $('form.forget-pass-frm').serialize(),
-                success: function (response) {
-                    console.log(response);
-                    if (response.success == true) {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: response.message,
-                            showConfirmButton: false,
-                            showCloseButton: true,
-
-                        })
-
-                        $('#reset-frm').prop('disabled', true);
-                        $('#forgetPassModal').modal('hide');
-
-                    } else {
-
-                        $.each(response.errors, function (key, value) {
-                            $('.alert-danger').show();
-                            $('.alert-danger').append('<p>' + value + '</p>');
-                        });
+            $("#login-frm-user").validate({
+                ignore: ":hidden",
+                rules: {
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    password: {
+                        required: true,
+                        minlength: 8
                     }
+                },
+                submitHandler: function (form) {
+                    $(".alert-danger").hide();
+                    $(".alert-danger").empty();
 
-                },
-                beforeSend: function () {
-                    $('.alert-danger').html('');
-                    $('.alert-danger').hide();
-                },
-                error: function (err) {
-                    console.log(err);
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('user.login') }}",
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        data: $('form.login-frm-user').serialize(),
+                        success: function (response) {
+                            console.log(response);
+                            if (response.success == true) {
+                                if (response.user_type == 'user') {
+                                    location.href = "{{ route('/') }}";
+                                }
+                                if (response.user_type == 'vendor') {
+                                    location.href = "{{ route('vendor.dashboard') }}";
+                                }
+                                $('#loginModal').hide();
+                            } else {
+
+                                $.each(response.errors, function (key, value) {
+                                    $('.alert-danger').show();
+                                    $('.alert-danger').append('<p>' + value + '</p>');
+                                });
+                            }
+
+                        },
+                        beforeSend: function () {
+                            $('.alert-danger').html('');
+                            $('.alert-danger').hide();
+                        },
+                        error: function (err) {
+                            console.log(err);
+                        }
+                    });
+                    return false; // required to block normal submit since you used ajax
                 }
             });
-            return false; // required to block normal submit since you used ajax
-        }
-    });
 
-    $("#reset-pass-frm").validate({
-        ignore: ":hidden",
-        rules: {
-            password: {
-                required: true,
-                minlength: 8
-            },
-            confirm_password: {
-                required: true,
-                equalTo: "#pass"
-            },
-        },
-        submitHandler: function (form) {
-            $(".alert-danger").hide();
-            $(".alert-danger").empty();
-
-            $.ajax({
-                type: 'POST',
-                url: "{{ route('reset.password') }}",
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                data: $('form.reset-pass-frm').serialize(),
-                success: function (response) {
-                    console.log(response);
-                    if (response.success == true) {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: response.message,
-                            showConfirmButton: false,
-                            showCloseButton: true,
-
-                        })
-
-                        $('#resetPassModal').modal('hide');
-
-                    } else {
-
-                        $.each(response.errors, function (key, value) {
-                            $('.alert-danger').show();
-                            $('.alert-danger').append('<p>' + value + '</p>');
-                        });
-                    }
-
+            $("#forget-pass-frm").validate({
+                ignore: ":hidden",
+                rules: {
+                    email: {
+                        required: true,
+                        email: true
+                    },
                 },
-                beforeSend: function () {
-                    $('.alert-danger').html('');
-                    $('.alert-danger').hide();
-                },
-                error: function (err) {
-                    console.log(err);
+                submitHandler: function (form) {
+                    $(".alert-danger").hide();
+                    $(".alert-danger").empty();
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('forget.password') }}",
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        data: $('form.forget-pass-frm').serialize(),
+                        success: function (response) {
+                            console.log(response);
+                            if (response.success == true) {
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: 'success',
+                                    title: response.message,
+                                    showConfirmButton: false,
+                                    showCloseButton: true,
+
+                                })
+
+                                $('#reset-frm').prop('disabled', true);
+                                $('#forgetPassModal').modal('hide');
+
+                            } else {
+
+                                $.each(response.errors, function (key, value) {
+                                    $('.alert-danger').show();
+                                    $('.alert-danger').append('<p>' + value + '</p>');
+                                });
+                            }
+
+                        },
+                        beforeSend: function () {
+                            $('.alert-danger').html('');
+                            $('.alert-danger').hide();
+                        },
+                        error: function (err) {
+                            console.log(err);
+                        }
+                    });
+                    return false; // required to block normal submit since you used ajax
                 }
             });
-            return false; // required to block normal submit since you used ajax
-        }
-    });
 
-    $("#change-pass-frm").validate({
-        ignore: ":hidden",
-        rules: {
-            old_password: {
-                required: true,
-                minlength: 8
-            },
-            new_password: {
-                required: true,
-                minlength: 8
-            },
-            confirm_password: {
-                required: true,
-                equalTo: "#new_password"
-            },
-        },
-        submitHandler: function (form) {
-            $(".alert-danger").hide();
-            $(".alert-danger").empty();
-
-            $.ajax({
-                type: 'POST',
-                url: "{{ route('user.updatePass') }}",
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                data: $('form.change-pass-frm').serialize(),
-                success: function (response) {
-                    console.log(response);
-                    if (response.success == true) {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: response.message,
-                            showConfirmButton: false,
-                            showCloseButton: true,
-
-                        })
-                        $('#changePassModal').modal('hide');
-
-                    } else {
-
-                        $.each(response.errors, function (key, value) {
-                            $('.alert-danger').show();
-                            $('.alert-danger').append('<p>' + value + '</p>');
-                        });
-                    }
-
+            $("#reset-pass-frm").validate({
+                ignore: ":hidden",
+                rules: {
+                    password: {
+                        required: true,
+                        minlength: 8
+                    },
+                    confirm_password: {
+                        required: true,
+                        equalTo: "#pass"
+                    },
                 },
-                beforeSend: function () {
-                    $('.alert-danger').html('');
-                    $('.alert-danger').hide();
-                },
-                error: function (err) {
-                    console.log(err);
+                submitHandler: function (form) {
+                    $(".alert-danger").hide();
+                    $(".alert-danger").empty();
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('reset.password') }}",
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        data: $('form.reset-pass-frm').serialize(),
+                        success: function (response) {
+                            console.log(response);
+                            if (response.success == true) {
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: 'success',
+                                    title: response.message,
+                                    showConfirmButton: false,
+                                    showCloseButton: true,
+
+                                })
+
+                                $('#resetPassModal').modal('hide');
+
+                            } else {
+
+                                $.each(response.errors, function (key, value) {
+                                    $('.alert-danger').show();
+                                    $('.alert-danger').append('<p>' + value + '</p>');
+                                });
+                            }
+
+                        },
+                        beforeSend: function () {
+                            $('.alert-danger').html('');
+                            $('.alert-danger').hide();
+                        },
+                        error: function (err) {
+                            console.log(err);
+                        }
+                    });
+                    return false; // required to block normal submit since you used ajax
                 }
             });
-            return false; // required to block normal submit since you used ajax
-        }
-    });
 
-
-    $("#edit-profile-frm").validate({
-        ignore: ":hidden",
-        rules: {
-            old_password: {
-                required: true,
-                minlength: 8
-            },
-            new_password: {
-                required: true,
-                minlength: 8
-            },
-            confirm_password: {
-                required: true,
-                equalTo: "#new_password"
-            },
-        },
-        submitHandler: function (form) {
-            $(".alert-danger").hide();
-            $(".alert-danger").empty();
-
-            $.ajax({
-                type: 'POST',
-                url: "{{ route('user.editProfile') }}",
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                data: $('form.edit-profile-frm').serialize(),
-                success: function (response) {
-                    console.log(response);
-                    if (response.success == true) {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: response.message,
-                            showConfirmButton: false,
-                            showCloseButton: true,
-
-                        })
-                        $('#editProfileModal').modal('hide');
-                        location.reload();
-                    } else {
-
-                        $.each(response.errors, function (key, value) {
-                            $('.alert-danger').show();
-                            $('.alert-danger').append('<p>' + value + '</p>');
-                        });
-                    }
-
+            $("#change-pass-frm").validate({
+                ignore: ":hidden",
+                rules: {
+                    old_password: {
+                        required: true,
+                        minlength: 8
+                    },
+                    new_password: {
+                        required: true,
+                        minlength: 8
+                    },
+                    confirm_password: {
+                        required: true,
+                        equalTo: "#new_password"
+                    },
                 },
-                beforeSend: function () {
-                    $('.alert-danger').html('');
-                    $('.alert-danger').hide();
-                },
-                error: function (err) {
-                    console.log(err);
+                submitHandler: function (form) {
+                    $(".alert-danger").hide();
+                    $(".alert-danger").empty();
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('user.updatePass') }}",
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        data: $('form.change-pass-frm').serialize(),
+                        success: function (response) {
+                            console.log(response);
+                            if (response.success == true) {
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: 'success',
+                                    title: response.message,
+                                    showConfirmButton: false,
+                                    showCloseButton: true,
+
+                                })
+                                $('#changePassModal').modal('hide');
+
+                            } else {
+
+                                $.each(response.errors, function (key, value) {
+                                    $('.alert-danger').show();
+                                    $('.alert-danger').append('<p>' + value + '</p>');
+                                });
+                            }
+
+                        },
+                        beforeSend: function () {
+                            $('.alert-danger').html('');
+                            $('.alert-danger').hide();
+                        },
+                        error: function (err) {
+                            console.log(err);
+                        }
+                    });
+                    return false; // required to block normal submit since you used ajax
                 }
             });
-            return false; // required to block normal submit since you used ajax
-        }
-    });
 
-});
+
+            $("#edit-profile-frm").validate({
+                ignore: ":hidden",
+                rules: {
+                    old_password: {
+                        required: true,
+                        minlength: 8
+                    },
+                    new_password: {
+                        required: true,
+                        minlength: 8
+                    },
+                    confirm_password: {
+                        required: true,
+                        equalTo: "#new_password"
+                    },
+                },
+                submitHandler: function (form) {
+                    $(".alert-danger").hide();
+                    $(".alert-danger").empty();
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('user.editProfile') }}",
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        data: $('form.edit-profile-frm').serialize(),
+                        success: function (response) {
+                            console.log(response);
+                            if (response.success == true) {
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: 'success',
+                                    title: response.message,
+                                    showConfirmButton: false,
+                                    showCloseButton: true,
+
+                                })
+                                $('#editProfileModal').modal('hide');
+                                location.reload();
+                            } else {
+
+                                $.each(response.errors, function (key, value) {
+                                    $('.alert-danger').show();
+                                    $('.alert-danger').append('<p>' + value + '</p>');
+                                });
+                            }
+
+                        },
+                        beforeSend: function () {
+                            $('.alert-danger').html('');
+                            $('.alert-danger').hide();
+                        },
+                        error: function (err) {
+                            console.log(err);
+                        }
+                    });
+                    return false; // required to block normal submit since you used ajax
+                }
+            });
+
+        });
 
 </script>
 
