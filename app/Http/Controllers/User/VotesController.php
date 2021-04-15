@@ -90,8 +90,7 @@ class VotesController extends Controller {
                     ->get();
         } else {
 
-            $voting_contest = Votingcontest::whereNull('category_id')
-                    ->orWhere('category_id', '')
+            $voting_contest = Votingcontest::where('category_id', NULL)
                     ->where('closing_date', '>', $date)
                     ->where('status', 'Accepted')
                     ->get();

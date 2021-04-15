@@ -30,7 +30,7 @@ class ContestantsController extends Controller {
         $date = $mytime->toDateString();
         $voting = Votingcontest::where('id', $vId)->first();
         $inArray = ['Contestants', 'trusted brands'];
-         $slider = Slider::whereIn('name', $inArray)->get();
+        $slider = Slider::whereIn('name', $inArray)->get();
         if ($slider->count() > 0) {
             foreach ($slider as $val) {
                 $sliders[$val->name][] = $val;
@@ -81,27 +81,34 @@ class ContestantsController extends Controller {
         $user = Auth::user();
         $date = $mytime->toDateString();
         $vote = Votingcontest::where('id', $vId)->first();
-        $contestants = Contestant::where('id', $cId)->first();
+        
+        if (!empty($vote) && $vote->status == 'Accepted') {
+           
+            $contestants = Contestant::where('id', $cId)->first();
 //        echo '<pre>';
 //        print_r($contestants); die;
-        $inArray = ['home', 'trusted brands'];
-         $inArray = ['Contestants', 'trusted brands'];
-         $slider = Slider::whereIn('name', $inArray)->get();
-        if ($slider->count() > 0) {
-            foreach ($slider as $val) {
-                $sliders[$val->name][] = $val;
+            $inArray = ['home', 'trusted brands'];
+            $inArray = ['Contestants', 'trusted brands'];
+            $slider = Slider::whereIn('name', $inArray)->get();
+            if ($slider->count() > 0) {
+                foreach ($slider as $val) {
+                    $sliders[$val->name][] = $val;
+                }
             }
-        }
-        $testimonials = Testimonial::all();
-        if (!empty($user) && $user->id != '') {
-            $userStatus = "yes";
-        } else {
-            $userStatus = "no";
-        }
+            $testimonials = Testimonial::all();
+            if (!empty($user) && $user->id != '') {
+                $userStatus = "yes";
+            } else {
+                $userStatus = "no";
+            }
 //       echo $userStatus; die;
-        if (!empty($vote) && !empty($contestants) && $contestants->voting_id == $vId) {
-            $voting_contest = Votingcontest::where('closing_date', '>', $date)->where('category_id', $vote->category_id)->limit(3)->get();
-            return view('user.contestants.votesBuyForm', compact('vote', 'userStatus', 'contestants', 'voting_contest', 'sliders', 'testimonials'));
+            if (!empty($vote) && !empty($contestants) && $contestants->voting_id == $vId) {
+                $voting_contest = Votingcontest::where('closing_date', '>', $date)->where('category_id', $vote->category_id)->limit(3)->get();
+                return view('user.contestants.votesBuyForm', compact('vote', 'userStatus', 'contestants', 'voting_contest', 'sliders', 'testimonials'));
+            }
+        } else{
+      
+         return redirect('noncatvotes');
         }
     }
 
