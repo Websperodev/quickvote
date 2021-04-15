@@ -12,7 +12,7 @@
             <div class="card-body">
                 <h4 class="mb-3 header-title">Category</h4>
                 @if(session()->has('message.level'))
-                <div class="alert alert-{{ session('message.level') }}"> 
+                <div class="alert alert-{{ session('message.level') }}">
                     {!! session('message.text') !!}
                 </div>
                 @endif
@@ -44,7 +44,7 @@
                     <div class="col-md-12 form-group cus-form-group">
                         <label for="image">Image</label>
                         @if(isset($subcategory->image) && $subcategory->image != '')
-                     <img src="{{ url($subcategory->image) ? $subcategory->image :''}}" width="150" height="150">
+                        <img src="{{ $subcategory->image ? url($subcategory->image) :''}}" width="150" height="150">
                         @endif
                         <input type="hidden" name="old_file" value="{{ isset($subcategory->image ) ? $subcategory->image  : ''}}">
                         <input type="file" class="form-control" value="{{ isset($subcategory->image) ? $subcategory->image : ''}}" name="image_name" accept="image/x-png,image/jpeg" id="image_name" aria-describedby="emailHelp" placeholder="Choose Image">
@@ -61,7 +61,7 @@
                         @endif
                     </div>
 
-                    <input type="hidden" name="id" value="{{ isset($subcategory->id ) ? $subcategory->id  : ''}}"> 
+                    <input type="hidden" name="id" value="{{ isset($subcategory->id ) ? $subcategory->id  : ''}}">
 
                     <div class="btn-right">
                         <button type="submit" class="btn btn-bg ladda-button">Submit</button>
@@ -69,9 +69,9 @@
                 </div>
                 {!! Form::close() !!}
             </div> <!-- end card-body-->
-        </div> 
+        </div>
     </div>
-</div> 
+</div>
 @endsection
 
 

@@ -108,13 +108,15 @@ class CategoriesController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-//echo '<pre>';
-//print_r($request->all()); die;
-        try {
+// echo '<pre>';
+// print_r($request->all()); die;
+        // try {
             $validator = Validator::make($request->all(), [
                         'category_id' => 'required',
-                        'name' => 'required',
+                        'name'        => 'required',
+                        'image_name'  => 'mimes:jpeg,png|max:1014',
             ]);
+
 
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator);
@@ -139,10 +141,7 @@ class CategoriesController extends Controller {
 
                 if ($request->hasFile('image_name')) {
                     if ($request->file('image_name')->isValid()) {
-                        $validated = $request->validate([
-                            'image_name' => 'string|max:40',
-                            'image_name' => 'mimes:jpeg,png|max:1014',
-                        ]);
+
                         $file = request()->file('image_name');
                         $fileName = md5($file->getClientOriginalName() . time()) . "." . $file->getClientOriginalExtension();
                         $file->move('./uploads/images/', $fileName);
@@ -168,11 +167,11 @@ class CategoriesController extends Controller {
                 $request->session()->flash('message.text', $e->getMessage());
                 return redirect()->back()->withErrors($e->getMessage());
             }
-        } catch (\Exception $e) {
-            $request->session()->flash('message.level', 'danger');
-            $request->session()->flash('message.text', $e->getMessage());
-            return redirect()->back()->withErrors($e->getMessage());
-        }
+        // } catch (\Exception $e) {
+        //     $request->session()->flash('message.level', 'danger');
+        //     $request->session()->flash('message.text', $e->getMessage());
+        //     return redirect()->back()->withErrors($e->getMessage());
+        // }
     }
 
     /**
@@ -206,14 +205,15 @@ class CategoriesController extends Controller {
      */
     public function update(Request $request, $id) {
         $validator = Validator::make($request->all(), [
-                    'category_id' => 'required',
-                    'name' => 'required',
+                    'category_id'=> 'required',
+                    'name'       => 'required',
+                    'image_name' => 'mimes:jpeg,png|max:1014',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        try {
+        // try {
             $data = $request->all();
 //            echo '<pre>';
 //            print_r($data); die;
@@ -236,10 +236,6 @@ class CategoriesController extends Controller {
                         unlink(public_path($data['old_file']));
                         File::delete(public_path($data['old_file']));
                     }
-                    $validated = $request->validate([
-                        'image_name' => 'string|max:40',
-                        'image_name' => 'mimes:jpeg,png|max:1014',
-                    ]);
                     $file = request()->file('image_name');
                     $fileName = md5($file->getClientOriginalName() . time()) . "." . $file->getClientOriginalExtension();
                     $file->move('./uploads/images/', $fileName);
@@ -258,11 +254,11 @@ class CategoriesController extends Controller {
                 $request->session()->flash('message.text', 'fail.');
                 return redirect()->back();
             }
-        } catch (\Exception $e) {
-            $request->session()->flash('message.level', 'danger');
-            $request->session()->flash('message.text', $e->getMessage());
-            return redirect()->back();
-        }
+        // } catch (\Exception $e) {
+        //     $request->session()->flash('message.level', 'danger');
+        //     $request->session()->flash('message.text', $e->getMessage());
+        //     return redirect()->back();
+        // }
     }
 
     /**
@@ -274,8 +270,8 @@ class CategoriesController extends Controller {
     public function destroy($id) {
         try {
             $subcategory = Categories::findOrFail($id);
-            $subcategory->delete();         
-                return Response::json(['success' => true, 'status' => 1, 'message' => "Subcategory has been deleted successfully."]);           
+            $subcategory->delete();
+                return Response::json(['success' => true, 'status' => 1, 'message' => "Subcategory has been deleted successfully."]);
         } catch (\Exception $e) {
             return Response::json(['success' => false, 'status' => 2, "error" => $e->getMessage()]);
         }

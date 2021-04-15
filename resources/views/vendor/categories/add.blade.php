@@ -12,7 +12,7 @@
             <div class="card-body">
                 <h4 class="mb-3 header-title">Categories</h4>
                 @if(session()->has('message.level'))
-                <div class="alert alert-{{ session('message.level') }}"> 
+                <div class="alert alert-{{ session('message.level') }}">
                     {!! session('message.text') !!}
                 </div>
                 @endif
@@ -39,7 +39,7 @@
                         <label for="name">Subcategory Name <span class="required_field required_red">*</span></label>
 
                         <input type="text" class="form-control"  name="name" id="category_name" aria-describedby="emailHelp" placeholder="Enter Subcategory Name">
-                        @if($errors->has('category_name'))
+                        @if($errors->has('name'))
                         <div class="error">{{ $errors->first('name') }}</div>
                         @endif
                     </div>
@@ -47,8 +47,8 @@
                     <div class="col-md-12 form-group cus-form-group">
                         <label for="image">Image</label>
                         <input type="file" class="form-control" name="image_name" accept=".jpg,.jpeg,.png" id="image_name" aria-describedby="emailHelp" placeholder="Choose Image">
-                        @if($errors->has('image'))
-                        <div class="error">{{ $errors->first('image') }}</div>
+                        @if($errors->has('image_name'))
+                        <div class="error">{{ $errors->first('image_name') }}</div>
                         @endif
                     </div>
 
@@ -66,9 +66,9 @@
                 </div>
                 {!! Form::close() !!}
             </div> <!-- end card-body-->
-        </div> 
+        </div>
     </div>
-</div> 
+</div>
 @endsection
 
 
