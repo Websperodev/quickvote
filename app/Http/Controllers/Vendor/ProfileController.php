@@ -59,7 +59,7 @@ class ProfileController extends Controller {
                 ])->save();
                 $request->session()->flash('message.level', 'success');
                 $request->session()->flash('message.text', 'Password changed successfully.');
-                return redirect()->back();
+                return redirect('/user-logout');
             } else {
                 $request->session()->flash('message.level', 'danger');
                 $request->session()->flash('message.text', 'Password does not match.');
