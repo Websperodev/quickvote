@@ -6,8 +6,9 @@
 $timezoneArray = config('constants.timezones');
 @endphp
 <style>.votelimitcount {
-    margin-top: 20px;
-}</style>
+        margin-top: 20px;
+    }</style>
+
 <div class="row justify-content-center">
     <div class="col-md-12">
         <div class="card">
@@ -131,7 +132,7 @@ $timezoneArray = config('constants.timezones');
                     </div>
                     <div class="col-md-6 form-group cus-form-group">
                         <label for="starting_date">Starting date</label>
-                        <input type="text" autocomplete="off" class="form-control datetimepicker" name="starting_date"  aria-describedby="emailHelp" placeholder="Enter Starting Date" >
+                        <input type="text" autocomplete="off" class="form-control startdatepicker" id="startdate1"  name="starting_date"  aria-describedby="emailHelp" placeholder="Enter Starting Date" >
                         <i class="fa fa-calendar" aria-hidden="true"></i>
                         @if($errors->has('starting_date'))
                         <div class="error">{{ $errors->first('starting_date') }}</div>
@@ -139,11 +140,13 @@ $timezoneArray = config('constants.timezones');
                     </div>
                     <div class="col-md-6 form-group cus-form-group">
                         <label for="closing_date">Closing date</label>
-                        <input type="text" autocomplete="off" class="form-control datetimepicker" name="closing_date" aria-describedby="emailHelp" placeholder="Enter Closing Date">
+                        <input type="text" autocomplete="off" class="form-control enddatepicker" id="enddate1"  name="closing_date" aria-describedby="emailHelp" placeholder="Enter Closing Date">
                         <i class="fa fa-calendar" aria-hidden="true"></i>
+                        
                         @if($errors->has('closing_date'))
                         <div class="error">{{ $errors->first('closing_date') }}</div>
                         @endif
+                         <div id="closedateerror"></div>
                     </div>
                     <div class="col-md-6 form-group cus-form-group">
                         <label for="timezone">Timezone</label>
@@ -178,9 +181,13 @@ $timezoneArray = config('constants.timezones');
 </div>
 @if($errors->has('limit_count'))
 <script>
+//     $(".datetimepicker").datetimepicker({
+//        format: 'm/d/Y H:i'
+//    });
 
     $('#voteunlimit').prop('checked', true);
     $('.votelimitcount').hide();
+    
 
 </script>
 @else
@@ -209,9 +216,7 @@ $timezoneArray = config('constants.timezones');
 </script>
 @endif
 <script type="text/javascript">
-    $(".datetimepicker").datetimepicker({
-        format: 'm/d/Y H:i'
-    });
+
     $(document).ready(function () {
 
 
