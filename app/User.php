@@ -10,7 +10,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
     use Notifiable, HasRoles;
-   
+
 
     /**
      * The attributes that are mass assignable.
@@ -49,7 +49,7 @@ class User extends Authenticatable
             ->belongsToMany('App\Models\Role')
             ->withTimestamps();
     }
-    
+
     public function authorizeRoles($roles)
     {
       if ($this->hasAnyRole($roles)) {
@@ -82,6 +82,11 @@ class User extends Authenticatable
       return false;
     }
 
+    public function getFirstNameAttribute($value)
+    {
+        $roleName = $this->roles ? $this->roles->first()->name : 'user';
+        return $value ? $value : $roleName;
+    }
 
 
 }
