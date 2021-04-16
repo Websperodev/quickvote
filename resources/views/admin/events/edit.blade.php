@@ -126,7 +126,7 @@ $timezoneArray = config('constants.timezones');
                     <div class="row">
                         <div class="col-md-6 form-group cus-form-group">
                             <label for="start_date">Start Date</label>
-                            <input type="text" class="form-control datetimepicker" value="{{ $eventStartDate }}" name="start_date" id="start-date" aria-describedby="emailHelp" placeholder="Enter Start Date" >
+                            <input type="text" class="form-control" value="{{ $eventStartDate }}" name="start_date" id="startdate1" aria-describedby="emailHelp" placeholder="Enter Start Date" >
                             <i class="fa fa-calendar" aria-hidden="true"></i>
                             @if($errors->has('start_date'))
                             <div class="error">{{ $errors->first('start_date') }}</div>
@@ -134,11 +134,12 @@ $timezoneArray = config('constants.timezones');
                         </div>
                         <div class="col-md-6 form-group cus-form-group">
                             <label for="end_date">End Date</label>
-                            <input type="text" class="form-control datetimepicker" value="{{ $eventEndDate }}" name="end_date" id="end_date" aria-describedby="emailHelp" placeholder="Enter End Date">
+                            <input type="text" class="form-control" value="{{ $eventEndDate }}" name="end_date" id="enddate1" aria-describedby="emailHelp" placeholder="Enter End Date">
                             <i class="fa fa-calendar" aria-hidden="true"></i>
                             @if($errors->has('end_date'))
                             <div class="error">{{ $errors->first('end_date') }}</div>
                             @endif
+                             <div id="closedateerror"></div>
                         </div>
                     </div>
                     <div class="row">
@@ -428,15 +429,11 @@ $timezoneArray = config('constants.timezones');
 
 
                             $(document).ready(function() {
-
                             if (status == 'Rejected'){
                             $('.eventreason').show();
                             } else{
                             $('.eventreason').hide();
                             }
-
-
-
 
 
                             $('.eventstatus').on('click', function(){
