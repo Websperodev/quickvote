@@ -139,7 +139,7 @@ $timezoneArray = config('constants.timezones');
                             @if($errors->has('end_date'))
                             <div class="error">{{ $errors->first('end_date') }}</div>
                             @endif
-                             <div id="closedateerror"></div>
+                            <div id="closedateerror"></div>
                         </div>
                     </div>
                     <div class="row">
@@ -426,16 +426,12 @@ $timezoneArray = config('constants.timezones');
 <!--<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>-->
 
 <script>
-
-
                             $(document).ready(function() {
                             if (status == 'Rejected'){
                             $('.eventreason').show();
                             } else{
                             $('.eventreason').hide();
                             }
-
-
                             $('.eventstatus').on('click', function(){
                             var valstatus = $("input[name='status']:checked").val();
                             if (valstatus == 'Rejected'){
@@ -443,7 +439,6 @@ $timezoneArray = config('constants.timezones');
                             } else{
                             $('.eventreason').hide();
                             }
-
                             });
                             $('.ticketModal').on('click', function () {
                             var pricetype = $('.priceclass').val();
@@ -454,12 +449,11 @@ $timezoneArray = config('constants.timezones');
                             $('.paidclass').hide();
                             }
                             })
-                                    if (country != '') {
+                            if (country != '') {
                             var cid = country;
                             } else {
                             var cid = 1;
                             }
-
                             if (state != '') {
                             var stateId = state;
                             } else {
@@ -470,7 +464,6 @@ $timezoneArray = config('constants.timezones');
                             } else {
                             var cityId = 1;
                             }
-
                             var url = '{{ route("allstates", ":id") }}';
                             url = url.replace(':id', cid);
                             var selected = '';
@@ -498,7 +491,7 @@ $timezoneArray = config('constants.timezones');
                                     console.log(err);
                                     }
                             });
-                            var cityUrl ='{{ route("allcities", ":id") }}';
+                            var cityUrl = '{{ route("allcities", ":id") }}';
                             cityUrl = cityUrl.replace(':id', stateId);
                             $.ajax({
                             type: 'GET',
