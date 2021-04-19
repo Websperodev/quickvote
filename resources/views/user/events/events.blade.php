@@ -51,7 +51,7 @@
                     <div class="eve-description">
                         <div><h4>Location</h4> <span>{{$event->country->name}}</span></div>
                         <div><h4>Date & Time</h4> <span>{{$start_day.' '.$start_month.' '.$start_date. ' '.$start_year}}, Time:{{$start_time}}</span></div>
-                        <div><h4>Event Details</h4> 
+                        <div><h4>Event Details</h4>
                             <span>{{$description}}</span></div>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
                             <script src="https://js.paystack.co/v1/inline.js"></script>
                             @csrf
                             @foreach($ticket as $key=>$tik)
-                            @php 
+                            @php
                             $endDt=strtotime($tik->end_date);
                             $currtDt=strtotime($crruntDate);
 
@@ -85,7 +85,7 @@
                             @endphp
 
                         <p class="tkt">
-                            <span class="tkt-name"><span class="tikname">{{$tik->name}} </span> <span class="tkt-price">{{($tik->price)}}</span><span class="abs">{{$status}}</span> 
+                            <span class="tkt-name"><span class="tikname">{{$tik->name}} </span> <span class="tkt-price">{{($tik->price)}}</span><span class="abs">{{$status}}</span>
 
                                 @if($status != 'Closed')
                                 <span class="tkt-quantity">
@@ -121,7 +121,7 @@
         <div class="row">
             @if(!empty($sugstEvent))
             @foreach($sugstEvent as $sugg)
-            @php 
+            @php
             if($sugg['image'] != '')
             {
             $simg = $sugg['image'];
@@ -328,7 +328,7 @@
                 });
             }
         } else {
-            $('.errortktqty').text('Please enter ticket quinty');
+            $('.errortktqty').text("Please enter ticket's quantity");
         }
     }
 </script>
